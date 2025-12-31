@@ -1,4 +1,4 @@
-# LeetCode TUI
+# Leet TUI
 
 A terminal user interface (TUI) application for solving LeetCode problems with an embedded Neovim editor.
 
