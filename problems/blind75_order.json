@@ -1,82 +1,906 @@
 {
-  "name": "Blind 75",
-  "description": "The classic Blind 75 LeetCode problems in recommended order",
+  "name": "NeetCode 150",
+  "description": "The NeetCode 150 problems including the classic Blind 75",
   "order": [
-    { "position": 1, "id": 217, "category": "Arrays & Hashing" },
-    { "position": 2, "id": 242, "category": "Arrays & Hashing" },
-    { "position": 3, "id": 1, "category": "Arrays & Hashing" },
-    { "position": 4, "id": 49, "category": "Arrays & Hashing" },
-    { "position": 5, "id": 347, "category": "Arrays & Hashing" },
-    { "position": 6, "id": 271, "category": "Arrays & Hashing" },
-    { "position": 7, "id": 238, "category": "Arrays & Hashing" },
-    { "position": 8, "id": 36, "category": "Arrays & Hashing" },
-    { "position": 9, "id": 128, "category": "Arrays & Hashing" },
-    { "position": 10, "id": 125, "category": "Two Pointers" },
-    { "position": 11, "id": 15, "category": "Two Pointers" },
-    { "position": 12, "id": 11, "category": "Two Pointers" },
-    { "position": 13, "id": 121, "category": "Sliding Window" },
-    { "position": 14, "id": 3, "category": "Sliding Window" },
-    { "position": 15, "id": 424, "category": "Sliding Window" },
-    { "position": 16, "id": 76, "category": "Sliding Window" },
-    { "position": 17, "id": 20, "category": "Stack" },
-    { "position": 18, "id": 153, "category": "Binary Search" },
-    { "position": 19, "id": 33, "category": "Binary Search" },
-    { "position": 20, "id": 206, "category": "Linked List" },
-    { "position": 21, "id": 21, "category": "Linked List" },
-    { "position": 22, "id": 141, "category": "Linked List" },
-    { "position": 23, "id": 143, "category": "Linked List" },
-    { "position": 24, "id": 19, "category": "Linked List" },
-    { "position": 25, "id": 23, "category": "Linked List" },
-    { "position": 26, "id": 226, "category": "Trees" },
-    { "position": 27, "id": 104, "category": "Trees" },
-    { "position": 28, "id": 100, "category": "Trees" },
-    { "position": 29, "id": 572, "category": "Trees" },
-    { "position": 30, "id": 235, "category": "Trees" },
-    { "position": 31, "id": 102, "category": "Trees" },
-    { "position": 32, "id": 98, "category": "Trees" },
-    { "position": 33, "id": 230, "category": "Trees" },
-    { "position": 34, "id": 105, "category": "Trees" },
-    { "position": 35, "id": 124, "category": "Trees" },
-    { "position": 36, "id": 297, "category": "Trees" },
-    { "position": 37, "id": 295, "category": "Heap / Priority Queue" },
-    { "position": 38, "id": 39, "category": "Backtracking" },
-    { "position": 39, "id": 79, "category": "Backtracking" },
-    { "position": 40, "id": 208, "category": "Tries" },
-    { "position": 41, "id": 211, "category": "Tries" },
-    { "position": 42, "id": 212, "category": "Tries" },
-    { "position": 43, "id": 200, "category": "Graphs" },
-    { "position": 44, "id": 133, "category": "Graphs" },
-    { "position": 45, "id": 417, "category": "Graphs" },
-    { "position": 46, "id": 207, "category": "Graphs" },
-    { "position": 47, "id": 261, "category": "Graphs" },
-    { "position": 48, "id": 323, "category": "Graphs" },
-    { "position": 49, "id": 269, "category": "Advanced Graphs" },
-    { "position": 50, "id": 70, "category": "1-D Dynamic Programming" },
-    { "position": 51, "id": 198, "category": "1-D Dynamic Programming" },
-    { "position": 52, "id": 213, "category": "1-D Dynamic Programming" },
-    { "position": 53, "id": 5, "category": "1-D Dynamic Programming" },
-    { "position": 54, "id": 647, "category": "1-D Dynamic Programming" },
-    { "position": 55, "id": 91, "category": "1-D Dynamic Programming" },
-    { "position": 56, "id": 322, "category": "1-D Dynamic Programming" },
-    { "position": 57, "id": 152, "category": "1-D Dynamic Programming" },
-    { "position": 58, "id": 139, "category": "1-D Dynamic Programming" },
-    { "position": 59, "id": 300, "category": "1-D Dynamic Programming" },
-    { "position": 60, "id": 62, "category": "2-D Dynamic Programming" },
-    { "position": 61, "id": 1143, "category": "2-D Dynamic Programming" },
-    { "position": 62, "id": 53, "category": "Greedy" },
-    { "position": 63, "id": 55, "category": "Greedy" },
-    { "position": 64, "id": 57, "category": "Intervals" },
-    { "position": 65, "id": 56, "category": "Intervals" },
-    { "position": 66, "id": 435, "category": "Intervals" },
-    { "position": 67, "id": 252, "category": "Intervals" },
-    { "position": 68, "id": 253, "category": "Intervals" },
-    { "position": 69, "id": 48, "category": "Math & Geometry" },
-    { "position": 70, "id": 54, "category": "Math & Geometry" },
-    { "position": 71, "id": 73, "category": "Math & Geometry" },
-    { "position": 72, "id": 191, "category": "Bit Manipulation" },
-    { "position": 73, "id": 338, "category": "Bit Manipulation" },
-    { "position": 74, "id": 190, "category": "Bit Manipulation" },
-    { "position": 75, "id": 268, "category": "Bit Manipulation" },
-    { "position": 76, "id": 371, "category": "Bit Manipulation" }
+    {
+      "position": 1,
+      "id": 217,
+      "category": "Arrays & Hashing",
+      "blind75": true
+    },
+    {
+      "position": 2,
+      "id": 242,
+      "category": "Arrays & Hashing",
+      "blind75": true
+    },
+    {
+      "position": 3,
+      "id": 1,
+      "category": "Arrays & Hashing",
+      "blind75": true
+    },
+    {
+      "position": 4,
+      "id": 49,
+      "category": "Arrays & Hashing",
+      "blind75": true
+    },
+    {
+      "position": 5,
+      "id": 347,
+      "category": "Arrays & Hashing",
+      "blind75": true
+    },
+    {
+      "position": 6,
+      "id": 271,
+      "category": "Arrays & Hashing",
+      "blind75": true
+    },
+    {
+      "position": 7,
+      "id": 238,
+      "category": "Arrays & Hashing",
+      "blind75": true
+    },
+    {
+      "position": 8,
+      "id": 36,
+      "category": "Arrays & Hashing",
+      "blind75": true
+    },
+    {
+      "position": 9,
+      "id": 128,
+      "category": "Arrays & Hashing",
+      "blind75": true
+    },
+    {
+      "position": 10,
+      "id": 125,
+      "category": "Two Pointers",
+      "blind75": true
+    },
+    {
+      "position": 11,
+      "id": 167,
+      "category": "Two Pointers",
+      "blind75": false
+    },
+    {
+      "position": 12,
+      "id": 15,
+      "category": "Two Pointers",
+      "blind75": true
+    },
+    {
+      "position": 13,
+      "id": 11,
+      "category": "Two Pointers",
+      "blind75": true
+    },
+    {
+      "position": 14,
+      "id": 42,
+      "category": "Two Pointers",
+      "blind75": false
+    },
+    {
+      "position": 15,
+      "id": 121,
+      "category": "Sliding Window",
+      "blind75": true
+    },
+    {
+      "position": 16,
+      "id": 3,
+      "category": "Sliding Window",
+      "blind75": true
+    },
+    {
+      "position": 17,
+      "id": 424,
+      "category": "Sliding Window",
+      "blind75": true
+    },
+    {
+      "position": 18,
+      "id": 567,
+      "category": "Sliding Window",
+      "blind75": false
+    },
+    {
+      "position": 19,
+      "id": 76,
+      "category": "Sliding Window",
+      "blind75": true
+    },
+    {
+      "position": 20,
+      "id": 239,
+      "category": "Sliding Window",
+      "blind75": false
+    },
+    {
+      "position": 21,
+      "id": 20,
+      "category": "Stack",
+      "blind75": true
+    },
+    {
+      "position": 22,
+      "id": 155,
+      "category": "Stack",
+      "blind75": false
+    },
+    {
+      "position": 23,
+      "id": 150,
+      "category": "Stack",
+      "blind75": false
+    },
+    {
+      "position": 24,
+      "id": 22,
+      "category": "Stack",
+      "blind75": false
+    },
+    {
+      "position": 25,
+      "id": 739,
+      "category": "Stack",
+      "blind75": false
+    },
+    {
+      "position": 26,
+      "id": 853,
+      "category": "Stack",
+      "blind75": false
+    },
+    {
+      "position": 27,
+      "id": 84,
+      "category": "Stack",
+      "blind75": false
+    },
+    {
+      "position": 28,
+      "id": 704,
+      "category": "Binary Search",
+      "blind75": false
+    },
+    {
+      "position": 29,
+      "id": 74,
+      "category": "Binary Search",
+      "blind75": false
+    },
+    {
+      "position": 30,
+      "id": 875,
+      "category": "Binary Search",
+      "blind75": false
+    },
+    {
+      "position": 31,
+      "id": 153,
+      "category": "Binary Search",
+      "blind75": true
+    },
+    {
+      "position": 32,
+      "id": 33,
+      "category": "Binary Search",
+      "blind75": true
+    },
+    {
+      "position": 33,
+      "id": 981,
+      "category": "Binary Search",
+      "blind75": false
+    },
+    {
+      "position": 34,
+      "id": 4,
+      "category": "Binary Search",
+      "blind75": false
+    },
+    {
+      "position": 35,
+      "id": 206,
+      "category": "Linked List",
+      "blind75": true
+    },
+    {
+      "position": 36,
+      "id": 21,
+      "category": "Linked List",
+      "blind75": true
+    },
+    {
+      "position": 37,
+      "id": 143,
+      "category": "Linked List",
+      "blind75": false
+    },
+    {
+      "position": 38,
+      "id": 138,
+      "category": "Linked List",
+      "blind75": false
+    },
+    {
+      "position": 39,
+      "id": 141,
+      "category": "Linked List",
+      "blind75": true
+    },
+    {
+      "position": 40,
+      "id": 2,
+      "category": "Linked List",
+      "blind75": false
+    },
+    {
+      "position": 41,
+      "id": 19,
+      "category": "Linked List",
+      "blind75": true
+    },
+    {
+      "position": 42,
+      "id": 287,
+      "category": "Linked List",
+      "blind75": false
+    },
+    {
+      "position": 43,
+      "id": 146,
+      "category": "Linked List",
+      "blind75": false
+    },
+    {
+      "position": 44,
+      "id": 23,
+      "category": "Linked List",
+      "blind75": true
+    },
+    {
+      "position": 45,
+      "id": 25,
+      "category": "Linked List",
+      "blind75": false
+    },
+    {
+      "position": 46,
+      "id": 226,
+      "category": "Trees",
+      "blind75": true
+    },
+    {
+      "position": 47,
+      "id": 104,
+      "category": "Trees",
+      "blind75": true
+    },
+    {
+      "position": 48,
+      "id": 543,
+      "category": "Trees",
+      "blind75": false
+    },
+    {
+      "position": 49,
+      "id": 110,
+      "category": "Trees",
+      "blind75": false
+    },
+    {
+      "position": 50,
+      "id": 100,
+      "category": "Trees",
+      "blind75": true
+    },
+    {
+      "position": 51,
+      "id": 572,
+      "category": "Trees",
+      "blind75": true
+    },
+    {
+      "position": 52,
+      "id": 1448,
+      "category": "Trees",
+      "blind75": false
+    },
+    {
+      "position": 53,
+      "id": 235,
+      "category": "Trees",
+      "blind75": true
+    },
+    {
+      "position": 54,
+      "id": 102,
+      "category": "Trees",
+      "blind75": false
+    },
+    {
+      "position": 55,
+      "id": 199,
+      "category": "Trees",
+      "blind75": false
+    },
+    {
+      "position": 56,
+      "id": 105,
+      "category": "Trees",
+      "blind75": false
+    },
+    {
+      "position": 57,
+      "id": 98,
+      "category": "Trees",
+      "blind75": true
+    },
+    {
+      "position": 58,
+      "id": 230,
+      "category": "Trees",
+      "blind75": true
+    },
+    {
+      "position": 59,
+      "id": 124,
+      "category": "Trees",
+      "blind75": true
+    },
+    {
+      "position": 60,
+      "id": 297,
+      "category": "Trees",
+      "blind75": true
+    },
+    {
+      "position": 61,
+      "id": 703,
+      "category": "Heap / Priority Queue",
+      "blind75": false
+    },
+    {
+      "position": 62,
+      "id": 1046,
+      "category": "Heap / Priority Queue",
+      "blind75": false
+    },
+    {
+      "position": 63,
+      "id": 973,
+      "category": "Heap / Priority Queue",
+      "blind75": false
+    },
+    {
+      "position": 64,
+      "id": 215,
+      "category": "Heap / Priority Queue",
+      "blind75": false
+    },
+    {
+      "position": 65,
+      "id": 295,
+      "category": "Heap / Priority Queue",
+      "blind75": true
+    },
+    {
+      "position": 66,
+      "id": 355,
+      "category": "Heap / Priority Queue",
+      "blind75": false
+    },
+    {
+      "position": 67,
+      "id": 621,
+      "category": "Heap / Priority Queue",
+      "blind75": false
+    },
+    {
+      "position": 68,
+      "id": 78,
+      "category": "Backtracking",
+      "blind75": false
+    },
+    {
+      "position": 69,
+      "id": 39,
+      "category": "Backtracking",
+      "blind75": true
+    },
+    {
+      "position": 70,
+      "id": 46,
+      "category": "Backtracking",
+      "blind75": false
+    },
+    {
+      "position": 71,
+      "id": 90,
+      "category": "Backtracking",
+      "blind75": false
+    },
+    {
+      "position": 72,
+      "id": 40,
+      "category": "Backtracking",
+      "blind75": false
+    },
+    {
+      "position": 73,
+      "id": 79,
+      "category": "Backtracking",
+      "blind75": true
+    },
+    {
+      "position": 74,
+      "id": 131,
+      "category": "Backtracking",
+      "blind75": false
+    },
+    {
+      "position": 75,
+      "id": 17,
+      "category": "Backtracking",
+      "blind75": false
+    },
+    {
+      "position": 76,
+      "id": 51,
+      "category": "Backtracking",
+      "blind75": false
+    },
+    {
+      "position": 77,
+      "id": 208,
+      "category": "Tries",
+      "blind75": true
+    },
+    {
+      "position": 78,
+      "id": 211,
+      "category": "Tries",
+      "blind75": true
+    },
+    {
+      "position": 79,
+      "id": 212,
+      "category": "Tries",
+      "blind75": true
+    },
+    {
+      "position": 80,
+      "id": 200,
+      "category": "Graphs",
+      "blind75": true
+    },
+    {
+      "position": 81,
+      "id": 695,
+      "category": "Graphs",
+      "blind75": false
+    },
+    {
+      "position": 82,
+      "id": 133,
+      "category": "Graphs",
+      "blind75": true
+    },
+    {
+      "position": 83,
+      "id": 286,
+      "category": "Graphs",
+      "blind75": false
+    },
+    {
+      "position": 84,
+      "id": 994,
+      "category": "Graphs",
+      "blind75": false
+    },
+    {
+      "position": 85,
+      "id": 417,
+      "category": "Graphs",
+      "blind75": true
+    },
+    {
+      "position": 86,
+      "id": 130,
+      "category": "Graphs",
+      "blind75": false
+    },
+    {
+      "position": 87,
+      "id": 207,
+      "category": "Graphs",
+      "blind75": true
+    },
+    {
+      "position": 88,
+      "id": 210,
+      "category": "Graphs",
+      "blind75": false
+    },
+    {
+      "position": 89,
+      "id": 261,
+      "category": "Graphs",
+      "blind75": true
+    },
+    {
+      "position": 90,
+      "id": 323,
+      "category": "Graphs",
+      "blind75": true
+    },
+    {
+      "position": 91,
+      "id": 684,
+      "category": "Graphs",
+      "blind75": false
+    },
+    {
+      "position": 92,
+      "id": 127,
+      "category": "Graphs",
+      "blind75": false
+    },
+    {
+      "position": 93,
+      "id": 269,
+      "category": "Advanced Graphs",
+      "blind75": true
+    },
+    {
+      "position": 94,
+      "id": 743,
+      "category": "Advanced Graphs",
+      "blind75": false
+    },
+    {
+      "position": 95,
+      "id": 778,
+      "category": "Advanced Graphs",
+      "blind75": false
+    },
+    {
+      "position": 96,
+      "id": 332,
+      "category": "Advanced Graphs",
+      "blind75": false
+    },
+    {
+      "position": 97,
+      "id": 1584,
+      "category": "Advanced Graphs",
+      "blind75": false
+    },
+    {
+      "position": 98,
+      "id": 787,
+      "category": "Advanced Graphs",
+      "blind75": false
+    },
+    {
+      "position": 99,
+      "id": 70,
+      "category": "1-D Dynamic Programming",
+      "blind75": true
+    },
+    {
+      "position": 100,
+      "id": 746,
+      "category": "1-D Dynamic Programming",
+      "blind75": false
+    },
+    {
+      "position": 101,
+      "id": 198,
+      "category": "1-D Dynamic Programming",
+      "blind75": true
+    },
+    {
+      "position": 102,
+      "id": 213,
+      "category": "1-D Dynamic Programming",
+      "blind75": true
+    },
+    {
+      "position": 103,
+      "id": 5,
+      "category": "1-D Dynamic Programming",
+      "blind75": true
+    },
+    {
+      "position": 104,
+      "id": 647,
+      "category": "1-D Dynamic Programming",
+      "blind75": true
+    },
+    {
+      "position": 105,
+      "id": 91,
+      "category": "1-D Dynamic Programming",
+      "blind75": true
+    },
+    {
+      "position": 106,
+      "id": 322,
+      "category": "1-D Dynamic Programming",
+      "blind75": true
+    },
+    {
+      "position": 107,
+      "id": 152,
+      "category": "1-D Dynamic Programming",
+      "blind75": true
+    },
+    {
+      "position": 108,
+      "id": 139,
+      "category": "1-D Dynamic Programming",
+      "blind75": true
+    },
+    {
+      "position": 109,
+      "id": 300,
+      "category": "1-D Dynamic Programming",
+      "blind75": true
+    },
+    {
+      "position": 110,
+      "id": 416,
+      "category": "1-D Dynamic Programming",
+      "blind75": false
+    },
+    {
+      "position": 111,
+      "id": 62,
+      "category": "2-D Dynamic Programming",
+      "blind75": true
+    },
+    {
+      "position": 112,
+      "id": 1143,
+      "category": "2-D Dynamic Programming",
+      "blind75": true
+    },
+    {
+      "position": 113,
+      "id": 309,
+      "category": "2-D Dynamic Programming",
+      "blind75": false
+    },
+    {
+      "position": 114,
+      "id": 518,
+      "category": "2-D Dynamic Programming",
+      "blind75": false
+    },
+    {
+      "position": 115,
+      "id": 494,
+      "category": "2-D Dynamic Programming",
+      "blind75": false
+    },
+    {
+      "position": 116,
+      "id": 97,
+      "category": "2-D Dynamic Programming",
+      "blind75": false
+    },
+    {
+      "position": 117,
+      "id": 329,
+      "category": "2-D Dynamic Programming",
+      "blind75": false
+    },
+    {
+      "position": 118,
+      "id": 115,
+      "category": "2-D Dynamic Programming",
+      "blind75": false
+    },
+    {
+      "position": 119,
+      "id": 72,
+      "category": "2-D Dynamic Programming",
+      "blind75": false
+    },
+    {
+      "position": 120,
+      "id": 312,
+      "category": "2-D Dynamic Programming",
+      "blind75": false
+    },
+    {
+      "position": 121,
+      "id": 10,
+      "category": "2-D Dynamic Programming",
+      "blind75": false
+    },
+    {
+      "position": 122,
+      "id": 53,
+      "category": "Greedy",
+      "blind75": true
+    },
+    {
+      "position": 123,
+      "id": 55,
+      "category": "Greedy",
+      "blind75": true
+    },
+    {
+      "position": 124,
+      "id": 45,
+      "category": "Greedy",
+      "blind75": false
+    },
+    {
+      "position": 125,
+      "id": 134,
+      "category": "Greedy",
+      "blind75": false
+    },
+    {
+      "position": 126,
+      "id": 846,
+      "category": "Greedy",
+      "blind75": false
+    },
+    {
+      "position": 127,
+      "id": 1899,
+      "category": "Greedy",
+      "blind75": false
+    },
+    {
+      "position": 128,
+      "id": 763,
+      "category": "Greedy",
+      "blind75": false
+    },
+    {
+      "position": 129,
+      "id": 678,
+      "category": "Greedy",
+      "blind75": false
+    },
+    {
+      "position": 130,
+      "id": 57,
+      "category": "Intervals",
+      "blind75": true
+    },
+    {
+      "position": 131,
+      "id": 56,
+      "category": "Intervals",
+      "blind75": true
+    },
+    {
+      "position": 132,
+      "id": 435,
+      "category": "Intervals",
+      "blind75": true
+    },
+    {
+      "position": 133,
+      "id": 252,
+      "category": "Intervals",
+      "blind75": true
+    },
+    {
+      "position": 134,
+      "id": 253,
+      "category": "Intervals",
+      "blind75": true
+    },
+    {
+      "position": 135,
+      "id": 1851,
+      "category": "Intervals",
+      "blind75": false
+    },
+    {
+      "position": 136,
+      "id": 48,
+      "category": "Math & Geometry",
+      "blind75": true
+    },
+    {
+      "position": 137,
+      "id": 54,
+      "category": "Math & Geometry",
+      "blind75": true
+    },
+    {
+      "position": 138,
+      "id": 73,
+      "category": "Math & Geometry",
+      "blind75": true
+    },
+    {
+      "position": 139,
+      "id": 202,
+      "category": "Math & Geometry",
+      "blind75": false
+    },
+    {
+      "position": 140,
+      "id": 66,
+      "category": "Math & Geometry",
+      "blind75": false
+    },
+    {
+      "position": 141,
+      "id": 50,
+      "category": "Math & Geometry",
+      "blind75": false
+    },
+    {
+      "position": 142,
+      "id": 43,
+      "category": "Math & Geometry",
+      "blind75": false
+    },
+    {
+      "position": 143,
+      "id": 2013,
+      "category": "Math & Geometry",
+      "blind75": false
+    },
+    {
+      "position": 144,
+      "id": 136,
+      "category": "Bit Manipulation",
+      "blind75": false
+    },
+    {
+      "position": 145,
+      "id": 191,
+      "category": "Bit Manipulation",
+      "blind75": true
+    },
+    {
+      "position": 146,
+      "id": 338,
+      "category": "Bit Manipulation",
+      "blind75": true
+    },
+    {
+      "position": 147,
+      "id": 190,
+      "category": "Bit Manipulation",
+      "blind75": true
+    },
+    {
+      "position": 148,
+      "id": 268,
+      "category": "Bit Manipulation",
+      "blind75": true
+    },
+    {
+      "position": 149,
+      "id": 371,
+      "category": "Bit Manipulation",
+      "blind75": true
+    },
+    {
+      "position": 150,
+      "id": 7,
+      "category": "Bit Manipulation",
+      "blind75": false
+    }
   ]
 }

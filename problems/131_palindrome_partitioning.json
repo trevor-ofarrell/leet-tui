@@ -1,0 +1,17 @@
+{
+  "id": 131,
+  "title": "Palindrome Partitioning",
+  "difficulty": "Medium",
+  "description": "Given a string s, partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s.\n\nConstraints:\n- 1 <= s.length <= 16\n- s contains only lowercase English letters.",
+  "examples": [
+    "Input: s = \"aab\"\nOutput: [[\"a\",\"a\",\"b\"],[\"aa\",\"b\"]]",
+    "Input: s = \"a\"\nOutput: [[\"a\"]]"
+  ],
+  "function_signature": "var partition = function(s)",
+  "function_name": "partition",
+  "test_cases": [
+    { "input": ["aab"], "expected": [["a","a","b"],["aa","b"]] },
+    { "input": ["a"], "expected": [["a"]] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const len = Math.min(16, n);\n    const s = Array.from({length: len}, () => String.fromCharCode(97 + Math.floor(Math.random() * 26))).join('');\n    return [s];\n};"
+}

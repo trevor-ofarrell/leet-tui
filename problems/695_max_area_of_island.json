@@ -1,0 +1,18 @@
+{
+  "id": 695,
+  "title": "Max Area of Island",
+  "difficulty": "Medium",
+  "description": "You are given an m x n binary matrix grid. An island is a group of 1's (representing land) connected 4-directionally (horizontal or vertical). You may assume all four edges of the grid are surrounded by water.\n\nThe area of an island is the number of cells with a value 1 in the island.\n\nReturn the maximum area of an island in grid. If there is no island, return 0.\n\nConstraints:\n- m == grid.length\n- n == grid[i].length\n- 1 <= m, n <= 50\n- grid[i][j] is either 0 or 1.",
+  "examples": [
+    "Input: grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]\nOutput: 6\nExplanation: The answer is not 11, because the island must be connected 4-directionally.",
+    "Input: grid = [[0,0,0,0,0,0,0,0]]\nOutput: 0"
+  ],
+  "function_signature": "var maxAreaOfIsland = function(grid)",
+  "function_name": "maxAreaOfIsland",
+  "test_cases": [
+    { "input": [[[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]], "expected": 6 },
+    { "input": [[[0,0,0,0,0,0,0,0]]], "expected": 0 },
+    { "input": [[[1,1],[1,1]]], "expected": 4 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const size = Math.floor(Math.sqrt(n));\n    const grid = Array.from({length: size}, () => Array.from({length: size}, () => Math.random() > 0.5 ? 1 : 0));\n    return [grid];\n};"
+}

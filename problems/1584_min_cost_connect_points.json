@@ -1,0 +1,18 @@
+{
+  "id": 1584,
+  "title": "Min Cost to Connect All Points",
+  "difficulty": "Medium",
+  "description": "You are given an array points representing integer coordinates of some points on a 2D-plane, where points[i] = [xi, yi].\n\nThe cost of connecting two points [xi, yi] and [xj, yj] is the manhattan distance between them: |xi - xj| + |yi - yj|, where |val| denotes the absolute value of val.\n\nReturn the minimum cost to make all points connected. All points are connected if there is exactly one simple path between any two points.\n\nConstraints:\n- 1 <= points.length <= 1000\n- -10^6 <= xi, yi <= 10^6\n- All pairs (xi, yi) are distinct.",
+  "examples": [
+    "Input: points = [[0,0],[2,2],[3,10],[5,2],[7,0]]\nOutput: 20",
+    "Input: points = [[3,12],[-2,5],[-4,1]]\nOutput: 18"
+  ],
+  "function_signature": "var minCostConnectPoints = function(points)",
+  "function_name": "minCostConnectPoints",
+  "test_cases": [
+    { "input": [[[0,0],[2,2],[3,10],[5,2],[7,0]]], "expected": 20 },
+    { "input": [[[3,12],[-2,5],[-4,1]]], "expected": 18 },
+    { "input": [[[0,0]]], "expected": 0 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const points = Array.from({length: Math.min(n, 1000)}, (_, i) => [i, i]);\n    return [points];\n};"
+}

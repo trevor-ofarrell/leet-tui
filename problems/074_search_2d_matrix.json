@@ -1,0 +1,19 @@
+{
+  "id": 74,
+  "title": "Search a 2D Matrix",
+  "difficulty": "Medium",
+  "description": "You are given an m x n integer matrix matrix with the following two properties:\n\n- Each row is sorted in non-decreasing order.\n- The first integer of each row is greater than the last integer of the previous row.\n\nGiven an integer target, return true if target is in matrix or false otherwise.\n\nYou must write a solution in O(log(m * n)) time complexity.\n\nConstraints:\n- m == matrix.length\n- n == matrix[i].length\n- 1 <= m, n <= 100\n- -10^4 <= matrix[i][j], target <= 10^4",
+  "examples": [
+    "Input: matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3\nOutput: true",
+    "Input: matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 13\nOutput: false"
+  ],
+  "function_signature": "var searchMatrix = function(matrix, target)",
+  "function_name": "searchMatrix",
+  "test_cases": [
+    { "input": [[[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 60]], 3], "expected": true },
+    { "input": [[[1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 60]], 13], "expected": false },
+    { "input": [[[1]], 1], "expected": true },
+    { "input": [[[1, 3]], 3], "expected": true }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const rows = Math.floor(Math.sqrt(n));\n    const cols = Math.floor(n / rows);\n    const matrix = [];\n    let val = 1;\n    for (let i = 0; i < rows; i++) {\n        const row = [];\n        for (let j = 0; j < cols; j++) {\n            row.push(val++);\n        }\n        matrix.push(row);\n    }\n    const target = Math.floor(val / 2);\n    return [matrix, target];\n};"
+}

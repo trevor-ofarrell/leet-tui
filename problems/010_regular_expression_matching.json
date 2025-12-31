@@ -1,0 +1,20 @@
+{
+  "id": 10,
+  "title": "Regular Expression Matching",
+  "difficulty": "Hard",
+  "description": "Given an input string s and a pattern p, implement regular expression matching with support for '.' and '*' where:\n\n- '.' Matches any single character.\n- '*' Matches zero or more of the preceding element.\n\nThe matching should cover the entire input string (not partial).\n\nConstraints:\n- 1 <= s.length <= 20\n- 1 <= p.length <= 20\n- s contains only lowercase English letters.\n- p contains only lowercase English letters, '.', and '*'.\n- It is guaranteed for each appearance of the character '*', there will be a previous valid character to match.",
+  "examples": [
+    "Input: s = \"aa\", p = \"a\"\nOutput: false\nExplanation: \"a\" does not match the entire string \"aa\".",
+    "Input: s = \"aa\", p = \"a*\"\nOutput: true\nExplanation: '*' means zero or more of the preceding element, 'a'. Therefore, by repeating 'a' once, it becomes \"aa\".",
+    "Input: s = \"ab\", p = \".*\"\nOutput: true\nExplanation: \".*\" means \"zero or more (*) of any character (.)\"."
+  ],
+  "function_signature": "var isMatch = function(s, p)",
+  "function_name": "isMatch",
+  "test_cases": [
+    { "input": ["aa", "a"], "expected": false },
+    { "input": ["aa", "a*"], "expected": true },
+    { "input": ["ab", ".*"], "expected": true },
+    { "input": ["aab", "c*a*b"], "expected": true }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const len = Math.min(n, 20);\n    const s = 'a'.repeat(len);\n    const p = 'a*'.repeat(Math.floor(len / 2));\n    return [s, p];\n};"
+}

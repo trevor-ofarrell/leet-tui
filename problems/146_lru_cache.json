@@ -1,0 +1,15 @@
+{
+  "id": 146,
+  "title": "LRU Cache",
+  "difficulty": "Medium",
+  "description": "Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.\n\nImplement the LRUCache class:\n- LRUCache(int capacity) Initialize the LRU cache with positive size capacity.\n- int get(int key) Return the value of the key if the key exists, otherwise return -1.\n- void put(int key, int value) Update the value of the key if the key exists. Otherwise, add the key-value pair to the cache. If the number of keys exceeds the capacity from this operation, evict the least recently used key.\n\nThe functions get and put must each run in O(1) average time complexity.\n\nConstraints:\n- 1 <= capacity <= 3000\n- 0 <= key <= 10^4\n- 0 <= value <= 10^5\n- At most 2 * 10^5 calls will be made to get and put.",
+  "examples": [
+    "Input:\n[\"LRUCache\", \"put\", \"put\", \"get\", \"put\", \"get\", \"put\", \"get\", \"get\", \"get\"]\n[[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]\nOutput: [null, null, null, 1, null, -1, null, -1, 3, 4]"
+  ],
+  "function_signature": "var LRUCache = function(capacity)",
+  "function_name": "LRUCache",
+  "test_cases": [
+    { "input": [[\"LRUCache\", \"put\", \"put\", \"get\", \"put\", \"get\", \"put\", \"get\", \"get\", \"get\"], [[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]], "expected": [null, null, null, 1, null, -1, null, -1, 3, 4] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const ops = ['LRUCache'];\n    const args = [[100]];\n    for (let i = 0; i < n; i++) {\n        if (Math.random() > 0.5) {\n            ops.push('put');\n            args.push([i % 100, i]);\n        } else {\n            ops.push('get');\n            args.push([i % 100]);\n        }\n    }\n    return [ops, args];\n};"
+}

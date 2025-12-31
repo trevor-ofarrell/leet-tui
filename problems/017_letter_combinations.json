@@ -1,0 +1,19 @@
+{
+  "id": 17,
+  "title": "Letter Combinations of a Phone Number",
+  "difficulty": "Medium",
+  "description": "Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. Return the answer in any order.\n\nA mapping of digits to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.\n\n2: abc, 3: def, 4: ghi, 5: jkl, 6: mno, 7: pqrs, 8: tuv, 9: wxyz\n\nConstraints:\n- 0 <= digits.length <= 4\n- digits[i] is a digit in the range ['2', '9'].",
+  "examples": [
+    "Input: digits = \"23\"\nOutput: [\"ad\",\"ae\",\"af\",\"bd\",\"be\",\"bf\",\"cd\",\"ce\",\"cf\"]",
+    "Input: digits = \"\"\nOutput: []",
+    "Input: digits = \"2\"\nOutput: [\"a\",\"b\",\"c\"]"
+  ],
+  "function_signature": "var letterCombinations = function(digits)",
+  "function_name": "letterCombinations",
+  "test_cases": [
+    { "input": ["23"], "expected": ["ad","ae","af","bd","be","bf","cd","ce","cf"] },
+    { "input": [""], "expected": [] },
+    { "input": ["2"], "expected": ["a","b","c"] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const digits = Array.from({length: Math.min(4, n)}, () => String(Math.floor(Math.random() * 8) + 2)).join('');\n    return [digits];\n};"
+}

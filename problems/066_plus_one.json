@@ -1,0 +1,20 @@
+{
+  "id": 66,
+  "title": "Plus One",
+  "difficulty": "Easy",
+  "description": "You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer. The digits are ordered from most significant to least significant in left-to-right order. The large integer does not contain any leading 0's.\n\nIncrement the large integer by one and return the resulting array of digits.\n\nConstraints:\n- 1 <= digits.length <= 100\n- 0 <= digits[i] <= 9\n- digits does not contain any leading 0's.",
+  "examples": [
+    "Input: digits = [1,2,3]\nOutput: [1,2,4]\nExplanation: The array represents the integer 123. Incrementing by one gives 123 + 1 = 124. Thus, the result should be [1,2,4].",
+    "Input: digits = [4,3,2,1]\nOutput: [4,3,2,2]\nExplanation: The array represents the integer 4321. Incrementing by one gives 4321 + 1 = 4322. Thus, the result should be [4,3,2,2].",
+    "Input: digits = [9]\nOutput: [1,0]\nExplanation: The array represents the integer 9. Incrementing by one gives 9 + 1 = 10. Thus, the result should be [1,0]."
+  ],
+  "function_signature": "var plusOne = function(digits)",
+  "function_name": "plusOne",
+  "test_cases": [
+    { "input": [[1, 2, 3]], "expected": [1, 2, 4] },
+    { "input": [[4, 3, 2, 1]], "expected": [4, 3, 2, 2] },
+    { "input": [[9]], "expected": [1, 0] },
+    { "input": [[9, 9, 9]], "expected": [1, 0, 0, 0] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const digits = Array.from({length: Math.min(n, 100)}, () => Math.floor(Math.random() * 10));\n    if (digits[0] === 0) digits[0] = 1;\n    return [digits];\n};"
+}

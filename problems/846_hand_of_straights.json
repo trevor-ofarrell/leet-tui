@@ -1,0 +1,17 @@
+{
+  "id": 846,
+  "title": "Hand of Straights",
+  "difficulty": "Medium",
+  "description": "Alice has some number of cards and she wants to rearrange the cards into groups so that each group is of size groupSize, and consists of groupSize consecutive cards.\n\nGiven an integer array hand where hand[i] is the value written on the ith card and an integer groupSize, return true if she can rearrange the cards, or false otherwise.\n\nConstraints:\n- 1 <= hand.length <= 10^4\n- 0 <= hand[i] <= 10^9\n- 1 <= groupSize <= hand.length",
+  "examples": [
+    "Input: hand = [1,2,3,6,2,3,4,7,8], groupSize = 3\nOutput: true\nExplanation: Alice's hand can be rearranged as [1,2,3],[2,3,4],[6,7,8]",
+    "Input: hand = [1,2,3,4,5], groupSize = 4\nOutput: false\nExplanation: Alice's hand can not be rearranged into groups of 4."
+  ],
+  "function_signature": "var isNStraightHand = function(hand, groupSize)",
+  "function_name": "isNStraightHand",
+  "test_cases": [
+    { "input": [[1, 2, 3, 6, 2, 3, 4, 7, 8], 3], "expected": true },
+    { "input": [[1, 2, 3, 4, 5], 4], "expected": false }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const groupSize = 3;\n    const groups = Math.floor(n / groupSize);\n    const hand = [];\n    for (let g = 0; g < groups; g++) {\n        for (let i = 0; i < groupSize; i++) {\n            hand.push(g * groupSize + i);\n        }\n    }\n    return [hand, groupSize];\n};"
+}

@@ -1,0 +1,19 @@
+{
+  "id": 621,
+  "title": "Task Scheduler",
+  "difficulty": "Medium",
+  "description": "You are given an array of CPU tasks, each represented by letters A to Z, and a cooling time, n. Each cycle or interval allows the completion of one task. Tasks can be completed in any order, but there's a constraint: identical tasks must be separated by at least n intervals due to cooling time.\n\nReturn the minimum number of intervals required to complete all tasks.\n\nConstraints:\n- 1 <= tasks.length <= 10^4\n- tasks[i] is an uppercase English letter.\n- 0 <= n <= 100",
+  "examples": [
+    "Input: tasks = [\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"], n = 2\nOutput: 8\nExplanation: A possible sequence is: A -> B -> idle -> A -> B -> idle -> A -> B.",
+    "Input: tasks = [\"A\",\"C\",\"A\",\"B\",\"D\",\"B\"], n = 1\nOutput: 6\nExplanation: A possible sequence is: A -> B -> C -> D -> A -> B.",
+    "Input: tasks = [\"A\",\"A\",\"A\", \"B\",\"B\",\"B\"], n = 3\nOutput: 10\nExplanation: A possible sequence is: A -> B -> idle -> idle -> A -> B -> idle -> idle -> A -> B."
+  ],
+  "function_signature": "var leastInterval = function(tasks, n)",
+  "function_name": "leastInterval",
+  "test_cases": [
+    { "input": [[\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"], 2], "expected": 8 },
+    { "input": [[\"A\",\"C\",\"A\",\"B\",\"D\",\"B\"], 1], "expected": 6 },
+    { "input": [[\"A\",\"A\",\"A\",\"B\",\"B\",\"B\"], 3], "expected": 10 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const tasks = Array.from({length: n}, () => String.fromCharCode(65 + Math.floor(Math.random() * 26)));\n    const cooling = Math.floor(Math.random() * 10);\n    return [tasks, cooling];\n};"
+}

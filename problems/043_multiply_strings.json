@@ -1,0 +1,18 @@
+{
+  "id": 43,
+  "title": "Multiply Strings",
+  "difficulty": "Medium",
+  "description": "Given two non-negative integers num1 and num2 represented as strings, return the product of num1 and num2, also represented as a string.\n\nNote: You must not use any built-in BigInteger library or convert the inputs to integer directly.\n\nConstraints:\n- 1 <= num1.length, num2.length <= 200\n- num1 and num2 consist of digits only.\n- Both num1 and num2 do not contain any leading zero, except the number 0 itself.",
+  "examples": [
+    "Input: num1 = \"2\", num2 = \"3\"\nOutput: \"6\"",
+    "Input: num1 = \"123\", num2 = \"456\"\nOutput: \"56088\""
+  ],
+  "function_signature": "var multiply = function(num1, num2)",
+  "function_name": "multiply",
+  "test_cases": [
+    { "input": ["2", "3"], "expected": "6" },
+    { "input": ["123", "456"], "expected": "56088" },
+    { "input": ["0", "0"], "expected": "0" }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const len = Math.min(n, 200);\n    const num1 = '1' + '0'.repeat(len - 1);\n    const num2 = '2';\n    return [num1, num2];\n};"
+}

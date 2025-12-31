@@ -1,0 +1,19 @@
+{
+  "id": 704,
+  "title": "Binary Search",
+  "difficulty": "Easy",
+  "description": "Given an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.\n\nYou must write an algorithm with O(log n) runtime complexity.\n\nConstraints:\n- 1 <= nums.length <= 10^4\n- -10^4 < nums[i], target < 10^4\n- All the integers in nums are unique.\n- nums is sorted in ascending order.",
+  "examples": [
+    "Input: nums = [-1,0,3,5,9,12], target = 9\nOutput: 4\nExplanation: 9 exists in nums and its index is 4",
+    "Input: nums = [-1,0,3,5,9,12], target = 2\nOutput: -1\nExplanation: 2 does not exist in nums so return -1"
+  ],
+  "function_signature": "var search = function(nums, target)",
+  "function_name": "search",
+  "test_cases": [
+    { "input": [[-1, 0, 3, 5, 9, 12], 9], "expected": 4 },
+    { "input": [[-1, 0, 3, 5, 9, 12], 2], "expected": -1 },
+    { "input": [[5], 5], "expected": 0 },
+    { "input": [[2, 5], 5], "expected": 1 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const nums = Array.from({length: n}, (_, i) => i);\n    const target = Math.floor(n / 2);\n    return [nums, target];\n};"
+}

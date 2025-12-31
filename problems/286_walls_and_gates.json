@@ -1,0 +1,18 @@
+{
+  "id": 286,
+  "title": "Walls and Gates",
+  "difficulty": "Medium",
+  "description": "You are given an m x n grid rooms initialized with these three possible values:\n\n- -1: A wall or an obstacle.\n- 0: A gate.\n- INF: Infinity means an empty room. We use the value 2^31 - 1 = 2147483647 to represent INF.\n\nFill each empty room with the distance to its nearest gate. If it is impossible to reach a gate, it should be filled with INF.\n\nConstraints:\n- m == rooms.length\n- n == rooms[i].length\n- 1 <= m, n <= 250\n- rooms[i][j] is -1, 0, or 2^31 - 1.",
+  "examples": [
+    "Input: rooms = [[2147483647,-1,0,2147483647],[2147483647,2147483647,2147483647,-1],[2147483647,-1,2147483647,-1],[0,-1,2147483647,2147483647]]\nOutput: [[3,-1,0,1],[2,2,1,-1],[1,-1,2,-1],[0,-1,3,4]]",
+    "Input: rooms = [[-1]]\nOutput: [[-1]]"
+  ],
+  "function_signature": "var wallsAndGates = function(rooms)",
+  "function_name": "wallsAndGates",
+  "test_cases": [
+    { "input": [[[2147483647,-1,0,2147483647],[2147483647,2147483647,2147483647,-1],[2147483647,-1,2147483647,-1],[0,-1,2147483647,2147483647]]], "expected": [[3,-1,0,1],[2,2,1,-1],[1,-1,2,-1],[0,-1,3,4]] },
+    { "input": [[[-1]]], "expected": [[-1]] },
+    { "input": [[[0]]], "expected": [[0]] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const INF = 2147483647;\n    const size = Math.floor(Math.sqrt(n));\n    const rooms = Array.from({length: size}, () => Array.from({length: size}, () => INF));\n    rooms[0][0] = 0;\n    return [rooms];\n};"
+}

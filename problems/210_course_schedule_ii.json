@@ -1,0 +1,18 @@
+{
+  "id": 210,
+  "title": "Course Schedule II",
+  "difficulty": "Medium",
+  "description": "There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.\n\nFor example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.\n\nReturn the ordering of courses you should take to finish all courses. If there are many valid answers, return any of them. If it is impossible to finish all courses, return an empty array.\n\nConstraints:\n- 1 <= numCourses <= 2000\n- 0 <= prerequisites.length <= numCourses * (numCourses - 1)\n- prerequisites[i].length == 2\n- 0 <= ai, bi < numCourses\n- ai != bi\n- All the pairs [ai, bi] are distinct.",
+  "examples": [
+    "Input: numCourses = 2, prerequisites = [[1,0]]\nOutput: [0,1]\nExplanation: There are 2 courses. To take course 1 you should have finished course 0. So the correct order is [0,1].",
+    "Input: numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]\nOutput: [0,2,1,3]\nExplanation: There are 4 courses. To take course 3 you should have finished both courses 1 and 2. Course 1 and 2 should be taken after course 0.",
+    "Input: numCourses = 1, prerequisites = []\nOutput: [0]"
+  ],
+  "function_signature": "var findOrder = function(numCourses, prerequisites)",
+  "function_name": "findOrder",
+  "test_cases": [
+    { "input": [2, [[1,0]]], "expected": [0,1] },
+    { "input": [1, []], "expected": [0] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const numCourses = Math.min(n, 2000);\n    const prerequisites = [];\n    for (let i = 1; i < numCourses; i++) {\n        prerequisites.push([i, i - 1]);\n    }\n    return [numCourses, prerequisites];\n};"
+}

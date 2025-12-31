@@ -1,0 +1,19 @@
+{
+  "id": 329,
+  "title": "Longest Increasing Path in a Matrix",
+  "difficulty": "Hard",
+  "description": "Given an m x n integers matrix, return the length of the longest increasing path in matrix.\n\nFrom each cell, you can either move in four directions: left, right, up, or down. You may not move diagonally or move outside the boundary (i.e., wrap-around is not allowed).\n\nConstraints:\n- m == matrix.length\n- n == matrix[i].length\n- 1 <= m, n <= 200\n- 0 <= matrix[i][j] <= 2^31 - 1",
+  "examples": [
+    "Input: matrix = [[9,9,4],[6,6,8],[2,1,1]]\nOutput: 4\nExplanation: The longest increasing path is [1, 2, 6, 9].",
+    "Input: matrix = [[3,4,5],[3,2,6],[2,2,1]]\nOutput: 4\nExplanation: The longest increasing path is [3, 4, 5, 6]. Moving diagonally is not allowed.",
+    "Input: matrix = [[1]]\nOutput: 1"
+  ],
+  "function_signature": "var longestIncreasingPath = function(matrix)",
+  "function_name": "longestIncreasingPath",
+  "test_cases": [
+    { "input": [[[9,9,4],[6,6,8],[2,1,1]]], "expected": 4 },
+    { "input": [[[3,4,5],[3,2,6],[2,2,1]]], "expected": 4 },
+    { "input": [[[1]]], "expected": 1 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const size = Math.floor(Math.sqrt(n));\n    const matrix = Array.from({length: size}, () => Array.from({length: size}, () => Math.floor(Math.random() * 1000)));\n    return [matrix];\n};"
+}

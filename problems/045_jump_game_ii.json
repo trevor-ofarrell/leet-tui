@@ -1,0 +1,18 @@
+{
+  "id": 45,
+  "title": "Jump Game II",
+  "difficulty": "Medium",
+  "description": "You are given a 0-indexed array of integers nums of length n. You are initially positioned at nums[0].\n\nEach element nums[i] represents the maximum length of a forward jump from index i. In other words, if you are at nums[i], you can jump to any nums[i + j] where:\n\n- 0 <= j <= nums[i] and\n- i + j < n\n\nReturn the minimum number of jumps to reach nums[n - 1]. The test cases are generated such that you can reach nums[n - 1].\n\nConstraints:\n- 1 <= nums.length <= 10^4\n- 0 <= nums[i] <= 1000\n- It's guaranteed that you can reach nums[n - 1].",
+  "examples": [
+    "Input: nums = [2,3,1,1,4]\nOutput: 2\nExplanation: The minimum number of jumps to reach the last index is 2. Jump 1 step from index 0 to 1, then 3 steps to the last index.",
+    "Input: nums = [2,3,0,1,4]\nOutput: 2"
+  ],
+  "function_signature": "var jump = function(nums)",
+  "function_name": "jump",
+  "test_cases": [
+    { "input": [[2, 3, 1, 1, 4]], "expected": 2 },
+    { "input": [[2, 3, 0, 1, 4]], "expected": 2 },
+    { "input": [[1]], "expected": 0 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const nums = Array.from({length: Math.min(n, 10000)}, () => Math.floor(Math.random() * 1000) + 1);\n    return [nums];\n};"
+}

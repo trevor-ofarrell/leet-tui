@@ -1,0 +1,20 @@
+{
+  "id": 678,
+  "title": "Valid Parenthesis String",
+  "difficulty": "Medium",
+  "description": "Given a string s containing only three types of characters: '(', ')' and '*', return true if s is valid.\n\nThe following rules define a valid string:\n\n- Any left parenthesis '(' must have a corresponding right parenthesis ')'.\n- Any right parenthesis ')' must have a corresponding left parenthesis '('.\n- Left parenthesis '(' must go before the corresponding right parenthesis ')'.\n- '*' could be treated as a single right parenthesis ')' or a single left parenthesis '(' or an empty string \"\".\n\nConstraints:\n- 1 <= s.length <= 100\n- s[i] is '(', ')' or '*'.",
+  "examples": [
+    "Input: s = \"()\"\nOutput: true",
+    "Input: s = \"(*)\"\nOutput: true",
+    "Input: s = \"(*))\"\nOutput: true"
+  ],
+  "function_signature": "var checkValidString = function(s)",
+  "function_name": "checkValidString",
+  "test_cases": [
+    { "input": ["()"], "expected": true },
+    { "input": ["(*)"], "expected": true },
+    { "input": ["(*))"], "expected": true },
+    { "input": ["((*)"], "expected": true }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const len = Math.min(n, 100);\n    const chars = ['(', ')', '*'];\n    const s = Array.from({length: len}, () => chars[Math.floor(Math.random() * 3)]).join('');\n    return [s];\n};"
+}

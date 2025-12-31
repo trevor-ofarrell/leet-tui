@@ -1,0 +1,22 @@
+{
+  "id": 7,
+  "title": "Reverse Integer",
+  "difficulty": "Medium",
+  "description": "Given a signed 32-bit integer x, return x with its digits reversed. If reversing x causes the value to go outside the signed 32-bit integer range [-2^31, 2^31 - 1], then return 0.\n\nAssume the environment does not allow you to store 64-bit integers (signed or unsigned).\n\nConstraints:\n- -2^31 <= x <= 2^31 - 1",
+  "examples": [
+    "Input: x = 123\nOutput: 321",
+    "Input: x = -123\nOutput: -321",
+    "Input: x = 120\nOutput: 21",
+    "Input: x = 0\nOutput: 0"
+  ],
+  "function_signature": "var reverse = function(x)",
+  "function_name": "reverse",
+  "test_cases": [
+    { "input": [123], "expected": 321 },
+    { "input": [-123], "expected": -321 },
+    { "input": [120], "expected": 21 },
+    { "input": [0], "expected": 0 },
+    { "input": [1534236469], "expected": 0 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    return [n % 2147483647];\n};"
+}

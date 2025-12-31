@@ -1,0 +1,15 @@
+{
+  "id": 155,
+  "title": "Min Stack",
+  "difficulty": "Medium",
+  "description": "Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.\n\nImplement the MinStack class:\n- MinStack() initializes the stack object.\n- void push(int val) pushes the element val onto the stack.\n- void pop() removes the element on the top of the stack.\n- int top() gets the top element of the stack.\n- int getMin() retrieves the minimum element in the stack.\n\nYou must implement a solution with O(1) time complexity for each function.\n\nConstraints:\n- -2^31 <= val <= 2^31 - 1\n- Methods pop, top and getMin operations will always be called on non-empty stacks.\n- At most 3 * 10^4 calls will be made to push, pop, top, and getMin.",
+  "examples": [
+    "Input:\n[\"MinStack\",\"push\",\"push\",\"push\",\"getMin\",\"pop\",\"top\",\"getMin\"]\n[[],[-2],[0],[-3],[],[],[],[]]\nOutput: [null,null,null,null,-3,null,0,-2]\nExplanation:\nMinStack minStack = new MinStack();\nminStack.push(-2);\nminStack.push(0);\nminStack.push(-3);\nminStack.getMin(); // return -3\nminStack.pop();\nminStack.top();    // return 0\nminStack.getMin(); // return -2"
+  ],
+  "function_signature": "var MinStack = function()",
+  "function_name": "MinStack",
+  "test_cases": [
+    { "input": [["MinStack", "push", "push", "push", "getMin", "pop", "top", "getMin"], [[], [-2], [0], [-3], [], [], [], []]], "expected": [null, null, null, null, -3, null, 0, -2] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const ops = ['MinStack'];\n    const args = [[]];\n    for (let i = 0; i < n; i++) {\n        ops.push('push');\n        args.push([Math.floor(Math.random() * 1000)]);\n    }\n    ops.push('getMin');\n    args.push([]);\n    return [ops, args];\n};"
+}

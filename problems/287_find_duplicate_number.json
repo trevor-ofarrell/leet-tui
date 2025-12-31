@@ -1,0 +1,19 @@
+{
+  "id": 287,
+  "title": "Find the Duplicate Number",
+  "difficulty": "Medium",
+  "description": "Given an array of integers nums containing n + 1 integers where each integer is in the range [1, n] inclusive.\n\nThere is only one repeated number in nums, return this repeated number.\n\nYou must solve the problem without modifying the array nums and uses only constant extra space.\n\nConstraints:\n- 1 <= n <= 10^5\n- nums.length == n + 1\n- 1 <= nums[i] <= n\n- All the integers in nums appear only once except for precisely one integer which appears two or more times.",
+  "examples": [
+    "Input: nums = [1,3,4,2,2]\nOutput: 2",
+    "Input: nums = [3,1,3,4,2]\nOutput: 3",
+    "Input: nums = [3,3,3,3,3]\nOutput: 3"
+  ],
+  "function_signature": "var findDuplicate = function(nums)",
+  "function_name": "findDuplicate",
+  "test_cases": [
+    { "input": [[1,3,4,2,2]], "expected": 2 },
+    { "input": [[3,1,3,4,2]], "expected": 3 },
+    { "input": [[3,3,3,3,3]], "expected": 3 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const nums = Array.from({length: n}, (_, i) => (i % (n - 1)) + 1);\n    nums.push(1);\n    return [nums];\n};"
+}
