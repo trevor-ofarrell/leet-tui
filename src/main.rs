@@ -117,10 +117,25 @@ impl App {
         Ok(())
     }
 
-    fn run_tests(solution_file: &PathBuf) -> Result<String> {
+    fn run_tests(solution_file: &PathBuf, problem: &Problem) -> Result<String> {
+        // Read user's solution
+        let solution_code = fs::read_to_string(solution_file)?;
+
+        // Generate test runner with the solution embedded
+        let client = LeetCodeClient::new();
+        let test_code = client.generate_test_runner(problem, &solution_code);
+
+        // Write to temp file
+        let temp_file = solution_file.with_extension("test.js");
+        fs::write(&temp_file, &test_code)?;
+
+        // Run tests
         let output = Command::new("node")
-            .arg(solution_file)
+            .arg(&temp_file)
             .output()?;
+
+        // Clean up temp file
+        let _ = fs::remove_file(&temp_file);
 
         let stdout = String::from_utf8_lossy(&output.stdout);
         let stderr = String::from_utf8_lossy(&output.stderr);
@@ -174,7 +189,7 @@ impl App {
                             // Give Neovim a moment to save the file
                             std::thread::sleep(Duration::from_millis(100));
 
-                            let output = Self::run_tests(&question.solution_file)?;
+                            let output = Self::run_tests(&question.solution_file, &question.problem)?;
                             question.test_output = Some(output);
                             question.show_results = true;
                             question.focus = Focus::Results;

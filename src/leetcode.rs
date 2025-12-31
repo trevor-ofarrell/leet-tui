@@ -199,9 +199,8 @@ Output: 9"#.to_string(),
         output
     }
 
+    /// Generate clean solution template for user to edit
     pub fn generate_boilerplate(&self, problem: &Problem) -> String {
-        let (func_name, test_cases) = self.get_problem_config(problem);
-
         format!(
             r#"/**
  * Problem {id}: {title}
@@ -213,11 +212,27 @@ Output: 9"#.to_string(),
 {signature} {{
     // Your solution here
 }};
+"#,
+            id = problem.id,
+            title = problem.title,
+            difficulty = problem.difficulty,
+            description = problem.description.lines().next().unwrap_or(""),
+            signature = problem.function_signature,
+        )
+    }
 
-// ============== TEST RUNNER (do not modify below) ==============
+    /// Generate test runner that imports user's solution
+    pub fn generate_test_runner(&self, problem: &Problem, solution_code: &str) -> String {
+        let (func_name, test_cases) = self.get_problem_config(problem);
+
+        format!(
+            r#"// User's solution
+{solution_code}
+
+// ============== TEST RUNNER ==============
 const testCases = {test_cases};
 
-function runTests() {{
+(function runTests() {{
     console.log('\n' + '='.repeat(50));
     console.log('Running tests for: {title}');
     console.log('='.repeat(50) + '\n');
@@ -231,7 +246,6 @@ function runTests() {{
             const resultStr = JSON.stringify(result);
             const expectedStr = JSON.stringify(tc.expected);
 
-            // Handle array comparison (order might not matter for some problems)
             const isEqual = resultStr === expectedStr;
 
             if (isEqual) {{
@@ -258,15 +272,10 @@ function runTests() {{
     if (failed === 0) {{
         console.log('🎉 All tests passed!');
     }}
-}}
-
-runTests();
+}})();
 "#,
-            id = problem.id,
+            solution_code = solution_code,
             title = problem.title,
-            difficulty = problem.difficulty,
-            description = problem.description.lines().next().unwrap_or(""),
-            signature = problem.function_signature,
             func_name = func_name,
             test_cases = test_cases,
         )

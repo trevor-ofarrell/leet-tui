@@ -23,10 +23,12 @@ impl PtyManager {
         })?;
 
         let mut cmd = CommandBuilder::new("nvim");
-        // Use --clean to ignore user config and plugins that might persist sessions
-        cmd.arg("--clean");
+        // Disable persistence features that can cause stale buffer issues
+        cmd.arg("-n"); // No swap file
         cmd.arg("-i");
-        cmd.arg("NONE"); // Explicitly no shada
+        cmd.arg("NONE"); // No shada (session data)
+        cmd.arg("--cmd");
+        cmd.arg("set noundofile"); // No persistent undo
         cmd.arg("--");
         cmd.arg(file_path.to_str().unwrap_or("solution.js"));
 
