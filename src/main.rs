@@ -129,10 +129,16 @@ impl App {
         let temp_file = solution_file.with_extension("test.js");
         fs::write(&temp_file, &test_code)?;
 
-        // Run tests
-        let output = Command::new("node")
+        // Run tests with Bun (faster) or fallback to Node
+        let output = Command::new("bun")
+            .arg("run")
             .arg(&temp_file)
-            .output()?;
+            .output()
+            .or_else(|_| {
+                Command::new("node")
+                    .arg(&temp_file)
+                    .output()
+            })?;
 
         // Clean up temp file
         let _ = fs::remove_file(&temp_file);
@@ -445,7 +451,51 @@ impl App {
                 .problem_text
                 .lines()
                 .skip(question.scroll_offset as usize)
-                .map(|line| Line::from(line.to_string()))
+                .map(|line| {
+                    if line.starts_with("Problem ") {
+                        // Problem title - bright cyan, bold
+                        Line::from(Span::styled(
+                            line.to_string(),
+                            Style::default()
+                                .fg(Color::Cyan)
+                                .add_modifier(Modifier::BOLD),
+                        ))
+                    } else if line.starts_with("Difficulty:") {
+                        // Difficulty - colored by level
+                        let color = if line.contains("Easy") {
+                            Color::Green
+                        } else if line.contains("Medium") {
+                            Color::Yellow
+                        } else if line.contains("Hard") {
+                            Color::Red
+                        } else {
+                            Color::White
+                        };
+                        Line::from(Span::styled(
+                            line.to_string(),
+                            Style::default()
+                                .fg(color)
+                                .add_modifier(Modifier::BOLD),
+                        ))
+                    } else if line.starts_with("Example ") {
+                        // Example headers - bright magenta
+                        Line::from(Span::styled(
+                            line.to_string(),
+                            Style::default()
+                                .fg(Color::Magenta)
+                                .add_modifier(Modifier::BOLD),
+                        ))
+                    } else if line.starts_with("Keyboard Shortcuts:") {
+                        // Keyboard shortcuts header
+                        Line::from(Span::styled(
+                            line.to_string(),
+                            Style::default()
+                                .fg(Color::Yellow),
+                        ))
+                    } else {
+                        Line::from(line.to_string())
+                    }
+                })
                 .collect();
 
             let question_paragraph = Paragraph::new(question_text)
@@ -487,7 +537,7 @@ impl App {
             if question.show_results {
                 let area = f.area();
                 let popup_width = area.width.saturating_sub(10).min(80);
-                let popup_height = area.height.saturating_sub(6).min(30);
+                let popup_height = area.height.saturating_sub(6).min(50);
                 let popup_x = (area.width - popup_width) / 2;
                 let popup_y = (area.height - popup_height) / 2;
 
@@ -520,7 +570,7 @@ impl App {
                         " Test Results (Esc to close) ",
                         Style::default().fg(Color::Yellow).add_modifier(Modifier::BOLD),
                     ))
-                    .style(Style::default().bg(Color::Black));
+                    .style(Style::default().bg(Color::Rgb(30, 35, 40)));
 
                 let results_paragraph = Paragraph::new(results_lines)
                     .block(results_block)

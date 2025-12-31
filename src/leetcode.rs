@@ -224,6 +224,7 @@ Output: 9"#.to_string(),
     /// Generate test runner that imports user's solution
     pub fn generate_test_runner(&self, problem: &Problem, solution_code: &str) -> String {
         let (func_name, test_cases) = self.get_problem_config(problem);
+        let complexity_generator = self.get_complexity_generator(problem);
 
         format!(
             r#"// User's solution
@@ -232,6 +233,34 @@ Output: 9"#.to_string(),
 // ============== TEST RUNNER ==============
 const testCases = {test_cases};
 
+// High-resolution timer (works in both Bun and Node)
+const now = typeof Bun !== 'undefined'
+    ? () => Bun.nanoseconds() / 1e6
+    : () => performance.now();
+
+// Memory usage (works in both Bun and Node)
+const getMemory = () => {{
+    if (typeof Bun !== 'undefined') {{
+        return process.memoryUsage().heapUsed;
+    }}
+    if (typeof process !== 'undefined') {{
+        return process.memoryUsage().heapUsed;
+    }}
+    return 0;
+}};
+
+const formatTime = (ms) => {{
+    if (ms < 1) return `${{(ms * 1000).toFixed(2)}} microseconds`;
+    if (ms < 1000) return `${{ms.toFixed(2)}} milliseconds`;
+    return `${{(ms / 1000).toFixed(2)}} seconds`;
+}};
+
+const formatMemory = (bytes) => {{
+    if (bytes < 1024) return `${{bytes}}B`;
+    if (bytes < 1024 * 1024) return `${{(bytes / 1024).toFixed(1)}}KB`;
+    return `${{(bytes / (1024 * 1024)).toFixed(2)}}MB`;
+}};
+
 (function runTests() {{
     console.log('\n' + '='.repeat(50));
     console.log('Running tests for: {title}');
@@ -239,27 +268,35 @@ const testCases = {test_cases};
 
     let passed = 0;
     let failed = 0;
+    let totalTime = 0;
 
     testCases.forEach((tc, i) => {{
         try {{
+            const startMem = getMemory();
+            const start = now();
             const result = {func_name}(...tc.input);
+            const elapsed = now() - start;
+            const memUsed = getMemory() - startMem;
+            totalTime += elapsed;
+
             const resultStr = JSON.stringify(result);
             const expectedStr = JSON.stringify(tc.expected);
-
             const isEqual = resultStr === expectedStr;
 
             if (isEqual) {{
-                console.log(`✓ Test ${{i + 1}}: PASSED`);
+                console.log(`Test ${{i + 1}}: PASSED [${{formatTime(elapsed)}}]`);
+                console.log(`  Input:    ${{JSON.stringify(tc.input)}}`);
+                console.log(`  Output:   ${{resultStr}}`);
                 passed++;
             }} else {{
-                console.log(`✗ Test ${{i + 1}}: FAILED`);
+                console.log(`Test ${{i + 1}}: FAILED [${{formatTime(elapsed)}}]`);
                 console.log(`  Input:    ${{JSON.stringify(tc.input)}}`);
                 console.log(`  Expected: ${{expectedStr}}`);
                 console.log(`  Got:      ${{resultStr}}`);
                 failed++;
             }}
         }} catch (e) {{
-            console.log(`✗ Test ${{i + 1}}: ERROR`);
+            console.log(`Test ${{i + 1}}: ERROR`);
             console.log(`  ${{e.message}}`);
             failed++;
         }}
@@ -267,10 +304,88 @@ const testCases = {test_cases};
 
     console.log('\n' + '-'.repeat(50));
     console.log(`Results: ${{passed}} passed, ${{failed}} failed out of ${{testCases.length}} tests`);
-    console.log('-'.repeat(50) + '\n');
+    console.log(`Total time: ${{formatTime(totalTime)}}`);
+    console.log('-'.repeat(50));
 
     if (failed === 0) {{
-        console.log('🎉 All tests passed!');
+        console.log('\nAll tests passed!');
+
+        // Run complexity analysis using the doubling hypothesis
+        console.log('\n' + '='.repeat(50));
+        console.log('Complexity Analysis (Doubling Method)');
+        console.log('='.repeat(50) + '\n');
+
+        {complexity_generator}
+
+        // Force garbage collection if available (Bun)
+        const gc = () => {{ if (typeof Bun !== 'undefined') Bun.gc(true); }};
+
+        // Use orders of magnitude for accurate complexity detection
+        const sizes = [10000, 100000, 1000000];
+        const times = [];
+        const memories = [];
+        const MIN_BENCH_TIME = 50; // Run each size for at least 50ms total
+
+        // Global warmup - ensure JIT is fully optimized before measuring
+        const warmupInput = generateInput(50000);
+        for (let i = 0; i < 50; i++) {{
+            try {{ {func_name}(...warmupInput); }} catch {{}}
+        }}
+        gc();
+
+        sizes.forEach(n => {{
+            gc();
+            const input = generateInput(n);
+            gc();
+
+            // Run until we have at least MIN_BENCH_TIME ms of total execution
+            let iterations = 0;
+            let totalTime = 0;
+            const benchStart = now();
+
+            while (totalTime < MIN_BENCH_TIME) {{
+                const start = now();
+                try {{ {func_name}(...input); }} catch {{}}
+                totalTime = now() - benchStart;
+                iterations++;
+            }}
+
+            const avgTime = totalTime / iterations;
+            const memAfter = getMemory();
+            times.push(avgTime);
+            memories.push(memAfter);
+
+            console.log(`n=${{String(n).padStart(7)}}: ${{formatTime(avgTime).padStart(18)}} (${{iterations}} runs)`);
+        }});
+
+        // Calculate growth rate using log-log slope method
+        // For O(n^k), log(time) = k * log(n) + c, so slope = k
+        if (times.length >= 2 && times[0] > 0) {{
+            const slopes = [];
+            for (let i = 1; i < times.length; i++) {{
+                if (times[i-1] > 0 && times[i] > 0) {{
+                    const logNRatio = Math.log(sizes[i] / sizes[i-1]);
+                    const logTRatio = Math.log(times[i] / times[i-1]);
+                    slopes.push(logTRatio / logNRatio);
+                }}
+            }}
+
+            if (slopes.length >= 1) {{
+                const avgSlope = slopes.reduce((a,b) => a+b, 0) / slopes.length;
+
+                let timeComplexity = '';
+                if (avgSlope < 0.2) timeComplexity = 'O(1)';
+                else if (avgSlope < 0.5) timeComplexity = 'O(log n)';
+                else if (avgSlope < 1.3) timeComplexity = 'O(n)';
+                else if (avgSlope < 1.7) timeComplexity = 'O(n log n)';
+                else if (avgSlope < 2.5) timeComplexity = 'O(n^2)';
+                else if (avgSlope < 3.5) timeComplexity = 'O(n^3)';
+                else timeComplexity = 'O(2^n) or worse';
+
+                console.log(`\nTime Complexity: ${{timeComplexity}} (slope: ${{avgSlope.toFixed(2)}})`);
+                console.log('Reference: O(1)=0  O(n)=1  O(n^2)=2  O(n^3)=3');
+            }}
+        }}
     }}
 }})();
 "#,
@@ -278,7 +393,50 @@ const testCases = {test_cases};
             title = problem.title,
             func_name = func_name,
             test_cases = test_cases,
+            complexity_generator = complexity_generator,
         )
+    }
+
+    /// Get input generator function for complexity testing
+    fn get_complexity_generator(&self, problem: &Problem) -> &'static str {
+        match problem.id {
+            1 => r#"// Generate random array of size n for Two Sum
+        // Put answer at END of array so algorithm must traverse fully
+        const generateInput = (n) => {
+            const nums = Array.from({length: n}, () => Math.floor(Math.random() * 10000));
+            // Make last two elements the answer pair
+            nums[n-2] = 999999;
+            nums[n-1] = 1;
+            const target = 1000000; // nums[n-2] + nums[n-1]
+            return [nums, target];
+        };"#,
+            9 => r#"// Generate number of size ~n digits for Palindrome
+        const generateInput = (n) => {
+            const num = parseInt('1' + '0'.repeat(Math.min(n, 9)));
+            return [num];
+        };"#,
+            13 => r#"// Generate roman numeral string
+        const generateInput = (n) => {
+            const romans = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'];
+            let s = '';
+            for (let i = 0; i < Math.min(n, 15); i++) s += romans[i % romans.length];
+            return [s];
+        };"#,
+            15 => r#"// Generate random array of size n for 3Sum
+        const generateInput = (n) => {
+            const nums = Array.from({length: n}, () => Math.floor(Math.random() * 200) - 100);
+            return [nums];
+        };"#,
+            42 => r#"// Generate random heights array for Trapping Rain Water
+        const generateInput = (n) => {
+            const height = Array.from({length: n}, () => Math.floor(Math.random() * 1000));
+            return [height];
+        };"#,
+            _ => r#"// Generic input generator
+        const generateInput = (n) => {
+            return [Array.from({length: n}, (_, i) => i)];
+        };"#,
+        }
     }
 
     fn get_problem_config(&self, problem: &Problem) -> (&'static str, &'static str) {
