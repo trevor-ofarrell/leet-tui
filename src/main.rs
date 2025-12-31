@@ -163,7 +163,7 @@ impl App {
         }
 
         // Calculate editor size (2/3 of width, accounting for borders)
-        let editor_cols = ((self.terminal_width as f32 * 0.67) as u16).saturating_sub(2);
+        let editor_cols = ((self.terminal_width as f32 * 0.62) as u16).saturating_sub(2);
         let editor_rows = self.terminal_height.saturating_sub(2);
 
         let pty = PtyManager::new(editor_rows, editor_cols, solution_file.clone())?;
@@ -646,7 +646,7 @@ impl App {
                 *terminal_height = *rows;
 
                 // Recalculate editor size (2/3 of width)
-                let editor_cols = (*cols as f32 * 0.67) as u16;
+                let editor_cols = (*cols as f32 * 0.62) as u16;
                 question.pty.resize(rows.saturating_sub(2), editor_cols.saturating_sub(2))?;
             }
             _ => {}
@@ -886,7 +886,7 @@ impl App {
         terminal.draw(|f| {
             let chunks = Layout::default()
                 .direction(Direction::Horizontal)
-                .constraints([Constraint::Percentage(33), Constraint::Percentage(67)])
+                .constraints([Constraint::Percentage(38), Constraint::Percentage(62)])
                 .split(f.area());
 
             // Render Question pane
