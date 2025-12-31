@@ -1,0 +1,19 @@
+{
+  "id": 994,
+  "title": "Rotting Oranges",
+  "difficulty": "Medium",
+  "description": "You are given an m x n grid where each cell can have one of three values:\n\n- 0 representing an empty cell,\n- 1 representing a fresh orange, or\n- 2 representing a rotten orange.\n\nEvery minute, any fresh orange that is 4-directionally adjacent to a rotten orange becomes rotten.\n\nReturn the minimum number of minutes that must elapse until no cell has a fresh orange. If this is impossible, return -1.\n\nConstraints:\n- m == grid.length\n- n == grid[i].length\n- 1 <= m, n <= 10\n- grid[i][j] is 0, 1, or 2.",
+  "examples": [
+    "Input: grid = [[2,1,1],[1,1,0],[0,1,1]]\nOutput: 4",
+    "Input: grid = [[2,1,1],[0,1,1],[1,0,1]]\nOutput: -1\nExplanation: The orange in the bottom left corner (row 2, column 0) is never rotten.",
+    "Input: grid = [[0,2]]\nOutput: 0\nExplanation: Since there are no fresh oranges at minute 0, the answer is 0."
+  ],
+  "function_signature": "var orangesRotting = function(grid)",
+  "function_name": "orangesRotting",
+  "test_cases": [
+    { "input": [[[2,1,1],[1,1,0],[0,1,1]]], "expected": 4 },
+    { "input": [[[2,1,1],[0,1,1],[1,0,1]]], "expected": -1 },
+    { "input": [[[0,2]]], "expected": 0 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const size = Math.min(10, Math.floor(Math.sqrt(n)));\n    const grid = Array.from({length: size}, () => Array.from({length: size}, () => Math.floor(Math.random() * 3)));\n    grid[0][0] = 2;\n    return [grid];\n};"
+}

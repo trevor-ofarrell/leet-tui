@@ -1,0 +1,19 @@
+{
+  "id": 2,
+  "title": "Add Two Numbers",
+  "difficulty": "Medium",
+  "description": "You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.\n\nYou may assume the two numbers do not contain any leading zero, except the number 0 itself.\n\nConstraints:\n- The number of nodes in each linked list is in the range [1, 100].\n- 0 <= Node.val <= 9\n- It is guaranteed that the list represents a number that does not have leading zeros.",
+  "examples": [
+    "Input: l1 = [2,4,3], l2 = [5,6,4]\nOutput: [7,0,8]\nExplanation: 342 + 465 = 807.",
+    "Input: l1 = [0], l2 = [0]\nOutput: [0]",
+    "Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]\nOutput: [8,9,9,9,0,0,0,1]"
+  ],
+  "function_signature": "var addTwoNumbers = function(l1, l2)",
+  "function_name": "addTwoNumbers",
+  "test_cases": [
+    { "input": [[2,4,3], [5,6,4]], "expected": [7,0,8] },
+    { "input": [[0], [0]], "expected": [0] },
+    { "input": [[9,9,9,9,9,9,9], [9,9,9,9]], "expected": [8,9,9,9,0,0,0,1] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const l1 = Array.from({length: n}, () => Math.floor(Math.random() * 10));\n    const l2 = Array.from({length: n}, () => Math.floor(Math.random() * 10));\n    return [l1, l2];\n};"
+}

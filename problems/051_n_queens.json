@@ -1,0 +1,17 @@
+{
+  "id": 51,
+  "title": "N-Queens",
+  "difficulty": "Hard",
+  "description": "The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other.\n\nGiven an integer n, return all distinct solutions to the n-queens puzzle. You may return the answer in any order.\n\nEach solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a queen and an empty space, respectively.\n\nConstraints:\n- 1 <= n <= 9",
+  "examples": [
+    "Input: n = 4\nOutput: [[\".Q..\",\"...Q\",\"Q...\",\"..Q.\"],[\"..Q.\",\"Q...\",\"...Q\",\".Q..\"]]\nExplanation: There exist two distinct solutions to the 4-queens puzzle.",
+    "Input: n = 1\nOutput: [[\"Q\"]]"
+  ],
+  "function_signature": "var solveNQueens = function(n)",
+  "function_name": "solveNQueens",
+  "test_cases": [
+    { "input": [4], "expected": [[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]] },
+    { "input": [1], "expected": [["Q"]] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    return [Math.min(9, Math.max(1, Math.floor(Math.log2(n) + 1)))];\n};"
+}

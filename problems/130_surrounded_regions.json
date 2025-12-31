@@ -1,0 +1,17 @@
+{
+  "id": 130,
+  "title": "Surrounded Regions",
+  "difficulty": "Medium",
+  "description": "Given an m x n matrix board containing 'X' and 'O', capture all regions that are 4-directionally surrounded by 'X'.\n\nA region is captured by flipping all 'O's into 'X's in that surrounded region.\n\nConstraints:\n- m == board.length\n- n == board[i].length\n- 1 <= m, n <= 200\n- board[i][j] is 'X' or 'O'.",
+  "examples": [
+    "Input: board = [[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"O\",\"O\",\"X\"],[\"X\",\"X\",\"O\",\"X\"],[\"X\",\"O\",\"X\",\"X\"]]\nOutput: [[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"O\",\"X\",\"X\"]]\nExplanation: Notice that an 'O' should not be flipped if it is on the border or connected to an 'O' on the border.",
+    "Input: board = [[\"X\"]]\nOutput: [[\"X\"]]"
+  ],
+  "function_signature": "var solve = function(board)",
+  "function_name": "solve",
+  "test_cases": [
+    { "input": [[["X","X","X","X"],["X","O","O","X"],["X","X","O","X"],["X","O","X","X"]]], "expected": [["X","X","X","X"],["X","X","X","X"],["X","X","X","X"],["X","O","X","X"]] },
+    { "input": [[["X"]]], "expected": [["X"]] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const size = Math.floor(Math.sqrt(n));\n    const board = Array.from({length: size}, () => Array.from({length: size}, () => Math.random() > 0.3 ? 'X' : 'O'));\n    return [board];\n};"
+}

@@ -1,0 +1,19 @@
+{
+  "id": 136,
+  "title": "Single Number",
+  "difficulty": "Easy",
+  "description": "Given a non-empty array of integers nums, every element appears twice except for one. Find that single one.\n\nYou must implement a solution with a linear runtime complexity and use only constant extra space.\n\nConstraints:\n- 1 <= nums.length <= 3 * 10^4\n- -3 * 10^4 <= nums[i] <= 3 * 10^4\n- Each element in the array appears twice except for one element which appears only once.",
+  "examples": [
+    "Input: nums = [2,2,1]\nOutput: 1",
+    "Input: nums = [4,1,2,1,2]\nOutput: 4",
+    "Input: nums = [1]\nOutput: 1"
+  ],
+  "function_signature": "var singleNumber = function(nums)",
+  "function_name": "singleNumber",
+  "test_cases": [
+    { "input": [[2, 2, 1]], "expected": 1 },
+    { "input": [[4, 1, 2, 1, 2]], "expected": 4 },
+    { "input": [[1]], "expected": 1 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const nums = [];\n    for (let i = 0; i < n - 1; i += 2) {\n        nums.push(i, i);\n    }\n    nums.push(99999);\n    return [nums];\n};"
+}

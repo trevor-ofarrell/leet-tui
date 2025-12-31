@@ -1,0 +1,19 @@
+{
+  "id": 110,
+  "title": "Balanced Binary Tree",
+  "difficulty": "Easy",
+  "description": "Given a binary tree, determine if it is height-balanced.\n\nA height-balanced binary tree is a binary tree in which the depth of the two subtrees of every node never differs by more than one.\n\nConstraints:\n- The number of nodes in the tree is in the range [0, 5000].\n- -10^4 <= Node.val <= 10^4",
+  "examples": [
+    "Input: root = [3,9,20,null,null,15,7]\nOutput: true",
+    "Input: root = [1,2,2,3,3,null,null,4,4]\nOutput: false",
+    "Input: root = []\nOutput: true"
+  ],
+  "function_signature": "var isBalanced = function(root)",
+  "function_name": "isBalanced",
+  "test_cases": [
+    { "input": [[3,9,20,null,null,15,7]], "expected": true },
+    { "input": [[1,2,2,3,3,null,null,4,4]], "expected": false },
+    { "input": [[]], "expected": true }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const root = Array.from({length: Math.min(n, 100)}, (_, i) => i + 1);\n    return [root];\n};"
+}

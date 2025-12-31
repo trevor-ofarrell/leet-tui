@@ -2,11 +2,11 @@
   "id": 102,
   "title": "Binary Tree Level Order Traversal",
   "difficulty": "Medium",
-  "category": "Trees",
-  "description": "Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).",
+  "description": "Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).\n\nConstraints:\n- The number of nodes in the tree is in the range [0, 2000].\n- -1000 <= Node.val <= 1000",
   "examples": [
     "Input: root = [3,9,20,null,null,15,7]\nOutput: [[3],[9,20],[15,7]]",
-    "Input: root = [1]\nOutput: [[1]]"
+    "Input: root = [1]\nOutput: [[1]]",
+    "Input: root = []\nOutput: []"
   ],
   "function_signature": "var levelOrder = function(root)",
   "function_name": "levelOrder",
@@ -15,5 +15,5 @@
     { "input": [[1]], "expected": [[1]] },
     { "input": [[]], "expected": [] }
   ],
-  "complexity_generator": "const generateInput = (n) => {\n    const root = Array.from({length: n}, (_, i) => i);\n    return [root];\n};"
+  "complexity_generator": "const generateInput = (n) => {\n    const root = Array.from({length: Math.min(n, 100)}, (_, i) => i + 1);\n    return [root];\n};"
 }

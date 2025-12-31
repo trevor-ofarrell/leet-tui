@@ -1,5 +1,6 @@
 mod config;
 mod input;
+mod language;
 mod leetcode;
 mod progress;
 mod pty;
@@ -28,6 +29,7 @@ use std::{
 
 use crate::config::AppPaths;
 use crate::input::key_to_bytes;
+use crate::language::Language;
 use crate::leetcode::{LeetCodeClient, Problem};
 use crate::progress::{ProblemStatus, Progress};
 use crate::pty::PtyManager;
@@ -39,8 +41,9 @@ enum AppState {
 
 #[derive(PartialEq, Clone)]
 enum FilterFocus {
-    List,
+    ProblemList,
     Search,
+    ListFilter,
     Category,
     Difficulty,
     Progress,
@@ -51,6 +54,8 @@ struct HomeState {
     filtered_problems: Vec<Problem>,
     list_state: ListState,
     search_query: String,
+    list_filters: Vec<String>,
+    selected_list: usize, // 0 = All, 1 = Blind 75, 2 = NeetCode 150
     categories: Vec<String>,
     selected_category: usize, // 0 = All
     difficulties: Vec<String>,
@@ -58,11 +63,13 @@ struct HomeState {
     progress_filters: Vec<String>,
     selected_progress: usize, // 0 = All
     filter_focus: FilterFocus,
+    selected_language: Language,
 }
 
 struct QuestionState {
     problem: Problem,
     problem_text: String,
+    language: Language,
     focus: Focus,
     scroll_offset: u16,
     pty: PtyManager,
@@ -75,6 +82,10 @@ enum Focus {
     Question,
     Editor,
     Results,
+}
+
+enum QuestionAction {
+    ResetTemplate,
 }
 
 struct App {
@@ -106,6 +117,11 @@ impl App {
         categories.sort();
         categories.insert(0, "All".to_string());
 
+        let list_filters = vec![
+            "NeetCode 150".to_string(),
+            "Blind 75".to_string(),
+        ];
+
         let difficulties = vec![
             "All".to_string(),
             "Easy".to_string(),
@@ -133,13 +149,16 @@ impl App {
                 filtered_problems,
                 list_state,
                 search_query: String::new(),
+                list_filters,
+                selected_list: 0,
                 categories,
                 selected_category: 0,
                 difficulties,
                 selected_difficulty: 0,
                 progress_filters,
                 selected_progress: 0,
-                filter_focus: FilterFocus::List,
+                filter_focus: FilterFocus::ProblemList,
+                selected_language: Language::default(),
             }),
             should_quit: false,
             terminal_width,
@@ -149,21 +168,21 @@ impl App {
         })
     }
 
-    fn open_question(&mut self, problem: Problem) -> Result<()> {
+    fn open_question(&mut self, problem: Problem, language: Language) -> Result<()> {
         let client = LeetCodeClient::new();
         let problem_text = client.format_problem(&problem);
 
-        // Use XDG-compliant path for solutions
-        let solution_file = self.paths.solution_file(problem.id);
+        // Use XDG-compliant path for solutions with language extension
+        let solution_file = self.paths.solution_file(problem.id, language);
 
         // Only generate boilerplate if file doesn't exist (don't overwrite user's work!)
         if !solution_file.exists() {
-            let boilerplate = client.generate_boilerplate(&problem);
+            let boilerplate = client.generate_boilerplate(&problem, language);
             fs::write(&solution_file, &boilerplate)?;
         }
 
         // Calculate editor size (2/3 of width, accounting for borders)
-        let editor_cols = ((self.terminal_width as f32 * 0.67) as u16).saturating_sub(2);
+        let editor_cols = ((self.terminal_width as f32 * 0.62) as u16).saturating_sub(2);
         let editor_rows = self.terminal_height.saturating_sub(2);
 
         let pty = PtyManager::new(editor_rows, editor_cols, solution_file.clone())?;
@@ -171,6 +190,7 @@ impl App {
         self.state = AppState::Question(QuestionState {
             problem,
             problem_text,
+            language,
             focus: Focus::Editor,
             scroll_offset: 0,
             pty,
@@ -182,30 +202,46 @@ impl App {
         Ok(())
     }
 
-    fn run_tests(solution_file: &PathBuf, problem: &Problem) -> Result<String> {
+    fn reset_template(&mut self) -> Result<()> {
+        if let AppState::Question(question) = &mut self.state {
+            let client = LeetCodeClient::new();
+            let boilerplate = client.generate_boilerplate(&question.problem, question.language);
+            fs::write(&question.solution_file, &boilerplate)?;
+
+            // Send :e! to reload the file in the editor (works for vim/neovim)
+            question.pty.send_key(b"\x1b")?; // Escape to normal mode
+            question.pty.send_key(b":e!\r")?; // Reload file
+        }
+        Ok(())
+    }
+
+    fn run_tests(solution_file: &PathBuf, problem: &Problem, lang: Language) -> Result<String> {
         // Read user's solution
         let solution_code = fs::read_to_string(solution_file)?;
 
         // Generate test runner with the solution embedded
         let client = LeetCodeClient::new();
-        let test_code = client.generate_test_runner(problem, &solution_code);
+        let test_code = client.generate_test_runner(problem, &solution_code, lang);
 
-        // Write to temp file
+        match lang {
+            Language::JavaScript => Self::run_js_tests(solution_file, &test_code),
+            Language::Python => Self::run_python_tests(solution_file, &test_code),
+            Language::C => Self::run_c_tests(solution_file, &test_code),
+            Language::Cpp => Self::run_cpp_tests(solution_file, &test_code),
+        }
+    }
+
+    fn run_js_tests(solution_file: &PathBuf, test_code: &str) -> Result<String> {
         let temp_file = solution_file.with_extension("test.js");
-        fs::write(&temp_file, &test_code)?;
+        fs::write(&temp_file, test_code)?;
 
         // Run tests with Bun (faster) or fallback to Node
         let output = Command::new("bun")
             .arg("run")
             .arg(&temp_file)
             .output()
-            .or_else(|_| {
-                Command::new("node")
-                    .arg(&temp_file)
-                    .output()
-            })?;
+            .or_else(|_| Command::new("node").arg(&temp_file).output())?;
 
-        // Clean up temp file
         let _ = fs::remove_file(&temp_file);
 
         let stdout = String::from_utf8_lossy(&output.stdout);
@@ -218,8 +254,108 @@ impl App {
         }
     }
 
+    fn run_python_tests(solution_file: &PathBuf, test_code: &str) -> Result<String> {
+        let temp_file = solution_file.with_extension("test.py");
+        fs::write(&temp_file, test_code)?;
+
+        let output = Command::new("python3")
+            .arg(&temp_file)
+            .output()
+            .or_else(|_| Command::new("python").arg(&temp_file).output())?;
+
+        let _ = fs::remove_file(&temp_file);
+
+        let stdout = String::from_utf8_lossy(&output.stdout);
+        let stderr = String::from_utf8_lossy(&output.stderr);
+
+        if !stderr.is_empty() {
+            Ok(format!("{}\n\nErrors:\n{}", stdout, stderr))
+        } else {
+            Ok(stdout.to_string())
+        }
+    }
+
+    fn run_c_tests(solution_file: &PathBuf, test_code: &str) -> Result<String> {
+        let temp_file = solution_file.with_extension("test.c");
+        let binary_file = solution_file.with_extension("test_bin");
+
+        fs::write(&temp_file, test_code)?;
+
+        // Compile
+        let compile_output = Command::new("gcc")
+            .arg("-O2")
+            .arg("-o")
+            .arg(&binary_file)
+            .arg(&temp_file)
+            .arg("-lm")
+            .output()?;
+
+        if !compile_output.status.success() {
+            let _ = fs::remove_file(&temp_file);
+            let stderr = String::from_utf8_lossy(&compile_output.stderr);
+            return Ok(format!("Compilation Error:\n{}", stderr));
+        }
+
+        // Run
+        let run_output = Command::new(&binary_file).output()?;
+
+        // Cleanup
+        let _ = fs::remove_file(&temp_file);
+        let _ = fs::remove_file(&binary_file);
+
+        let stdout = String::from_utf8_lossy(&run_output.stdout);
+        let stderr = String::from_utf8_lossy(&run_output.stderr);
+
+        if !stderr.is_empty() {
+            Ok(format!("{}\n\nRuntime Errors:\n{}", stdout, stderr))
+        } else {
+            Ok(stdout.to_string())
+        }
+    }
+
+    fn run_cpp_tests(solution_file: &PathBuf, test_code: &str) -> Result<String> {
+        let temp_file = solution_file.with_extension("test.cpp");
+        let binary_file = solution_file.with_extension("test_bin");
+
+        fs::write(&temp_file, test_code)?;
+
+        // Compile with C++17
+        let compile_output = Command::new("g++")
+            .arg("-std=c++17")
+            .arg("-O2")
+            .arg("-o")
+            .arg(&binary_file)
+            .arg(&temp_file)
+            .output()?;
+
+        if !compile_output.status.success() {
+            let _ = fs::remove_file(&temp_file);
+            let stderr = String::from_utf8_lossy(&compile_output.stderr);
+            return Ok(format!("Compilation Error:\n{}", stderr));
+        }
+
+        // Run
+        let run_output = Command::new(&binary_file).output()?;
+
+        // Cleanup
+        let _ = fs::remove_file(&temp_file);
+        let _ = fs::remove_file(&binary_file);
+
+        let stdout = String::from_utf8_lossy(&run_output.stdout);
+        let stderr = String::from_utf8_lossy(&run_output.stderr);
+
+        if !stderr.is_empty() {
+            Ok(format!("{}\n\nRuntime Errors:\n{}", stdout, stderr))
+        } else {
+            Ok(stdout.to_string())
+        }
+    }
+
     fn back_to_home(&mut self) -> Result<()> {
-        if let AppState::Question(_) = &self.state {
+        if let AppState::Question(question) = &self.state {
+            // Preserve the language selection
+            let selected_language = question.language;
+
             // Get problems list again
             let client = LeetCodeClient::new();
             let problems = client.get_problems()?;
@@ -234,6 +370,11 @@ impl App {
                 .collect();
             categories.sort();
             categories.insert(0, "All".to_string());
+
+            let list_filters = vec![
+                "NeetCode 150".to_string(),
+                "Blind 75".to_string(),
+            ];
 
             let difficulties = vec![
                 "All".to_string(),
@@ -261,13 +402,16 @@ impl App {
                 filtered_problems,
                 list_state,
                 search_query: String::new(),
+                list_filters,
+                selected_list: 0,
                 categories,
                 selected_category: 0,
                 difficulties,
                 selected_difficulty: 0,
                 progress_filters,
                 selected_progress: 0,
-                filter_focus: FilterFocus::List,
+                filter_focus: FilterFocus::ProblemList,
+                selected_language,
             });
         }
         Ok(())
@@ -301,7 +445,7 @@ impl App {
                             // Mark as started when running tests
                             self.progress.mark_started(question.problem.id);
 
-                            let output = Self::run_tests(&question.solution_file, &question.problem)?;
+                            let output = Self::run_tests(&question.solution_file, &question.problem, question.language)?;
 
                             // Check if all tests passed and mark as completed
                             if output.contains("All tests passed") {
@@ -325,17 +469,24 @@ impl App {
         // Handle state-specific input
         let should_open_question = if let AppState::Home(home) = &mut self.state {
             Self::handle_home_input_internal(home, &self.progress, &event)?
+                .map(|problem| (problem, home.selected_language))
         } else {
             None
         };
 
-        if let Some(problem) = should_open_question {
-            self.open_question(problem)?;
+        if let Some((problem, language)) = should_open_question {
+            self.open_question(problem, language)?;
             return Ok(());
         }
 
         if let AppState::Question(question) = &mut self.state {
-            Self::handle_question_input_internal(question, &event, &mut self.terminal_width, &mut self.terminal_height)?;
+            if let Some(action) = Self::handle_question_input_internal(question, &event, &mut self.terminal_width, &mut self.terminal_height)? {
+                match action {
+                    QuestionAction::ResetTemplate => {
+                        self.reset_template()?;
+                    }
+                }
+            }
         }
 
         Ok(())
@@ -372,6 +523,18 @@ impl App {
                     if &p.difficulty != diff {
                         return false;
                     }
+                }
+
+                // List filter (NeetCode 150 / Blind 75)
+                match home.selected_list {
+                    0 => { // NeetCode 150 (all problems, no filter needed)
+                    }
+                    1 => { // Blind 75 only
+                        if !p.blind75 {
+                            return false;
+                        }
+                    }
+                    _ => {}
                 }
 
                 // Progress filter
@@ -424,11 +587,12 @@ impl App {
             // Tab to cycle focus between filters
             if key.code == KeyCode::Tab {
                 home.filter_focus = match home.filter_focus {
-                    FilterFocus::List => FilterFocus::Search,
-                    FilterFocus::Search => FilterFocus::Category,
+                    FilterFocus::ProblemList => FilterFocus::Search,
+                    FilterFocus::Search => FilterFocus::ListFilter,
+                    FilterFocus::ListFilter => FilterFocus::Category,
                     FilterFocus::Category => FilterFocus::Difficulty,
                     FilterFocus::Difficulty => FilterFocus::Progress,
-                    FilterFocus::Progress => FilterFocus::List,
+                    FilterFocus::Progress => FilterFocus::ProblemList,
                 };
                 return Ok(None);
             }
@@ -436,9 +600,10 @@ impl App {
             // Backtab (Shift+Tab) to cycle backwards
             if key.code == KeyCode::BackTab {
                 home.filter_focus = match home.filter_focus {
-                    FilterFocus::List => FilterFocus::Progress,
-                    FilterFocus::Search => FilterFocus::List,
-                    FilterFocus::Category => FilterFocus::Search,
+                    FilterFocus::ProblemList => FilterFocus::Progress,
+                    FilterFocus::Search => FilterFocus::ProblemList,
+                    FilterFocus::ListFilter => FilterFocus::Search,
+                    FilterFocus::Category => FilterFocus::ListFilter,
                     FilterFocus::Difficulty => FilterFocus::Category,
                     FilterFocus::Progress => FilterFocus::Difficulty,
                 };
@@ -446,7 +611,7 @@ impl App {
             }
 
             match home.filter_focus {
-                FilterFocus::List => {
+                FilterFocus::ProblemList => {
                     match key.code {
                         KeyCode::Up => {
                             if !home.filtered_problems.is_empty() {
@@ -490,6 +655,10 @@ impl App {
                             // Quick shortcut to jump to search
                             home.filter_focus = FilterFocus::Search;
                         }
+                        KeyCode::Char('l') | KeyCode::Char('L') => {
+                            // Cycle to next language
+                            home.selected_language = home.selected_language.next();
+                        }
                         _ => {}
                     }
                 }
@@ -506,10 +675,30 @@ impl App {
                         KeyCode::Esc => {
                             home.search_query.clear();
                             Self::apply_filters(home, progress);
-                            home.filter_focus = FilterFocus::List;
+                            home.filter_focus = FilterFocus::ProblemList;
                         }
                         KeyCode::Enter => {
-                            home.filter_focus = FilterFocus::List;
+                            home.filter_focus = FilterFocus::ProblemList;
+                        }
+                        _ => {}
+                    }
+                }
+                FilterFocus::ListFilter => {
+                    match key.code {
+                        KeyCode::Left => {
+                            if home.selected_list > 0 {
+                                home.selected_list -= 1;
+                                Self::apply_filters(home, progress);
+                            }
+                        }
+                        KeyCode::Right => {
+                            if home.selected_list < home.list_filters.len() - 1 {
+                                home.selected_list += 1;
+                                Self::apply_filters(home, progress);
+                            }
+                        }
+                        KeyCode::Enter => {
+                            home.filter_focus = FilterFocus::ProblemList;
                         }
                         _ => {}
                     }
@@ -529,7 +718,7 @@ impl App {
                             }
                         }
                         KeyCode::Enter => {
-                            home.filter_focus = FilterFocus::List;
+                            home.filter_focus = FilterFocus::ProblemList;
                         }
                         _ => {}
                     }
@@ -549,7 +738,7 @@ impl App {
                             }
                         }
                         KeyCode::Enter => {
-                            home.filter_focus = FilterFocus::List;
+                            home.filter_focus = FilterFocus::ProblemList;
                         }
                         _ => {}
                     }
@@ -569,7 +758,7 @@ impl App {
                             }
                         }
                         KeyCode::Enter => {
-                            home.filter_focus = FilterFocus::List;
+                            home.filter_focus = FilterFocus::ProblemList;
                         }
                         _ => {}
                     }
@@ -584,14 +773,14 @@ impl App {
         event: &Event,
         terminal_width: &mut u16,
         terminal_height: &mut u16,
-    ) -> Result<()> {
+    ) -> Result<Option<QuestionAction>> {
         match event {
             Event::Key(key) => {
                 // Escape to close results panel
                 if key.code == KeyCode::Esc && question.show_results {
                     question.show_results = false;
                     question.focus = Focus::Editor;
-                    return Ok(());
+                    return Ok(None);
                 }
 
                 // Ctrl+Q to switch focus (only between Question and Editor)
@@ -604,7 +793,7 @@ impl App {
                         Focus::Editor => Focus::Question,
                         Focus::Results => Focus::Editor,
                     };
-                    return Ok(());
+                    return Ok(None);
                 }
 
                 // Handle input based on focus
@@ -636,6 +825,10 @@ impl App {
                             KeyCode::Home => {
                                 question.scroll_offset = 0;
                             }
+                            // Shift+R to reset template (regenerate boilerplate)
+                            KeyCode::Char('R') => {
+                                return Ok(Some(QuestionAction::ResetTemplate));
+                            }
                             _ => {}
                         }
                     }
@@ -646,13 +839,13 @@ impl App {
                 *terminal_height = *rows;
 
                 // Recalculate editor size (2/3 of width)
-                let editor_cols = (*cols as f32 * 0.67) as u16;
+                let editor_cols = (*cols as f32 * 0.62) as u16;
                 question.pty.resize(rows.saturating_sub(2), editor_cols.saturating_sub(2))?;
             }
             _ => {}
         }
 
-        Ok(())
+        Ok(None)
     }
 
     fn render(&mut self, terminal: &mut Terminal<CrosstermBackend<io::Stdout>>) -> Result<()> {
@@ -679,8 +872,10 @@ impl App {
             // Title with count and progress stats
             let completed = progress.count_by_status(ProblemStatus::Completed);
             let started = progress.count_by_status(ProblemStatus::Started);
+            let list_name = home.list_filters.get(home.selected_list).map(|s| s.as_str()).unwrap_or("NeetCode 150");
             let title = Paragraph::new(format!(
-                "leetTUI Blind 75 - {} of {} | Completed: {} | In Progress: {}",
+                "leetTUI {} - {} of {} | Completed: {} | In Progress: {}",
+                list_name,
                 home.filtered_problems.len(),
                 home.all_problems.len(),
                 completed,
@@ -690,12 +885,12 @@ impl App {
             .alignment(Alignment::Center);
             f.render_widget(title, chunks[0]);
 
-            // Filter bar row 1: Search and Category
+            // Filter bar row 1: Search and List
             let filter_row1 = Layout::default()
                 .direction(Direction::Horizontal)
                 .constraints([
                     Constraint::Percentage(50),  // Search
-                    Constraint::Percentage(50),  // Category
+                    Constraint::Percentage(50),  // List
                 ])
                 .split(chunks[1]);
 
@@ -717,6 +912,33 @@ impl App {
             let search = Paragraph::new(search_text).block(search_block);
             f.render_widget(search, filter_row1[0]);
 
+            // List selector (Blind 75 / NeetCode 150)
+            let list_style = if home.filter_focus == FilterFocus::ListFilter {
+                Style::default().fg(Color::Cyan).add_modifier(Modifier::BOLD)
+            } else {
+                Style::default().fg(Color::White)
+            };
+            let default_list = "All".to_string();
+            let list_name = home.list_filters.get(home.selected_list).unwrap_or(&default_list);
+            let list_block = Block::default()
+                .borders(Borders::ALL)
+                .border_style(list_style)
+                .title(Span::styled(" List ", list_style));
+            let list_widget = Paragraph::new(format!("< {} >", list_name))
+                .block(list_block)
+                .alignment(Alignment::Center);
+            f.render_widget(list_widget, filter_row1[1]);
+
+            // Filter bar row 2: Category, Difficulty, Progress
+            let filter_row2 = Layout::default()
+                .direction(Direction::Horizontal)
+                .constraints([
+                    Constraint::Percentage(34),  // Category
+                    Constraint::Percentage(33),  // Difficulty
+                    Constraint::Percentage(33),  // Progress
+                ])
+                .split(chunks[2]);
+
             // Category selector
             let cat_style = if home.filter_focus == FilterFocus::Category {
                 Style::default().fg(Color::Cyan).add_modifier(Modifier::BOLD)
@@ -735,16 +957,7 @@ impl App {
             let category = Paragraph::new(cat_text)
                 .block(cat_block)
                 .alignment(Alignment::Center);
-            f.render_widget(category, filter_row1[1]);
-
-            // Filter bar row 2: Difficulty and Progress
-            let filter_row2 = Layout::default()
-                .direction(Direction::Horizontal)
-                .constraints([
-                    Constraint::Percentage(50),  // Difficulty
-                    Constraint::Percentage(50),  // Progress
-                ])
-                .split(chunks[2]);
+            f.render_widget(category, filter_row2[0]);
 
             // Difficulty selector
             let diff_style = if home.filter_focus == FilterFocus::Difficulty {
@@ -771,7 +984,7 @@ impl App {
             ]))
             .block(diff_block)
             .alignment(Alignment::Center);
-            f.render_widget(difficulty, filter_row2[0]);
+            f.render_widget(difficulty, filter_row2[1]);
 
             // Progress selector
             let prog_style = if home.filter_focus == FilterFocus::Progress {
@@ -798,10 +1011,10 @@ impl App {
             ]))
             .block(prog_block)
             .alignment(Alignment::Center);
-            f.render_widget(prog_widget, filter_row2[1]);
+            f.render_widget(prog_widget, filter_row2[2]);
 
             // Problem list
-            let list_style = if home.filter_focus == FilterFocus::List {
+            let list_style = if home.filter_focus == FilterFocus::ProblemList {
                 Style::default().fg(Color::Cyan)
             } else {
                 Style::default().fg(Color::White)
@@ -841,7 +1054,7 @@ impl App {
                             Style::default().fg(status_color),
                         ),
                         Span::raw(&p.title),
-                        Span::styled(cat_display, Style::default().fg(Color::DarkGray)),
+                        Span::styled(cat_display, Style::default().fg(Color::Rgb(120, 140, 170))),
                         Span::raw(" "),
                         Span::styled(
                             format!("[{}]", p.difficulty),
@@ -852,7 +1065,7 @@ impl App {
                 })
                 .collect();
 
-            let list_title = if home.filter_focus == FilterFocus::List {
+            let list_title = if home.filter_focus == FilterFocus::ProblemList {
                 " Problems (Focused) "
             } else {
                 " Problems "
@@ -872,10 +1085,24 @@ impl App {
 
             f.render_stateful_widget(list, chunks[3], &mut home.list_state);
 
-            // Help text
-            let help = Paragraph::new("Tab: Switch Focus | ↑↓: Navigate | ←→: Change Filter | /: Search | Enter: Select | Ctrl+C: Quit")
-                .style(Style::default().fg(Color::DarkGray))
-                .alignment(Alignment::Center);
+            // Help text with language indicator
+            let lang_color = match home.selected_language {
+                crate::language::Language::JavaScript => Color::Yellow,
+                crate::language::Language::Python => Color::Blue,
+                crate::language::Language::C => Color::Magenta,
+                crate::language::Language::Cpp => Color::Cyan,
+            };
+            let help = Paragraph::new(Line::from(vec![
+                Span::styled(
+                    format!("[{}] ", home.selected_language.short_name()),
+                    Style::default().fg(lang_color).add_modifier(Modifier::BOLD),
+                ),
+                Span::styled(
+                    "L: Language | Tab: Focus | ↑↓: Nav | ←→: Filter | /: Search | Enter: Select | Ctrl+C: Quit",
+                    Style::default().fg(Color::Rgb(120, 140, 170)),
+                ),
+            ]))
+            .alignment(Alignment::Center);
             f.render_widget(help, chunks[4]);
         })?;
 
@@ -886,7 +1113,7 @@ impl App {
         terminal.draw(|f| {
             let chunks = Layout::default()
                 .direction(Direction::Horizontal)
-                .constraints([Constraint::Percentage(33), Constraint::Percentage(67)])
+                .constraints([Constraint::Percentage(38), Constraint::Percentage(62)])
                 .split(f.area());
 
             // Render Question pane
@@ -943,11 +1170,11 @@ impl App {
                                 .add_modifier(Modifier::BOLD),
                         ))
                     } else if line.starts_with("Example ") {
-                        // Example headers - bright magenta
+                        // Example headers - ochre yellow
                         Line::from(Span::styled(
                             line.to_string(),
                             Style::default()
-                                .fg(Color::Magenta)
+                                .fg(Color::Rgb(204, 136, 34))
                                 .add_modifier(Modifier::BOLD),
                         ))
                     } else if line.starts_with("Keyboard Shortcuts:") {

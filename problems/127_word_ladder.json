@@ -1,0 +1,17 @@
+{
+  "id": 127,
+  "title": "Word Ladder",
+  "difficulty": "Hard",
+  "description": "A transformation sequence from word beginWord to word endWord using a dictionary wordList is a sequence of words beginWord -> s1 -> s2 -> ... -> sk such that:\n\n- Every adjacent pair of words differs by a single letter.\n- Every si for 1 <= i <= k is in wordList. Note that beginWord does not need to be in wordList.\n- sk == endWord\n\nGiven two words, beginWord and endWord, and a dictionary wordList, return the number of words in the shortest transformation sequence from beginWord to endWord, or 0 if no such sequence exists.\n\nConstraints:\n- 1 <= beginWord.length <= 10\n- endWord.length == beginWord.length\n- 1 <= wordList.length <= 5000\n- wordList[i].length == beginWord.length\n- beginWord, endWord, and wordList[i] consist of lowercase English letters.\n- beginWord != endWord\n- All the words in wordList are unique.",
+  "examples": [
+    "Input: beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]\nOutput: 5\nExplanation: One shortest transformation sequence is \"hit\" -> \"hot\" -> \"dot\" -> \"dog\" -> \"cog\", which is 5 words long.",
+    "Input: beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\"]\nOutput: 0\nExplanation: The endWord \"cog\" is not in wordList, therefore there is no valid transformation sequence."
+  ],
+  "function_signature": "var ladderLength = function(beginWord, endWord, wordList)",
+  "function_name": "ladderLength",
+  "test_cases": [
+    { "input": ["hit", "cog", ["hot","dot","dog","lot","log","cog"]], "expected": 5 },
+    { "input": ["hit", "cog", ["hot","dot","dog","lot","log"]], "expected": 0 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const words = [];\n    for (let i = 0; i < n; i++) {\n        words.push('w' + i.toString().padStart(3, '0'));\n    }\n    return ['w000', 'w' + (n-1).toString().padStart(3, '0'), words];\n};"
+}

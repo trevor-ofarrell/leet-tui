@@ -1,0 +1,17 @@
+{
+  "id": 40,
+  "title": "Combination Sum II",
+  "difficulty": "Medium",
+  "description": "Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sum to target.\n\nEach number in candidates may only be used once in the combination.\n\nNote: The solution set must not contain duplicate combinations.\n\nConstraints:\n- 1 <= candidates.length <= 100\n- 1 <= candidates[i] <= 50\n- 1 <= target <= 30",
+  "examples": [
+    "Input: candidates = [10,1,2,7,6,1,5], target = 8\nOutput: [[1,1,6],[1,2,5],[1,7],[2,6]]",
+    "Input: candidates = [2,5,2,1,2], target = 5\nOutput: [[1,2,2],[5]]"
+  ],
+  "function_signature": "var combinationSum2 = function(candidates, target)",
+  "function_name": "combinationSum2",
+  "test_cases": [
+    { "input": [[10,1,2,7,6,1,5], 8], "expected": [[1,1,6],[1,2,5],[1,7],[2,6]] },
+    { "input": [[2,5,2,1,2], 5], "expected": [[1,2,2],[5]] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const candidates = Array.from({length: Math.min(n, 100)}, () => Math.floor(Math.random() * 50) + 1);\n    const target = Math.min(30, Math.floor(n / 2));\n    return [candidates, target];\n};"
+}

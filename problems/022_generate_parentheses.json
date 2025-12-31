@@ -1,0 +1,18 @@
+{
+  "id": 22,
+  "title": "Generate Parentheses",
+  "difficulty": "Medium",
+  "description": "Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.\n\nConstraints:\n- 1 <= n <= 8",
+  "examples": [
+    "Input: n = 3\nOutput: [\"((()))\",\"(()())\",\"(())()\",\"()(())\",\"()()()\"]",
+    "Input: n = 1\nOutput: [\"()\"]"
+  ],
+  "function_signature": "var generateParenthesis = function(n)",
+  "function_name": "generateParenthesis",
+  "test_cases": [
+    { "input": [3], "expected": ["((()))", "(()())", "(())()", "()(())", "()()()"] },
+    { "input": [1], "expected": ["()"] },
+    { "input": [2], "expected": ["(())", "()()"] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    return [Math.min(8, Math.max(1, Math.floor(Math.log2(n))))];\n};"
+}
