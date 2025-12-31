@@ -5,7 +5,7 @@ const path = require('path');
 const https = require('https');
 const { execSync } = require('child_process');
 
-const REPO = 'trevor/leet-tui';
+const REPO = 'trevor-ofarrell/leet-tui';
 const VERSION = require('../package.json').version;
 
 const PLATFORMS = {

@@ -5,11 +5,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/trevor/leet-tui"
+    "url": "https://github.com/trevor-ofarrell/leet-tui"
   },
-  "homepage": "https://github.com/trevor/leet-tui#readme",
+  "homepage": "https://github.com/trevor-ofarrell/leet-tui#readme",
   "bugs": {
-    "url": "https://github.com/trevor/leet-tui/issues"
+    "url": "https://github.com/trevor-ofarrell/leet-tui/issues"
   },
   "keywords": [
     "leetcode",
