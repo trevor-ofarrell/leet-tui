@@ -1,0 +1,18 @@
+{
+  "id": 213,
+  "title": "House Robber II",
+  "difficulty": "Medium",
+  "category": "1-D Dynamic Programming",
+  "description": "You are a professional robber planning to rob houses along a street. This time, all houses at this place are arranged in a circle. That means the first house is the neighbor of the last one.\n\nGiven an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.",
+  "examples": [
+    "Input: nums = [2,3,2]\nOutput: 3",
+    "Input: nums = [1,2,3,1]\nOutput: 4"
+  ],
+  "function_signature": "var rob = function(nums)",
+  "function_name": "rob",
+  "test_cases": [
+    { "input": [[2,3,2]], "expected": 3 },
+    { "input": [[1,2,3,1]], "expected": 4 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const nums = Array.from({length: n}, () => Math.floor(Math.random() * 100));\n    return [nums];\n};"
+}

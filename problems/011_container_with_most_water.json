@@ -1,0 +1,19 @@
+{
+  "id": 11,
+  "title": "Container With Most Water",
+  "difficulty": "Medium",
+  "category": "Two Pointers",
+  "description": "You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).\n\nFind two lines that together with the x-axis form a container, such that the container contains the most water.\n\nReturn the maximum amount of water a container can store.",
+  "examples": [
+    "Input: height = [1,8,6,2,5,4,8,3,7]\nOutput: 49",
+    "Input: height = [1,1]\nOutput: 1"
+  ],
+  "function_signature": "var maxArea = function(height)",
+  "function_name": "maxArea",
+  "test_cases": [
+    { "input": [[1,8,6,2,5,4,8,3,7]], "expected": 49 },
+    { "input": [[1,1]], "expected": 1 },
+    { "input": [[4,3,2,1,4]], "expected": 16 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const heights = Array.from({length: n}, () => Math.floor(Math.random() * 100));\n    return [heights];\n};"
+}

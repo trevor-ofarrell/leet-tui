@@ -1,0 +1,18 @@
+{
+  "id": 143,
+  "title": "Reorder List",
+  "difficulty": "Medium",
+  "category": "Linked List",
+  "description": "You are given the head of a singly linked-list. The list can be represented as:\nL0 → L1 → … → Ln - 1 → Ln\n\nReorder the list to be on the following form:\nL0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → …\n\nYou may not modify the values in the list's nodes. Only nodes themselves may be changed.",
+  "examples": [
+    "Input: head = [1,2,3,4]\nOutput: [1,4,2,3]",
+    "Input: head = [1,2,3,4,5]\nOutput: [1,5,2,4,3]"
+  ],
+  "function_signature": "var reorderList = function(head)",
+  "function_name": "reorderList",
+  "test_cases": [
+    { "input": [[1,2,3,4]], "expected": [1,4,2,3] },
+    { "input": [[1,2,3,4,5]], "expected": [1,5,2,4,3] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const head = Array.from({length: n}, (_, i) => i);\n    return [head];\n};"
+}

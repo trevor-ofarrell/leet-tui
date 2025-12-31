@@ -1,0 +1,18 @@
+{
+  "id": 347,
+  "title": "Top K Frequent Elements",
+  "difficulty": "Medium",
+  "description": "Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.\n\nConstraints:\n- 1 <= nums.length <= 10^5\n- -10^4 <= nums[i] <= 10^4\n- k is in the range [1, the number of unique elements in the array].\n- It is guaranteed that the answer is unique.\n\nFollow up: Your algorithm's time complexity must be better than O(n log n), where n is the array's size.",
+  "examples": [
+    "Input: nums = [1,1,1,2,2,3], k = 2\nOutput: [1,2]",
+    "Input: nums = [1], k = 1\nOutput: [1]"
+  ],
+  "function_signature": "var topKFrequent = function(nums, k)",
+  "function_name": "topKFrequent",
+  "test_cases": [
+    { "input": [[1,1,1,2,2,3], 2], "expected": [1,2] },
+    { "input": [[1], 1], "expected": [1] },
+    { "input": [[4,4,4,1,1,2,2,3], 2], "expected": [4,1] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const nums = [];\n    let count = 0;\n    for (let i = 1; count < n; i++) {\n        for (let j = 0; j < i && count < n; j++) {\n            nums.push(i);\n            count++;\n        }\n    }\n    nums.sort(() => 0.5 - Math.random());\n    return [nums, Math.floor(Math.sqrt(n))];\n};"
+}

@@ -1,0 +1,18 @@
+{
+  "id": 5,
+  "title": "Longest Palindromic Substring",
+  "difficulty": "Medium",
+  "category": "1-D Dynamic Programming",
+  "description": "Given a string s, return the longest palindromic substring in s.",
+  "examples": [
+    "Input: s = \"babad\"\nOutput: \"bab\"\nExplanation: \"aba\" is also a valid answer.",
+    "Input: s = \"cbbd\"\nOutput: \"bb\""
+  ],
+  "function_signature": "var longestPalindrome = function(s)",
+  "function_name": "longestPalindrome",
+  "test_cases": [
+    { "input": ["babad"], "expected": "bab" },
+    { "input": ["cbbd"], "expected": "bb" }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    let s = \"\";\n    const chars = \"abc\";\n    for(let i=0; i<n; i++) s += chars[Math.floor(Math.random() * 3)];\n    return [s];\n};"
+}

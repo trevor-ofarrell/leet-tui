@@ -1,0 +1,19 @@
+{
+  "id": 19,
+  "title": "Remove Nth Node From End of List",
+  "difficulty": "Medium",
+  "category": "Linked List",
+  "description": "Given the head of a linked list, remove the nth node from the end of the list and return its head.",
+  "examples": [
+    "Input: head = [1,2,3,4,5], n = 2\nOutput: [1,2,3,5]",
+    "Input: head = [1], n = 1\nOutput: []"
+  ],
+  "function_signature": "var removeNthFromEnd = function(head, n)",
+  "function_name": "removeNthFromEnd",
+  "test_cases": [
+    { "input": [[1,2,3,4,5], 2], "expected": [1,2,3,5] },
+    { "input": [[1], 1], "expected": [] },
+    { "input": [[1,2], 1], "expected": [1] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const head = Array.from({length: n}, (_, i) => i);\n    const target = Math.floor(Math.random() * n) + 1;\n    return [head, target];\n};"
+}

@@ -1,0 +1,19 @@
+{
+  "id": 235,
+  "title": "Lowest Common Ancestor of a Binary Search Tree",
+  "difficulty": "Medium",
+  "category": "Trees",
+  "description": "Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.\n\nAccording to the definition of LCA on Wikipedia: \"The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).\"",
+  "examples": [
+    "Input: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8\nOutput: 6",
+    "Input: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4\nOutput: 2"
+  ],
+  "function_signature": "var lowestCommonAncestor = function(root, p, q)",
+  "function_name": "lowestCommonAncestor",
+  "test_cases": [
+    { "input": [[6,2,8,0,4,7,9,null,null,3,5], 2, 8], "expected": 6 },
+    { "input": [[6,2,8,0,4,7,9,null,null,3,5], 2, 4], "expected": 2 },
+    { "input": [[2,1], 2, 1], "expected": 2 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const root = Array.from({length: n}, (_, i) => i);\n    return [root, 0, n-1];\n};"
+}

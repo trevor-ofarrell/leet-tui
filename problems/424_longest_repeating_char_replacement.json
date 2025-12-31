@@ -1,0 +1,18 @@
+{
+  "id": 424,
+  "title": "Longest Repeating Character Replacement",
+  "difficulty": "Medium",
+  "category": "Sliding Window",
+  "description": "You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character. You can perform this operation at most k times.\n\nReturn the length of the longest substring containing the same letter you can get after performing the above operations.",
+  "examples": [
+    "Input: s = \"ABAB\", k = 2\nOutput: 4",
+    "Input: s = \"AABABBA\", k = 1\nOutput: 4"
+  ],
+  "function_signature": "var characterReplacement = function(s, k)",
+  "function_name": "characterReplacement",
+  "test_cases": [
+    { "input": ["ABAB", 2], "expected": 4 },
+    { "input": ["AABABBA", 1], "expected": 4 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    let s = '';\n    const chars = 'ABCDE';\n    for(let i=0; i<n; i++) s += chars[Math.floor(Math.random() * chars.length)];\n    return [s, Math.floor(n/10)];\n};"
+}

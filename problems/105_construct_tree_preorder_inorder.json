@@ -1,0 +1,18 @@
+{
+  "id": 105,
+  "title": "Construct Binary Tree From Preorder And Inorder Traversal",
+  "difficulty": "Medium",
+  "category": "Trees",
+  "description": "Given two integer arrays preorder and inorder where preorder is the preorder traversal of a binary tree and inorder is the inorder traversal of the same tree, construct and return the binary tree.",
+  "examples": [
+    "Input: preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]\nOutput: [3,9,20,null,null,15,7]",
+    "Input: preorder = [-1], inorder = [-1]\nOutput: [-1]"
+  ],
+  "function_signature": "var buildTree = function(preorder, inorder)",
+  "function_name": "buildTree",
+  "test_cases": [
+    { "input": [[3,9,20,15,7], [9,3,15,20,7]], "expected": [3,9,20,null,null,15,7] },
+    { "input": [[-1], [-1]], "expected": [-1] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const inorder = Array.from({length: n}, (_, i) => i);\n    const preorder = Array.from({length: n}, (_, i) => i);\n    return [preorder, inorder];\n};"
+}

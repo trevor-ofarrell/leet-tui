@@ -1,0 +1,17 @@
+{
+  "id": 297,
+  "title": "Serialize And Deserialize Binary Tree",
+  "difficulty": "Hard",
+  "category": "Trees",
+  "description": "Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment.\n\nDesign an algorithm to serialize and deserialize a binary tree. There is no restriction on how your serialization/deserialization algorithm should work. You just need to ensure that a binary tree can be serialized to a string and this string can be deserialized to the original tree structure.",
+  "examples": [
+    "Input: root = [1,2,3,null,null,4,5]\nOutput: [1,2,3,null,null,4,5]"
+  ],
+  "function_signature": "var serialize = function(root) {\n    \n};\n\nvar deserialize = function(data) {\n    \n}",
+  "function_name": "codec",
+  "test_cases": [
+    { "input": [[1,2,3,null,null,4,5]], "expected": [1,2,3,null,null,4,5] },
+    { "input": [[]], "expected": [] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const root = Array.from({length: n}, (_, i) => i);\n    return [root];\n};"
+}

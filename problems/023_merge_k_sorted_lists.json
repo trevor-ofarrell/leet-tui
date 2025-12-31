@@ -1,0 +1,19 @@
+{
+  "id": 23,
+  "title": "Merge K Sorted Lists",
+  "difficulty": "Hard",
+  "category": "Linked List",
+  "description": "You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.\n\nMerge all the linked-lists into one sorted linked-list and return it.",
+  "examples": [
+    "Input: lists = [[1,4,5],[1,3,4],[2,6]]\nOutput: [1,1,2,3,4,4,5,6]",
+    "Input: lists = []\nOutput: []"
+  ],
+  "function_signature": "var mergeKLists = function(lists)",
+  "function_name": "mergeKLists",
+  "test_cases": [
+    { "input": [[[1,4,5],[1,3,4],[2,6]]], "expected": [1,1,2,3,4,4,5,6] },
+    { "input": [[]], "expected": [] },
+    { "input": [[[]]],  "expected": [] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const k = Math.floor(Math.sqrt(n));\n    const lists = [];\n    for(let i=0; i<k; i++) {\n        lists.push(Array.from({length: Math.floor(n/k)}, (_, j) => j + i*100));\n    }\n    return [lists];\n};"
+}

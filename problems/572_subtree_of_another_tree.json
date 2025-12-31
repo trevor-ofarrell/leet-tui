@@ -1,0 +1,18 @@
+{
+  "id": 572,
+  "title": "Subtree of Another Tree",
+  "difficulty": "Easy",
+  "category": "Trees",
+  "description": "Given the roots of two binary trees root and subRoot, return true if there is a subtree of root with the same structure and node values as subRoot, otherwise return false.",
+  "examples": [
+    "Input: root = [3,4,5,1,2], subRoot = [4,1,2]\nOutput: true",
+    "Input: root = [3,4,5,1,2,null,null,null,null,0], subRoot = [4,1,2]\nOutput: false"
+  ],
+  "function_signature": "var isSubtree = function(root, subRoot)",
+  "function_name": "isSubtree",
+  "test_cases": [
+    { "input": [[3,4,5,1,2], [4,1,2]], "expected": true },
+    { "input": [[3,4,5,1,2,null,null,null,null,0], [4,1,2]], "expected": false }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const root = Array.from({length: n}, (_, i) => i);\n    const mid = Math.floor(n/2);\n    const subRoot = root.slice(mid, mid + Math.floor(n/4));\n    return [root, subRoot];\n};"
+}

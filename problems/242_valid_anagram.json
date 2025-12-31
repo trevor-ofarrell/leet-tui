@@ -1,0 +1,18 @@
+{
+  "id": 242,
+  "title": "Valid Anagram",
+  "difficulty": "Easy",
+  "description": "Given two strings s and t, return true if t is an anagram of s, and false otherwise.\n\nAn Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.\n\nConstraints:\n- 1 <= s.length, t.length <= 5 * 10^4\n- s and t consist of lowercase English letters.\n\nFollow up: What if the inputs contain Unicode characters? How would you adapt your solution to such a case?",
+  "examples": [
+    "Input: s = \"anagram\", t = \"nagaram\"\nOutput: true",
+    "Input: s = \"rat\", t = \"car\"\nOutput: false"
+  ],
+  "function_signature": "var isAnagram = function(s, t)",
+  "function_name": "isAnagram",
+  "test_cases": [
+    { "input": ["anagram", "nagaram"], "expected": true },
+    { "input": ["rat", "car"], "expected": false },
+    { "input": ["a", "ab"], "expected": false }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const charSet = 'abcdefghijklmnopqrstuvwxyz';\n    let s = '';\n    for(let i=0; i<n; i++) s += charSet[Math.floor(Math.random() * 26)];\n    const t = s.split('').reverse().join('');\n    return [s, t];\n};"
+}

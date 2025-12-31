@@ -1,0 +1,19 @@
+{
+  "id": 125,
+  "title": "Valid Palindrome",
+  "difficulty": "Easy",
+  "category": "Two Pointers",
+  "description": "A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.\n\nGiven a string s, return true if it is a palindrome, or false otherwise.",
+  "examples": [
+    "Input: s = \"A man, a plan, a canal: Panama\"\nOutput: true",
+    "Input: s = \"race a car\"\nOutput: false"
+  ],
+  "function_signature": "var isPalindrome = function(s)",
+  "function_name": "isPalindrome",
+  "test_cases": [
+    { "input": ["A man, a plan, a canal: Panama"], "expected": true },
+    { "input": ["race a car"], "expected": false },
+    { "input": [" "], "expected": true }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    let s = '';\n    const chars = 'abcdefghijklmnopqrstuvwxyz0123456789 :.,';\n    for(let i=0; i<n; i++) s += chars[Math.floor(Math.random() * chars.length)];\n    return [s];\n};"
+}

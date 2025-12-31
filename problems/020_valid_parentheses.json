@@ -1,0 +1,20 @@
+{
+  "id": 20,
+  "title": "Valid Parentheses",
+  "difficulty": "Easy",
+  "category": "Stack",
+  "description": "Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.\n\nAn input string is valid if:\n1. Open brackets must be closed by the same type of brackets.\n2. Open brackets must be closed in the correct order.",
+  "examples": [
+    "Input: s = \"()\"\nOutput: true",
+    "Input: s = \"()[]{}\"\nOutput: true",
+    "Input: s = \"(]\"\nOutput: false"
+  ],
+  "function_signature": "var isValid = function(s)",
+  "function_name": "isValid",
+  "test_cases": [
+    { "input": ["()"], "expected": true },
+    { "input": ["()[]{}"], "expected": true },
+    { "input": ["(]"], "expected": false }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    let s = '';\n    const chars = '()[]{}';\n    for(let i=0; i<n; i++) s += chars[Math.floor(Math.random() * chars.length)];\n    return [s];\n};"
+}

@@ -1,0 +1,19 @@
+{
+  "id": 104,
+  "title": "Maximum Depth of Binary Tree",
+  "difficulty": "Easy",
+  "category": "Trees",
+  "description": "Given the root of a binary tree, return its maximum depth.\n\nA binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.",
+  "examples": [
+    "Input: root = [3,9,20,null,null,15,7]\nOutput: 3",
+    "Input: root = [1,null,2]\nOutput: 2"
+  ],
+  "function_signature": "var maxDepth = function(root)",
+  "function_name": "maxDepth",
+  "test_cases": [
+    { "input": [[3,9,20,null,null,15,7]], "expected": 3 },
+    { "input": [[1,null,2]], "expected": 2 },
+    { "input": [[]], "expected": 0 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const root = Array.from({length: n}, (_, i) => i);\n    return [root];\n};"
+}

@@ -1,176 +1,67 @@
 use anyhow::Result;
+use rust_embed::Embed;
 use serde::{Deserialize, Serialize};
+
+#[derive(Embed)]
+#[folder = "problems/"]
+#[include = "*.json"]
+pub struct ProblemFiles;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Problem {
     pub id: u32,
     pub title: String,
     pub difficulty: String,
+    #[serde(default)]
+    pub category: String,
     pub description: String,
     pub examples: Vec<String>,
     pub function_signature: String,
+    pub function_name: String,
+    pub test_cases: Vec<TestCase>,
+    pub complexity_generator: String,
 }
 
-pub struct LeetCodeClient;
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct TestCase {
+    pub input: serde_json::Value,
+    pub expected: serde_json::Value,
+}
+
+pub struct LeetCodeClient {
+    problems: Vec<Problem>,
+}
 
 impl LeetCodeClient {
     pub fn new() -> Self {
-        Self
+        let mut problems = Vec::new();
+
+        for file in <ProblemFiles as Embed>::iter() {
+            if let Some(content) = <ProblemFiles as Embed>::get(&file) {
+                if let Ok(json_str) = std::str::from_utf8(&content.data) {
+                    match serde_json::from_str::<Problem>(json_str) {
+                        Ok(problem) => problems.push(problem),
+                        Err(e) => eprintln!("Failed to parse {}: {}", file, e),
+                    }
+                }
+            }
+        }
+
+        // Sort by ID
+        problems.sort_by_key(|p| p.id);
+
+        Self { problems }
     }
 
     pub fn get_problems(&self) -> Result<Vec<Problem>> {
-        // For now, return sample problems
-        // In a real implementation, you would fetch from LeetCode's GraphQL API
-        Ok(vec![
-            Problem {
-                id: 1,
-                title: "Two Sum".to_string(),
-                difficulty: "Easy".to_string(),
-                description: r#"Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
-
-You may assume that each input would have exactly one solution, and you may not use the same element twice.
-
-You can return the answer in any order.
-
-Constraints:
-- 2 <= nums.length <= 10^4
-- -10^9 <= nums[i] <= 10^9
-- -10^9 <= target <= 10^9
-- Only one valid answer exists.
-
-Follow-up: Can you come up with an algorithm that is less than O(n^2) time complexity?"#.to_string(),
-                examples: vec![
-                    r#"Input: nums = [2,7,11,15], target = 9
-Output: [0,1]
-Explanation: Because nums[0] + nums[1] == 9, we return [0, 1]."#.to_string(),
-                    r#"Input: nums = [3,2,4], target = 6
-Output: [1,2]"#.to_string(),
-                    r#"Input: nums = [3,3], target = 6
-Output: [0,1]"#.to_string(),
-                ],
-                function_signature: "var twoSum = function(nums, target)".to_string(),
-            },
-            Problem {
-                id: 9,
-                title: "Palindrome Number".to_string(),
-                difficulty: "Easy".to_string(),
-                description: r#"Given an integer x, return true if x is a palindrome, and false otherwise.
-
-Constraints:
-- -2^31 <= x <= 2^31 - 1
-
-Follow up: Could you solve it without converting the integer to a string?"#.to_string(),
-                examples: vec![
-                    r#"Input: x = 121
-Output: true
-Explanation: 121 reads as 121 from left to right and from right to left."#.to_string(),
-                    r#"Input: x = -121
-Output: false
-Explanation: From left to right, it reads -121. From right to left, it becomes 121-. Therefore it is not a palindrome."#.to_string(),
-                    r#"Input: x = 10
-Output: false
-Explanation: Reads 01 from right to left. Therefore it is not a palindrome."#.to_string(),
-                ],
-                function_signature: "var isPalindrome = function(x)".to_string(),
-            },
-            Problem {
-                id: 13,
-                title: "Roman to Integer".to_string(),
-                difficulty: "Easy".to_string(),
-                description: r#"Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
-
-Symbol       Value
-I             1
-V             5
-X             10
-L             50
-C             100
-D             500
-M             1000
-
-For example, 2 is written as II in Roman numeral, just two ones added together. 12 is written as XII, which is simply X + II. The number 27 is written as XXVII, which is XX + V + II.
-
-Roman numerals are usually written largest to smallest from left to right. However, the numeral for four is not IIII. Instead, the number four is written as IV. Because the one is before the five we subtract it making four. The same principle applies to the number nine, which is written as IX. There are six instances where subtraction is used:
-
-- I can be placed before V (5) and X (10) to make 4 and 9.
-- X can be placed before L (50) and C (100) to make 40 and 90.
-- C can be placed before D (500) and M (1000) to make 400 and 900.
-
-Given a roman numeral, convert it to an integer.
-
-Constraints:
-- 1 <= s.length <= 15
-- s contains only the characters ('I', 'V', 'X', 'L', 'C', 'D', 'M').
-- It is guaranteed that s is a valid roman numeral in the range [1, 3999]."#.to_string(),
-                examples: vec![
-                    r#"Input: s = "III"
-Output: 3
-Explanation: III = 3."#.to_string(),
-                    r#"Input: s = "LVIII"
-Output: 58
-Explanation: L = 50, V= 5, III = 3."#.to_string(),
-                    r#"Input: s = "MCMXCIV"
-Output: 1994
-Explanation: M = 1000, CM = 900, XC = 90 and IV = 4."#.to_string(),
-                ],
-                function_signature: "var romanToInt = function(s)".to_string(),
-            },
-            Problem {
-                id: 15,
-                title: "3Sum".to_string(),
-                difficulty: "Medium".to_string(),
-                description: r#"Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
-
-Notice that the solution set must not contain duplicate triplets.
-
-Constraints:
-- 3 <= nums.length <= 3000
-- -10^5 <= nums[i] <= 10^5"#.to_string(),
-                examples: vec![
-                    r#"Input: nums = [-1,0,1,2,-1,-4]
-Output: [[-1,-1,2],[-1,0,1]]
-Explanation:
-nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0.
-nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0.
-nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0.
-The distinct triplets are [-1,0,1] and [-1,-1,2].
-Notice that the order of the output and the order of the triplets does not matter."#.to_string(),
-                    r#"Input: nums = [0,1,1]
-Output: []
-Explanation: The only possible triplet does not sum up to 0."#.to_string(),
-                    r#"Input: nums = [0,0,0]
-Output: [[0,0,0]]
-Explanation: The only possible triplet sums up to 0."#.to_string(),
-                ],
-                function_signature: "var threeSum = function(nums)".to_string(),
-            },
-            Problem {
-                id: 42,
-                title: "Trapping Rain Water".to_string(),
-                difficulty: "Hard".to_string(),
-                description: r#"Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
-
-Constraints:
-- n == height.length
-- 1 <= n <= 2 * 10^4
-- 0 <= height[i] <= 10^5"#.to_string(),
-                examples: vec![
-                    r#"Input: height = [0,1,0,2,1,0,1,3,2,1,2,1]
-Output: 6
-Explanation: The above elevation map (black section) is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In this case, 6 units of rain water (blue section) are being trapped."#.to_string(),
-                    r#"Input: height = [4,2,0,3,2,5]
-Output: 9"#.to_string(),
-                ],
-                function_signature: "var trap = function(height)".to_string(),
-            },
-        ])
+        Ok(self.problems.clone())
     }
 
     pub fn get_problem(&self, id: u32) -> Result<Problem> {
-        let problems = self.get_problems()?;
-        problems
-            .into_iter()
+        self.problems
+            .iter()
             .find(|p| p.id == id)
+            .cloned()
             .ok_or_else(|| anyhow::anyhow!("Problem not found"))
     }
 
@@ -178,8 +69,11 @@ Output: 9"#.to_string(),
         let mut output = String::new();
 
         output.push_str(&format!("Problem {}: {}\n", problem.id, problem.title));
-        output.push_str(&format!("Difficulty: {}\n\n", problem.difficulty));
-        output.push_str(&format!("{}\n\n", problem.description));
+        output.push_str(&format!("Difficulty: {}\n", problem.difficulty));
+        if !problem.category.is_empty() {
+            output.push_str(&format!("Category: {}\n", problem.category));
+        }
+        output.push_str(&format!("\n{}\n\n", problem.description));
 
         if !problem.examples.is_empty() {
             output.push_str("Examples:\n\n");
@@ -223,8 +117,8 @@ Output: 9"#.to_string(),
 
     /// Generate test runner that imports user's solution
     pub fn generate_test_runner(&self, problem: &Problem, solution_code: &str) -> String {
-        let (func_name, test_cases) = self.get_problem_config(problem);
-        let complexity_generator = self.get_complexity_generator(problem);
+        let test_cases_json = serde_json::to_string(&problem.test_cases)
+            .unwrap_or_else(|_| "[]".to_string());
 
         format!(
             r#"// User's solution
@@ -391,84 +285,9 @@ const formatMemory = (bytes) => {{
 "#,
             solution_code = solution_code,
             title = problem.title,
-            func_name = func_name,
-            test_cases = test_cases,
-            complexity_generator = complexity_generator,
+            func_name = problem.function_name,
+            test_cases = test_cases_json,
+            complexity_generator = problem.complexity_generator,
         )
-    }
-
-    /// Get input generator function for complexity testing
-    fn get_complexity_generator(&self, problem: &Problem) -> &'static str {
-        match problem.id {
-            1 => r#"// Generate random array of size n for Two Sum
-        // Put answer at END of array so algorithm must traverse fully
-        const generateInput = (n) => {
-            const nums = Array.from({length: n}, () => Math.floor(Math.random() * 10000));
-            // Make last two elements the answer pair
-            nums[n-2] = 999999;
-            nums[n-1] = 1;
-            const target = 1000000; // nums[n-2] + nums[n-1]
-            return [nums, target];
-        };"#,
-            9 => r#"// Generate number of size ~n digits for Palindrome
-        const generateInput = (n) => {
-            const num = parseInt('1' + '0'.repeat(Math.min(n, 9)));
-            return [num];
-        };"#,
-            13 => r#"// Generate roman numeral string
-        const generateInput = (n) => {
-            const romans = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I'];
-            let s = '';
-            for (let i = 0; i < Math.min(n, 15); i++) s += romans[i % romans.length];
-            return [s];
-        };"#,
-            15 => r#"// Generate random array of size n for 3Sum
-        const generateInput = (n) => {
-            const nums = Array.from({length: n}, () => Math.floor(Math.random() * 200) - 100);
-            return [nums];
-        };"#,
-            42 => r#"// Generate random heights array for Trapping Rain Water
-        const generateInput = (n) => {
-            const height = Array.from({length: n}, () => Math.floor(Math.random() * 1000));
-            return [height];
-        };"#,
-            _ => r#"// Generic input generator
-        const generateInput = (n) => {
-            return [Array.from({length: n}, (_, i) => i)];
-        };"#,
-        }
-    }
-
-    fn get_problem_config(&self, problem: &Problem) -> (&'static str, &'static str) {
-        match problem.id {
-            1 => ("twoSum", r#"[
-    { input: [[2, 7, 11, 15], 9], expected: [0, 1] },
-    { input: [[3, 2, 4], 6], expected: [1, 2] },
-    { input: [[3, 3], 6], expected: [0, 1] },
-]"#),
-            9 => ("isPalindrome", r#"[
-    { input: [121], expected: true },
-    { input: [-121], expected: false },
-    { input: [10], expected: false },
-]"#),
-            13 => ("romanToInt", r#"[
-    { input: ['III'], expected: 3 },
-    { input: ['LVIII'], expected: 58 },
-    { input: ['MCMXCIV'], expected: 1994 },
-]"#),
-            15 => ("threeSum", r#"[
-    { input: [[-1, 0, 1, 2, -1, -4]], expected: [[-1, -1, 2], [-1, 0, 1]] },
-    { input: [[0, 1, 1]], expected: [] },
-    { input: [[0, 0, 0]], expected: [[0, 0, 0]] },
-]"#),
-            42 => ("trap", r#"[
-    { input: [[0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]], expected: 6 },
-    { input: [[4, 2, 0, 3, 2, 5]], expected: 9 },
-]"#),
-            _ => ("solution", r#"[
-    // Add your test cases here
-    // { input: [arg1, arg2], expected: result },
-]"#),
-        }
     }
 }

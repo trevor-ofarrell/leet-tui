@@ -1,0 +1,19 @@
+{
+  "id": 271,
+  "title": "Encode and Decode Strings",
+  "difficulty": "Medium",
+  "description": "Design an algorithm to encode a list of strings to a string. The encoded string is then sent over the network and is decoded back to the original list of strings.\n\nImplement the encode and decode methods.\n\nConstraints:\n- 1 <= strs.length <= 200\n- 0 <= strs[i].length <= 200\n- strs[i] contains any possible characters out of 256 valid ASCII characters.",
+  "examples": [
+    "Input: [\"Hello\",\"World\"]\nOutput: [\"Hello\",\"World\"]\nExplanation: encode([\"Hello\",\"World\"]) -> some_encoded_string -> decode(some_encoded_string) -> [\"Hello\",\"World\"]",
+    "Input: [\"\"]\nOutput: [\"\"]"
+  ],
+  "function_signature": "var encode = function(strs) {\n    \n};\n\nvar decode = function(s) {\n    \n}",
+  "function_name": "encodeDecode",
+  "test_cases": [
+    { "input": [[["Hello", "World"]]], "expected": ["Hello", "World"] },
+    { "input": [[[""]]],  "expected": [""] },
+    { "input": [[["a","b","c"]]], "expected": ["a","b","c"] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const strs = [];\n    for(let i=0; i<n; i++) strs.push('word' + i);\n    return [strs];\n};",
+  "special_runner": "// For encode/decode, we test roundtrip\nconst result = decode(encode(...tc.input[0]));"
+}

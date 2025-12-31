@@ -1,0 +1,18 @@
+{
+  "id": 198,
+  "title": "House Robber",
+  "difficulty": "Medium",
+  "category": "1-D Dynamic Programming",
+  "description": "You are a professional robber planning to rob houses along a street. Adjacent houses have security systems connected and it will automatically contact the police if two adjacent houses were broken into on the same night.\n\nGiven an integer array nums representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.",
+  "examples": [
+    "Input: nums = [1,2,3,1]\nOutput: 4\nExplanation: Rob house 1 (money = 1) and then rob house 3 (money = 3). Total = 4.",
+    "Input: nums = [2,7,9,3,1]\nOutput: 12"
+  ],
+  "function_signature": "var rob = function(nums)",
+  "function_name": "rob",
+  "test_cases": [
+    { "input": [[1,2,3,1]], "expected": 4 },
+    { "input": [[2,7,9,3,1]], "expected": 12 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const nums = Array.from({length: n}, () => Math.floor(Math.random() * 100));\n    return [nums];\n};"
+}

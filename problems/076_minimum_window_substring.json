@@ -1,0 +1,19 @@
+{
+  "id": 76,
+  "title": "Minimum Window Substring",
+  "difficulty": "Hard",
+  "category": "Sliding Window",
+  "description": "Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string \"\".\n\nThe testcases will be generated such that the answer is unique.",
+  "examples": [
+    "Input: s = \"ADOBECODEBANC\", t = \"ABC\"\nOutput: \"BANC\"",
+    "Input: s = \"a\", t = \"a\"\nOutput: \"a\""
+  ],
+  "function_signature": "var minWindow = function(s, t)",
+  "function_name": "minWindow",
+  "test_cases": [
+    { "input": ["ADOBECODEBANC", "ABC"], "expected": "BANC" },
+    { "input": ["a", "a"], "expected": "a" },
+    { "input": ["a", "aa"], "expected": "" }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    let s = '';\n    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';\n    for(let i=0; i<n; i++) s += chars[Math.floor(Math.random() * chars.length)];\n    const t = 'ABC';\n    return [s, t];\n};"
+}

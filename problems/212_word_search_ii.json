@@ -1,0 +1,17 @@
+{
+  "id": 212,
+  "title": "Word Search II",
+  "difficulty": "Hard",
+  "category": "Tries",
+  "description": "Given an m x n board of characters and a list of strings words, return all words on the board.\n\nEach word must be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.",
+  "examples": [
+    "Input: board = [[\"o\",\"a\",\"a\",\"n\"],[\"e\",\"t\",\"a\",\"e\"],[\"i\",\"h\",\"k\",\"r\"],[\"i\",\"f\",\"l\",\"v\"]], words = [\"oath\",\"pea\",\"eat\",\"rain\"]\nOutput: [\"eat\",\"oath\"]"
+  ],
+  "function_signature": "var findWords = function(board, words)",
+  "function_name": "findWords",
+  "test_cases": [
+    { "input": [[["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]], ["oath","pea","eat","rain"]], "expected": ["eat","oath"] },
+    { "input": [[["a","b"],["c","d"]], ["abcb"]], "expected": [] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const size = 12;\n    const board = [];\n    const chars = 'abcdef';\n    for(let i=0; i<size; i++) {\n        const row = [];\n        for(let j=0; j<size; j++) row.push(chars[Math.floor(Math.random() * 6)]);\n        board.push(row);\n    }\n    const words = [];\n    for(let i=0; i<n; i++) words.push('abc');\n    return [board, words];\n};"
+}

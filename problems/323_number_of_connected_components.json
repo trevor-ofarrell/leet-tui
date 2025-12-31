@@ -1,0 +1,18 @@
+{
+  "id": 323,
+  "title": "Number of Connected Components In An Undirected Graph",
+  "difficulty": "Medium",
+  "category": "Graphs",
+  "description": "You have a graph of n nodes. You are given an integer n and an array edges where edges[i] = [ai, bi] indicates that there is an edge between ai and bi in the graph.\n\nReturn the number of connected components in the graph.",
+  "examples": [
+    "Input: n = 5, edges = [[0,1],[1,2],[3,4]]\nOutput: 2",
+    "Input: n = 5, edges = [[0,1],[1,2],[2,3],[3,4]]\nOutput: 1"
+  ],
+  "function_signature": "var countComponents = function(n, edges)",
+  "function_name": "countComponents",
+  "test_cases": [
+    { "input": [5, [[0,1],[1,2],[3,4]]], "expected": 2 },
+    { "input": [5, [[0,1],[1,2],[2,3],[3,4]]], "expected": 1 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const edges = [];\n    for(let i=0; i<n; i+=2) {\n        if (i+1 < n) edges.push([i, i+1]);\n    }\n    return [n, edges];\n};"
+}

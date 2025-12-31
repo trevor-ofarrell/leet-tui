@@ -1,0 +1,19 @@
+{
+  "id": 79,
+  "title": "Word Search",
+  "difficulty": "Medium",
+  "category": "Backtracking",
+  "description": "Given an m x n grid of characters board and a string word, return true if word exists in the grid.\n\nThe word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.",
+  "examples": [
+    "Input: board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ABCCED\"\nOutput: true",
+    "Input: board = [[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], word = \"ABCB\"\nOutput: false"
+  ],
+  "function_signature": "var exist = function(board, word)",
+  "function_name": "exist",
+  "test_cases": [
+    { "input": [[["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], "ABCCED"], "expected": true },
+    { "input": [[["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], "SEE"], "expected": true },
+    { "input": [[["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], "ABCB"], "expected": false }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const size = Math.floor(Math.sqrt(n));\n    const board = [];\n    const chars = 'ABC';\n    for(let i=0; i<size; i++) {\n        const row = [];\n        for(let j=0; j<size; j++) row.push(chars[Math.floor(Math.random() * 3)]);\n        board.push(row);\n    }\n    const word = 'ABCA';\n    return [board, word];\n};"
+}

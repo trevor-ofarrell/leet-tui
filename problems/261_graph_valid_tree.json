@@ -1,0 +1,18 @@
+{
+  "id": 261,
+  "title": "Graph Valid Tree",
+  "difficulty": "Medium",
+  "category": "Graphs",
+  "description": "You have a graph of n nodes labeled from 0 to n - 1. You are given an integer n and a list of edges where edges[i] = [ai, bi] indicates that there is an undirected edge between nodes ai and bi in the graph.\n\nReturn true if the edges of the given graph make up a valid tree, and false otherwise.",
+  "examples": [
+    "Input: n = 5, edges = [[0,1],[0,2],[0,3],[1,4]]\nOutput: true",
+    "Input: n = 5, edges = [[0,1],[1,2],[2,3],[1,3],[1,4]]\nOutput: false"
+  ],
+  "function_signature": "var validTree = function(n, edges)",
+  "function_name": "validTree",
+  "test_cases": [
+    { "input": [5, [[0,1],[0,2],[0,3],[1,4]]], "expected": true },
+    { "input": [5, [[0,1],[1,2],[2,3],[1,3],[1,4]]], "expected": false }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const edges = [];\n    for(let i=0; i<n-1; i++) edges.push([i, i+1]);\n    return [n, edges];\n};"
+}

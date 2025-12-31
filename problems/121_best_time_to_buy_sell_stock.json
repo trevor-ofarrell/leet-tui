@@ -1,0 +1,19 @@
+{
+  "id": 121,
+  "title": "Best Time to Buy And Sell Stock",
+  "difficulty": "Easy",
+  "category": "Sliding Window",
+  "description": "You are given an array prices where prices[i] is the price of a given stock on the ith day.\n\nYou want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.\n\nReturn the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.",
+  "examples": [
+    "Input: prices = [7,1,5,3,6,4]\nOutput: 5\nExplanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.",
+    "Input: prices = [7,6,4,3,1]\nOutput: 0"
+  ],
+  "function_signature": "var maxProfit = function(prices)",
+  "function_name": "maxProfit",
+  "test_cases": [
+    { "input": [[7,1,5,3,6,4]], "expected": 5 },
+    { "input": [[7,6,4,3,1]], "expected": 0 },
+    { "input": [[2,4,1]], "expected": 2 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const prices = Array.from({length: n}, () => Math.floor(Math.random() * 1000));\n    return [prices];\n};"
+}

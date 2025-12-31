@@ -1,0 +1,18 @@
+{
+  "id": 207,
+  "title": "Course Schedule",
+  "difficulty": "Medium",
+  "category": "Graphs",
+  "description": "There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.\n\nReturn true if you can finish all courses. Otherwise, return false.",
+  "examples": [
+    "Input: numCourses = 2, prerequisites = [[1,0]]\nOutput: true",
+    "Input: numCourses = 2, prerequisites = [[1,0],[0,1]]\nOutput: false"
+  ],
+  "function_signature": "var canFinish = function(numCourses, prerequisites)",
+  "function_name": "canFinish",
+  "test_cases": [
+    { "input": [2, [[1,0]]], "expected": true },
+    { "input": [2, [[1,0],[0,1]]], "expected": false }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const prerequisites = [];\n    for(let i=0; i<n-1; i++) {\n        prerequisites.push([i, i+1]);\n    }\n    return [n, prerequisites];\n};"
+}

@@ -1,0 +1,19 @@
+{
+  "id": 102,
+  "title": "Binary Tree Level Order Traversal",
+  "difficulty": "Medium",
+  "category": "Trees",
+  "description": "Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).",
+  "examples": [
+    "Input: root = [3,9,20,null,null,15,7]\nOutput: [[3],[9,20],[15,7]]",
+    "Input: root = [1]\nOutput: [[1]]"
+  ],
+  "function_signature": "var levelOrder = function(root)",
+  "function_name": "levelOrder",
+  "test_cases": [
+    { "input": [[3,9,20,null,null,15,7]], "expected": [[3],[9,20],[15,7]] },
+    { "input": [[1]], "expected": [[1]] },
+    { "input": [[]], "expected": [] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const root = Array.from({length: n}, (_, i) => i);\n    return [root];\n};"
+}

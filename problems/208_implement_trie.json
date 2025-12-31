@@ -1,0 +1,16 @@
+{
+  "id": 208,
+  "title": "Implement Trie (Prefix Tree)",
+  "difficulty": "Medium",
+  "category": "Tries",
+  "description": "A trie (pronounced as \"try\") or prefix tree is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. There are various applications of this data structure, such as autocomplete and spellchecker.\n\nImplement the Trie class:\n- Trie() Initializes the trie object.\n- void insert(String word) Inserts the string word into the trie.\n- boolean search(String word) Returns true if the string word is in the trie (i.e., was inserted before), and false otherwise.\n- boolean startsWith(String prefix) Returns true if there is a previously inserted string word that has the prefix prefix, and false otherwise.",
+  "examples": [
+    "Input:\n[\"Trie\", \"insert\", \"search\", \"search\", \"startsWith\", \"insert\", \"search\"]\n[[], [\"apple\"], [\"apple\"], [\"app\"], [\"app\"], [\"app\"], [\"app\"]]\nOutput:\n[null, null, true, false, true, null, true]"
+  ],
+  "function_signature": "var Trie = function() {\n    \n};\n\nTrie.prototype.insert = function(word) {\n    \n};\n\nTrie.prototype.search = function(word) {\n    \n};\n\nTrie.prototype.startsWith = function(prefix) {\n    \n}",
+  "function_name": "trie",
+  "test_cases": [
+    { "input": [["Trie", "insert", "search", "search", "startsWith", "insert", "search"], [[], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]]], "expected": [null, null, true, false, true, null, true] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    return [n];\n};"
+}

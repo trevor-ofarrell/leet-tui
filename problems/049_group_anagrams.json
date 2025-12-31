@@ -1,0 +1,19 @@
+{
+  "id": 49,
+  "title": "Group Anagrams",
+  "difficulty": "Medium",
+  "description": "Given an array of strings strs, group the anagrams together. You can return the answer in any order.\n\nAn Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.\n\nConstraints:\n- 1 <= strs.length <= 10^4\n- 0 <= strs[i].length <= 100\n- strs[i] consists of lowercase English letters.",
+  "examples": [
+    "Input: strs = [\"eat\",\"tea\",\"tan\",\"ate\",\"nat\",\"bat\"]\nOutput: [[\"bat\"],[\"nat\",\"tan\"],[\"ate\",\"eat\",\"tea\"]]",
+    "Input: strs = [\"\"]\nOutput: [[\"\"]]",
+    "Input: strs = [\"a\"]\nOutput: [[\"a\"]]"
+  ],
+  "function_signature": "var groupAnagrams = function(strs)",
+  "function_name": "groupAnagrams",
+  "test_cases": [
+    { "input": [[["eat","tea","tan","ate","nat","bat"]]], "expected": [["bat"],["nat","tan"],["ate","eat","tea"]] },
+    { "input": [[[""]]],  "expected": [[""]] },
+    { "input": [[["a"]]], "expected": [["a"]] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const strs = [];\n    const base = 'abcde';\n    for(let i=0; i<n; i++) {\n        strs.push(base.split('').sort(() => 0.5 - Math.random()).join(''));\n    }\n    return [strs];\n};"
+}

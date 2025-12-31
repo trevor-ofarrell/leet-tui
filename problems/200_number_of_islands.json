@@ -1,0 +1,18 @@
+{
+  "id": 200,
+  "title": "Number of Islands",
+  "difficulty": "Medium",
+  "category": "Graphs",
+  "description": "Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands.\n\nAn island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.",
+  "examples": [
+    "Input: grid = [\n  [\"1\",\"1\",\"1\",\"1\",\"0\"],\n  [\"1\",\"1\",\"0\",\"1\",\"0\"],\n  [\"1\",\"1\",\"0\",\"0\",\"0\"],\n  [\"0\",\"0\",\"0\",\"0\",\"0\"]\n]\nOutput: 1",
+    "Input: grid = [\n  [\"1\",\"1\",\"0\",\"0\",\"0\"],\n  [\"1\",\"1\",\"0\",\"0\",\"0\"],\n  [\"0\",\"0\",\"1\",\"0\",\"0\"],\n  [\"0\",\"0\",\"0\",\"1\",\"1\"]\n]\nOutput: 3"
+  ],
+  "function_signature": "var numIslands = function(grid)",
+  "function_name": "numIslands",
+  "test_cases": [
+    { "input": [[["1","1","1","1","0"],["1","1","0","1","0"],["1","1","0","0","0"],["0","0","0","0","0"]]], "expected": 1 },
+    { "input": [[["1","1","0","0","0"],["1","1","0","0","0"],["0","0","1","0","0"],["0","0","0","1","1"]]], "expected": 3 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const size = Math.floor(Math.sqrt(n));\n    const grid = [];\n    for(let i=0; i<size; i++) {\n        const row = [];\n        for(let j=0; j<size; j++) row.push(Math.random() > 0.5 ? \"1\" : \"0\");\n        grid.push(row);\n    }\n    return [grid];\n};"
+}

@@ -1,0 +1,16 @@
+{
+  "id": 211,
+  "title": "Design Add And Search Words Data Structure",
+  "difficulty": "Medium",
+  "category": "Tries",
+  "description": "Design a data structure that supports adding new words and finding if a string matches any previously added string.\n\nImplement the WordDictionary class:\n- WordDictionary() Initializes the object.\n- void addWord(word) Adds word to the data structure, it can be matched later.\n- bool search(word) Returns true if there is any string in the data structure that matches word or false otherwise. word may contain dots '.' where dots can be matched with any letter.",
+  "examples": [
+    "Input:\n[\"WordDictionary\",\"addWord\",\"addWord\",\"addWord\",\"search\",\"search\",\"search\",\"search\"]\n[[],[\"bad\"],[\"dad\"],[\"mad\"],[\"pad\"],[\"bad\"],[\".ad\"],[\"b..\"]]\nOutput:\n[null,null,null,null,false,true,true,true]"
+  ],
+  "function_signature": "var WordDictionary = function() {\n    \n};\n\nWordDictionary.prototype.addWord = function(word) {\n    \n};\n\nWordDictionary.prototype.search = function(word) {\n    \n}",
+  "function_name": "wordDictionary",
+  "test_cases": [
+    { "input": [["WordDictionary","addWord","addWord","addWord","search","search","search","search"], [[],["bad"],["dad"],["mad"],["pad"],["bad"],[".ad"],["b.."]]], "expected": [null,null,null,null,false,true,true,true] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    return [n];\n};"
+}

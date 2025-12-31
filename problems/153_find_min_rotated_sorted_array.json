@@ -1,0 +1,19 @@
+{
+  "id": 153,
+  "title": "Find Minimum In Rotated Sorted Array",
+  "difficulty": "Medium",
+  "category": "Binary Search",
+  "description": "Suppose an array of length n sorted in ascending order is rotated between 1 and n times. For example, the array nums = [0,1,2,4,5,6,7] might become:\n[4,5,6,7,0,1,2] if it was rotated 4 times.\n\nGiven the sorted rotated array nums of unique elements, return the minimum element of this array.\n\nYou must write an algorithm that runs in O(log n) time.",
+  "examples": [
+    "Input: nums = [3,4,5,1,2]\nOutput: 1",
+    "Input: nums = [4,5,6,7,0,1,2]\nOutput: 0"
+  ],
+  "function_signature": "var findMin = function(nums)",
+  "function_name": "findMin",
+  "test_cases": [
+    { "input": [[3,4,5,1,2]], "expected": 1 },
+    { "input": [[4,5,6,7,0,1,2]], "expected": 0 },
+    { "input": [[11,13,15,17]], "expected": 11 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const nums = Array.from({length: n}, (_, i) => i);\n    const k = Math.floor(Math.random() * n);\n    const rotated = nums.slice(n-k).concat(nums.slice(0, n-k));\n    return [rotated];\n};"
+}

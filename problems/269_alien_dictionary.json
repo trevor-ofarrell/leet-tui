@@ -1,0 +1,19 @@
+{
+  "id": 269,
+  "title": "Alien Dictionary",
+  "difficulty": "Hard",
+  "category": "Graphs",
+  "description": "There is a new alien language that uses the English alphabet. However, the order among the letters is unknown to you.\n\nYou are given a list of strings words from the alien language's dictionary, where the strings in words are sorted lexicographically by the rules of this new language.\n\nReturn a string of the unique letters in the new alien language sorted in lexicographically increasing order by the new language's rules. If there is no solution, return \"\". If there are multiple solutions, return any of them.",
+  "examples": [
+    "Input: words = [\"wrt\",\"wrf\",\"er\",\"ett\",\"rftt\"]\nOutput: \"wertf\"",
+    "Input: words = [\"z\",\"x\"]\nOutput: \"zx\""
+  ],
+  "function_signature": "var alienOrder = function(words)",
+  "function_name": "alienOrder",
+  "test_cases": [
+    { "input": [["wrt","wrf","er","ett","rftt"]], "expected": "wertf" },
+    { "input": [["z","x"]], "expected": "zx" },
+    { "input": [["z","x","z"]], "expected": "" }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const words = [];\n    for(let i=0; i<n; i++) words.push(\"abcde\");\n    return [words];\n};"
+}
