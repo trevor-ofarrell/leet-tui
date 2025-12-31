@@ -11,9 +11,9 @@
   "function_signature": "var groupAnagrams = function(strs)",
   "function_name": "groupAnagrams",
   "test_cases": [
-    { "input": [[["eat","tea","tan","ate","nat","bat"]]], "expected": [["bat"],["nat","tan"],["ate","eat","tea"]] },
-    { "input": [[[""]]],  "expected": [[""]] },
-    { "input": [[["a"]]], "expected": [["a"]] }
+    { "input": [["eat","tea","tan","ate","nat","bat"]], "expected": [["bat"],["nat","tan"],["ate","eat","tea"]] },
+    { "input": [[""]],  "expected": [[""]] },
+    { "input": [["a"]], "expected": [["a"]] }
   ],
   "complexity_generator": "const generateInput = (n) => {\n    const strs = [];\n    const base = 'abcde';\n    for(let i=0; i<n; i++) {\n        strs.push(base.split('').sort(() => 0.5 - Math.random()).join(''));\n    }\n    return [strs];\n};"
 }
