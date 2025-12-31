@@ -1,0 +1,18 @@
+{
+  "id": 91,
+  "title": "Decode Ways",
+  "difficulty": "Medium",
+  "category": "1-D Dynamic Programming",
+  "description": "A message containing letters from A-Z can be encoded into numbers using the mapping 'A' -> \"1\", 'B' -> \"2\", ... 'Z' -> \"26\".\n\nTo decode an encoded message, all the digits must be grouped then mapped back into letters using the reverse of the mapping above.\n\nGiven a string s containing only digits, return the number of ways to decode it.",
+  "examples": [
+    "Input: s = \"12\"\nOutput: 2\nExplanation: \"12\" could be decoded as \"AB\" (1 2) or \"L\" (12)."
+  ],
+  "function_signature": "var numDecodings = function(s)",
+  "function_name": "numDecodings",
+  "test_cases": [
+    { "input": ["12"], "expected": 2 },
+    { "input": ["226"], "expected": 3 },
+    { "input": ["06"], "expected": 0 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    let s = \"\";\n    for(let i=0; i<n; i++) s += Math.floor(Math.random() * 9 + 1);\n    return [s];\n};"
+}

@@ -1,0 +1,18 @@
+{
+  "id": 252,
+  "title": "Meeting Rooms",
+  "difficulty": "Easy",
+  "category": "Intervals",
+  "description": "Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...], determine if a person could attend all meetings.",
+  "examples": [
+    "Input: intervals = [[0,30],[5,10],[15,20]]\nOutput: false",
+    "Input: intervals = [[7,10],[2,4]]\nOutput: true"
+  ],
+  "function_signature": "var canAttendMeetings = function(intervals)",
+  "function_name": "canAttendMeetings",
+  "test_cases": [
+    { "input": [[[0,30],[5,10],[15,20]]], "expected": false },
+    { "input": [[[7,10],[2,4]]], "expected": true }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const intervals = [];\n    for(let i=0; i<n; i++) {\n        let start = Math.floor(Math.random() * 1000);\n        intervals.push([start, start + 30]);\n    }\n    return [intervals];\n};"
+}

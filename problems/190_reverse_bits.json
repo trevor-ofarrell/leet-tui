@@ -1,0 +1,17 @@
+{
+  "id": 190,
+  "title": "Reverse Bits",
+  "difficulty": "Easy",
+  "category": "Bit Manipulation",
+  "description": "Reverse bits of a given 32 bits unsigned integer.",
+  "examples": [
+    "Input: n = 43261596\nOutput: 964176192\nExplanation: The input binary string 00000010100101000001111010011100 represents the unsigned integer 43261596, so return 964176192."
+  ],
+  "function_signature": "var reverseBits = function(n)",
+  "function_name": "reverseBits",
+  "test_cases": [
+    { "input": [43261596], "expected": 964176192 },
+    { "input": [3], "expected": 3221225472 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    return [Math.floor(Math.random() * 2147483647)];\n};"
+}

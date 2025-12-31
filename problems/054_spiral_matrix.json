@@ -1,0 +1,17 @@
+{
+  "id": 54,
+  "title": "Spiral Matrix",
+  "difficulty": "Medium",
+  "category": "Matrix",
+  "description": "Given an m x n matrix, return all elements of the matrix in spiral order.",
+  "examples": [
+    "Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]\nOutput: [1,2,3,6,9,8,7,4,5]"
+  ],
+  "function_signature": "var spiralOrder = function(matrix)",
+  "function_name": "spiralOrder",
+  "test_cases": [
+    { "input": [[[1,2,3],[4,5,6],[7,8,9]]], "expected": [1,2,3,6,9,8,7,4,5] },
+    { "input": [[[1,2,3,4],[5,6,7,8],[9,10,11,12]]], "expected": [1,2,3,4,8,12,11,10,9,5,6,7] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const dim = Math.floor(Math.sqrt(n));\n    const matrix = [];\n    let count = 0;\n    for(let r=0; r<dim; r++) {\n        const row = [];\n        for(let c=0; c<dim; c++) row.push(count++);\n        matrix.push(row);\n    }\n    return [matrix];\n};"
+}

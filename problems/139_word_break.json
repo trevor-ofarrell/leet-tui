@@ -1,0 +1,18 @@
+{
+  "id": 139,
+  "title": "Word Break",
+  "difficulty": "Medium",
+  "category": "1-D Dynamic Programming",
+  "description": "Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of one or more dictionary words.",
+  "examples": [
+    "Input: s = \"leetcode\", wordDict = [\"leet\",\"code\"]\nOutput: true"
+  ],
+  "function_signature": "var wordBreak = function(s, wordDict)",
+  "function_name": "wordBreak",
+  "test_cases": [
+    { "input": ["leetcode", ["leet","code"]], "expected": true },
+    { "input": ["applepenapple", ["apple","pen"]], "expected": true },
+    { "input": ["catsandog", ["cats","dog","sand","and","cat"]], "expected": false }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const dict = [\"a\", \"aa\", \"aaa\", \"aaaa\", \"aaaaa\"];\n    let s = \"\";\n    for(let i=0; i<n; i++) s += \"a\";\n    return [s, dict];\n};"
+}

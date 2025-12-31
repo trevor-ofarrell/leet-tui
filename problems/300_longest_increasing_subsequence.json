@@ -1,0 +1,18 @@
+{
+  "id": 300,
+  "title": "Longest Increasing Subsequence",
+  "difficulty": "Medium",
+  "category": "1-D Dynamic Programming",
+  "description": "Given an integer array nums, return the length of the longest strictly increasing subsequence.",
+  "examples": [
+    "Input: nums = [10,9,2,5,3,7,101,18]\nOutput: 4\nExplanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4."
+  ],
+  "function_signature": "var lengthOfLIS = function(nums)",
+  "function_name": "lengthOfLIS",
+  "test_cases": [
+    { "input": [[10,9,2,5,3,7,101,18]], "expected": 4 },
+    { "input": [[0,1,0,3,2,3]], "expected": 4 },
+    { "input": [[7,7,7,7,7,7,7]], "expected": 1 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const nums = Array.from({length: n}, () => Math.floor(Math.random() * n));\n    return [nums];\n};"
+}

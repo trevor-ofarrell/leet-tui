@@ -1,0 +1,18 @@
+{
+  "id": 322,
+  "title": "Coin Change",
+  "difficulty": "Medium",
+  "category": "1-D Dynamic Programming",
+  "description": "You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.\n\nReturn the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.",
+  "examples": [
+    "Input: coins = [1,2,5], amount = 11\nOutput: 3\nExplanation: 11 = 5 + 5 + 1"
+  ],
+  "function_signature": "var coinChange = function(coins, amount)",
+  "function_name": "coinChange",
+  "test_cases": [
+    { "input": [[1,2,5], 11], "expected": 3 },
+    { "input": [[2], 3], "expected": -1 },
+    { "input": [[1], 0], "expected": 0 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const coins = [1, 2, 5, 10, 25];\n    return [coins, n];\n};"
+}

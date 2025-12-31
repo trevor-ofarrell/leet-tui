@@ -1,0 +1,17 @@
+{
+  "id": 338,
+  "title": "Counting Bits",
+  "difficulty": "Easy",
+  "category": "Bit Manipulation",
+  "description": "Given an integer n, return an array ans of length n + 1 such that for each i (0 <= i <= n), ans[i] is the number of 1's in the binary representation of i.",
+  "examples": [
+    "Input: n = 2\nOutput: [0,1,1]"
+  ],
+  "function_signature": "var countBits = function(n)",
+  "function_name": "countBits",
+  "test_cases": [
+    { "input": [2], "expected": [0,1,1] },
+    { "input": [5], "expected": [0,1,1,2,1,2] }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    return [n];\n};"
+}

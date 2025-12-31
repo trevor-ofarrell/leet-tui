@@ -1,0 +1,18 @@
+{
+  "id": 152,
+  "title": "Maximum Product Subarray",
+  "difficulty": "Medium",
+  "category": "1-D Dynamic Programming",
+  "description": "Given an integer array nums, find a subarray that has the largest product, and return the product.",
+  "examples": [
+    "Input: nums = [2,3,-2,4]\nOutput: 6\nExplanation: [2,3] has the largest product 6."
+  ],
+  "function_signature": "var maxProduct = function(nums)",
+  "function_name": "maxProduct",
+  "test_cases": [
+    { "input": [[2,3,-2,4]], "expected": 6 },
+    { "input": [[-2,0,-1]], "expected": 0 },
+    { "input": [[-2,3,-4]], "expected": 24 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const nums = Array.from({length: n}, () => Math.floor(Math.random() * 20) - 10);\n    return [nums];\n};"
+}

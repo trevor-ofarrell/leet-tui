@@ -1,0 +1,18 @@
+{
+  "id": 371,
+  "title": "Sum of Two Integers",
+  "difficulty": "Medium",
+  "category": "Bit Manipulation",
+  "description": "Given two integers a and b, return the sum of the two integers without using the operators + and -.",
+  "examples": [
+    "Input: a = 1, b = 2\nOutput: 3"
+  ],
+  "function_signature": "var getSum = function(a, b)",
+  "function_name": "getSum",
+  "test_cases": [
+    { "input": [1, 2], "expected": 3 },
+    { "input": [20, 30], "expected": 50 },
+    { "input": [-1, 1], "expected": 0 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    return [Math.floor(Math.random() * n), Math.floor(Math.random() * n)];\n};"
+}

@@ -1,0 +1,17 @@
+{
+  "id": 62,
+  "title": "Unique Paths",
+  "difficulty": "Medium",
+  "category": "2-D Dynamic Programming",
+  "description": "There is a robot on an m x n grid. The robot is initially located at the top-left corner (i.e., grid[0][0]). The robot tries to move to the bottom-right corner (i.e., grid[m - 1][n - 1]). The robot can only move either down or right at any point in time.\n\nGiven the two integers m and n, return the number of possible unique paths that the robot can take to reach the bottom-right corner.",
+  "examples": [
+    "Input: m = 3, n = 7\nOutput: 28"
+  ],
+  "function_signature": "var uniquePaths = function(m, n)",
+  "function_name": "uniquePaths",
+  "test_cases": [
+    { "input": [3, 7], "expected": 28 },
+    { "input": [3, 2], "expected": 3 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const dim = Math.floor(Math.sqrt(n)) || 1;\n    return [dim, dim];\n};"
+}

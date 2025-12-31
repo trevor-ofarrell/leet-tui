@@ -1,0 +1,18 @@
+{
+  "id": 1143,
+  "title": "Longest Common Subsequence",
+  "difficulty": "Medium",
+  "category": "2-D Dynamic Programming",
+  "description": "Given two strings text1 and text2, return the length of their longest common subsequence. If there is no common subsequence, return 0.",
+  "examples": [
+    "Input: text1 = \"abcde\", text2 = \"ace\"\nOutput: 3\nExplanation: The longest common subsequence is \"ace\" and its length is 3."
+  ],
+  "function_signature": "var longestCommonSubsequence = function(text1, text2)",
+  "function_name": "longestCommonSubsequence",
+  "test_cases": [
+    { "input": ["abcde", "ace"], "expected": 3 },
+    { "input": ["abc", "abc"], "expected": 3 },
+    { "input": ["abc", "def"], "expected": 0 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const s1 = Array.from({length: n}, () => String.fromCharCode(97 + Math.floor(Math.random() * 5))).join('');\n    const s2 = Array.from({length: n}, () => String.fromCharCode(97 + Math.floor(Math.random() * 5))).join('');\n    return [s1, s2];\n};"
+}

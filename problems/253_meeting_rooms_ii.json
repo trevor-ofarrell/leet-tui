@@ -1,0 +1,17 @@
+{
+  "id": 253,
+  "title": "Meeting Rooms II",
+  "difficulty": "Medium",
+  "category": "Intervals",
+  "description": "Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...], find the minimum number of conference rooms required.",
+  "examples": [
+    "Input: intervals = [[0, 30],[5, 10],[15, 20]]\nOutput: 2"
+  ],
+  "function_signature": "var minMeetingRooms = function(intervals)",
+  "function_name": "minMeetingRooms",
+  "test_cases": [
+    { "input": [[[0,30],[5,10],[15,20]]], "expected": 2 },
+    { "input": [[[7,10],[2,4]]], "expected": 1 }
+  ],
+  "complexity_generator": "const generateInput = (n) => {\n    const intervals = [];\n    for(let i=0; i<n; i++) {\n        let start = Math.floor(Math.random() * 1000);\n        intervals.push([start, start + Math.floor(Math.random() * 50) + 10]);\n    }\n    return [intervals];\n};"
+}
