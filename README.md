@@ -11,7 +11,7 @@ A terminal user interface (TUI) application for solving LeetCode problems with a
 - **Color-coded results**: Test output shows PASSED in green, FAILED in red
 - **Embedded Neovim**: Full Neovim functionality within the TUI
 - **JavaScript solutions**: Default language is JavaScript (other languages coming soon)
-- **Organized solution files**: Solutions saved in `solutions/` directory as `problem_X.js`
+- **Organized solution files**: Solutions saved to `~/.local/share/leet-tui/solutions/`
 - **Proper window sizing**: Neovim automatically fits the available space
 - **Focus switching**: Toggle between question pane and editor pane
 - **Scrollable question view**: Navigate through problem descriptions
@@ -26,21 +26,31 @@ The application uses:
 - **tui-term**: Widget for rendering terminal output
 - **crossterm**: Cross-platform terminal manipulation
 
-## Prerequisites
+## Installation
 
+### Via npm (recommended)
+
+```bash
+npm install -g leet-tui
+```
+
+This will automatically download the correct binary for your platform.
+
+### From source
+
+Prerequisites:
 - Rust (1.70+)
 - Neovim installed and available in PATH
 
-## Building
-
 ```bash
 cargo build --release
+./target/release/leet-tui
 ```
 
 ## Running
 
 ```bash
-cargo run
+leet-tui
 ```
 
 ## Keyboard Shortcuts

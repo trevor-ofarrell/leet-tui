@@ -1,0 +1,42 @@
+{
+  "name": "leet-tui",
+  "version": "0.1.0",
+  "description": "A terminal UI for solving LeetCode problems with embedded Neovim",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trevor/leet-tui"
+  },
+  "homepage": "https://github.com/trevor/leet-tui#readme",
+  "bugs": {
+    "url": "https://github.com/trevor/leet-tui/issues"
+  },
+  "keywords": [
+    "leetcode",
+    "tui",
+    "terminal",
+    "neovim",
+    "coding",
+    "interview",
+    "practice"
+  ],
+  "bin": {
+    "leet-tui": "bin/leet-tui"
+  },
+  "files": [
+    "bin"
+  ],
+  "scripts": {
+    "postinstall": "node scripts/postinstall.js"
+  },
+  "optionalDependencies": {
+    "@leet-tui/darwin-arm64": "0.1.0",
+    "@leet-tui/darwin-x64": "0.1.0",
+    "@leet-tui/linux-x64": "0.1.0",
+    "@leet-tui/linux-arm64": "0.1.0",
+    "@leet-tui/win32-x64": "0.1.0"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}

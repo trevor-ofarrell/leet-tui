@@ -1,7 +1,16 @@
 [package]
-name = "leetcode-tui"
+name = "leet-tui"
 version = "0.1.0"
 edition = "2021"
+description = "A terminal UI for solving LeetCode problems with embedded Neovim"
+license = "MIT"
+repository = "https://github.com/trevor/leet-tui"
+keywords = ["leetcode", "tui", "terminal", "neovim", "coding"]
+categories = ["command-line-utilities", "development-tools"]
+
+[[bin]]
+name = "leet-tui"
+path = "src/main.rs"
 
 [dependencies]
 ratatui = "0.29"
@@ -14,3 +23,4 @@ anyhow = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 reqwest = { version = "0.12", features = ["json"] }
+dirs = "5.0"

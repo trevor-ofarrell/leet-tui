@@ -1,0 +1,13 @@
+{
+  "name": "@leet-tui/darwin-x64",
+  "version": "0.1.0",
+  "description": "leet-tui binary for macOS x64 (Intel)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trevor/leet-tui"
+  },
+  "os": ["darwin"],
+  "cpu": ["x64"],
+  "files": ["bin"]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "@leet-tui/linux-x64",
+  "version": "0.1.0",
+  "description": "leet-tui binary for Linux x64",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trevor/leet-tui"
+  },
+  "os": ["linux"],
+  "cpu": ["x64"],
+  "files": ["bin"]
+}

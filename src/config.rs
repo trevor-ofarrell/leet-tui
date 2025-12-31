@@ -1,0 +1,85 @@
+use anyhow::Result;
+use std::fs;
+use std::path::PathBuf;
+
+/// Application paths following XDG Base Directory spec
+pub struct AppPaths {
+    /// Config directory (~/.config/leet-tui/)
+    pub config_dir: PathBuf,
+    /// Data directory (~/.local/share/leet-tui/)
+    pub data_dir: PathBuf,
+    /// Cache directory (~/.cache/leet-tui/)
+    pub cache_dir: PathBuf,
+    /// Solutions directory (~/.local/share/leet-tui/solutions/)
+    pub solutions_dir: PathBuf,
+}
+
+impl AppPaths {
+    pub fn new() -> Result<Self> {
+        let config_dir = dirs::config_dir()
+            .unwrap_or_else(|| PathBuf::from("."))
+            .join("leet-tui");
+
+        let data_dir = dirs::data_dir()
+            .unwrap_or_else(|| PathBuf::from("."))
+            .join("leet-tui");
+
+        let cache_dir = dirs::cache_dir()
+            .unwrap_or_else(|| PathBuf::from("."))
+            .join("leet-tui");
+
+        let solutions_dir = data_dir.join("solutions");
+
+        let paths = AppPaths {
+            config_dir,
+            data_dir,
+            cache_dir,
+            solutions_dir,
+        };
+
+        // Create directories if they don't exist
+        paths.ensure_dirs()?;
+
+        Ok(paths)
+    }
+
+    /// Create all necessary directories
+    pub fn ensure_dirs(&self) -> Result<()> {
+        fs::create_dir_all(&self.config_dir)?;
+        fs::create_dir_all(&self.data_dir)?;
+        fs::create_dir_all(&self.cache_dir)?;
+        fs::create_dir_all(&self.solutions_dir)?;
+        Ok(())
+    }
+
+    /// Get path for a specific problem's solution file
+    pub fn solution_file(&self, problem_id: u32) -> PathBuf {
+        self.solutions_dir.join(format!("problem_{}.js", problem_id))
+    }
+
+    /// Get path for config file
+    pub fn config_file(&self) -> PathBuf {
+        self.config_dir.join("config.json")
+    }
+
+    /// Get path for progress tracking file
+    pub fn progress_file(&self) -> PathBuf {
+        self.data_dir.join("progress.json")
+    }
+
+    /// Get path for cached problems list
+    pub fn problems_cache(&self) -> PathBuf {
+        self.cache_dir.join("problems.json")
+    }
+}
+
+impl Default for AppPaths {
+    fn default() -> Self {
+        Self::new().unwrap_or_else(|_| AppPaths {
+            config_dir: PathBuf::from(".config/leet-tui"),
+            data_dir: PathBuf::from(".local/share/leet-tui"),
+            cache_dir: PathBuf::from(".cache/leet-tui"),
+            solutions_dir: PathBuf::from(".local/share/leet-tui/solutions"),
+        })
+    }
+}

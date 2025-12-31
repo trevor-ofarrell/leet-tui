@@ -1,3 +1,4 @@
+mod config;
 mod input;
 mod leetcode;
 mod pty;
@@ -24,6 +25,7 @@ use std::{
     time::Duration,
 };
 
+use crate::config::AppPaths;
 use crate::input::key_to_bytes;
 use crate::leetcode::{LeetCodeClient, Problem};
 use crate::pty::PtyManager;
@@ -60,10 +62,12 @@ struct App {
     should_quit: bool,
     terminal_width: u16,
     terminal_height: u16,
+    paths: AppPaths,
 }
 
 impl App {
     fn new(terminal_width: u16, terminal_height: u16) -> Result<Self> {
+        let paths = AppPaths::new()?;
         let client = LeetCodeClient::new();
         let problems = client.get_problems()?;
 
@@ -78,6 +82,7 @@ impl App {
             should_quit: false,
             terminal_width,
             terminal_height,
+            paths,
         })
     }
 
@@ -85,11 +90,8 @@ impl App {
         let client = LeetCodeClient::new();
         let problem_text = client.format_problem(&problem);
 
-        // Create solution file with boilerplate (use absolute path)
-        let solutions_dir = std::env::current_dir()?.join("solutions");
-        fs::create_dir_all(&solutions_dir)?;
-
-        let solution_file = solutions_dir.join(format!("problem_{}.js", problem.id));
+        // Use XDG-compliant path for solutions
+        let solution_file = self.paths.solution_file(problem.id);
 
         // Only generate boilerplate if file doesn't exist (don't overwrite user's work!)
         if !solution_file.exists() {
