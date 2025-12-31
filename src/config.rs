@@ -60,15 +60,6 @@ impl AppPaths {
             .join(format!("problem_{}.{}", problem_id, lang.extension()))
     }
 
-    /// Check which languages have existing solutions for a problem
-    pub fn get_existing_solutions(&self, problem_id: u32) -> Vec<Language> {
-        Language::all()
-            .iter()
-            .filter(|lang| self.solution_file(problem_id, **lang).exists())
-            .copied()
-            .collect()
-    }
-
     /// Get path for progress tracking file
     pub fn progress_file(&self) -> PathBuf {
         self.data_dir.join("progress.json")

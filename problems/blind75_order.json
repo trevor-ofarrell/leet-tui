@@ -66,7 +66,7 @@
       "position": 11,
       "id": 167,
       "category": "Two Pointers",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 12,
@@ -84,7 +84,7 @@
       "position": 14,
       "id": 42,
       "category": "Two Pointers",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 15,
@@ -108,7 +108,7 @@
       "position": 18,
       "id": 567,
       "category": "Sliding Window",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 19,
@@ -120,7 +120,7 @@
       "position": 20,
       "id": 239,
       "category": "Sliding Window",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 21,
@@ -132,55 +132,55 @@
       "position": 22,
       "id": 155,
       "category": "Stack",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 23,
       "id": 150,
       "category": "Stack",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 24,
       "id": 22,
       "category": "Stack",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 25,
       "id": 739,
       "category": "Stack",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 26,
       "id": 853,
       "category": "Stack",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 27,
       "id": 84,
       "category": "Stack",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 28,
       "id": 704,
       "category": "Binary Search",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 29,
       "id": 74,
       "category": "Binary Search",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 30,
       "id": 875,
       "category": "Binary Search",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 31,
@@ -198,13 +198,13 @@
       "position": 33,
       "id": 981,
       "category": "Binary Search",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 34,
       "id": 4,
       "category": "Binary Search",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 35,
@@ -222,13 +222,13 @@
       "position": 37,
       "id": 143,
       "category": "Linked List",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 38,
       "id": 138,
       "category": "Linked List",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 39,
@@ -240,7 +240,7 @@
       "position": 40,
       "id": 2,
       "category": "Linked List",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 41,
@@ -252,13 +252,13 @@
       "position": 42,
       "id": 287,
       "category": "Linked List",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 43,
       "id": 146,
       "category": "Linked List",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 44,
@@ -270,7 +270,7 @@
       "position": 45,
       "id": 25,
       "category": "Linked List",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 46,
@@ -288,13 +288,13 @@
       "position": 48,
       "id": 543,
       "category": "Trees",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 49,
       "id": 110,
       "category": "Trees",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 50,
@@ -312,7 +312,7 @@
       "position": 52,
       "id": 1448,
       "category": "Trees",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 53,
@@ -324,19 +324,19 @@
       "position": 54,
       "id": 102,
       "category": "Trees",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 55,
       "id": 199,
       "category": "Trees",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 56,
       "id": 105,
       "category": "Trees",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 57,
@@ -366,25 +366,25 @@
       "position": 61,
       "id": 703,
       "category": "Heap / Priority Queue",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 62,
       "id": 1046,
       "category": "Heap / Priority Queue",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 63,
       "id": 973,
       "category": "Heap / Priority Queue",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 64,
       "id": 215,
       "category": "Heap / Priority Queue",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 65,
@@ -396,19 +396,19 @@
       "position": 66,
       "id": 355,
       "category": "Heap / Priority Queue",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 67,
       "id": 621,
       "category": "Heap / Priority Queue",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 68,
       "id": 78,
       "category": "Backtracking",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 69,
@@ -420,19 +420,19 @@
       "position": 70,
       "id": 46,
       "category": "Backtracking",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 71,
       "id": 90,
       "category": "Backtracking",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 72,
       "id": 40,
       "category": "Backtracking",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 73,
@@ -444,13 +444,13 @@
       "position": 74,
       "id": 131,
       "category": "Backtracking",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 75,
       "id": 17,
       "category": "Backtracking",
-      "blind75": false
+      "blind75": true
     },
     {
       "position": 76,
@@ -462,25 +462,25 @@
       "position": 77,
       "id": 208,
       "category": "Tries",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 78,
       "id": 211,
       "category": "Tries",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 79,
       "id": 212,
       "category": "Tries",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 80,
       "id": 200,
       "category": "Graphs",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 81,
@@ -492,7 +492,7 @@
       "position": 82,
       "id": 133,
       "category": "Graphs",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 83,
@@ -510,7 +510,7 @@
       "position": 85,
       "id": 417,
       "category": "Graphs",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 86,
@@ -522,7 +522,7 @@
       "position": 87,
       "id": 207,
       "category": "Graphs",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 88,
@@ -534,13 +534,13 @@
       "position": 89,
       "id": 261,
       "category": "Graphs",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 90,
       "id": 323,
       "category": "Graphs",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 91,
@@ -558,7 +558,7 @@
       "position": 93,
       "id": 269,
       "category": "Advanced Graphs",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 94,
@@ -594,7 +594,7 @@
       "position": 99,
       "id": 70,
       "category": "1-D Dynamic Programming",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 100,
@@ -606,55 +606,55 @@
       "position": 101,
       "id": 198,
       "category": "1-D Dynamic Programming",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 102,
       "id": 213,
       "category": "1-D Dynamic Programming",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 103,
       "id": 5,
       "category": "1-D Dynamic Programming",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 104,
       "id": 647,
       "category": "1-D Dynamic Programming",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 105,
       "id": 91,
       "category": "1-D Dynamic Programming",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 106,
       "id": 322,
       "category": "1-D Dynamic Programming",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 107,
       "id": 152,
       "category": "1-D Dynamic Programming",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 108,
       "id": 139,
       "category": "1-D Dynamic Programming",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 109,
       "id": 300,
       "category": "1-D Dynamic Programming",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 110,
@@ -666,13 +666,13 @@
       "position": 111,
       "id": 62,
       "category": "2-D Dynamic Programming",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 112,
       "id": 1143,
       "category": "2-D Dynamic Programming",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 113,
@@ -732,13 +732,13 @@
       "position": 122,
       "id": 53,
       "category": "Greedy",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 123,
       "id": 55,
       "category": "Greedy",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 124,
@@ -780,31 +780,31 @@
       "position": 130,
       "id": 57,
       "category": "Intervals",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 131,
       "id": 56,
       "category": "Intervals",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 132,
       "id": 435,
       "category": "Intervals",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 133,
       "id": 252,
       "category": "Intervals",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 134,
       "id": 253,
       "category": "Intervals",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 135,
@@ -816,19 +816,19 @@
       "position": 136,
       "id": 48,
       "category": "Math & Geometry",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 137,
       "id": 54,
       "category": "Math & Geometry",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 138,
       "id": 73,
       "category": "Math & Geometry",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 139,
@@ -870,31 +870,31 @@
       "position": 145,
       "id": 191,
       "category": "Bit Manipulation",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 146,
       "id": 338,
       "category": "Bit Manipulation",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 147,
       "id": 190,
       "category": "Bit Manipulation",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 148,
       "id": 268,
       "category": "Bit Manipulation",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 149,
       "id": 371,
       "category": "Bit Manipulation",
-      "blind75": true
+      "blind75": false
     },
     {
       "position": 150,

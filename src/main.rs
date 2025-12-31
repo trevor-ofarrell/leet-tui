@@ -118,9 +118,8 @@ impl App {
         categories.insert(0, "All".to_string());
 
         let list_filters = vec![
-            "All".to_string(),
-            "Blind 75".to_string(),
             "NeetCode 150".to_string(),
+            "Blind 75".to_string(),
         ];
 
         let difficulties = vec![
@@ -373,9 +372,8 @@ impl App {
             categories.insert(0, "All".to_string());
 
             let list_filters = vec![
-                "All".to_string(),
-                "Blind 75".to_string(),
                 "NeetCode 150".to_string(),
+                "Blind 75".to_string(),
             ];
 
             let difficulties = vec![
@@ -527,16 +525,16 @@ impl App {
                     }
                 }
 
-                // List filter (Blind 75 / NeetCode 150)
+                // List filter (NeetCode 150 / Blind 75)
                 match home.selected_list {
+                    0 => { // NeetCode 150 (all problems, no filter needed)
+                    }
                     1 => { // Blind 75 only
                         if !p.blind75 {
                             return false;
                         }
                     }
-                    2 => { // NeetCode 150 (all problems, no filter needed)
-                    }
-                    _ => {} // All
+                    _ => {}
                 }
 
                 // Progress filter
@@ -874,8 +872,10 @@ impl App {
             // Title with count and progress stats
             let completed = progress.count_by_status(ProblemStatus::Completed);
             let started = progress.count_by_status(ProblemStatus::Started);
+            let list_name = home.list_filters.get(home.selected_list).map(|s| s.as_str()).unwrap_or("NeetCode 150");
             let title = Paragraph::new(format!(
-                "leetTUI NeetCode 150 - {} of {} | Completed: {} | In Progress: {}",
+                "leetTUI {} - {} of {} | Completed: {} | In Progress: {}",
+                list_name,
                 home.filtered_problems.len(),
                 home.all_problems.len(),
                 completed,
@@ -1054,7 +1054,7 @@ impl App {
                             Style::default().fg(status_color),
                         ),
                         Span::raw(&p.title),
-                        Span::styled(cat_display, Style::default().fg(Color::DarkGray)),
+                        Span::styled(cat_display, Style::default().fg(Color::Rgb(120, 140, 170))),
                         Span::raw(" "),
                         Span::styled(
                             format!("[{}]", p.difficulty),
@@ -1099,7 +1099,7 @@ impl App {
                 ),
                 Span::styled(
                     "L: Language | Tab: Focus | ↑↓: Nav | ←→: Filter | /: Search | Enter: Select | Ctrl+C: Quit",
-                    Style::default().fg(Color::DarkGray),
+                    Style::default().fg(Color::Rgb(120, 140, 170)),
                 ),
             ]))
             .alignment(Alignment::Center);
@@ -1170,11 +1170,11 @@ impl App {
                                 .add_modifier(Modifier::BOLD),
                         ))
                     } else if line.starts_with("Example ") {
-                        // Example headers - bright magenta
+                        // Example headers - ochre yellow
                         Line::from(Span::styled(
                             line.to_string(),
                             Style::default()
-                                .fg(Color::Magenta)
+                                .fg(Color::Rgb(204, 136, 34))
                                 .add_modifier(Modifier::BOLD),
                         ))
                     } else if line.starts_with("Keyboard Shortcuts:") {

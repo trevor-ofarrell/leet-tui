@@ -42,44 +42,6 @@ impl Language {
         }
     }
 
-    /// Get all available languages
-    pub fn all() -> &'static [Language] {
-        &[Language::JavaScript, Language::Python, Language::C, Language::Cpp]
-    }
-
-    /// Get single-line comment prefix
-    pub fn comment_prefix(&self) -> &'static str {
-        match self {
-            Language::JavaScript => "//",
-            Language::Python => "#",
-            Language::C | Language::Cpp => "//",
-        }
-    }
-
-    /// Get block comment delimiters (start, end)
-    pub fn block_comment(&self) -> (&'static str, &'static str) {
-        match self {
-            Language::JavaScript => ("/**", " */"),
-            Language::Python => ("\"\"\"", "\"\"\""),
-            Language::C | Language::Cpp => ("/*", "*/"),
-        }
-    }
-
-    /// Get the command to run code in this language
-    pub fn run_command(&self) -> &'static str {
-        match self {
-            Language::JavaScript => "bun",
-            Language::Python => "python3",
-            Language::C => "gcc",
-            Language::Cpp => "g++",
-        }
-    }
-
-    /// Check if this language requires compilation
-    pub fn requires_compilation(&self) -> bool {
-        matches!(self, Language::C | Language::Cpp)
-    }
-
     /// Cycle to the next language
     pub fn next(&self) -> Language {
         match self {
@@ -87,16 +49,6 @@ impl Language {
             Language::Python => Language::C,
             Language::C => Language::Cpp,
             Language::Cpp => Language::JavaScript,
-        }
-    }
-
-    /// Cycle to the previous language
-    pub fn prev(&self) -> Language {
-        match self {
-            Language::JavaScript => Language::Cpp,
-            Language::Python => Language::JavaScript,
-            Language::C => Language::Python,
-            Language::Cpp => Language::C,
         }
     }
 }
@@ -121,29 +73,6 @@ pub fn parse_js_params(js_sig: &str) -> Vec<String> {
         }
     }
     Vec::new()
-}
-
-/// Extract function name from JavaScript signature
-/// "var twoSum = function(nums, target)" -> "twoSum"
-pub fn extract_js_func_name(js_sig: &str) -> Option<String> {
-    // Handle "var name = function(...)" pattern
-    if let Some(var_pos) = js_sig.find("var ") {
-        let after_var = &js_sig[var_pos + 4..];
-        if let Some(eq_pos) = after_var.find('=') {
-            return Some(after_var[..eq_pos].trim().to_string());
-        }
-    }
-    // Handle "function name(...)" pattern
-    if let Some(func_pos) = js_sig.find("function ") {
-        let after_func = &js_sig[func_pos + 9..];
-        if let Some(paren_pos) = after_func.find('(') {
-            let name = after_func[..paren_pos].trim();
-            if !name.is_empty() {
-                return Some(name.to_string());
-            }
-        }
-    }
-    None
 }
 
 /// Derive a function signature for a target language from JavaScript
@@ -280,18 +209,6 @@ mod tests {
     }
 
     #[test]
-    fn test_extract_func_name() {
-        assert_eq!(
-            extract_js_func_name("var twoSum = function(nums, target)"),
-            Some("twoSum".to_string())
-        );
-        assert_eq!(
-            extract_js_func_name("var isValid = function(s)"),
-            Some("isValid".to_string())
-        );
-    }
-
-    #[test]
     fn test_derive_signature() {
         let js_sig = "var twoSum = function(nums, target)";
 
@@ -299,12 +216,13 @@ mod tests {
             derive_signature("twoSum", js_sig, Language::Python),
             "def twoSum(nums, target):"
         );
-        assert_eq!(
-            derive_signature("twoSum", js_sig, Language::C),
-            "void* twoSum(void* nums, void* target)"
-        );
+        // C signature includes array size parameter
         assert!(
-            derive_signature("twoSum", js_sig, Language::Cpp).contains("auto")
+            derive_signature("twoSum", js_sig, Language::C).contains("numsSize")
+        );
+        // C++ infers vector type for nums
+        assert!(
+            derive_signature("twoSum", js_sig, Language::Cpp).contains("vector<int>")
         );
     }
 
@@ -312,6 +230,5 @@ mod tests {
     fn test_language_cycle() {
         assert_eq!(Language::JavaScript.next(), Language::Python);
         assert_eq!(Language::Cpp.next(), Language::JavaScript);
-        assert_eq!(Language::JavaScript.prev(), Language::Cpp);
     }
 }
