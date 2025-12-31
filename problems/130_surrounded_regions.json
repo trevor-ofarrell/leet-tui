@@ -10,8 +10,8 @@
   "function_signature": "var solve = function(board)",
   "function_name": "solve",
   "test_cases": [
-    { "input": [[[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"O\",\"O\",\"X\"],[\"X\",\"X\",\"O\",\"X\"],[\"X\",\"O\",\"X\",\"X\"]]], "expected": [[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"X\",\"X\",\"X\"],[\"X\",\"O\",\"X\",\"X\"]] },
-    { "input": [[[\"X\"]]], "expected": [[\"X\"]] }
+    { "input": [[["X","X","X","X"],["X","O","O","X"],["X","X","O","X"],["X","O","X","X"]]], "expected": [["X","X","X","X"],["X","X","X","X"],["X","X","X","X"],["X","O","X","X"]] },
+    { "input": [[["X"]]], "expected": [["X"]] }
   ],
   "complexity_generator": "const generateInput = (n) => {\n    const size = Math.floor(Math.sqrt(n));\n    const board = Array.from({length: size}, () => Array.from({length: size}, () => Math.random() > 0.3 ? 'X' : 'O'));\n    return [board];\n};"
 }

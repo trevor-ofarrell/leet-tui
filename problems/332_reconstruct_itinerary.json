@@ -10,8 +10,8 @@
   "function_signature": "var findItinerary = function(tickets)",
   "function_name": "findItinerary",
   "test_cases": [
-    { "input": [[[\"MUC\",\"LHR\"],[\"JFK\",\"MUC\"],[\"SFO\",\"SJC\"],[\"LHR\",\"SFO\"]]], "expected": ["JFK","MUC","LHR","SFO","SJC"] },
-    { "input": [[[\"JFK\",\"SFO\"],[\"JFK\",\"ATL\"],[\"SFO\",\"ATL\"],[\"ATL\",\"JFK\"],[\"ATL\",\"SFO\"]]], "expected": ["JFK","ATL","JFK","SFO","ATL","SFO"] }
+    { "input": [[["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]]], "expected": ["JFK","MUC","LHR","SFO","SJC"] },
+    { "input": [[["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]]], "expected": ["JFK","ATL","JFK","SFO","ATL","SFO"] }
   ],
   "complexity_generator": "const generateInput = (n) => {\n    const tickets = [];\n    const airports = ['JFK', 'LAX', 'SFO', 'ORD', 'DFW', 'ATL', 'DEN', 'SEA'];\n    let from = 'JFK';\n    for (let i = 0; i < Math.min(n, 300); i++) {\n        const to = airports[(i + 1) % airports.length];\n        tickets.push([from, to]);\n        from = to;\n    }\n    return [tickets];\n};"
 }

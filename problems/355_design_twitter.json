@@ -9,7 +9,7 @@
   "function_signature": "var Twitter = function()",
   "function_name": "Twitter",
   "test_cases": [
-    { "input": [[\"Twitter\", \"postTweet\", \"getNewsFeed\", \"follow\", \"postTweet\", \"getNewsFeed\", \"unfollow\", \"getNewsFeed\"], [[], [1, 5], [1], [1, 2], [2, 6], [1], [1, 2], [1]]], "expected": [null, null, [5], null, null, [6, 5], null, [5]] }
+    { "input": [["Twitter", "postTweet", "getNewsFeed", "follow", "postTweet", "getNewsFeed", "unfollow", "getNewsFeed"], [[], [1, 5], [1], [1, 2], [2, 6], [1], [1, 2], [1]]], "expected": [null, null, [5], null, null, [6, 5], null, [5]] }
   ],
   "complexity_generator": "const generateInput = (n) => {\n    const ops = ['Twitter'];\n    const args = [[]];\n    for (let i = 0; i < n; i++) {\n        ops.push('postTweet');\n        args.push([1, i]);\n    }\n    ops.push('getNewsFeed');\n    args.push([1]);\n    return [ops, args];\n};"
 }

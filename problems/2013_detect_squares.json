@@ -9,7 +9,7 @@
   "function_signature": "var DetectSquares = function()",
   "function_name": "DetectSquares",
   "test_cases": [
-    { "input": [[\"DetectSquares\", \"add\", \"add\", \"add\", \"count\", \"count\", \"add\", \"count\"], [[], [[3, 10]], [[11, 2]], [[3, 2]], [[11, 10]], [[14, 8]], [[11, 2]], [[11, 10]]]], "expected": [null, null, null, null, 1, 0, null, 2] }
+    { "input": [["DetectSquares", "add", "add", "add", "count", "count", "add", "count"], [[], [[3, 10]], [[11, 2]], [[3, 2]], [[11, 10]], [[14, 8]], [[11, 2]], [[11, 10]]]], "expected": [null, null, null, null, 1, 0, null, 2] }
   ],
   "complexity_generator": "const generateInput = (n) => {\n    const ops = ['DetectSquares'];\n    const args = [[]];\n    for (let i = 0; i < n; i++) {\n        ops.push('add');\n        args.push([[Math.floor(Math.random() * 1000), Math.floor(Math.random() * 1000)]]);\n    }\n    ops.push('count');\n    args.push([[500, 500]]);\n    return [ops, args];\n};"
 }

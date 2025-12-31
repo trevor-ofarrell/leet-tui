@@ -9,7 +9,7 @@
   "function_signature": "var LRUCache = function(capacity)",
   "function_name": "LRUCache",
   "test_cases": [
-    { "input": [[\"LRUCache\", \"put\", \"put\", \"get\", \"put\", \"get\", \"put\", \"get\", \"get\", \"get\"], [[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]], "expected": [null, null, null, 1, null, -1, null, -1, 3, 4] }
+    { "input": [["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"], [[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]], "expected": [null, null, null, 1, null, -1, null, -1, 3, 4] }
   ],
   "complexity_generator": "const generateInput = (n) => {\n    const ops = ['LRUCache'];\n    const args = [[100]];\n    for (let i = 0; i < n; i++) {\n        if (Math.random() > 0.5) {\n            ops.push('put');\n            args.push([i % 100, i]);\n        } else {\n            ops.push('get');\n            args.push([i % 100]);\n        }\n    }\n    return [ops, args];\n};"
 }
