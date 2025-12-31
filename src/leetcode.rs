@@ -1,6 +1,7 @@
 use anyhow::Result;
 use rust_embed::Embed;
 use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 
 #[derive(Embed)]
 #[folder = "problems/"]
@@ -20,6 +21,8 @@ pub struct Problem {
     pub function_name: String,
     pub test_cases: Vec<TestCase>,
     pub complexity_generator: String,
+    #[serde(skip)]
+    pub position: u32,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -28,41 +31,75 @@ pub struct TestCase {
     pub expected: serde_json::Value,
 }
 
+#[derive(Debug, Deserialize)]
+struct Blind75Order {
+    order: Vec<OrderEntry>,
+}
+
+#[derive(Debug, Deserialize)]
+struct OrderEntry {
+    #[allow(dead_code)]
+    position: u32,
+    id: u32,
+    category: String,
+}
+
 pub struct LeetCodeClient {
     problems: Vec<Problem>,
 }
 
 impl LeetCodeClient {
     pub fn new() -> Self {
-        let mut problems = Vec::new();
+        let mut problems_map: HashMap<u32, Problem> = HashMap::new();
 
+        // Load all problem files
         for file in <ProblemFiles as Embed>::iter() {
+            // Skip the order file
+            if file.contains("blind75_order") {
+                continue;
+            }
             if let Some(content) = <ProblemFiles as Embed>::get(&file) {
                 if let Ok(json_str) = std::str::from_utf8(&content.data) {
                     match serde_json::from_str::<Problem>(json_str) {
-                        Ok(problem) => problems.push(problem),
+                        Ok(problem) => {
+                            problems_map.insert(problem.id, problem);
+                        }
                         Err(e) => eprintln!("Failed to parse {}: {}", file, e),
                     }
                 }
             }
         }
 
-        // Sort by ID
-        problems.sort_by_key(|p| p.id);
+        // Load the order file and sort problems accordingly
+        let mut problems = Vec::new();
+        if let Some(order_content) = <ProblemFiles as Embed>::get("blind75_order.json") {
+            if let Ok(json_str) = std::str::from_utf8(&order_content.data) {
+                if let Ok(order) = serde_json::from_str::<Blind75Order>(json_str) {
+                    for entry in order.order {
+                        if let Some(mut problem) = problems_map.remove(&entry.id) {
+                            // Update category from order file if different
+                            if problem.category.is_empty() || problem.category != entry.category {
+                                problem.category = entry.category;
+                            }
+                            // Set position from the order file
+                            problem.position = entry.position;
+                            problems.push(problem);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Add any remaining problems not in the order (shouldn't happen, but just in case)
+        let mut remaining: Vec<Problem> = problems_map.into_values().collect();
+        remaining.sort_by_key(|p| p.id);
+        problems.extend(remaining);
 
         Self { problems }
     }
 
     pub fn get_problems(&self) -> Result<Vec<Problem>> {
         Ok(self.problems.clone())
-    }
-
-    pub fn get_problem(&self, id: u32) -> Result<Problem> {
-        self.problems
-            .iter()
-            .find(|p| p.id == id)
-            .cloned()
-            .ok_or_else(|| anyhow::anyhow!("Problem not found"))
     }
 
     pub fn format_problem(&self, problem: &Problem) -> String {

@@ -1,7 +1,7 @@
 {
   "name": "leet-tui",
   "version": "0.1.0",
-  "description": "A terminal UI for solving LeetCode problems with embedded Neovim",
+  "description": "A terminal UI for practicing LeetCode Blind 75 problems with embedded Neovim",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -18,23 +18,18 @@
     "neovim",
     "coding",
     "interview",
-    "practice"
+    "practice",
+    "blind75"
   ],
   "bin": {
     "leet-tui": "bin/leet-tui"
   },
   "files": [
-    "bin"
+    "bin",
+    "scripts"
   ],
   "scripts": {
     "postinstall": "node scripts/postinstall.js"
-  },
-  "optionalDependencies": {
-    "@leet-tui/darwin-arm64": "0.1.0",
-    "@leet-tui/darwin-x64": "0.1.0",
-    "@leet-tui/linux-x64": "0.1.0",
-    "@leet-tui/linux-arm64": "0.1.0",
-    "@leet-tui/win32-x64": "0.1.0"
   },
   "engines": {
     "node": ">=16"

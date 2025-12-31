@@ -1,56 +1,45 @@
 #!/usr/bin/env node
 
-const { execFileSync } = require('child_process');
+const { execFileSync, spawn } = require('child_process');
 const path = require('path');
 const fs = require('fs');
 
-const PLATFORMS = {
-  'darwin-arm64': '@leet-tui/darwin-arm64',
-  'darwin-x64': '@leet-tui/darwin-x64',
-  'linux-x64': '@leet-tui/linux-x64',
-  'linux-arm64': '@leet-tui/linux-arm64',
-  'win32-x64': '@leet-tui/win32-x64',
-};
+const binDir = __dirname;
+const binName = process.platform === 'win32' ? 'leet-tui.exe' : 'leet-tui-binary';
+const binaryPath = path.join(binDir, binName);
 
-function getBinaryPath() {
-  const platformKey = `${process.platform}-${process.arch}`;
-  const packageName = PLATFORMS[platformKey];
-
-  if (!packageName) {
-    console.error(`Unsupported platform: ${platformKey}`);
-    console.error(`Supported platforms: ${Object.keys(PLATFORMS).join(', ')}`);
-    process.exit(1);
-  }
-
+if (!fs.existsSync(binaryPath)) {
+  console.error('[leet-tui] Binary not found. Running postinstall...');
   try {
-    const packagePath = require.resolve(`${packageName}/package.json`);
-    const packageDir = path.dirname(packagePath);
-    const binName = process.platform === 'win32' ? 'leet-tui.exe' : 'leet-tui';
-    const binaryPath = path.join(packageDir, 'bin', binName);
-
-    if (!fs.existsSync(binaryPath)) {
-      throw new Error(`Binary not found at ${binaryPath}`);
-    }
-
-    return binaryPath;
+    execFileSync('node', [path.join(__dirname, '..', 'scripts', 'postinstall.js')], {
+      stdio: 'inherit',
+    });
   } catch (err) {
-    console.error(`Failed to find binary for ${platformKey}:`);
-    console.error(err.message);
-    console.error('\nTry reinstalling: npm install -g leet-tui');
+    console.error('[leet-tui] Failed to install binary.');
     process.exit(1);
   }
 }
 
-const binaryPath = getBinaryPath();
-
-try {
-  execFileSync(binaryPath, process.argv.slice(2), {
-    stdio: 'inherit',
-    env: process.env,
-  });
-} catch (err) {
-  if (err.status !== undefined) {
-    process.exit(err.status);
-  }
-  throw err;
+if (!fs.existsSync(binaryPath)) {
+  console.error('[leet-tui] Binary still not found after postinstall.');
+  console.error('Please try reinstalling: npm install -g leet-tui');
+  process.exit(1);
 }
+
+// Use spawn with inherit to properly handle TTY
+const child = spawn(binaryPath, process.argv.slice(2), {
+  stdio: 'inherit',
+  env: process.env,
+});
+
+child.on('error', (err) => {
+  console.error(`[leet-tui] Failed to start: ${err.message}`);
+  process.exit(1);
+});
+
+child.on('exit', (code, signal) => {
+  if (signal) {
+    process.exit(1);
+  }
+  process.exit(code ?? 0);
+});

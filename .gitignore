@@ -1,3 +1,7 @@
 /target/
 Cargo.lock
 solutions/
+
+# Downloaded binary (postinstall)
+bin/leet-tui-binary
+bin/leet-tui.exe

@@ -57,19 +57,9 @@ impl AppPaths {
         self.solutions_dir.join(format!("problem_{}.js", problem_id))
     }
 
-    /// Get path for config file
-    pub fn config_file(&self) -> PathBuf {
-        self.config_dir.join("config.json")
-    }
-
     /// Get path for progress tracking file
     pub fn progress_file(&self) -> PathBuf {
         self.data_dir.join("progress.json")
-    }
-
-    /// Get path for cached problems list
-    pub fn problems_cache(&self) -> PathBuf {
-        self.cache_dir.join("problems.json")
     }
 }
 
