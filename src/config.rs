@@ -2,6 +2,8 @@ use anyhow::Result;
 use std::fs;
 use std::path::PathBuf;
 
+use crate::language::Language;
+
 /// Application paths following XDG Base Directory spec
 pub struct AppPaths {
     /// Config directory (~/.config/leet-tui/)
@@ -52,9 +54,19 @@ impl AppPaths {
         Ok(())
     }
 
-    /// Get path for a specific problem's solution file
-    pub fn solution_file(&self, problem_id: u32) -> PathBuf {
-        self.solutions_dir.join(format!("problem_{}.js", problem_id))
+    /// Get path for a specific problem's solution file in a given language
+    pub fn solution_file(&self, problem_id: u32, lang: Language) -> PathBuf {
+        self.solutions_dir
+            .join(format!("problem_{}.{}", problem_id, lang.extension()))
+    }
+
+    /// Check which languages have existing solutions for a problem
+    pub fn get_existing_solutions(&self, problem_id: u32) -> Vec<Language> {
+        Language::all()
+            .iter()
+            .filter(|lang| self.solution_file(problem_id, **lang).exists())
+            .copied()
+            .collect()
     }
 
     /// Get path for progress tracking file
