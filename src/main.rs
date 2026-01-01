@@ -201,6 +201,7 @@ impl App {
             solution_file,
             test_output: None,
             show_results: false,
+            tip_system: tips::TipSystem::new(),
         });
 
         Ok(())
