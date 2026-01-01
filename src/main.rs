@@ -756,16 +756,13 @@ impl App {
                 FilterFocus::ListFilter => {
                     match key.code {
                         KeyCode::Left => {
-                            if home.selected_list > 0 {
-                                home.selected_list -= 1;
-                                Self::apply_filters(home, progress);
-                            }
+                            let len = home.list_filters.len();
+                            home.selected_list = (home.selected_list + len - 1) % len;
+                            Self::apply_filters(home, progress);
                         }
                         KeyCode::Right => {
-                            if home.selected_list < home.list_filters.len() - 1 {
-                                home.selected_list += 1;
-                                Self::apply_filters(home, progress);
-                            }
+                            home.selected_list = (home.selected_list + 1) % home.list_filters.len();
+                            Self::apply_filters(home, progress);
                         }
                         KeyCode::Enter => {
                             home.filter_focus = FilterFocus::ProblemList;
@@ -776,16 +773,13 @@ impl App {
                 FilterFocus::Category => {
                     match key.code {
                         KeyCode::Left => {
-                            if home.selected_category > 0 {
-                                home.selected_category -= 1;
-                                Self::apply_filters(home, progress);
-                            }
+                            let len = home.categories.len();
+                            home.selected_category = (home.selected_category + len - 1) % len;
+                            Self::apply_filters(home, progress);
                         }
                         KeyCode::Right => {
-                            if home.selected_category < home.categories.len() - 1 {
-                                home.selected_category += 1;
-                                Self::apply_filters(home, progress);
-                            }
+                            home.selected_category = (home.selected_category + 1) % home.categories.len();
+                            Self::apply_filters(home, progress);
                         }
                         KeyCode::Enter => {
                             home.filter_focus = FilterFocus::ProblemList;
@@ -796,16 +790,13 @@ impl App {
                 FilterFocus::Difficulty => {
                     match key.code {
                         KeyCode::Left => {
-                            if home.selected_difficulty > 0 {
-                                home.selected_difficulty -= 1;
-                                Self::apply_filters(home, progress);
-                            }
+                            let len = home.difficulties.len();
+                            home.selected_difficulty = (home.selected_difficulty + len - 1) % len;
+                            Self::apply_filters(home, progress);
                         }
                         KeyCode::Right => {
-                            if home.selected_difficulty < home.difficulties.len() - 1 {
-                                home.selected_difficulty += 1;
-                                Self::apply_filters(home, progress);
-                            }
+                            home.selected_difficulty = (home.selected_difficulty + 1) % home.difficulties.len();
+                            Self::apply_filters(home, progress);
                         }
                         KeyCode::Enter => {
                             home.filter_focus = FilterFocus::ProblemList;
@@ -816,16 +807,13 @@ impl App {
                 FilterFocus::Progress => {
                     match key.code {
                         KeyCode::Left => {
-                            if home.selected_progress > 0 {
-                                home.selected_progress -= 1;
-                                Self::apply_filters(home, progress);
-                            }
+                            let len = home.progress_filters.len();
+                            home.selected_progress = (home.selected_progress + len - 1) % len;
+                            Self::apply_filters(home, progress);
                         }
                         KeyCode::Right => {
-                            if home.selected_progress < home.progress_filters.len() - 1 {
-                                home.selected_progress += 1;
-                                Self::apply_filters(home, progress);
-                            }
+                            home.selected_progress = (home.selected_progress + 1) % home.progress_filters.len();
+                            Self::apply_filters(home, progress);
                         }
                         KeyCode::Enter => {
                             home.filter_focus = FilterFocus::ProblemList;
