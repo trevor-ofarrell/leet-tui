@@ -1302,49 +1302,56 @@ impl App {
                 .block(question_block)
                 .wrap(Wrap { trim: false });
 
-            f.render_widget(question_paragraph, question_chunks[0]);
+            f.render_widget(question_paragraph, question_area);
 
-            // Render tip with fade effect
-            let opacity = question.tip_system.opacity();
-            let tip_text = question.tip_system.current_tip();
+            // Render tip with fade effect (if visible)
+            if question.show_tips {
+                let tip_area = Layout::default()
+                    .direction(Direction::Vertical)
+                    .constraints([Constraint::Min(0), Constraint::Length(4)])
+                    .split(chunks[0])[1];
 
-            // Fade from background color (dark) to visible color (light cyan-ish)
-            // At opacity 0: blend with dark background (~30-40)
-            // At opacity 1: bright visible text (~160-200)
-            let bg_base = 35.0_f32;
-            let fg_r = 160.0_f32;
-            let fg_g = 180.0_f32;
-            let fg_b = 200.0_f32;
+                let opacity = question.tip_system.opacity();
+                let tip_text = question.tip_system.current_tip();
 
-            let r = (bg_base + opacity * (fg_r - bg_base)) as u8;
-            let g = (bg_base + opacity * (fg_g - bg_base)) as u8;
-            let b = (bg_base + opacity * (fg_b - bg_base)) as u8;
-            let tip_color = Color::Rgb(r, g, b);
+                // Fade from background color (dark) to visible color (light cyan-ish)
+                // At opacity 0: blend with dark background (~30-40)
+                // At opacity 1: bright visible text (~160-200)
+                let bg_base = 35.0_f32;
+                let fg_r = 160.0_f32;
+                let fg_g = 180.0_f32;
+                let fg_b = 200.0_f32;
 
-            let tip_block = Block::default()
-                .borders(Borders::ALL)
-                .border_style(Style::default().fg(Color::Rgb(100, 110, 130)))
-                .title(Span::styled(" Tip ", Style::default().fg(Color::Rgb(140, 150, 170))));
+                let r = (bg_base + opacity * (fg_r - bg_base)) as u8;
+                let g = (bg_base + opacity * (fg_g - bg_base)) as u8;
+                let b = (bg_base + opacity * (fg_b - bg_base)) as u8;
+                let tip_color = Color::Rgb(r, g, b);
 
-            // Render block first, then text with horizontal padding
-            let tip_inner = tip_block.inner(question_chunks[1]);
-            f.render_widget(tip_block, question_chunks[1]);
+                let tip_block = Block::default()
+                    .borders(Borders::ALL)
+                    .border_style(Style::default().fg(Color::Rgb(100, 110, 130)))
+                    .title(Span::styled(" Tip ", Style::default().fg(Color::Rgb(140, 150, 170))));
 
-            // Add 3 chars horizontal padding
-            let padded_area = Rect {
-                x: tip_inner.x + 3,
-                y: tip_inner.y,
-                width: tip_inner.width.saturating_sub(6),
-                height: tip_inner.height,
-            };
+                // Render block first, then text with horizontal padding
+                let tip_inner = tip_block.inner(tip_area);
+                f.render_widget(tip_block, tip_area);
 
-            let tip_paragraph = Paragraph::new(Span::styled(
-                tip_text,
-                Style::default().fg(tip_color),
-            ))
-            .wrap(Wrap { trim: true });
+                // Add 3 chars horizontal padding
+                let padded_area = Rect {
+                    x: tip_inner.x + 3,
+                    y: tip_inner.y,
+                    width: tip_inner.width.saturating_sub(6),
+                    height: tip_inner.height,
+                };
 
-            f.render_widget(tip_paragraph, padded_area);
+                let tip_paragraph = Paragraph::new(Span::styled(
+                    tip_text,
+                    Style::default().fg(tip_color),
+                ))
+                .wrap(Wrap { trim: true });
+
+                f.render_widget(tip_paragraph, padded_area);
+            }
 
             // Render Editor pane
             let editor_focused = matches!(question.focus, Focus::Editor);
