@@ -529,6 +529,40 @@ impl App {
     }
 
     fn apply_filters(home: &mut HomeState, progress: &Progress) {
+        // First, update categories based on list filter (NeetCode 150 / Blind 75)
+        let list_filtered_problems: Vec<_> = home.all_problems.iter()
+            .filter(|p| {
+                match home.selected_list {
+                    1 => p.blind75, // Blind 75 only
+                    _ => true,      // NeetCode 150 (all)
+                }
+            })
+            .collect();
+
+        // Extract categories from the list-filtered problems
+        let mut new_categories: Vec<String> = list_filtered_problems
+            .iter()
+            .map(|p| p.category.clone())
+            .filter(|c| !c.is_empty())
+            .collect::<std::collections::HashSet<_>>()
+            .into_iter()
+            .collect();
+        new_categories.sort();
+        new_categories.insert(0, "All".to_string());
+
+        // If current category is no longer valid, reset to "All"
+        let current_category = home.categories.get(home.selected_category).cloned();
+        home.categories = new_categories;
+        if let Some(cat) = current_category {
+            if let Some(idx) = home.categories.iter().position(|c| c == &cat) {
+                home.selected_category = idx;
+            } else {
+                home.selected_category = 0; // Reset to "All"
+            }
+        } else {
+            home.selected_category = 0;
+        }
+
         let category_filter = if home.selected_category == 0 {
             None
         } else {
