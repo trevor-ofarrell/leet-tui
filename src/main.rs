@@ -203,6 +203,7 @@ impl App {
             test_output: None,
             show_results: false,
             tip_system: tips::TipSystem::new(),
+            show_tips: true,
         });
 
         Ok(())
