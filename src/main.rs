@@ -1204,6 +1204,12 @@ impl App {
                 .constraints([Constraint::Percentage(38), Constraint::Percentage(62)])
                 .split(f.area());
 
+            // Split question pane into main area and tip area
+            let question_chunks = Layout::default()
+                .direction(Direction::Vertical)
+                .constraints([Constraint::Min(0), Constraint::Length(4)])
+                .split(chunks[0]);
+
             // Render Question pane
             let question_focused = matches!(question.focus, Focus::Question);
             let question_block = Block::default()
@@ -1282,7 +1288,29 @@ impl App {
                 .block(question_block)
                 .wrap(Wrap { trim: false });
 
-            f.render_widget(question_paragraph, chunks[0]);
+            f.render_widget(question_paragraph, question_chunks[0]);
+
+            // Render tip with fade effect
+            let opacity = question.tip_system.opacity();
+            let tip_text = question.tip_system.current_tip();
+
+            // Calculate color based on opacity (fade to background)
+            let tip_intensity = (opacity * 180.0) as u8;
+            let tip_color = Color::Rgb(tip_intensity, tip_intensity, (tip_intensity as f32 * 1.2).min(255.0) as u8);
+
+            let tip_block = Block::default()
+                .borders(Borders::ALL)
+                .border_style(Style::default().fg(Color::Rgb(60, 60, 70)))
+                .title(Span::styled(" Tip ", Style::default().fg(Color::Rgb(80, 80, 100))));
+
+            let tip_paragraph = Paragraph::new(Span::styled(
+                tip_text,
+                Style::default().fg(tip_color),
+            ))
+            .block(tip_block)
+            .wrap(Wrap { trim: true });
+
+            f.render_widget(tip_paragraph, question_chunks[1]);
 
             // Render Editor pane
             let editor_focused = matches!(question.focus, Focus::Editor);
