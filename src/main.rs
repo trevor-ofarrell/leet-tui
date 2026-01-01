@@ -1195,6 +1195,9 @@ impl App {
     }
 
     fn render_question(terminal: &mut Terminal<CrosstermBackend<io::Stdout>>, question: &mut QuestionState) -> Result<()> {
+        // Update tip system each frame
+        question.tip_system.update();
+
         terminal.draw(|f| {
             let chunks = Layout::default()
                 .direction(Direction::Horizontal)
