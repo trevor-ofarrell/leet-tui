@@ -3,6 +3,7 @@
   "version": "0.1.2",
   "description": "A terminal UI for practicing LeetCode Blind 75 problems with embedded Neovim",
   "license": "MIT",
+  "author": "Trevor O'Farrell",
   "repository": {
     "type": "git",
     "url": "https://github.com/trevor-ofarrell/leet-tui"
