@@ -96,26 +96,51 @@ leet-tui
 
 ## Keyboard Shortcuts
 
-### Home Page
-- **Up/Down or j/k**: Navigate problem list
-- **Enter**: Select a problem
+### Global
 - **Ctrl+C**: Quit application
+
+### Home Page
+
+#### Problem List (default focus)
+- **Up/Down**: Navigate problem list (circular)
+- **Enter**: Open selected problem
+- **L**: Cycle language (JS → Python → C → C++)
+- **/**: Jump to search box
+
+#### Navigation
+- **Tab**: Cycle focus forward (List → Search → List Filter → Category → Difficulty → Progress)
+- **Shift+Tab**: Cycle focus backward
+
+#### Search Box
+- **Type**: Filter problems by title or number
+- **Enter**: Return to problem list
+- **Esc**: Clear search and return to problem list
+
+#### Filters (List, Category, Difficulty, Progress)
+- **Left/Right**: Cycle through filter options (circular)
+- **Enter**: Return to problem list
 
 ### Question View
-- **Ctrl+R**: Run tests (quick, 3-5 cases)
-- **Ctrl+S**: Submit tests (full, 50-200 cases)
-- **Ctrl+Q**: Switch focus between question pane and editor pane
+
+#### Editor Pane (default focus)
+- **All Neovim shortcuts**: Full Neovim functionality
+- **Ctrl+R**: Run tests (quick mode, 3-5 cases)
+- **Ctrl+S**: Submit tests (full mode, 50-200 cases)
+- **Ctrl+Q**: Switch focus to question pane
+- **Ctrl+T**: Toggle tips visibility
 - **Ctrl+H**: Back to home page
-- **Ctrl+C**: Quit application
-- **Up/Down**: Scroll question (when question pane is focused)
-- **PageUp/PageDown**: Fast scroll question
-- **Home**: Jump to top of question
-- **All Neovim shortcuts**: Work when editor pane is focused
+
+#### Question Pane
+- **Up/Down**: Scroll question text
+- **PageUp/PageDown**: Fast scroll (10 lines)
+- **Home**: Jump to top
+- **Shift+R**: Reset solution to template
+- **Ctrl+Q**: Switch focus to editor pane
 
 ### Results Modal
-- **Esc**: Close results
+- **Esc**: Close modal
 - **Up/Down or j/k**: Scroll results
-- **PageUp/PageDown**: Fast scroll
+- **PageUp/PageDown**: Fast scroll (10 lines)
 - **Home/End or g/G**: Jump to top/bottom
 
 ## Architecture
