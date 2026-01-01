@@ -4,27 +4,65 @@ A terminal user interface (TUI) application for solving LeetCode problems with a
 
 ## Features
 
-- **Home page with problem list**: Browse all available LeetCode problems with difficulty indicators
+- **149 NeetCode problems**: Curated problems from the NeetCode 150 list with full test suites
+- **Multi-language support**: JavaScript, Python, C, and C++
+- **Two test modes**:
+  - **Run (Ctrl+R)**: Quick validation with 3-5 test cases
+  - **Submit (Ctrl+S)**: Full validation with 50-200 test cases
+- **Complexity analysis**: Automatic time/space complexity estimation after passing tests
 - **Split-screen interface**: 1/3 for problem description, 2/3 for Neovim editor
-- **Automatic boilerplate generation**: Each problem gets custom boilerplate code and test cases
-- **Run tests locally**: Press Ctrl+R to run your solution against test cases with instant feedback
-- **Color-coded results**: Test output shows PASSED in green, FAILED in red
 - **Embedded Neovim**: Full Neovim functionality within the TUI
-- **JavaScript solutions**: Default language is JavaScript (other languages coming soon)
+- **Scrollable results modal**: Navigate through test output with keyboard
+- **Color-coded results**: PASSED in green, FAILED in red
 - **Organized solution files**: Solutions saved to `~/.local/share/leet-tui/solutions/`
-- **Proper window sizing**: Neovim automatically fits the available space
-- **Focus switching**: Toggle between question pane and editor pane
-- **Scrollable question view**: Navigate through problem descriptions
-- **Proper input forwarding**: All keyboard shortcuts work in Neovim (arrows, Ctrl combinations, etc.)
 
-## Architecture
+## Test Output
 
-The application uses:
-- **ratatui**: Terminal UI framework
-- **portable-pty**: PTY system for spawning Neovim
-- **vt100**: Terminal emulator parser
-- **tui-term**: Widget for rendering terminal output
-- **crossterm**: Cross-platform terminal manipulation
+### Run Mode (Ctrl+R)
+Verbose output showing each test case with input/output:
+```
+Test 1: PASSED [0.05 ms]
+  Input:    [2,7,11,15], 9
+  Output:   [0,1]
+
+Test 2: PASSED [0.03 ms]
+  Input:    [3,2,4], 6
+  Output:   [1,2]
+```
+
+### Submit Mode (Ctrl+S)
+Compact table format for large test suites:
+```
++-------+--------+--------------+
+| Test  | Status |     Time     |
++-------+--------+--------------+
+|   1   |   ✓    |     0.05 ms  |
+|   2   |   ✓    |     0.03 ms  |
+|   3   |   ✗    |     0.02 ms  |
++-------+--------+--------------+
+
+Results: 2 passed, 1 failed of 3 tests
+```
+
+### Complexity Analysis
+After all tests pass, benchmarks run with statistical analysis:
+```
+Warming up JIT compiler...
+Running benchmarks (5 rounds each, taking median)...
+
++-------------+------------------+------------+--------------+
+|      n      |   Median Time    |    Runs    |   Std Dev    |
++-------------+------------------+------------+--------------+
+|       10000 |          0.15 ms |       6640 |         1.2% |
+|      100000 |          1.52 ms |        660 |         0.8% |
+|     1000000 |         15.21 ms |         66 |         2.1% |
++-------------+------------------+------------+--------------+
+
+Time Complexity:  O(n) (slope: 1.00)
+Space Complexity: O(n) estimated
+
+Note: Std Dev < 5% indicates stable results
+```
 
 ## Installation
 
@@ -41,6 +79,9 @@ This will automatically download the correct binary for your platform.
 Prerequisites:
 - Rust (1.70+)
 - Neovim installed and available in PATH
+- For JavaScript: Bun or Node.js
+- For Python: Python 3.x
+- For C/C++: GCC or Clang
 
 ```bash
 cargo build --release
@@ -56,20 +97,36 @@ leet-tui
 ## Keyboard Shortcuts
 
 ### Home Page
-- **Up/Down**: Navigate problem list
+- **Up/Down or j/k**: Navigate problem list
 - **Enter**: Select a problem
 - **Ctrl+C**: Quit application
 
 ### Question View
-- **Ctrl+R**: Save file and run tests (auto-saves before testing)
+- **Ctrl+R**: Run tests (quick, 3-5 cases)
+- **Ctrl+S**: Submit tests (full, 50-200 cases)
 - **Ctrl+Q**: Switch focus between question pane and editor pane
 - **Ctrl+H**: Back to home page
 - **Ctrl+C**: Quit application
-- **Esc**: Close test results popup
 - **Up/Down**: Scroll question (when question pane is focused)
-- **PageUp/PageDown**: Fast scroll question (when question pane is focused)
-- **Home**: Jump to top of question (when question pane is focused)
+- **PageUp/PageDown**: Fast scroll question
+- **Home**: Jump to top of question
 - **All Neovim shortcuts**: Work when editor pane is focused
+
+### Results Modal
+- **Esc**: Close results
+- **Up/Down or j/k**: Scroll results
+- **PageUp/PageDown**: Fast scroll
+- **Home/End or g/G**: Jump to top/bottom
+
+## Architecture
+
+The application uses:
+- **ratatui**: Terminal UI framework
+- **portable-pty**: PTY system for spawning Neovim
+- **vt100**: Terminal emulator parser
+- **tui-term**: Widget for rendering terminal output
+- **crossterm**: Cross-platform terminal manipulation
+- **rust-embed**: Embedded problem data and test cases
 
 ## Project Structure
 
@@ -77,72 +134,54 @@ leet-tui
 src/
 ├── main.rs       # Main application logic and UI rendering
 ├── pty.rs        # PTY manager for Neovim integration
-├── input.rs      # Keyboard input handling and ANSI escape sequence mapping
-└── leetcode.rs   # LeetCode API integration (currently with sample data)
+├── input.rs      # Keyboard input handling
+├── leetcode.rs   # Problem data and test runner generation
+└── language.rs   # Multi-language support
+
+problems/         # Embedded problem definitions (JSON)
+testcases/        # Extended test cases for run/submit modes
 ```
 
-## How It Works
+## Benchmarking Methodology
 
-### PTY Integration
+The complexity analysis uses robust benchmarking practices:
 
-The application spawns Neovim in a pseudo-terminal (PTY) and renders its output in a Ratatui widget. A background thread continuously reads from the PTY and updates a VT100 parser, which maintains the terminal state.
+1. **Aggressive warmup**: 500 iterations across multiple input sizes to stabilize JIT
+2. **Multiple rounds**: 5 benchmark rounds per size
+3. **Median selection**: Uses median instead of mean to filter outliers
+4. **Statistical reporting**: Shows relative standard deviation for confidence
+5. **GC management**: Forces garbage collection between rounds
 
-### Input Forwarding
+This produces repeatable results - look for Std Dev < 5% to confirm stability.
 
-When the editor pane is focused, all keyboard events are converted to ANSI escape sequences and sent to the PTY. This includes:
-- Regular characters
-- Control combinations (Ctrl+A, Ctrl+W, etc.)
-- Arrow keys and function keys
-- Special keys (Home, End, PageUp, PageDown, etc.)
+## Supported Languages
 
-### Focus Management
-
-The application maintains a focus state that determines which pane receives input:
-- **Question pane**: Arrow keys scroll the problem description
-- **Editor pane**: All input is forwarded to Neovim
-
-## Extending
-
-### Adding Real LeetCode API Integration
-
-Currently, the app displays a sample problem. To integrate with the real LeetCode API:
-
-1. Update `src/leetcode.rs` to make GraphQL requests to LeetCode
-2. Add authentication support
-3. Implement problem selection UI
-
-### Customizing Neovim
-
-You can customize the Neovim instance by:
-- Setting environment variables (e.g., `NVIM_APPNAME` for different configs)
-- Passing command-line arguments in `src/pty.rs:25`
-- Creating a custom init file for the TUI context
-
-The app currently opens `solution.js` by default. To support other languages, modify the file extension in `src/pty.rs:25`.
+| Language | Runtime | File Extension |
+|----------|---------|----------------|
+| JavaScript | Bun (preferred) or Node.js | `.js` |
+| Python | Python 3.x | `.py` |
+| C | GCC/Clang | `.c` |
+| C++ | G++/Clang++ | `.cpp` |
 
 ## Troubleshooting
 
 ### Keys not working in Neovim
-
 If certain key combinations don't work, you may need to add them to the `key_to_bytes` function in `src/input.rs`.
 
 ### Terminal size issues
-
 The application handles resize events and updates the PTY size accordingly. If you experience rendering issues, try resizing your terminal.
 
-### Neovim colors look wrong
+### Inconsistent benchmark results
+If Std Dev is high (>10%), try:
+- Closing other applications
+- Running on a less loaded system
+- The median should still be reasonably stable
 
-The VT100 parser supports basic colors. If you use a complex Neovim theme, some colors may not render perfectly in the embedded terminal.
-
-## Future Enhancements
-
-- [ ] Real LeetCode API integration
-- [ ] Problem selection menu
-- [ ] Multiple test case support
-- [ ] Submit solution functionality
-- [ ] History of attempted problems
-- [ ] Custom Neovim configuration per problem type
-- [ ] Split terminal for running tests
+### Test runner errors
+Ensure the appropriate runtime is installed:
+- JavaScript: `bun --version` or `node --version`
+- Python: `python3 --version`
+- C/C++: `gcc --version` or `clang --version`
 
 ## License
 
