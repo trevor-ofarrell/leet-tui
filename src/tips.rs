@@ -229,21 +229,24 @@ impl TipSystem {
     pub fn update(&mut self) {
         let elapsed = self.last_change.elapsed().as_millis() as f32;
 
-        // Timing: 1s fade in, 7s visible, 1s fade out = 9s total
-        const FADE_DURATION: f32 = 1000.0;  // 1 second
-        const VISIBLE_DURATION: f32 = 7000.0;  // 7 seconds
-        const TOTAL_CYCLE: f32 = 9000.0;  // 9 seconds
+        // Timing: 2s fade in, 14s visible, 2s fade out = 18s total
+        const FADE_DURATION: f32 = 2000.0;  // 2 seconds
+        const VISIBLE_DURATION: f32 = 14000.0;  // 14 seconds
+        const TOTAL_CYCLE: f32 = 18000.0;  // 18 seconds
 
         if elapsed < FADE_DURATION {
-            // Fading in
-            self.fade_state = FadeState::FadingIn(elapsed / FADE_DURATION);
+            // Fading in - use eased curve for smoother transition
+            let t = elapsed / FADE_DURATION;
+            let eased = t * t * (3.0 - 2.0 * t);  // smoothstep
+            self.fade_state = FadeState::FadingIn(eased);
         } else if elapsed < FADE_DURATION + VISIBLE_DURATION {
             // Fully visible
             self.fade_state = FadeState::Visible;
         } else if elapsed < TOTAL_CYCLE {
-            // Fading out
-            let fade_progress = (elapsed - FADE_DURATION - VISIBLE_DURATION) / FADE_DURATION;
-            self.fade_state = FadeState::FadingOut(1.0 - fade_progress);
+            // Fading out - use eased curve for smoother transition
+            let t = (elapsed - FADE_DURATION - VISIBLE_DURATION) / FADE_DURATION;
+            let eased = t * t * (3.0 - 2.0 * t);  // smoothstep
+            self.fade_state = FadeState::FadingOut(1.0 - eased);
         } else {
             // Cycle complete, pick new tip
             let mut rng = rand::thread_rng();
