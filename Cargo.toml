@@ -25,3 +25,4 @@ serde_json = "1.0"
 dirs = "5.0"
 rust-embed = { version = "8.0", features = ["include-exclude"] }
 chrono = { version = "0.4", features = ["serde"] }
+rand = "0.8"
