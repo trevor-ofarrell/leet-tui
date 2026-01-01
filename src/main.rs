@@ -1213,11 +1213,16 @@ impl App {
                 .constraints([Constraint::Percentage(38), Constraint::Percentage(62)])
                 .split(f.area());
 
-            // Split question pane into main area and tip area
-            let question_chunks = Layout::default()
-                .direction(Direction::Vertical)
-                .constraints([Constraint::Min(0), Constraint::Length(4)])
-                .split(chunks[0]);
+            // Split question pane into main area and tip area (if tips visible)
+            let question_area = if question.show_tips {
+                let question_chunks = Layout::default()
+                    .direction(Direction::Vertical)
+                    .constraints([Constraint::Min(0), Constraint::Length(4)])
+                    .split(chunks[0]);
+                question_chunks[0]
+            } else {
+                chunks[0]
+            };
 
             // Render Question pane
             let question_focused = matches!(question.focus, Focus::Question);
