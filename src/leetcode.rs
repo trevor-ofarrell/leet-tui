@@ -168,11 +168,6 @@ impl LeetCodeClient {
         }
     }
 
-    /// Check if extended test cases exist for a problem
-    pub fn has_extended_tests(&self, problem_id: u32) -> bool {
-        self.extended_tests.contains_key(&problem_id)
-    }
-
     pub fn get_problems(&self) -> Result<Vec<Problem>> {
         Ok(self.problems.clone())
     }
@@ -311,16 +306,6 @@ public:
                 signature = signature,
             ),
         }
-    }
-
-    /// Generate test runner for the specified language (uses Run mode by default)
-    pub fn generate_test_runner(
-        &self,
-        problem: &Problem,
-        solution_code: &str,
-        lang: Language,
-    ) -> String {
-        self.generate_test_runner_with_mode(problem, solution_code, lang, TestMode::Run)
     }
 
     /// Generate test runner for the specified language with a specific test mode
