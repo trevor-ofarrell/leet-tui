@@ -1,0 +1,324 @@
+{
+  "problem_id": 994,
+  "title": "Rotting Oranges",
+  "run_tests": [
+    {
+      "input": {"grid": [[2,1,1],[1,1,0],[0,1,1]]},
+      "expected": 4
+    },
+    {
+      "input": {"grid": [[2,1,1],[0,1,1],[1,0,1]]},
+      "expected": -1
+    },
+    {
+      "input": {"grid": [[0,2]]},
+      "expected": 0
+    },
+    {
+      "input": {"grid": [[0]]},
+      "expected": 0
+    }
+  ],
+  "submit_tests": [
+    {
+      "input": {"grid": [[0]]},
+      "expected": 0,
+      "description": "Single empty cell"
+    },
+    {
+      "input": {"grid": [[1]]},
+      "expected": -1,
+      "description": "Single fresh - no rotten"
+    },
+    {
+      "input": {"grid": [[2]]},
+      "expected": 0,
+      "description": "Single rotten - already done"
+    },
+    {
+      "input": {"grid": [[0,0],[0,0]]},
+      "expected": 0,
+      "description": "2x2 all empty"
+    },
+    {
+      "input": {"grid": [[1,1],[1,1]]},
+      "expected": -1,
+      "description": "2x2 all fresh - no rotten"
+    },
+    {
+      "input": {"grid": [[2,2],[2,2]]},
+      "expected": 0,
+      "description": "2x2 all rotten"
+    },
+    {
+      "input": {"grid": [[2,1],[1,1]]},
+      "expected": 2,
+      "description": "2x2 one rotten corner"
+    },
+    {
+      "input": {"grid": [[1,2],[1,1]]},
+      "expected": 2,
+      "description": "2x2 one rotten top right"
+    },
+    {
+      "input": {"grid": [[2,1],[0,1]]},
+      "expected": 2,
+      "description": "2x2 rotten with empty"
+    },
+    {
+      "input": {"grid": [[2,0],[0,1]]},
+      "expected": -1,
+      "description": "2x2 fresh isolated by empty"
+    },
+    {
+      "input": {"grid": [[2,1,1],[1,1,0],[0,1,1]]},
+      "expected": 4,
+      "description": "Standard example 1"
+    },
+    {
+      "input": {"grid": [[2,1,1],[0,1,1],[1,0,1]]},
+      "expected": -1,
+      "description": "Standard example 2 - impossible"
+    },
+    {
+      "input": {"grid": [[0,2]]},
+      "expected": 0,
+      "description": "Standard example 3 - no fresh"
+    },
+    {
+      "input": {"grid": [[2,1,1],[1,1,1],[1,1,1]]},
+      "expected": 4,
+      "description": "3x3 corner rotten"
+    },
+    {
+      "input": {"grid": [[1,1,2],[1,1,1],[1,1,1]]},
+      "expected": 4,
+      "description": "3x3 top right rotten"
+    },
+    {
+      "input": {"grid": [[1,1,1],[1,2,1],[1,1,1]]},
+      "expected": 2,
+      "description": "3x3 center rotten"
+    },
+    {
+      "input": {"grid": [[2,1,2],[1,1,1],[2,1,2]]},
+      "expected": 1,
+      "description": "3x3 four corner rotten"
+    },
+    {
+      "input": {"grid": [[1,2,1],[2,1,2],[1,2,1]]},
+      "expected": 1,
+      "description": "3x3 edges rotten"
+    },
+    {
+      "input": {"grid": [[0,0,0],[0,2,0],[0,0,0]]},
+      "expected": 0,
+      "description": "3x3 only center rotten no fresh"
+    },
+    {
+      "input": {"grid": [[0,1,0],[1,2,1],[0,1,0]]},
+      "expected": 1,
+      "description": "3x3 plus pattern"
+    },
+    {
+      "input": {"grid": [[1,0,1],[0,2,0],[1,0,1]]},
+      "expected": -1,
+      "description": "3x3 corners fresh isolated"
+    },
+    {
+      "input": {"grid": [[2,0,0,0,2],[0,1,1,1,0],[0,1,1,1,0],[0,1,1,1,0],[2,0,0,0,2]]},
+      "expected": -1,
+      "description": "5x5 corners rotten center isolated"
+    },
+    {
+      "input": {"grid": [[2,1,1,1,2],[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1],[2,1,1,1,2]]},
+      "expected": 2,
+      "description": "5x5 corners rotten"
+    },
+    {
+      "input": {"grid": [[1,1,1,1,1],[1,1,1,1,1],[1,1,2,1,1],[1,1,1,1,1],[1,1,1,1,1]]},
+      "expected": 4,
+      "description": "5x5 center rotten"
+    },
+    {
+      "input": {"grid": [[2,2,2,2,2],[2,1,1,1,2],[2,1,1,1,2],[2,1,1,1,2],[2,2,2,2,2]]},
+      "expected": 2,
+      "description": "5x5 border rotten"
+    },
+    {
+      "input": {"grid": [[2,1,1,1,1,1,1,1,1,1]]},
+      "expected": 9,
+      "description": "1x10 single rotten left"
+    },
+    {
+      "input": {"grid": [[1,1,1,1,1,1,1,1,1,2]]},
+      "expected": 9,
+      "description": "1x10 single rotten right"
+    },
+    {
+      "input": {"grid": [[1,1,1,1,2,1,1,1,1,1]]},
+      "expected": 5,
+      "description": "1x10 single rotten middle"
+    },
+    {
+      "input": {"grid": [[2,1,1,1,1,1,1,1,1,2]]},
+      "expected": 4,
+      "description": "1x10 rotten both ends"
+    },
+    {
+      "input": {"grid": [[2],[1],[1],[1],[1],[1],[1],[1],[1],[1]]},
+      "expected": 9,
+      "description": "10x1 single rotten top"
+    },
+    {
+      "input": {"grid": [[1],[1],[1],[1],[2],[1],[1],[1],[1],[1]]},
+      "expected": 5,
+      "description": "10x1 single rotten middle"
+    },
+    {
+      "input": {"grid": [[2],[1],[1],[1],[1],[1],[1],[1],[1],[2]]},
+      "expected": 4,
+      "description": "10x1 rotten both ends"
+    },
+    {
+      "input": {"grid": [[1,1,1,0,1,1,1]]},
+      "expected": -1,
+      "description": "1x7 split by empty no rotten"
+    },
+    {
+      "input": {"grid": [[2,1,1,0,1,1,2]]},
+      "expected": 2,
+      "description": "1x7 split by empty rotten each side"
+    },
+    {
+      "input": {"grid": [[2,1,1,0,1,1,1]]},
+      "expected": -1,
+      "description": "1x7 split rotten one side only"
+    },
+    {
+      "input": {"grid": [[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]},
+      "expected": 0,
+      "description": "3x5 all empty"
+    },
+    {
+      "input": {"grid": [[2,2,2,2,2],[2,2,2,2,2],[2,2,2,2,2]]},
+      "expected": 0,
+      "description": "3x5 all rotten"
+    },
+    {
+      "input": {"grid": [[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1]]},
+      "expected": -1,
+      "description": "3x5 all fresh"
+    },
+    {
+      "input": {"grid": [[2,1,0,1,2],[1,0,0,0,1],[0,1,0,1,0]]},
+      "expected": -1,
+      "description": "3x5 complex with isolated fresh"
+    },
+    {
+      "input": {"grid": [[2,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1]]},
+      "expected": 8,
+      "description": "5x5 single corner rotten"
+    },
+    {
+      "input": {"grid": [[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,2,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1]]},
+      "expected": 9,
+      "description": "10x10 center rotten"
+    },
+    {
+      "input": {"grid": [[2,1,1,1,1,1,1,1,1,2],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1,1,1],[2,1,1,1,1,1,1,1,1,2]]},
+      "expected": 8,
+      "description": "10x10 four corners rotten"
+    },
+    {
+      "input": {"grid": [[2,2,2,2,2,2,2,2,2,2],[2,1,1,1,1,1,1,1,1,2],[2,1,1,1,1,1,1,1,1,2],[2,1,1,1,1,1,1,1,1,2],[2,1,1,1,1,1,1,1,1,2],[2,1,1,1,1,1,1,1,1,2],[2,1,1,1,1,1,1,1,1,2],[2,1,1,1,1,1,1,1,1,2],[2,1,1,1,1,1,1,1,1,2],[2,2,2,2,2,2,2,2,2,2]]},
+      "expected": 4,
+      "description": "10x10 border rotten"
+    },
+    {
+      "input": {"grid": [[1,2,1,2,1,2,1,2,1,2],[2,1,2,1,2,1,2,1,2,1],[1,2,1,2,1,2,1,2,1,2],[2,1,2,1,2,1,2,1,2,1],[1,2,1,2,1,2,1,2,1,2]]},
+      "expected": 1,
+      "description": "5x10 checkerboard"
+    },
+    {
+      "input": {"grid": [[0,2,0],[2,1,2],[0,2,0]]},
+      "expected": 1,
+      "description": "3x3 plus rotten center fresh"
+    },
+    {
+      "input": {"grid": [[2,0,2],[0,1,0],[2,0,2]]},
+      "expected": -1,
+      "description": "3x3 corners rotten center isolated"
+    },
+    {
+      "input": {"grid": [[2,1,1,1,1],[0,0,0,0,1],[1,1,1,1,1],[1,0,0,0,0],[1,1,1,1,2]]},
+      "expected": 8,
+      "description": "5x5 maze pattern"
+    },
+    {
+      "input": {"grid": [[2,1,1,0,2],[1,1,0,1,1],[1,0,0,0,1],[1,1,0,1,1],[2,0,1,1,2]]},
+      "expected": -1,
+      "description": "5x5 holes blocking spread"
+    },
+    {
+      "input": {"grid": [[1,1,1,1,1,1],[1,2,1,1,2,1],[1,1,1,1,1,1],[1,1,1,1,1,1],[1,2,1,1,2,1],[1,1,1,1,1,1]]},
+      "expected": 2,
+      "description": "6x6 multiple rotten sources"
+    },
+    {
+      "input": {"grid": [[2,2,2,2,2,2,2,2],[2,1,1,1,1,1,1,2],[2,1,2,2,2,2,1,2],[2,1,2,1,1,2,1,2],[2,1,2,1,1,2,1,2],[2,1,2,2,2,2,1,2],[2,1,1,1,1,1,1,2],[2,2,2,2,2,2,2,2]]},
+      "expected": 2,
+      "description": "8x8 nested rotten rings"
+    },
+    {
+      "input": {"grid": [[1,1,2,1,1],[1,1,1,1,1],[2,1,1,1,2],[1,1,1,1,1],[1,1,2,1,1]]},
+      "expected": 2,
+      "description": "5x5 diamond rotten pattern"
+    },
+    {
+      "input": {"grid": [[0,0,0,0,0,0,0,0],[0,2,0,0,0,0,2,0],[0,0,1,1,1,1,0,0],[0,0,1,1,1,1,0,0],[0,0,1,1,1,1,0,0],[0,0,1,1,1,1,0,0],[0,2,0,0,0,0,2,0],[0,0,0,0,0,0,0,0]]},
+      "expected": -1,
+      "description": "8x8 fresh block isolated"
+    },
+    {
+      "input": {"grid": [[0,0,0,0,0,0,0,0],[0,2,1,1,1,1,2,0],[0,1,1,1,1,1,1,0],[0,1,1,1,1,1,1,0],[0,1,1,1,1,1,1,0],[0,1,1,1,1,1,1,0],[0,2,1,1,1,1,2,0],[0,0,0,0,0,0,0,0]]},
+      "expected": 4,
+      "description": "8x8 corner rotten in ring"
+    },
+    {
+      "input": {"grid": [[2,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,1],[1,2]]},
+      "expected": 5,
+      "description": "10x2 rotten at opposite corners"
+    },
+    {
+      "input": {"grid": [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2]]},
+      "expected": 19,
+      "description": "1x20 single rotten at end"
+    },
+    {
+      "input": {"grid": [[2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2]]},
+      "expected": 9,
+      "description": "1x20 rotten at both ends"
+    },
+    {
+      "input": {"grid": [[2,0,0,0,0,0,0,0,0,1]]},
+      "expected": -1,
+      "description": "1x10 rotten left fresh right isolated"
+    },
+    {
+      "input": {"grid": [[2,1,0,1,0,1,0,1,0,1]]},
+      "expected": -1,
+      "description": "1x10 alternating with gaps"
+    },
+    {
+      "input": {"grid": [[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,2]]},
+      "expected": 10,
+      "description": "9x3 single rotten bottom right"
+    },
+    {
+      "input": {"grid": [[2,1,2],[1,1,1],[2,1,2],[1,1,1],[2,1,2],[1,1,1],[2,1,2]]},
+      "expected": 1,
+      "description": "7x3 vertical rotten columns"
+    }
+  ]
+}

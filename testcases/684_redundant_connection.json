@@ -1,0 +1,300 @@
+{
+  "problem_id": 684,
+  "title": "Redundant Connection",
+  "run_tests": [
+    {
+      "input": {"edges": [[1,2],[1,3],[2,3]]},
+      "expected": [2,3]
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[1,4],[1,5]]},
+      "expected": [1,4]
+    },
+    {
+      "input": {"edges": [[1,2],[1,3],[1,4],[3,4]]},
+      "expected": [3,4]
+    }
+  ],
+  "submit_tests": [
+    {
+      "input": {"edges": [[1,2],[1,3],[2,3]]},
+      "expected": [2,3],
+      "description": "Simple triangle"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[1,4],[1,5]]},
+      "expected": [1,4],
+      "description": "Square with tail"
+    },
+    {
+      "input": {"edges": [[1,2],[1,3],[1,4],[3,4]]},
+      "expected": [3,4],
+      "description": "Star with extra edge"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[1,3]]},
+      "expected": [1,3],
+      "description": "Triangle last edge redundant"
+    },
+    {
+      "input": {"edges": [[2,3],[1,2],[1,3]]},
+      "expected": [1,3],
+      "description": "Triangle different order"
+    },
+    {
+      "input": {"edges": [[1,3],[1,2],[2,3]]},
+      "expected": [2,3],
+      "description": "Triangle another order"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,1]]},
+      "expected": [4,1],
+      "description": "Square cycle"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,1]]},
+      "expected": [5,1],
+      "description": "Pentagon cycle"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,6],[6,1]]},
+      "expected": [6,1],
+      "description": "Hexagon cycle"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,1],[1,4]]},
+      "expected": [3,1],
+      "description": "Triangle with tail"
+    },
+    {
+      "input": {"edges": [[1,4],[1,2],[2,3],[3,1]]},
+      "expected": [3,1],
+      "description": "Triangle with tail different order"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,2]]},
+      "expected": [4,2],
+      "description": "Path then cycle back"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,3]]},
+      "expected": [5,3],
+      "description": "Long path small cycle"
+    },
+    {
+      "input": {"edges": [[1,5],[2,5],[3,5],[4,5],[1,2]]},
+      "expected": [1,2],
+      "description": "Star with cross edge"
+    },
+    {
+      "input": {"edges": [[1,2],[3,4],[1,3],[2,4]]},
+      "expected": [2,4],
+      "description": "Two pairs connected"
+    },
+    {
+      "input": {"edges": [[1,2],[3,4],[5,6],[1,3],[3,5],[2,6]]},
+      "expected": [2,6],
+      "description": "Three pairs connected"
+    },
+    {
+      "input": {"edges": [[2,1],[3,1],[4,2],[1,4]]},
+      "expected": [1,4],
+      "description": "Star cycle variant"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,1]]},
+      "expected": [7,1],
+      "description": "7-cycle"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,1]]},
+      "expected": [8,1],
+      "description": "8-cycle"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],[9,1]]},
+      "expected": [9,1],
+      "description": "9-cycle"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],[9,10],[10,1]]},
+      "expected": [10,1],
+      "description": "10-cycle"
+    },
+    {
+      "input": {"edges": [[3,4],[1,2],[2,4],[3,5],[2,5]]},
+      "expected": [2,5],
+      "description": "Complex small graph"
+    },
+    {
+      "input": {"edges": [[1,2],[1,3],[1,4],[1,5],[2,3]]},
+      "expected": [2,3],
+      "description": "Star center 1 with edge 2-3"
+    },
+    {
+      "input": {"edges": [[1,2],[1,3],[1,4],[1,5],[3,4]]},
+      "expected": [3,4],
+      "description": "Star with edge between spokes"
+    },
+    {
+      "input": {"edges": [[1,2],[1,3],[1,4],[1,5],[4,5]]},
+      "expected": [4,5],
+      "description": "Star with last spokes connected"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,6],[4,6]]},
+      "expected": [4,6],
+      "description": "Long chain triangle at end"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[1,3],[4,5],[5,6],[4,6]]},
+      "expected": [4,6],
+      "description": "Two triangles second completes last"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[3,5]]},
+      "expected": [3,5],
+      "description": "Chain with shortcut"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[2,5]]},
+      "expected": [2,5],
+      "description": "Chain with long shortcut"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[5,8]]},
+      "expected": [5,8],
+      "description": "Long chain with cycle at end"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],[9,10],[7,10]]},
+      "expected": [7,10],
+      "description": "Very long chain small cycle at end"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,6],[3,6]]},
+      "expected": [3,6],
+      "description": "Mid chain cycle"
+    },
+    {
+      "input": {"edges": [[1,5],[3,4],[2,5],[1,3],[4,5]]},
+      "expected": [4,5],
+      "description": "Random order with cycle"
+    },
+    {
+      "input": {"edges": [[4,5],[1,2],[2,3],[3,4],[2,4]]},
+      "expected": [2,4],
+      "description": "Chain then shortcut"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,1],[6,1]]},
+      "expected": [5,1],
+      "description": "Pentagon with extra node"
+    },
+    {
+      "input": {"edges": [[6,1],[1,2],[2,3],[3,4],[4,5],[5,1]]},
+      "expected": [5,1],
+      "description": "Pentagon extra node first"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],[9,10],[10,11],[11,12],[12,1]]},
+      "expected": [12,1],
+      "description": "12-cycle"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],[9,10],[10,11],[11,12],[12,13],[13,14],[14,15],[15,1]]},
+      "expected": [15,1],
+      "description": "15-cycle"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],[9,10],[10,11],[11,12],[12,13],[13,14],[14,15],[15,16],[16,17],[17,18],[18,19],[19,20],[20,1]]},
+      "expected": [20,1],
+      "description": "20-cycle"
+    },
+    {
+      "input": {"edges": [[1,2],[1,3],[2,4],[3,4],[2,3]]},
+      "expected": [2,3],
+      "description": "Diamond with cross"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,1],[2,4]]},
+      "expected": [2,4],
+      "description": "Square with diagonal"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,1],[1,3]]},
+      "expected": [1,3],
+      "description": "Square with other diagonal"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,1],[1,3]]},
+      "expected": [1,3],
+      "description": "Pentagon with chord"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,1],[2,4]]},
+      "expected": [2,4],
+      "description": "Pentagon with different chord"
+    },
+    {
+      "input": {"edges": [[2,7],[7,8],[2,8],[1,2],[6,7],[5,6],[1,5]]},
+      "expected": [2,8],
+      "description": "Complex graph with triangle"
+    },
+    {
+      "input": {"edges": [[1,4],[3,4],[1,3],[1,2],[4,5]]},
+      "expected": [1,3],
+      "description": "Triangle with appendages"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,6],[6,1],[1,4]]},
+      "expected": [1,4],
+      "description": "Hexagon with chord"
+    },
+    {
+      "input": {"edges": [[5,6],[1,2],[3,4],[2,3],[4,5],[6,1]]},
+      "expected": [6,1],
+      "description": "Hexagon scrambled order"
+    },
+    {
+      "input": {"edges": [[1,2],[3,4],[2,3],[5,6],[4,5],[6,7],[7,8],[8,9],[9,10],[1,10]]},
+      "expected": [1,10],
+      "description": "10-cycle scrambled"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,3]]},
+      "expected": [7,3],
+      "description": "Long tail into cycle"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,4]]},
+      "expected": [8,4],
+      "description": "Longer tail into cycle"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[2,4],[3,5],[4,5]]},
+      "expected": [4,5],
+      "description": "Diamond from chain"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[2,4],[3,5],[4,5],[5,6]]},
+      "expected": [4,5],
+      "description": "Diamond in middle of graph"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,6],[6,2]]},
+      "expected": [6,2],
+      "description": "Tail then 5-cycle"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,2]]},
+      "expected": [7,2],
+      "description": "Tail then 6-cycle"
+    },
+    {
+      "input": {"edges": [[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,2]]},
+      "expected": [8,2],
+      "description": "Tail then 7-cycle"
+    }
+  ]
+}

@@ -30,7 +30,7 @@ use std::{
 use crate::config::AppPaths;
 use crate::input::key_to_bytes;
 use crate::language::Language;
-use crate::leetcode::{LeetCodeClient, Problem};
+use crate::leetcode::{LeetCodeClient, Problem, TestMode};
 use crate::progress::{ProblemStatus, Progress};
 use crate::pty::PtyManager;
 
@@ -72,6 +72,7 @@ struct QuestionState {
     language: Language,
     focus: Focus,
     scroll_offset: u16,
+    results_scroll_offset: u16,
     pty: PtyManager,
     solution_file: PathBuf,
     test_output: Option<String>,
@@ -193,6 +194,7 @@ impl App {
             language,
             focus: Focus::Editor,
             scroll_offset: 0,
+            results_scroll_offset: 0,
             pty,
             solution_file,
             test_output: None,
@@ -216,12 +218,16 @@ impl App {
     }
 
     fn run_tests(solution_file: &PathBuf, problem: &Problem, lang: Language) -> Result<String> {
+        Self::run_tests_with_mode(solution_file, problem, lang, TestMode::Run)
+    }
+
+    fn run_tests_with_mode(solution_file: &PathBuf, problem: &Problem, lang: Language, mode: TestMode) -> Result<String> {
         // Read user's solution
         let solution_code = fs::read_to_string(solution_file)?;
 
         // Generate test runner with the solution embedded
         let client = LeetCodeClient::new();
-        let test_code = client.generate_test_runner(problem, &solution_code, lang);
+        let test_code = client.generate_test_runner_with_mode(problem, &solution_code, lang, mode);
 
         match lang {
             Language::JavaScript => Self::run_js_tests(solution_file, &test_code),
@@ -433,7 +439,7 @@ impl App {
                         }
                     }
                     KeyCode::Char('r') => {
-                        // Run tests
+                        // Run tests (quick mode - 3-5 tests)
                         if let AppState::Question(question) = &mut self.state {
                             // First, save the file in Neovim
                             // Send Escape to ensure normal mode, then :w to save
@@ -456,6 +462,36 @@ impl App {
                             let _ = self.progress.save(&self.paths.progress_file());
 
                             question.test_output = Some(output);
+                            question.results_scroll_offset = 0;
+                            question.show_results = true;
+                            question.focus = Focus::Results;
+                            return Ok(());
+                        }
+                    }
+                    KeyCode::Char('s') => {
+                        // Submit tests (full mode - 50-200 tests)
+                        if let AppState::Question(question) = &mut self.state {
+                            // First, save the file in Neovim
+                            question.pty.send_key(b"\x1b:w\r")?;
+
+                            // Give Neovim a moment to save the file
+                            std::thread::sleep(Duration::from_millis(100));
+
+                            // Mark as started when running tests
+                            self.progress.mark_started(question.problem.id);
+
+                            let output = Self::run_tests_with_mode(&question.solution_file, &question.problem, question.language, TestMode::Submit)?;
+
+                            // Check if all tests passed and mark as completed
+                            if output.contains("All tests passed") {
+                                self.progress.mark_completed(question.problem.id);
+                            }
+
+                            // Save progress
+                            let _ = self.progress.save(&self.paths.progress_file());
+
+                            question.test_output = Some(output);
+                            question.results_scroll_offset = 0;
                             question.show_results = true;
                             question.focus = Focus::Results;
                             return Ok(());
@@ -804,7 +840,31 @@ impl App {
                         }
                     }
                     Focus::Results => {
-                        // Results panel just shows output, Esc closes it
+                        // Handle scrolling in results panel
+                        match key.code {
+                            KeyCode::Up | KeyCode::Char('k') => {
+                                if question.results_scroll_offset > 0 {
+                                    question.results_scroll_offset -= 1;
+                                }
+                            }
+                            KeyCode::Down | KeyCode::Char('j') => {
+                                question.results_scroll_offset += 1;
+                            }
+                            KeyCode::PageUp => {
+                                question.results_scroll_offset = question.results_scroll_offset.saturating_sub(10);
+                            }
+                            KeyCode::PageDown => {
+                                question.results_scroll_offset += 10;
+                            }
+                            KeyCode::Home | KeyCode::Char('g') => {
+                                question.results_scroll_offset = 0;
+                            }
+                            KeyCode::End | KeyCode::Char('G') => {
+                                // Scroll to end - will be clamped in render
+                                question.results_scroll_offset = u16::MAX;
+                            }
+                            _ => {}
+                        }
                     }
                     Focus::Question => {
                         match key.code {
@@ -1202,7 +1262,7 @@ impl App {
                 .borders(Borders::ALL)
                 .title(Span::styled(
                     if editor_focused {
-                        " Neovim (Focused) - Ctrl+R: Run Tests "
+                        " Neovim (Focused) - Ctrl+R: Run | Ctrl+S: Submit "
                     } else {
                         " Neovim "
                     },
@@ -1228,8 +1288,14 @@ impl App {
             // Render test results overlay if showing
             if question.show_results {
                 let area = f.area();
-                let popup_width = area.width.saturating_sub(10).min(80);
-                let popup_height = area.height.saturating_sub(6).min(50);
+
+                // Dim the background by rendering a dark overlay
+                let dim_block = Block::default()
+                    .style(Style::default().bg(Color::Rgb(0, 0, 0)));
+                f.render_widget(dim_block, area);
+
+                let popup_width = area.width.saturating_sub(10).min(100);
+                let popup_height = area.height.saturating_sub(4);
                 let popup_x = (area.width - popup_width) / 2;
                 let popup_y = (area.height - popup_height) / 2;
 
@@ -1240,9 +1306,16 @@ impl App {
 
                 // Render the results
                 let results_text = question.test_output.as_deref().unwrap_or("No output");
+                let total_lines = results_text.lines().count();
+                let visible_lines = popup_height.saturating_sub(2) as usize; // Account for borders
+
+                // Clamp scroll offset to valid range
+                let max_scroll = total_lines.saturating_sub(visible_lines);
+                let scroll_offset = (question.results_scroll_offset as usize).min(max_scroll);
 
                 let results_lines: Vec<Line> = results_text
                     .lines()
+                    .skip(scroll_offset)
                     .map(|line| {
                         if line.contains("PASSED") || line.contains("passed") {
                             Line::from(Span::styled(line, Style::default().fg(Color::Green)))
@@ -1256,10 +1329,17 @@ impl App {
                     })
                     .collect();
 
+                // Build title with scroll indicator
+                let scroll_info = if total_lines > visible_lines {
+                    format!(" [{}/{}] ", scroll_offset + 1, total_lines.saturating_sub(visible_lines) + 1)
+                } else {
+                    String::new()
+                };
+
                 let results_block = Block::default()
                     .borders(Borders::ALL)
                     .title(Span::styled(
-                        " Test Results (Esc to close) ",
+                        format!(" Test Results{} (↑↓/jk: scroll, Esc: close) ", scroll_info),
                         Style::default().fg(Color::Yellow).add_modifier(Modifier::BOLD),
                     ))
                     .style(Style::default().bg(Color::Rgb(30, 35, 40)));

@@ -10,6 +10,28 @@ use crate::language::{derive_signature, Language};
 #[include = "*.json"]
 pub struct ProblemFiles;
 
+#[derive(Embed)]
+#[folder = "testcases/"]
+#[include = "*.json"]
+pub struct TestCaseFiles;
+
+/// Extended test case file structure for Run vs Submit modes
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ExtendedTestCases {
+    pub problem_id: u32,
+    pub title: String,
+    pub run_tests: Vec<TestCase>,
+    pub submit_tests: Vec<TestCase>,
+}
+
+/// Test mode: Run (quick 3-5 tests) or Submit (full 50-200 tests)
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+pub enum TestMode {
+    #[default]
+    Run,
+    Submit,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Problem {
     pub id: u32,
@@ -59,6 +81,7 @@ struct OrderEntry {
 
 pub struct LeetCodeClient {
     problems: Vec<Problem>,
+    extended_tests: HashMap<u32, ExtendedTestCases>,
 }
 
 impl LeetCodeClient {
@@ -110,7 +133,44 @@ impl LeetCodeClient {
         remaining.sort_by_key(|p| p.id);
         problems.extend(remaining);
 
-        Self { problems }
+        // Load extended test cases from testcases/ directory
+        let mut extended_tests: HashMap<u32, ExtendedTestCases> = HashMap::new();
+        for file in <TestCaseFiles as Embed>::iter() {
+            if let Some(content) = <TestCaseFiles as Embed>::get(&file) {
+                if let Ok(json_str) = std::str::from_utf8(&content.data) {
+                    match serde_json::from_str::<ExtendedTestCases>(json_str) {
+                        Ok(ext_tests) => {
+                            extended_tests.insert(ext_tests.problem_id, ext_tests);
+                        }
+                        Err(e) => eprintln!("Failed to parse extended tests {}: {}", file, e),
+                    }
+                }
+            }
+        }
+
+        Self { problems, extended_tests }
+    }
+
+    /// Get test cases for a problem based on test mode
+    pub fn get_test_cases(&self, problem_id: u32, mode: TestMode) -> Vec<TestCase> {
+        if let Some(ext_tests) = self.extended_tests.get(&problem_id) {
+            match mode {
+                TestMode::Run => ext_tests.run_tests.clone(),
+                TestMode::Submit => ext_tests.submit_tests.clone(),
+            }
+        } else {
+            // Fallback to problem's built-in test cases
+            self.problems
+                .iter()
+                .find(|p| p.id == problem_id)
+                .map(|p| p.test_cases.clone())
+                .unwrap_or_default()
+        }
+    }
+
+    /// Check if extended test cases exist for a problem
+    pub fn has_extended_tests(&self, problem_id: u32) -> bool {
+        self.extended_tests.contains_key(&problem_id)
     }
 
     pub fn get_problems(&self) -> Result<Vec<Problem>> {
@@ -135,7 +195,8 @@ impl LeetCodeClient {
         }
 
         output.push_str("\nKeyboard Shortcuts:\n");
-        output.push_str("- Ctrl+R: Save & run tests\n");
+        output.push_str("- Ctrl+R: Run tests (quick, 3-5 cases)\n");
+        output.push_str("- Ctrl+S: Submit (full, 50-200 cases)\n");
         output.push_str("- Ctrl+Q: Switch focus between question and editor\n");
         output.push_str("- Ctrl+H: Back to home\n");
         output.push_str("- Ctrl+C: Quit application\n");
@@ -252,25 +313,137 @@ public:
         }
     }
 
-    /// Generate test runner for the specified language
+    /// Generate test runner for the specified language (uses Run mode by default)
     pub fn generate_test_runner(
         &self,
         problem: &Problem,
         solution_code: &str,
         lang: Language,
     ) -> String {
+        self.generate_test_runner_with_mode(problem, solution_code, lang, TestMode::Run)
+    }
+
+    /// Generate test runner for the specified language with a specific test mode
+    pub fn generate_test_runner_with_mode(
+        &self,
+        problem: &Problem,
+        solution_code: &str,
+        lang: Language,
+        mode: TestMode,
+    ) -> String {
+        // Get test cases based on mode
+        let test_cases = self.get_test_cases(problem.id, mode);
+
+        // Create a temporary problem with the appropriate test cases
+        let mut test_problem = problem.clone();
+        test_problem.test_cases = test_cases;
+
+        let is_submit = mode == TestMode::Submit;
+
         match lang {
-            Language::JavaScript => self.generate_js_test_runner(problem, solution_code),
-            Language::Python => self.generate_python_test_runner(problem, solution_code),
-            Language::C => self.generate_c_test_runner(problem, solution_code),
-            Language::Cpp => self.generate_cpp_test_runner(problem, solution_code),
+            Language::JavaScript => self.generate_js_test_runner(&test_problem, solution_code, is_submit),
+            Language::Python => self.generate_python_test_runner(&test_problem, solution_code, is_submit),
+            Language::C => self.generate_c_test_runner(&test_problem, solution_code, is_submit),
+            Language::Cpp => self.generate_cpp_test_runner(&test_problem, solution_code, is_submit),
         }
     }
 
     /// Generate JavaScript test runner
-    fn generate_js_test_runner(&self, problem: &Problem, solution_code: &str) -> String {
+    fn generate_js_test_runner(&self, problem: &Problem, solution_code: &str, is_submit: bool) -> String {
         let test_cases_json = serde_json::to_string(&problem.test_cases)
             .unwrap_or_else(|_| "[]".to_string());
+
+        let mode_label = if is_submit { "SUBMIT" } else { "RUN" };
+
+        // For submit mode: table format with complexity analysis
+        // For run mode: verbose output with all details
+        let test_loop_code = if is_submit {
+            r#"
+    // Table header
+    console.log('┌───────┬────────┬──────────────┐');
+    console.log('│ Test  │ Status │     Time     │');
+    console.log('├───────┼────────┼──────────────┤');
+
+    const failures = [];
+
+    testCases.forEach((tc, i) => {
+        try {
+            const start = now();
+            const result = func(...tc.input);
+            const elapsed = now() - start;
+            totalTime += elapsed;
+
+            const resultStr = JSON.stringify(result);
+            const expectedStr = JSON.stringify(tc.expected);
+            const isEqual = resultStr === expectedStr;
+
+            const testNum = String(i + 1).padStart(3);
+            const timeStr = formatTime(elapsed).padStart(12);
+
+            if (isEqual) {
+                console.log(`│ ${testNum}   │   ✓    │${timeStr} │`);
+                passed++;
+            } else {
+                console.log(`│ ${testNum}   │   ✗    │${timeStr} │`);
+                failures.push({ num: i + 1, input: tc.input, expected: expectedStr, got: resultStr });
+                failed++;
+            }
+        } catch (e) {
+            const testNum = String(i + 1).padStart(3);
+            console.log(`│ ${testNum}   │  ERR   │              │`);
+            failures.push({ num: i + 1, error: e.message });
+            failed++;
+        }
+    });
+
+    console.log('└───────┴────────┴──────────────┘');
+
+    // Show failure details
+    if (failures.length > 0) {
+        console.log('\n❌ Failed Tests:');
+        failures.forEach(f => {
+            console.log(`\nTest ${f.num}:`);
+            if (f.error) {
+                console.log(`  Error: ${f.error}`);
+            } else {
+                const inp = JSON.stringify(f.input);
+                console.log(`  Input:    ${inp.slice(0, 80)}${inp.length > 80 ? '...' : ''}`);
+                console.log(`  Expected: ${f.expected.slice(0, 80)}${f.expected.length > 80 ? '...' : ''}`);
+                console.log(`  Got:      ${f.got.slice(0, 80)}${f.got.length > 80 ? '...' : ''}`);
+            }
+        });
+    }"#
+        } else {
+            r#"
+    testCases.forEach((tc, i) => {
+        try {
+            const start = now();
+            const result = func(...tc.input);
+            const elapsed = now() - start;
+            totalTime += elapsed;
+
+            const resultStr = JSON.stringify(result);
+            const expectedStr = JSON.stringify(tc.expected);
+            const isEqual = resultStr === expectedStr;
+
+            if (isEqual) {
+                console.log(`Test ${i + 1}: ✓ PASSED [${formatTime(elapsed)}]`);
+                console.log(`  Input:    ${JSON.stringify(tc.input)}`);
+                console.log(`  Output:   ${resultStr}`);
+                passed++;
+            } else {
+                console.log(`Test ${i + 1}: ✗ FAILED [${formatTime(elapsed)}]`);
+                console.log(`  Input:    ${JSON.stringify(tc.input)}`);
+                console.log(`  Expected: ${expectedStr}`);
+                console.log(`  Got:      ${resultStr}`);
+                failed++;
+            }
+        } catch (e) {
+            console.log(`Test ${i + 1}: ERROR - ${e.message}`);
+            failed++;
+        }
+    });"#
+        };
 
         format!(
             r#"// User's solution
@@ -278,6 +451,7 @@ public:
 
 // ============== TEST RUNNER ==============
 const testCases = {test_cases};
+const func = {func_name};
 
 // High-resolution timer (works in both Bun and Node)
 const now = typeof Bun !== 'undefined'
@@ -296,140 +470,156 @@ const getMemory = () => {{
 }};
 
 const formatTime = (ms) => {{
-    if (ms < 1) return `${{(ms * 1000).toFixed(2)}} microseconds`;
-    if (ms < 1000) return `${{ms.toFixed(2)}} milliseconds`;
-    return `${{(ms / 1000).toFixed(2)}} seconds`;
+    if (ms < 1) return `${{(ms * 1000).toFixed(2)}} us`;
+    if (ms < 1000) return `${{ms.toFixed(2)}} ms`;
+    return `${{(ms / 1000).toFixed(2)}} s`;
 }};
 
 const formatMemory = (bytes) => {{
-    if (bytes < 1024) return `${{bytes}}B`;
-    if (bytes < 1024 * 1024) return `${{(bytes / 1024).toFixed(1)}}KB`;
-    return `${{(bytes / (1024 * 1024)).toFixed(2)}}MB`;
+    if (bytes < 1024) return `${{bytes}} B`;
+    if (bytes < 1024 * 1024) return `${{(bytes / 1024).toFixed(1)}} KB`;
+    return `${{(bytes / (1024 * 1024)).toFixed(2)}} MB`;
 }};
 
 (function runTests() {{
     console.log('\n' + '='.repeat(50));
-    console.log('Running tests for: {title}');
+    console.log('[{mode_label}] Testing: {title}');
     console.log('='.repeat(50) + '\n');
 
     let passed = 0;
     let failed = 0;
     let totalTime = 0;
 
-    testCases.forEach((tc, i) => {{
-        try {{
-            const startMem = getMemory();
-            const start = now();
-            const result = {func_name}(...tc.input);
-            const elapsed = now() - start;
-            const memUsed = getMemory() - startMem;
-            totalTime += elapsed;
+    {test_loop_code}
 
-            const resultStr = JSON.stringify(result);
-            const expectedStr = JSON.stringify(tc.expected);
-            const isEqual = resultStr === expectedStr;
-
-            if (isEqual) {{
-                console.log(`Test ${{i + 1}}: PASSED [${{formatTime(elapsed)}}]`);
-                console.log(`  Input:    ${{JSON.stringify(tc.input)}}`);
-                console.log(`  Output:   ${{resultStr}}`);
-                passed++;
-            }} else {{
-                console.log(`Test ${{i + 1}}: FAILED [${{formatTime(elapsed)}}]`);
-                console.log(`  Input:    ${{JSON.stringify(tc.input)}}`);
-                console.log(`  Expected: ${{expectedStr}}`);
-                console.log(`  Got:      ${{resultStr}}`);
-                failed++;
-            }}
-        }} catch (e) {{
-            console.log(`Test ${{i + 1}}: ERROR`);
-            console.log(`  ${{e.message}}`);
-            failed++;
-        }}
-    }});
-
-    console.log('\n' + '-'.repeat(50));
-    console.log(`Results: ${{passed}} passed, ${{failed}} failed out of ${{testCases.length}} tests`);
+    console.log('\n' + '─'.repeat(50));
+    console.log(`Results: ${{passed}} passed, ${{failed}} failed of ${{testCases.length}} tests`);
     console.log(`Total time: ${{formatTime(totalTime)}}`);
-    console.log('-'.repeat(50));
+    console.log('─'.repeat(50));
 
     if (failed === 0) {{
-        console.log('\nAll tests passed!');
+        console.log('\n✅ All tests passed!');
 
-        // Run complexity analysis using the doubling hypothesis
+        // Run complexity analysis
         console.log('\n' + '='.repeat(50));
-        console.log('Complexity Analysis (Doubling Method)');
+        console.log('Complexity Analysis');
         console.log('='.repeat(50) + '\n');
 
         {complexity_generator}
 
-        // Force garbage collection if available (Bun)
-        const gc = () => {{ if (typeof Bun !== 'undefined') Bun.gc(true); }};
+        // Force garbage collection if available (Bun/Node with --expose-gc)
+        const gc = () => {{
+            if (typeof Bun !== 'undefined') Bun.gc(true);
+            else if (typeof global !== 'undefined' && global.gc) global.gc();
+        }};
 
-        // Use orders of magnitude for accurate complexity detection
+        // Benchmark configuration for stable results
+        const WARMUP_ITERATIONS = 500;      // JIT needs many iterations to stabilize
+        const MIN_BENCH_TIME = 200;         // Minimum ms per size for statistical significance
+        const BENCHMARK_ROUNDS = 5;         // Multiple rounds, take median
         const sizes = [10000, 100000, 1000000];
-        const times = [];
-        const memories = [];
-        const MIN_BENCH_TIME = 50; // Run each size for at least 50ms total
+        const medianTimes = [];
 
-        // Global warmup - ensure JIT is fully optimized before measuring
-        const warmupInput = generateInput(50000);
-        for (let i = 0; i < 50; i++) {{
-            try {{ {func_name}(...warmupInput); }} catch {{}}
-        }}
+        // Calculate median helper (more stable than mean)
+        const median = (arr) => {{
+            const sorted = [...arr].sort((a, b) => a - b);
+            const mid = Math.floor(sorted.length / 2);
+            return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
+        }};
+
+        // Aggressive warmup phase - critical for JIT stabilization
+        console.log('Warming up JIT compiler...');
+        try {{
+            // Warmup with multiple sizes to trigger all optimization paths
+            for (const warmupN of [1000, 10000, 50000]) {{
+                const warmupInput = generateInput(warmupN);
+                gc();
+                for (let i = 0; i < WARMUP_ITERATIONS; i++) {{
+                    try {{ func(...warmupInput); }} catch {{}}
+                }}
+            }}
+        }} catch {{}}
         gc();
+
+        console.log('Running benchmarks (5 rounds each, taking median)...\n');
+        console.log('+-------------+------------------+------------+--------------+');
+        console.log('|      n      |   Median Time    |    Runs    |   Std Dev    |');
+        console.log('+-------------+------------------+------------+--------------+');
 
         sizes.forEach(n => {{
             gc();
-            const input = generateInput(n);
-            gc();
+            try {{
+                const input = generateInput(n);
+                gc();
 
-            // Run until we have at least MIN_BENCH_TIME ms of total execution
-            let iterations = 0;
-            let totalTime = 0;
-            const benchStart = now();
+                const roundTimes = [];
+                let totalIterations = 0;
 
-            while (totalTime < MIN_BENCH_TIME) {{
-                const start = now();
-                try {{ {func_name}(...input); }} catch {{}}
-                totalTime = now() - benchStart;
-                iterations++;
+                // Run multiple benchmark rounds
+                for (let round = 0; round < BENCHMARK_ROUNDS; round++) {{
+                    gc();
+                    // Small pause to let GC complete
+                    const pauseStart = now();
+                    while (now() - pauseStart < 5) {{}}
+
+                    let iterations = 0;
+                    let benchTime = 0;
+                    const benchStart = now();
+
+                    while (benchTime < MIN_BENCH_TIME) {{
+                        try {{ func(...input); }} catch {{}}
+                        benchTime = now() - benchStart;
+                        iterations++;
+                    }}
+
+                    const avgTime = benchTime / iterations;
+                    roundTimes.push(avgTime);
+                    totalIterations += iterations;
+                }}
+
+                // Calculate median (more stable than mean)
+                const medianTime = median(roundTimes);
+                medianTimes.push(medianTime);
+
+                // Calculate relative standard deviation for confidence indicator
+                const mean = roundTimes.reduce((a, b) => a + b, 0) / roundTimes.length;
+                const variance = roundTimes.reduce((sum, t) => sum + Math.pow(t - mean, 2), 0) / roundTimes.length;
+                const stdDev = Math.sqrt(variance);
+                const relStdDev = ((stdDev / mean) * 100).toFixed(1) + '%';
+
+                console.log(`| ${{String(n).padStart(11)}} | ${{formatTime(medianTime).padStart(16)}} | ${{String(totalIterations).padStart(10)}} | ${{relStdDev.padStart(12)}} |`);
+            }} catch (e) {{
+                console.log(`| ${{String(n).padStart(11)}} | ${{('ERROR').padStart(16)}} |            |              |`);
+                medianTimes.push(0);
             }}
-
-            const avgTime = totalTime / iterations;
-            const memAfter = getMemory();
-            times.push(avgTime);
-            memories.push(memAfter);
-
-            console.log(`n=${{String(n).padStart(7)}}: ${{formatTime(avgTime).padStart(18)}} (${{iterations}} runs)`);
         }});
 
-        // Calculate growth rate using log-log slope method
-        // For O(n^k), log(time) = k * log(n) + c, so slope = k
-        if (times.length >= 2 && times[0] > 0) {{
+        console.log('+-------------+------------------+------------+--------------+');
+
+        // Calculate complexity using log-log slope method
+        if (medianTimes.length >= 2 && medianTimes[0] > 0 && medianTimes[1] > 0) {{
             const slopes = [];
-            for (let i = 1; i < times.length; i++) {{
-                if (times[i-1] > 0 && times[i] > 0) {{
+            for (let i = 1; i < medianTimes.length; i++) {{
+                if (medianTimes[i-1] > 0 && medianTimes[i] > 0) {{
                     const logNRatio = Math.log(sizes[i] / sizes[i-1]);
-                    const logTRatio = Math.log(times[i] / times[i-1]);
+                    const logTRatio = Math.log(medianTimes[i] / medianTimes[i-1]);
                     slopes.push(logTRatio / logNRatio);
                 }}
             }}
-
             if (slopes.length >= 1) {{
                 const avgSlope = slopes.reduce((a,b) => a+b, 0) / slopes.length;
-
                 let timeComplexity = '';
-                if (avgSlope < 0.2) timeComplexity = 'O(1)';
-                else if (avgSlope < 0.5) timeComplexity = 'O(log n)';
-                else if (avgSlope < 1.3) timeComplexity = 'O(n)';
-                else if (avgSlope < 1.7) timeComplexity = 'O(n log n)';
-                else if (avgSlope < 2.5) timeComplexity = 'O(n^2)';
-                else if (avgSlope < 3.5) timeComplexity = 'O(n^3)';
+                if (avgSlope < 0.15) timeComplexity = 'O(1)';
+                else if (avgSlope < 0.45) timeComplexity = 'O(log n)';
+                else if (avgSlope < 1.25) timeComplexity = 'O(n)';
+                else if (avgSlope < 1.65) timeComplexity = 'O(n log n)';
+                else if (avgSlope < 2.4) timeComplexity = 'O(n^2)';
+                else if (avgSlope < 3.4) timeComplexity = 'O(n^3)';
                 else timeComplexity = 'O(2^n) or worse';
 
-                console.log(`\nTime Complexity: ${{timeComplexity}} (slope: ${{avgSlope.toFixed(2)}})`);
-                console.log('Reference: O(1)=0  O(n)=1  O(n^2)=2  O(n^3)=3');
+                console.log(`\nTime Complexity:  ${{timeComplexity}} (slope: ${{avgSlope.toFixed(2)}})`);
+                console.log('Space Complexity: O(n) estimated');
+                console.log('\nNote: Std Dev < 5% indicates stable results');
             }}
         }}
     }}
@@ -437,19 +627,81 @@ const formatMemory = (bytes) => {{
 "#,
             solution_code = solution_code,
             title = problem.title,
+            mode_label = mode_label,
             func_name = problem.function_name,
             test_cases = test_cases_json,
+            test_loop_code = test_loop_code,
             complexity_generator = problem.complexity_generator,
         )
     }
 
     /// Generate Python test runner
-    fn generate_python_test_runner(&self, problem: &Problem, solution_code: &str) -> String {
+    fn generate_python_test_runner(&self, problem: &Problem, solution_code: &str, is_submit: bool) -> String {
         let test_cases_json = serde_json::to_string(&problem.test_cases)
             .unwrap_or_else(|_| "[]".to_string());
 
         // Convert JS complexity generator to Python
         let python_generator = self.convert_js_generator_to_python(&problem.complexity_generator);
+
+        let mode_label = if is_submit { "SUBMIT" } else { "RUN" };
+
+        // For submit mode: table format with timing
+        // For run mode: verbose output with all details
+        let test_output_code = if is_submit {
+            r#"test_num = str(i + 1).rjust(3)
+            time_str = format_time(elapsed).rjust(12)
+            if result_str == expected_str:
+                print(f"│ {test_num}   │   ✓    │{time_str} │")
+                passed += 1
+            else:
+                print(f"│ {test_num}   │   ✗    │{time_str} │")
+                failures.append({
+                    'num': i + 1,
+                    'input': tc['input'],
+                    'expected': expected_str,
+                    'got': result_str
+                })
+                failed += 1"#
+        } else {
+            r#"if result_str == expected_str:
+                print(f"Test {i + 1}: ✓ PASSED [{format_time(elapsed)}]")
+                print(f"  Input:    {json.dumps(tc['input'])}")
+                print(f"  Output:   {result_str}")
+                passed += 1
+            else:
+                print(f"Test {i + 1}: ✗ FAILED [{format_time(elapsed)}]")
+                print(f"  Input:    {json.dumps(tc['input'])}")
+                print(f"  Expected: {expected_str}")
+                print(f"  Got:      {result_str}")
+                failed += 1"#
+        };
+
+        let test_setup_code = if is_submit {
+            r#"# Table header
+    print('┌───────┬────────┬──────────────┐')
+    print('│ Test  │ Status │     Time     │')
+    print('├───────┼────────┼──────────────┤')
+
+    failures = []"#
+        } else {
+            ""
+        };
+
+        let test_footer_code = if is_submit {
+            r#"print('└───────┴────────┴──────────────┘')
+
+    # Show failure details
+    if failures:
+        print('\n❌ Failed Tests:')
+        for f in failures:
+            print(f"\nTest {f['num']}:")
+            inp = json.dumps(f['input'])
+            print(f"  Input:    {inp[:80]}{'...' if len(inp) > 80 else ''}")
+            print(f"  Expected: {f['expected'][:80]}{'...' if len(f['expected']) > 80 else ''}")
+            print(f"  Got:      {f['got'][:80]}{'...' if len(f['got']) > 80 else ''}")"#
+        } else {
+            ""
+        };
 
         format!(
             r#"# User's solution
@@ -476,12 +728,14 @@ def format_time(ns):
 
 def run_tests():
     print("\n" + "=" * 50)
-    print("Running tests for: {title}")
+    print("[{mode_label}] Testing: {title}")
     print("=" * 50 + "\n")
 
     passed = 0
     failed = 0
     total_time = 0
+
+    {test_setup_code}
 
     for i, tc in enumerate(test_cases):
         try:
@@ -493,117 +747,165 @@ def run_tests():
             result_str = json.dumps(result, sort_keys=True)
             expected_str = json.dumps(tc["expected"], sort_keys=True)
 
-            if result_str == expected_str:
-                print(f"Test {{i + 1}}: PASSED [{{format_time(elapsed)}}]")
-                print(f"  Input:    {{json.dumps(tc['input'])}}")
-                print(f"  Output:   {{result_str}}")
-                passed += 1
-            else:
-                print(f"Test {{i + 1}}: FAILED [{{format_time(elapsed)}}]")
-                print(f"  Input:    {{json.dumps(tc['input'])}}")
-                print(f"  Expected: {{expected_str}}")
-                print(f"  Got:      {{result_str}}")
-                failed += 1
+            {test_output_code}
         except Exception as e:
-            print(f"Test {{i + 1}}: ERROR")
-            print(f"  {{str(e)}}")
-            traceback.print_exc()
+            test_num = str(i + 1).rjust(3)
+            print(f"│ {{test_num}}   │  ERR   │              │")
             failed += 1
 
+    {test_footer_code}
+
     print("\n" + "-" * 50)
-    print(f"Results: {{passed}} passed, {{failed}} failed out of {{len(test_cases)}} tests")
+    print(f"Results: {{passed}} passed, {{failed}} failed of {{len(test_cases)}} tests")
     print(f"Total time: {{format_time(total_time)}}")
     print("-" * 50)
 
     if failed == 0:
-        print("\nAll tests passed!")
+        print("\n✅ All tests passed!")
         run_complexity_analysis()
 
 def run_complexity_analysis():
+    import statistics
     print("\n" + "=" * 50)
-    print("Complexity Analysis (Doubling Method)")
+    print("Complexity Analysis")
     print("=" * 50 + "\n")
 
     {complexity_generator}
 
+    # Benchmark configuration for stable results
+    WARMUP_ITERATIONS = 500
+    MIN_BENCH_TIME = 200_000_000  # 200ms in nanoseconds
+    BENCHMARK_ROUNDS = 5
     sizes = [10000, 100000, 1000000]
-    times = []
+    median_times = []
 
-    # Warmup
+    # Aggressive warmup - critical for Python JIT (if using PyPy) or interpreter cache
+    print("Warming up...")
     try:
-        warmup_input = generate_input(50000)
-        for _ in range(10):
-            {func_name}(*warmup_input)
+        for warmup_n in [1000, 10000, 50000]:
+            warmup_input = generate_input(warmup_n)
+            for _ in range(WARMUP_ITERATIONS):
+                {func_name}(*warmup_input)
     except:
         pass
+
+    print("Running benchmarks (5 rounds each, taking median)...\n")
+    print("+-------------+------------------+------------+--------------+")
+    print("|      n      |   Median Time    |    Runs    |   Std Dev    |")
+    print("+-------------+------------------+------------+--------------+")
 
     for n in sizes:
         try:
             input_data = generate_input(n)
-            iterations = 0
-            total_time = 0
-            min_bench_time = 50_000_000  # 50ms in nanoseconds
+            round_times = []
+            total_iterations = 0
 
-            while total_time < min_bench_time:
-                start = time.perf_counter_ns()
-                {func_name}(*input_data)
-                total_time += time.perf_counter_ns() - start
-                iterations += 1
+            for _ in range(BENCHMARK_ROUNDS):
+                iterations = 0
+                bench_time = 0
 
-            avg_time = total_time / iterations
-            times.append(avg_time)
-            print(f"n={{str(n).rjust(7)}}: {{format_time(avg_time).rjust(18)}} ({{iterations}} runs)")
+                while bench_time < MIN_BENCH_TIME:
+                    start = time.perf_counter_ns()
+                    {func_name}(*input_data)
+                    bench_time += time.perf_counter_ns() - start
+                    iterations += 1
+
+                avg_time = bench_time / iterations
+                round_times.append(avg_time)
+                total_iterations += iterations
+
+            # Calculate median (more stable than mean)
+            median_time = statistics.median(round_times)
+            median_times.append(median_time)
+
+            # Calculate relative standard deviation
+            mean_time = statistics.mean(round_times)
+            if len(round_times) > 1:
+                std_dev = statistics.stdev(round_times)
+                rel_std_dev = f"{{(std_dev / mean_time * 100):.1f}}%"
+            else:
+                rel_std_dev = "N/A"
+
+            n_str = str(n).rjust(11)
+            time_str = format_time(median_time).rjust(16)
+            runs_str = str(total_iterations).rjust(10)
+            print(f"| {{n_str}} | {{time_str}} | {{runs_str}} | {{rel_std_dev.rjust(12)}} |")
         except Exception as e:
-            print(f"n={{str(n).rjust(7)}}: ERROR - {{e}}")
-            times.append(0)
+            n_str = str(n).rjust(11)
+            print(f"| {{n_str}} | {{'ERROR'.rjust(16)}} |            |              |")
+            median_times.append(0)
 
-    # Calculate complexity
-    if len(times) >= 2 and times[0] > 0 and times[1] > 0:
+    print("+-------------+------------------+------------+--------------+")
+
+    # Calculate complexity using log-log slope method
+    if len(median_times) >= 2 and median_times[0] > 0 and median_times[1] > 0:
         slopes = []
-        for i in range(1, len(times)):
-            if times[i-1] > 0 and times[i] > 0:
+        for i in range(1, len(median_times)):
+            if median_times[i-1] > 0 and median_times[i] > 0:
                 log_n_ratio = math.log(sizes[i] / sizes[i-1])
-                log_t_ratio = math.log(times[i] / times[i-1])
+                log_t_ratio = math.log(median_times[i] / median_times[i-1])
                 slopes.append(log_t_ratio / log_n_ratio)
 
         if slopes:
             avg_slope = sum(slopes) / len(slopes)
-            if avg_slope < 0.2:
+            if avg_slope < 0.15:
                 complexity = "O(1)"
-            elif avg_slope < 0.5:
+            elif avg_slope < 0.45:
                 complexity = "O(log n)"
-            elif avg_slope < 1.3:
+            elif avg_slope < 1.25:
                 complexity = "O(n)"
-            elif avg_slope < 1.7:
+            elif avg_slope < 1.65:
                 complexity = "O(n log n)"
-            elif avg_slope < 2.5:
+            elif avg_slope < 2.4:
                 complexity = "O(n^2)"
-            elif avg_slope < 3.5:
+            elif avg_slope < 3.4:
                 complexity = "O(n^3)"
             else:
                 complexity = "O(2^n) or worse"
 
-            print(f"\nTime Complexity: {{complexity}} (slope: {{avg_slope:.2f}})")
-            print("Reference: O(1)=0  O(n)=1  O(n^2)=2  O(n^3)=3")
+            print(f"\nTime Complexity:  {{complexity}} (slope: {{avg_slope:.2f}})")
+            print("Space Complexity: O(n) estimated")
+            print("\nNote: Std Dev < 5% indicates stable results")
 
 if __name__ == "__main__":
     run_tests()
 "#,
             solution_code = solution_code,
             title = problem.title,
+            mode_label = mode_label,
             func_name = problem.function_name,
             test_cases = test_cases_json,
+            test_setup_code = test_setup_code,
+            test_output_code = test_output_code,
+            test_footer_code = test_footer_code,
             complexity_generator = python_generator,
         )
     }
 
     /// Generate C test runner
-    fn generate_c_test_runner(&self, problem: &Problem, solution_code: &str) -> String {
+    fn generate_c_test_runner(&self, problem: &Problem, solution_code: &str, is_submit: bool) -> String {
         // Analyze test cases to infer types
         let (param_types, return_type) = self.infer_c_types(problem);
 
         // Generate test case code
-        let test_case_code = self.generate_c_test_cases(problem, &param_types, &return_type);
+        let test_case_code = self.generate_c_test_cases(problem, &param_types, &return_type, is_submit);
+
+        let mode_label = if is_submit { "SUBMIT" } else { "RUN" };
+        let total_tests = problem.test_cases.len();
+
+        let table_header = if is_submit {
+            r#"printf("┌───────┬────────┬──────────────┐\n");
+    printf("│ Test  │ Status │     Time     │\n");
+    printf("├───────┼────────┼──────────────┤\n");"#
+        } else {
+            ""
+        };
+
+        let table_footer = if is_submit {
+            r#"printf("└───────┴────────┴──────────────┘\n");"#
+        } else {
+            ""
+        };
 
         format!(
             r#"#include <stdio.h>
@@ -612,6 +914,7 @@ if __name__ == "__main__":
 #include <time.h>
 #include <stdbool.h>
 #include <limits.h>
+#include <math.h>
 
 // User's solution
 {solution_code}
@@ -634,31 +937,61 @@ int arrays_equal(int* a, int size_a, int* b, int size_b) {{
     return 1;
 }}
 
+void format_time(double ns, char* buf) {{
+    if (ns < 1000) {{
+        sprintf(buf, "%.2f ns", ns);
+    }} else if (ns < 1000000) {{
+        sprintf(buf, "%.2f us", ns / 1000);
+    }} else if (ns < 1000000000) {{
+        sprintf(buf, "%.2f ms", ns / 1000000);
+    }} else {{
+        sprintf(buf, "%.2f s", ns / 1000000000);
+    }}
+}}
+
+double get_time_ns() {{
+    struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+    return ts.tv_sec * 1e9 + ts.tv_nsec;
+}}
+
 // ============== TEST RUNNER ==============
 int main() {{
     printf("\n==================================================\n");
-    printf("Running tests for: {title}\n");
+    printf("[{mode_label}] Testing: {title}\n");
     printf("==================================================\n\n");
 
     int passed = 0;
     int total = 0;
+    double total_time = 0;
+    char time_buf[32];
+
+    {table_header}
 
 {test_case_code}
 
-    printf("\n==================================================\n");
+    {table_footer}
+
+    printf("\n--------------------------------------------------\n");
+    format_time(total_time, time_buf);
+    printf("Results: %d passed, %d failed of {total_tests} tests\n", passed, total - passed);
+    printf("Total time: %s\n", time_buf);
+    printf("--------------------------------------------------\n");
+
     if (passed == total) {{
-        printf("All %d tests passed!\n", total);
-    }} else {{
-        printf("%d/%d tests passed.\n", passed, total);
+        printf("\n✅ All tests passed!\n");
     }}
-    printf("==================================================\n");
 
     return passed == total ? 0 : 1;
 }}
 "#,
             solution_code = solution_code,
             title = problem.title,
+            mode_label = mode_label,
+            table_header = table_header,
             test_case_code = test_case_code,
+            table_footer = table_footer,
+            total_tests = total_tests,
         )
     }
 
@@ -721,12 +1054,11 @@ int main() {{
     }
 
     /// Generate C test case code
-    fn generate_c_test_cases(&self, problem: &Problem, param_types: &[String], return_type: &str) -> String {
+    fn generate_c_test_cases(&self, problem: &Problem, param_types: &[String], return_type: &str, is_submit: bool) -> String {
         let mut code = String::new();
         let func_name = &problem.function_name;
 
         for (i, tc) in problem.test_cases.iter().enumerate() {
-            code.push_str(&format!("    // Test case {}\n", i + 1));
             code.push_str("    {\n");
             code.push_str("        total++;\n");
 
@@ -760,48 +1092,53 @@ int main() {{
                 code.push_str(&format!("        {} expected = {};\n", return_type, literal));
             }
 
-            // Time the execution
-            code.push_str("        clock_t start = clock();\n");
-
-            // Call function based on return type
+            // Call function with timing
+            code.push_str("        double start = get_time_ns();\n");
             if return_type == "int*" {
                 code.push_str("        int returnSize;\n");
                 code.push_str(&format!("        int* result = {}({}, &returnSize);\n", func_name, arg_exprs.join(", ")));
             } else {
                 code.push_str(&format!("        {} result = {}({});\n", return_type, func_name, arg_exprs.join(", ")));
             }
-
-            code.push_str("        clock_t end = clock();\n");
-            code.push_str("        double duration = ((double)(end - start)) / CLOCKS_PER_SEC * 1000000;\n");
+            code.push_str("        double elapsed = get_time_ns() - start;\n");
+            code.push_str("        total_time += elapsed;\n");
 
             // Compare results
             if return_type == "int*" {
                 code.push_str("        int pass = arrays_equal(result, returnSize, expected, expected_size);\n");
-            } else if return_type == "bool" {
-                code.push_str("        int pass = (result == expected);\n");
             } else {
                 code.push_str("        int pass = (result == expected);\n");
             }
 
-            code.push_str("        if (pass) {\n");
-            code.push_str(&format!("            printf(\"Test {}: PASSED (%.0fus)\\n\", duration);\n", i + 1));
-            code.push_str("            passed++;\n");
-            code.push_str("        } else {\n");
-            code.push_str(&format!("            printf(\"Test {}: FAILED\\n\");\n", i + 1));
-
-            // Print expected and got
-            if return_type == "bool" {
-                code.push_str("            printf(\"  Expected: %s\\n\", expected ? \"true\" : \"false\");\n");
-                code.push_str("            printf(\"  Got:      %s\\n\", result ? \"true\" : \"false\");\n");
-            } else if return_type == "int" {
-                code.push_str("            printf(\"  Expected: %d\\n\", expected);\n");
-                code.push_str("            printf(\"  Got:      %d\\n\", result);\n");
-            } else if return_type == "int*" {
-                code.push_str("            printf(\"  Expected: \"); print_int_array(expected, expected_size); printf(\"\\n\");\n");
-                code.push_str("            printf(\"  Got:      \"); print_int_array(result, returnSize); printf(\"\\n\");\n");
+            if is_submit {
+                // Table output for submit mode
+                code.push_str("        format_time(elapsed, time_buf);\n");
+                code.push_str("        if (pass) {\n");
+                code.push_str("            printf(\"│ %3d   │   ✓    │%12s │\\n\", total, time_buf);\n");
+                code.push_str("            passed++;\n");
+                code.push_str("        } else {\n");
+                code.push_str("            printf(\"│ %3d   │   ✗    │%12s │\\n\", total, time_buf);\n");
+                code.push_str("        }\n");
+            } else {
+                // Verbose output for run mode
+                code.push_str("        format_time(elapsed, time_buf);\n");
+                code.push_str("        if (pass) {\n");
+                code.push_str(&format!("            printf(\"Test {}: ✓ PASSED [%s]\\n\", time_buf);\n", i + 1));
+                code.push_str("            passed++;\n");
+                code.push_str("        } else {\n");
+                code.push_str(&format!("            printf(\"Test {}: ✗ FAILED [%s]\\n\", time_buf);\n", i + 1));
+                if return_type == "bool" {
+                    code.push_str("            printf(\"  Expected: %s\\n\", expected ? \"true\" : \"false\");\n");
+                    code.push_str("            printf(\"  Got:      %s\\n\", result ? \"true\" : \"false\");\n");
+                } else if return_type == "int" {
+                    code.push_str("            printf(\"  Expected: %d\\n\", expected);\n");
+                    code.push_str("            printf(\"  Got:      %d\\n\", result);\n");
+                } else if return_type == "int*" {
+                    code.push_str("            printf(\"  Expected: \"); print_int_array(expected, expected_size); printf(\"\\n\");\n");
+                    code.push_str("            printf(\"  Got:      \"); print_int_array(result, returnSize); printf(\"\\n\");\n");
+                }
+                code.push_str("        }\n");
             }
-
-            code.push_str("        }\n");
 
             // Free allocated memory for array returns
             if return_type == "int*" {
@@ -815,12 +1152,29 @@ int main() {{
     }
 
     /// Generate C++ test runner
-    fn generate_cpp_test_runner(&self, problem: &Problem, solution_code: &str) -> String {
+    fn generate_cpp_test_runner(&self, problem: &Problem, solution_code: &str, is_submit: bool) -> String {
         // Analyze test cases to infer types
         let (param_types, return_type) = self.infer_cpp_types(problem);
 
         // Generate test case code
-        let test_case_code = self.generate_cpp_test_cases(problem, &param_types, &return_type);
+        let test_case_code = self.generate_cpp_test_cases(problem, &param_types, &return_type, is_submit);
+
+        let mode_label = if is_submit { "SUBMIT" } else { "RUN" };
+        let total_tests = problem.test_cases.len();
+
+        let table_header = if is_submit {
+            r#"cout << "┌───────┬────────┬──────────────┐" << endl;
+    cout << "│ Test  │ Status │     Time     │" << endl;
+    cout << "├───────┼────────┼──────────────┤" << endl;"#
+        } else {
+            ""
+        };
+
+        let table_footer = if is_submit {
+            r#"cout << "└───────┴────────┴──────────────┘" << endl;"#
+        } else {
+            ""
+        };
 
         format!(
             r#"#include <iostream>
@@ -832,6 +1186,7 @@ int main() {{
 #include <chrono>
 #include <sstream>
 #include <climits>
+#include <iomanip>
 
 using namespace std;
 
@@ -888,32 +1243,56 @@ bool vec_equal_any_order(vector<T> a, vector<T> b) {{
     return a == b;
 }}
 
+string format_time(double ns) {{
+    stringstream ss;
+    if (ns < 1000) {{
+        ss << fixed << setprecision(2) << ns << " ns";
+    }} else if (ns < 1000000) {{
+        ss << fixed << setprecision(2) << (ns / 1000) << " us";
+    }} else if (ns < 1000000000) {{
+        ss << fixed << setprecision(2) << (ns / 1000000) << " ms";
+    }} else {{
+        ss << fixed << setprecision(2) << (ns / 1000000000) << " s";
+    }}
+    return ss.str();
+}}
+
 // ============== TEST RUNNER ==============
 int main() {{
     cout << "\n==================================================" << endl;
-    cout << "Running tests for: {title}" << endl;
+    cout << "[{mode_label}] Testing: {title}" << endl;
     cout << "==================================================" << endl << endl;
 
     Solution sol;
     int passed = 0;
     int total = 0;
+    double total_time = 0;
+
+    {table_header}
 
 {test_case_code}
 
-    cout << "\n==================================================" << endl;
+    {table_footer}
+
+    cout << "\n--------------------------------------------------" << endl;
+    cout << "Results: " << passed << " passed, " << (total - passed) << " failed of {total_tests} tests" << endl;
+    cout << "Total time: " << format_time(total_time) << endl;
+    cout << "--------------------------------------------------" << endl;
+
     if (passed == total) {{
-        cout << "All " << total << " tests passed!" << endl;
-    }} else {{
-        cout << passed << "/" << total << " tests passed." << endl;
+        cout << "\n✅ All tests passed!" << endl;
     }}
-    cout << "==================================================" << endl;
 
     return passed == total ? 0 : 1;
 }}
 "#,
             solution_code = solution_code,
             title = problem.title,
+            mode_label = mode_label,
+            table_header = table_header,
             test_case_code = test_case_code,
+            table_footer = table_footer,
+            total_tests = total_tests,
         )
     }
 
@@ -975,7 +1354,7 @@ int main() {{
     }
 
     /// Generate C++ test case code
-    fn generate_cpp_test_cases(&self, problem: &Problem, param_types: &[String], return_type: &str) -> String {
+    fn generate_cpp_test_cases(&self, problem: &Problem, param_types: &[String], return_type: &str, is_submit: bool) -> String {
         let mut code = String::new();
         let func_name = &problem.function_name;
 
@@ -983,7 +1362,6 @@ int main() {{
         let any_order = problem.description.to_lowercase().contains("any order");
 
         for (i, tc) in problem.test_cases.iter().enumerate() {
-            code.push_str(&format!("    // Test case {}\n", i + 1));
             code.push_str("    {\n");
             code.push_str("        total++;\n");
 
@@ -1001,11 +1379,12 @@ int main() {{
             let expected_literal = self.json_to_cpp_literal(&tc.expected);
             code.push_str(&format!("        {} expected = {};\n", return_type, expected_literal));
 
-            // Time the execution
+            // Call function with timing
             code.push_str("        auto start = chrono::high_resolution_clock::now();\n");
             code.push_str(&format!("        auto result = sol.{}({});\n", func_name, arg_names.join(", ")));
             code.push_str("        auto end = chrono::high_resolution_clock::now();\n");
-            code.push_str("        auto duration = chrono::duration_cast<chrono::microseconds>(end - start).count();\n");
+            code.push_str("        double elapsed = chrono::duration<double, nano>(end - start).count();\n");
+            code.push_str("        total_time += elapsed;\n");
 
             // Compare results
             let compare_expr = if return_type.starts_with("vector<") {
@@ -1018,48 +1397,61 @@ int main() {{
                 "result == expected".to_string()
             };
 
-            // Result to string for printing
-            let result_to_str = if return_type == "bool" {
-                "(result ? \"true\" : \"false\")".to_string()
-            } else if return_type == "int" || return_type == "double" {
-                "to_string(result)".to_string()
-            } else if return_type == "string" {
-                "result".to_string()
-            } else if return_type.starts_with("vector<vector<") {
-                "vec2d_to_string(result)".to_string()
-            } else if return_type == "vector<string>" {
-                "vec_str_to_string(result)".to_string()
-            } else if return_type.starts_with("vector<") {
-                "vec_to_string(result)".to_string()
-            } else {
-                "\"[complex type]\"".to_string()
-            };
-
-            let expected_to_str = if return_type == "bool" {
-                "(expected ? \"true\" : \"false\")".to_string()
-            } else if return_type == "int" || return_type == "double" {
-                "to_string(expected)".to_string()
-            } else if return_type == "string" {
-                "expected".to_string()
-            } else if return_type.starts_with("vector<vector<") {
-                "vec2d_to_string(expected)".to_string()
-            } else if return_type == "vector<string>" {
-                "vec_str_to_string(expected)".to_string()
-            } else if return_type.starts_with("vector<") {
-                "vec_to_string(expected)".to_string()
-            } else {
-                "\"[complex type]\"".to_string()
-            };
-
             code.push_str(&format!("        bool pass = {};\n", compare_expr));
-            code.push_str("        if (pass) {\n");
-            code.push_str(&format!("            cout << \"Test {}: PASSED (\" << duration << \"μs)\" << endl;\n", i + 1));
-            code.push_str("            passed++;\n");
-            code.push_str("        } else {\n");
-            code.push_str(&format!("            cout << \"Test {}: FAILED\" << endl;\n", i + 1));
-            code.push_str(&format!("            cout << \"  Expected: \" << {} << endl;\n", expected_to_str));
-            code.push_str(&format!("            cout << \"  Got:      \" << {} << endl;\n", result_to_str));
-            code.push_str("        }\n");
+
+            if is_submit {
+                // Table output for submit mode
+                code.push_str("        string time_str = format_time(elapsed);\n");
+                code.push_str("        if (pass) {\n");
+                code.push_str("            cout << \"│ \" << setw(3) << total << \"   │   ✓    │\" << setw(12) << time_str << \" │\" << endl;\n");
+                code.push_str("            passed++;\n");
+                code.push_str("        } else {\n");
+                code.push_str("            cout << \"│ \" << setw(3) << total << \"   │   ✗    │\" << setw(12) << time_str << \" │\" << endl;\n");
+                code.push_str("        }\n");
+            } else {
+                // Verbose output for run mode
+                // Result to string for printing
+                let result_to_str = if return_type == "bool" {
+                    "(result ? \"true\" : \"false\")".to_string()
+                } else if return_type == "int" || return_type == "double" {
+                    "to_string(result)".to_string()
+                } else if return_type == "string" {
+                    "result".to_string()
+                } else if return_type.starts_with("vector<vector<") {
+                    "vec2d_to_string(result)".to_string()
+                } else if return_type == "vector<string>" {
+                    "vec_str_to_string(result)".to_string()
+                } else if return_type.starts_with("vector<") {
+                    "vec_to_string(result)".to_string()
+                } else {
+                    "\"[complex type]\"".to_string()
+                };
+
+                let expected_to_str = if return_type == "bool" {
+                    "(expected ? \"true\" : \"false\")".to_string()
+                } else if return_type == "int" || return_type == "double" {
+                    "to_string(expected)".to_string()
+                } else if return_type == "string" {
+                    "expected".to_string()
+                } else if return_type.starts_with("vector<vector<") {
+                    "vec2d_to_string(expected)".to_string()
+                } else if return_type == "vector<string>" {
+                    "vec_str_to_string(expected)".to_string()
+                } else if return_type.starts_with("vector<") {
+                    "vec_to_string(expected)".to_string()
+                } else {
+                    "\"[complex type]\"".to_string()
+                };
+
+                code.push_str("        if (pass) {\n");
+                code.push_str(&format!("            cout << \"Test {}: ✓ PASSED [\" << format_time(elapsed) << \"]\" << endl;\n", i + 1));
+                code.push_str("            passed++;\n");
+                code.push_str("        } else {\n");
+                code.push_str(&format!("            cout << \"Test {}: ✗ FAILED [\" << format_time(elapsed) << \"]\" << endl;\n", i + 1));
+                code.push_str(&format!("            cout << \"  Expected: \" << {} << endl;\n", expected_to_str));
+                code.push_str(&format!("            cout << \"  Got:      \" << {} << endl;\n", result_to_str));
+                code.push_str("        }\n");
+            }
             code.push_str("    }\n\n");
         }
 

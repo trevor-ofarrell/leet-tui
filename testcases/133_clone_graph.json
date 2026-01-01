@@ -1,0 +1,303 @@
+{
+  "problem_id": 133,
+  "title": "Clone Graph",
+  "run_tests": [
+    {
+      "input": {"adjList": [[2,4],[1,3],[2,4],[1,3]]},
+      "expected": [[2,4],[1,3],[2,4],[1,3]],
+      "description": "Square graph with 4 nodes"
+    },
+    {
+      "input": {"adjList": [[]]},
+      "expected": [[]],
+      "description": "Single node with no neighbors"
+    },
+    {
+      "input": {"adjList": []},
+      "expected": [],
+      "description": "Empty graph (null node)"
+    },
+    {
+      "input": {"adjList": [[2],[1]]},
+      "expected": [[2],[1]],
+      "description": "Two connected nodes"
+    }
+  ],
+  "submit_tests": [
+    {
+      "input": {"adjList": []},
+      "expected": [],
+      "description": "Empty graph - null input"
+    },
+    {
+      "input": {"adjList": [[]]},
+      "expected": [[]],
+      "description": "Single node - no neighbors"
+    },
+    {
+      "input": {"adjList": [[2],[1]]},
+      "expected": [[2],[1]],
+      "description": "Two nodes connected"
+    },
+    {
+      "input": {"adjList": [[2,4],[1,3],[2,4],[1,3]]},
+      "expected": [[2,4],[1,3],[2,4],[1,3]],
+      "description": "Square graph - 4 nodes"
+    },
+    {
+      "input": {"adjList": [[2,3],[1,3],[1,2]]},
+      "expected": [[2,3],[1,3],[1,2]],
+      "description": "Triangle graph"
+    },
+    {
+      "input": {"adjList": [[2],[1,3],[2,4],[3,5],[4]]},
+      "expected": [[2],[1,3],[2,4],[3,5],[4]],
+      "description": "Linear chain - 5 nodes"
+    },
+    {
+      "input": {"adjList": [[2,3,4],[1],[1],[1]]},
+      "expected": [[2,3,4],[1],[1],[1]],
+      "description": "Star graph - center with 3 spokes"
+    },
+    {
+      "input": {"adjList": [[2,3,4,5],[1],[1],[1],[1]]},
+      "expected": [[2,3,4,5],[1],[1],[1],[1]],
+      "description": "Star graph - center with 4 spokes"
+    },
+    {
+      "input": {"adjList": [[2],[1,3],[2,4],[3,5],[4,6],[5]]},
+      "expected": [[2],[1,3],[2,4],[3,5],[4,6],[5]],
+      "description": "Linear chain - 6 nodes"
+    },
+    {
+      "input": {"adjList": [[2,3],[1,3,4],[1,2,4],[2,3]]},
+      "expected": [[2,3],[1,3,4],[1,2,4],[2,3]],
+      "description": "Diamond shape"
+    },
+    {
+      "input": {"adjList": [[2,5],[1,3],[2,4],[3,5],[1,4]]},
+      "expected": [[2,5],[1,3],[2,4],[3,5],[1,4]],
+      "description": "Pentagon graph"
+    },
+    {
+      "input": {"adjList": [[2,3,4,5,6],[1],[1],[1],[1],[1]]},
+      "expected": [[2,3,4,5,6],[1],[1],[1],[1],[1]],
+      "description": "Star - 6 nodes"
+    },
+    {
+      "input": {"adjList": [[2,6],[1,3],[2,4],[3,5],[4,6],[1,5]]},
+      "expected": [[2,6],[1,3],[2,4],[3,5],[4,6],[1,5]],
+      "description": "Hexagon graph"
+    },
+    {
+      "input": {"adjList": [[2,3],[1,4],[1,4],[2,3]]},
+      "expected": [[2,3],[1,4],[1,4],[2,3]],
+      "description": "Bowtie pattern"
+    },
+    {
+      "input": {"adjList": [[1]]},
+      "expected": [[1]],
+      "description": "Self-loop single node"
+    },
+    {
+      "input": {"adjList": [[1,2],[1,2]]},
+      "expected": [[1,2],[1,2]],
+      "description": "Two nodes with self-loops"
+    },
+    {
+      "input": {"adjList": [[2,3,4],[1,3,4],[1,2,4],[1,2,3]]},
+      "expected": [[2,3,4],[1,3,4],[1,2,4],[1,2,3]],
+      "description": "Complete graph K4"
+    },
+    {
+      "input": {"adjList": [[2,3,4,5],[1,3,4,5],[1,2,4,5],[1,2,3,5],[1,2,3,4]]},
+      "expected": [[2,3,4,5],[1,3,4,5],[1,2,4,5],[1,2,3,5],[1,2,3,4]],
+      "description": "Complete graph K5"
+    },
+    {
+      "input": {"adjList": [[2],[1,3],[2]]},
+      "expected": [[2],[1,3],[2]],
+      "description": "Path of 3 nodes"
+    },
+    {
+      "input": {"adjList": [[2],[1,3],[2,4],[3]]},
+      "expected": [[2],[1,3],[2,4],[3]],
+      "description": "Path of 4 nodes"
+    },
+    {
+      "input": {"adjList": [[2,7],[1,3],[2,4],[3,5],[4,6],[5,7],[1,6]]},
+      "expected": [[2,7],[1,3],[2,4],[3,5],[4,6],[5,7],[1,6]],
+      "description": "Heptagon graph"
+    },
+    {
+      "input": {"adjList": [[2,4,5],[1,3,5],[2,4,6],[1,3,6],[1,2,6],[3,4,5]]},
+      "expected": [[2,4,5],[1,3,5],[2,4,6],[1,3,6],[1,2,6],[3,4,5]],
+      "description": "Octahedral graph"
+    },
+    {
+      "input": {"adjList": [[2,3],[1],[1,4],[3]]},
+      "expected": [[2,3],[1],[1,4],[3]],
+      "description": "Y-shaped graph"
+    },
+    {
+      "input": {"adjList": [[2,3],[1,4,5],[1,6,7],[2],[2],[3],[3]]},
+      "expected": [[2,3],[1,4,5],[1,6,7],[2],[2],[3],[3]],
+      "description": "Binary tree shape"
+    },
+    {
+      "input": {"adjList": [[2,3,4],[1,5],[1,6],[1,7],[2],[3],[4]]},
+      "expected": [[2,3,4],[1,5],[1,6],[1,7],[2],[3],[4]],
+      "description": "Ternary tree shape"
+    },
+    {
+      "input": {"adjList": [[2,3,4],[1],[1],[1,5,6,7],[4],[4],[4]]},
+      "expected": [[2,3,4],[1],[1],[1,5,6,7],[4],[4],[4]],
+      "description": "Two connected stars"
+    },
+    {
+      "input": {"adjList": [[2],[1,3,4],[2],[2,5],[4]]},
+      "expected": [[2],[1,3,4],[2],[2,5],[4]],
+      "description": "Branch with tail"
+    },
+    {
+      "input": {"adjList": [[2,3,4,5,6,7,8],[1],[1],[1],[1],[1],[1],[1]]},
+      "expected": [[2,3,4,5,6,7,8],[1],[1],[1],[1],[1],[1],[1]],
+      "description": "Star - 8 nodes"
+    },
+    {
+      "input": {"adjList": [[2,8],[1,3],[2,4],[3,5],[4,6],[5,7],[6,8],[1,7]]},
+      "expected": [[2,8],[1,3],[2,4],[3,5],[4,6],[5,7],[6,8],[1,7]],
+      "description": "Octagon cycle"
+    },
+    {
+      "input": {"adjList": [[2,9],[1,3],[2,4],[3,5],[4,6],[5,7],[6,8],[7,9],[1,8]]},
+      "expected": [[2,9],[1,3],[2,4],[3,5],[4,6],[5,7],[6,8],[7,9],[1,8]],
+      "description": "Nonagon cycle"
+    },
+    {
+      "input": {"adjList": [[2,10],[1,3],[2,4],[3,5],[4,6],[5,7],[6,8],[7,9],[8,10],[1,9]]},
+      "expected": [[2,10],[1,3],[2,4],[3,5],[4,6],[5,7],[6,8],[7,9],[8,10],[1,9]],
+      "description": "Decagon cycle"
+    },
+    {
+      "input": {"adjList": [[2,3,4,5],[1,3,4,5],[1,2,4,5],[1,2,3,5],[1,2,3,4,6],[5]]},
+      "expected": [[2,3,4,5],[1,3,4,5],[1,2,4,5],[1,2,3,5],[1,2,3,4,6],[5]],
+      "description": "K5 with tail"
+    },
+    {
+      "input": {"adjList": [[2],[1,3],[2,4,5],[3],[3,6],[5]]},
+      "expected": [[2],[1,3],[2,4,5],[3],[3,6],[5]],
+      "description": "Tree with branching"
+    },
+    {
+      "input": {"adjList": [[2,3],[1,4,5],[1,6,7],[2],[2],[3],[3,8],[7]]},
+      "expected": [[2,3],[1,4,5],[1,6,7],[2],[2],[3],[3,8],[7]],
+      "description": "Unbalanced tree"
+    },
+    {
+      "input": {"adjList": [[2,3,10],[1,4,5],[1,6,7],[2],[2],[3],[3,8,9],[7],[7],[1]]},
+      "expected": [[2,3,10],[1,4,5],[1,6,7],[2],[2],[3],[3,8,9],[7],[7],[1]],
+      "description": "Tree with cycle back to root"
+    },
+    {
+      "input": {"adjList": [[2,5],[1,3,5],[2,4],[3,5],[1,2,4]]},
+      "expected": [[2,5],[1,3,5],[2,4],[3,5],[1,2,4]],
+      "description": "Pentagon with cross edge"
+    },
+    {
+      "input": {"adjList": [[2,6,4],[1,3],[2,4],[1,3,5],[4,6],[1,5]]},
+      "expected": [[2,6,4],[1,3],[2,4],[1,3,5],[4,6],[1,5]],
+      "description": "Hexagon with chords"
+    },
+    {
+      "input": {"adjList": [[2,3,4,5,6,7],[1,3,4,5,6,7],[1,2,4,5,6,7],[1,2,3,5,6,7],[1,2,3,4,6,7],[1,2,3,4,5,7],[1,2,3,4,5,6]]},
+      "expected": [[2,3,4,5,6,7],[1,3,4,5,6,7],[1,2,4,5,6,7],[1,2,3,5,6,7],[1,2,3,4,6,7],[1,2,3,4,5,7],[1,2,3,4,5,6]],
+      "description": "Complete graph K7"
+    },
+    {
+      "input": {"adjList": [[2,3],[1],[1],[5,6],[4],[4]]},
+      "expected": [[2,3],[1],[1],[5,6],[4],[4]],
+      "description": "Two disjoint stars connected at leaves"
+    },
+    {
+      "input": {"adjList": [[2],[1,3,4],[2,4],[2,3,5],[4,6],[5,7],[6,8],[7]]},
+      "expected": [[2],[1,3,4],[2,4],[2,3,5],[4,6],[5,7],[6,8],[7]],
+      "description": "Chain with clique"
+    },
+    {
+      "input": {"adjList": [[2,3,4,5,6,7,8,9,10],[1],[1],[1],[1],[1],[1],[1],[1],[1]]},
+      "expected": [[2,3,4,5,6,7,8,9,10],[1],[1],[1],[1],[1],[1],[1],[1],[1]],
+      "description": "Star - 10 nodes"
+    },
+    {
+      "input": {"adjList": [[2],[3],[4],[5],[6],[7],[8],[9],[10],[]]},
+      "expected": [[2],[3],[4],[5],[6],[7],[8],[9],[10],[]],
+      "description": "Long directed chain (as undirected)"
+    },
+    {
+      "input": {"adjList": [[2,3,4],[1,5,6],[1,7,8],[1,9,10],[2],[2],[3],[3],[4],[4]]},
+      "expected": [[2,3,4],[1,5,6],[1,7,8],[1,9,10],[2],[2],[3],[3],[4],[4]],
+      "description": "Three-level tree"
+    },
+    {
+      "input": {"adjList": [[2,11],[1,3],[2,4],[3,5],[4,6],[5,7],[6,8],[7,9],[8,10],[9,11],[1,10]]},
+      "expected": [[2,11],[1,3],[2,4],[3,5],[4,6],[5,7],[6,8],[7,9],[8,10],[9,11],[1,10]],
+      "description": "Cycle of 11 nodes"
+    },
+    {
+      "input": {"adjList": [[2,12],[1,3],[2,4],[3,5],[4,6],[5,7],[6,8],[7,9],[8,10],[9,11],[10,12],[1,11]]},
+      "expected": [[2,12],[1,3],[2,4],[3,5],[4,6],[5,7],[6,8],[7,9],[8,10],[9,11],[10,12],[1,11]],
+      "description": "Cycle of 12 nodes"
+    },
+    {
+      "input": {"adjList": [[2,3],[1,3,4,5],[1,2,6,7],[2],[2],[3],[3]]},
+      "expected": [[2,3],[1,3,4,5],[1,2,6,7],[2],[2],[3],[3]],
+      "description": "Triangle with branches"
+    },
+    {
+      "input": {"adjList": [[2,4],[1,3],[2,4,5],[1,3],[3,6,7],[5],[5]]},
+      "expected": [[2,4],[1,3],[2,4,5],[1,3],[3,6,7],[5],[5]],
+      "description": "Square with Y-branch"
+    },
+    {
+      "input": {"adjList": [[2,3,4,5,6,7,8,9,10,11,12],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1]]},
+      "expected": [[2,3,4,5,6,7,8,9,10,11,12],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1]],
+      "description": "Star - 12 nodes"
+    },
+    {
+      "input": {"adjList": [[2],[1,3],[2,4],[3,5,8],[4,6],[5,7],[6,8],[4,7]]},
+      "expected": [[2],[1,3],[2,4],[3,5,8],[4,6],[5,7],[6,8],[4,7]],
+      "description": "Chain with square at end"
+    },
+    {
+      "input": {"adjList": [[2,3],[1,3],[1,2,4,5],[3,5],[3,4]]},
+      "expected": [[2,3],[1,3],[1,2,4,5],[3,5],[3,4]],
+      "description": "Two triangles sharing vertex"
+    },
+    {
+      "input": {"adjList": [[2,3],[1,3,4],[1,2],[2,5,6],[4,6],[4,5]]},
+      "expected": [[2,3],[1,3,4],[1,2],[2,5,6],[4,6],[4,5]],
+      "description": "Two triangles sharing edge"
+    },
+    {
+      "input": {"adjList": [[2,5,6],[1,3],[2,4],[3,5],[1,4],[1,7,8],[6,8],[6,7]]},
+      "expected": [[2,5,6],[1,3],[2,4],[3,5],[1,4],[1,7,8],[6,8],[6,7]],
+      "description": "Two pentagons sharing vertex"
+    },
+    {
+      "input": {"adjList": [[2,3,4],[1,5],[1,6],[1,7],[2,8],[3,9],[4,10],[5,9,10],[6,8,10],[7,8,9]]},
+      "expected": [[2,3,4],[1,5],[1,6],[1,7],[2,8],[3,9],[4,10],[5,9,10],[6,8,10],[7,8,9]],
+      "description": "Petersen-like graph"
+    },
+    {
+      "input": {"adjList": [[2],[1,3],[2,4],[3,5],[4,6],[5,7],[6,8],[7,9],[8,10],[9,11],[10,12],[11,13],[12,14],[13,15],[14]]},
+      "expected": [[2],[1,3],[2,4],[3,5],[4,6],[5,7],[6,8],[7,9],[8,10],[9,11],[10,12],[11,13],[12,14],[13,15],[14]],
+      "description": "Long chain - 15 nodes"
+    },
+    {
+      "input": {"adjList": [[2,3,4,5,6,7,8,9,10,11,12,13,14,15],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1]]},
+      "expected": [[2,3,4,5,6,7,8,9,10,11,12,13,14,15],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1]],
+      "description": "Star - 15 nodes"
+    }
+  ]
+}

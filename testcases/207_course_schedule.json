@@ -1,0 +1,319 @@
+{
+  "problem_id": 207,
+  "title": "Course Schedule",
+  "run_tests": [
+    {
+      "input": {"numCourses": 2, "prerequisites": [[1,0]]},
+      "expected": true
+    },
+    {
+      "input": {"numCourses": 2, "prerequisites": [[1,0],[0,1]]},
+      "expected": false
+    },
+    {
+      "input": {"numCourses": 1, "prerequisites": []},
+      "expected": true
+    },
+    {
+      "input": {"numCourses": 3, "prerequisites": [[1,0],[2,1]]},
+      "expected": true
+    }
+  ],
+  "submit_tests": [
+    {
+      "input": {"numCourses": 1, "prerequisites": []},
+      "expected": true,
+      "description": "Single course no prereqs"
+    },
+    {
+      "input": {"numCourses": 2, "prerequisites": []},
+      "expected": true,
+      "description": "Two courses no prereqs"
+    },
+    {
+      "input": {"numCourses": 2, "prerequisites": [[1,0]]},
+      "expected": true,
+      "description": "Simple dependency"
+    },
+    {
+      "input": {"numCourses": 2, "prerequisites": [[0,1]]},
+      "expected": true,
+      "description": "Reverse simple dependency"
+    },
+    {
+      "input": {"numCourses": 2, "prerequisites": [[1,0],[0,1]]},
+      "expected": false,
+      "description": "Simple cycle"
+    },
+    {
+      "input": {"numCourses": 3, "prerequisites": [[1,0],[2,1]]},
+      "expected": true,
+      "description": "Linear chain"
+    },
+    {
+      "input": {"numCourses": 3, "prerequisites": [[1,0],[2,0]]},
+      "expected": true,
+      "description": "Two depend on one"
+    },
+    {
+      "input": {"numCourses": 3, "prerequisites": [[2,0],[2,1]]},
+      "expected": true,
+      "description": "One depends on two"
+    },
+    {
+      "input": {"numCourses": 3, "prerequisites": [[0,1],[1,2],[2,0]]},
+      "expected": false,
+      "description": "Triangle cycle"
+    },
+    {
+      "input": {"numCourses": 4, "prerequisites": [[1,0],[2,0],[3,1],[3,2]]},
+      "expected": true,
+      "description": "Diamond shape"
+    },
+    {
+      "input": {"numCourses": 4, "prerequisites": [[1,0],[2,1],[3,2],[0,3]]},
+      "expected": false,
+      "description": "Square cycle"
+    },
+    {
+      "input": {"numCourses": 5, "prerequisites": [[1,0],[2,0],[3,0],[4,0]]},
+      "expected": true,
+      "description": "Star from one"
+    },
+    {
+      "input": {"numCourses": 5, "prerequisites": [[4,0],[4,1],[4,2],[4,3]]},
+      "expected": true,
+      "description": "Star to one"
+    },
+    {
+      "input": {"numCourses": 5, "prerequisites": [[1,0],[2,1],[3,2],[4,3]]},
+      "expected": true,
+      "description": "Long chain"
+    },
+    {
+      "input": {"numCourses": 5, "prerequisites": [[1,0],[2,1],[3,2],[4,3],[0,4]]},
+      "expected": false,
+      "description": "Long cycle"
+    },
+    {
+      "input": {"numCourses": 4, "prerequisites": [[1,0],[2,0],[3,1],[3,2],[1,2]]},
+      "expected": true,
+      "description": "Diamond with extra edge"
+    },
+    {
+      "input": {"numCourses": 6, "prerequisites": [[1,0],[2,1],[3,2],[4,2],[5,3],[5,4]]},
+      "expected": true,
+      "description": "Complex DAG"
+    },
+    {
+      "input": {"numCourses": 3, "prerequisites": [[1,0],[1,0]]},
+      "expected": true,
+      "description": "Duplicate prerequisites"
+    },
+    {
+      "input": {"numCourses": 5, "prerequisites": []},
+      "expected": true,
+      "description": "Five courses no prereqs"
+    },
+    {
+      "input": {"numCourses": 10, "prerequisites": []},
+      "expected": true,
+      "description": "Ten courses no prereqs"
+    },
+    {
+      "input": {"numCourses": 3, "prerequisites": [[0,1],[0,2],[1,2]]},
+      "expected": true,
+      "description": "Converging dependencies"
+    },
+    {
+      "input": {"numCourses": 4, "prerequisites": [[0,1],[0,2],[0,3],[1,2],[1,3],[2,3]]},
+      "expected": true,
+      "description": "Fully connected acyclic"
+    },
+    {
+      "input": {"numCourses": 6, "prerequisites": [[1,0],[2,0],[2,1],[3,1],[4,2],[4,3],[5,3],[5,4]]},
+      "expected": true,
+      "description": "Layered dependencies"
+    },
+    {
+      "input": {"numCourses": 4, "prerequisites": [[1,0],[2,1],[0,2]]},
+      "expected": false,
+      "description": "Three node cycle"
+    },
+    {
+      "input": {"numCourses": 5, "prerequisites": [[1,0],[2,1],[3,2],[4,3],[2,4]]},
+      "expected": false,
+      "description": "Cycle in middle of chain"
+    },
+    {
+      "input": {"numCourses": 7, "prerequisites": [[1,0],[2,0],[3,1],[4,1],[5,2],[6,2]]},
+      "expected": true,
+      "description": "Binary tree structure"
+    },
+    {
+      "input": {"numCourses": 6, "prerequisites": [[1,0],[2,0],[3,0],[4,1],[4,2],[4,3],[5,4]]},
+      "expected": true,
+      "description": "Funnel shape"
+    },
+    {
+      "input": {"numCourses": 8, "prerequisites": [[1,0],[2,1],[3,2],[4,3],[5,4],[6,5],[7,6]]},
+      "expected": true,
+      "description": "Very long chain"
+    },
+    {
+      "input": {"numCourses": 8, "prerequisites": [[1,0],[2,1],[3,2],[4,3],[5,4],[6,5],[7,6],[0,7]]},
+      "expected": false,
+      "description": "Very long cycle"
+    },
+    {
+      "input": {"numCourses": 10, "prerequisites": [[1,0],[2,0],[3,0],[4,1],[5,1],[6,2],[7,2],[8,3],[9,3]]},
+      "expected": true,
+      "description": "Wide tree"
+    },
+    {
+      "input": {"numCourses": 4, "prerequisites": [[1,0],[3,2]]},
+      "expected": true,
+      "description": "Two separate chains"
+    },
+    {
+      "input": {"numCourses": 6, "prerequisites": [[1,0],[2,1],[4,3],[5,4]]},
+      "expected": true,
+      "description": "Two separate long chains"
+    },
+    {
+      "input": {"numCourses": 6, "prerequisites": [[1,0],[2,1],[0,2],[4,3],[5,4]]},
+      "expected": false,
+      "description": "One chain with cycle one without"
+    },
+    {
+      "input": {"numCourses": 5, "prerequisites": [[1,0],[0,1],[3,2],[4,3]]},
+      "expected": false,
+      "description": "Cycle in first component"
+    },
+    {
+      "input": {"numCourses": 5, "prerequisites": [[1,0],[2,1],[4,3],[3,4]]},
+      "expected": false,
+      "description": "Cycle in second component"
+    },
+    {
+      "input": {"numCourses": 100, "prerequisites": []},
+      "expected": true,
+      "description": "100 courses no prereqs"
+    },
+    {
+      "input": {"numCourses": 10, "prerequisites": [[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0]]},
+      "expected": true,
+      "description": "Ten courses all from one"
+    },
+    {
+      "input": {"numCourses": 10, "prerequisites": [[9,0],[9,1],[9,2],[9,3],[9,4],[9,5],[9,6],[9,7],[9,8]]},
+      "expected": true,
+      "description": "One course needs all others"
+    },
+    {
+      "input": {"numCourses": 20, "prerequisites": [[1,0],[2,1],[3,2],[4,3],[5,4],[6,5],[7,6],[8,7],[9,8],[10,9],[11,10],[12,11],[13,12],[14,13],[15,14],[16,15],[17,16],[18,17],[19,18]]},
+      "expected": true,
+      "description": "Chain of 20"
+    },
+    {
+      "input": {"numCourses": 20, "prerequisites": [[1,0],[2,1],[3,2],[4,3],[5,4],[6,5],[7,6],[8,7],[9,8],[10,9],[11,10],[12,11],[13,12],[14,13],[15,14],[16,15],[17,16],[18,17],[19,18],[0,19]]},
+      "expected": false,
+      "description": "Cycle of 20"
+    },
+    {
+      "input": {"numCourses": 3, "prerequisites": [[0,0]]},
+      "expected": false,
+      "description": "Self loop"
+    },
+    {
+      "input": {"numCourses": 5, "prerequisites": [[2,2]]},
+      "expected": false,
+      "description": "Self loop middle"
+    },
+    {
+      "input": {"numCourses": 4, "prerequisites": [[1,0],[2,0],[2,1],[3,0],[3,1],[3,2]]},
+      "expected": true,
+      "description": "Complete DAG"
+    },
+    {
+      "input": {"numCourses": 6, "prerequisites": [[5,0],[5,1],[5,2],[4,0],[4,1],[3,0]]},
+      "expected": true,
+      "description": "Multiple dependencies"
+    },
+    {
+      "input": {"numCourses": 8, "prerequisites": [[1,0],[2,0],[3,1],[3,2],[4,1],[4,2],[5,3],[5,4],[6,3],[6,4],[7,5],[7,6]]},
+      "expected": true,
+      "description": "Complex layered DAG"
+    },
+    {
+      "input": {"numCourses": 10, "prerequisites": [[1,0],[2,1],[3,2],[4,3],[5,4],[6,5],[7,6],[8,7],[9,8],[5,9]]},
+      "expected": false,
+      "description": "Cycle in latter half"
+    },
+    {
+      "input": {"numCourses": 7, "prerequisites": [[1,0],[2,1],[3,2],[4,0],[5,4],[6,5],[3,6]]},
+      "expected": true,
+      "description": "Two paths converge"
+    },
+    {
+      "input": {"numCourses": 7, "prerequisites": [[1,0],[2,1],[3,2],[4,0],[5,4],[6,5],[3,6],[0,3]]},
+      "expected": false,
+      "description": "Two paths with back edge"
+    },
+    {
+      "input": {"numCourses": 15, "prerequisites": [[1,0],[2,0],[3,1],[4,1],[5,2],[6,2],[7,3],[8,3],[9,4],[10,4],[11,5],[12,5],[13,6],[14,6]]},
+      "expected": true,
+      "description": "Binary tree 15 nodes"
+    },
+    {
+      "input": {"numCourses": 6, "prerequisites": [[2,0],[2,1],[3,0],[3,1],[4,2],[4,3],[5,2],[5,3]]},
+      "expected": true,
+      "description": "Diamond with branches"
+    },
+    {
+      "input": {"numCourses": 5, "prerequisites": [[1,0],[2,0],[3,1],[3,2],[4,3],[1,4]]},
+      "expected": false,
+      "description": "Diamond with back edge"
+    },
+    {
+      "input": {"numCourses": 12, "prerequisites": [[1,0],[2,0],[3,0],[4,1],[5,1],[6,2],[7,2],[8,3],[9,3],[10,4],[10,5],[10,6],[10,7],[10,8],[10,9],[11,10]]},
+      "expected": true,
+      "description": "Wide tree converging"
+    },
+    {
+      "input": {"numCourses": 3, "prerequisites": [[1,0],[2,0],[2,1],[0,2]]},
+      "expected": false,
+      "description": "Triangle with extra back edge"
+    },
+    {
+      "input": {"numCourses": 4, "prerequisites": [[1,0],[2,0],[3,1],[3,2],[2,3]]},
+      "expected": false,
+      "description": "Diamond with cycle"
+    },
+    {
+      "input": {"numCourses": 1, "prerequisites": [[0,0]]},
+      "expected": false,
+      "description": "Single course self loop"
+    },
+    {
+      "input": {"numCourses": 2000, "prerequisites": []},
+      "expected": true,
+      "description": "Large no prereqs"
+    },
+    {
+      "input": {"numCourses": 50, "prerequisites": [[1,0],[2,1],[3,2],[4,3],[5,4],[6,5],[7,6],[8,7],[9,8],[10,9],[11,10],[12,11],[13,12],[14,13],[15,14],[16,15],[17,16],[18,17],[19,18],[20,19],[21,20],[22,21],[23,22],[24,23],[25,24],[26,25],[27,26],[28,27],[29,28],[30,29],[31,30],[32,31],[33,32],[34,33],[35,34],[36,35],[37,36],[38,37],[39,38],[40,39],[41,40],[42,41],[43,42],[44,43],[45,44],[46,45],[47,46],[48,47],[49,48]]},
+      "expected": true,
+      "description": "Chain of 50"
+    },
+    {
+      "input": {"numCourses": 8, "prerequisites": [[1,0],[2,0],[3,0],[4,0],[5,1],[5,2],[5,3],[5,4],[6,5],[7,5]]},
+      "expected": true,
+      "description": "Hourglass shape"
+    },
+    {
+      "input": {"numCourses": 6, "prerequisites": [[1,0],[2,0],[3,1],[4,2],[5,3],[5,4],[3,5]]},
+      "expected": false,
+      "description": "Cycle at end of DAG"
+    }
+  ]
+}
