@@ -1207,7 +1207,7 @@ impl App {
             // Split question pane into main area and tip area
             let question_chunks = Layout::default()
                 .direction(Direction::Vertical)
-                .constraints([Constraint::Min(0), Constraint::Length(4)])
+                .constraints([Constraint::Min(0), Constraint::Length(7)])
                 .split(chunks[0]);
 
             // Render Question pane
@@ -1309,8 +1309,8 @@ impl App {
 
             let tip_block = Block::default()
                 .borders(Borders::ALL)
-                .border_style(Style::default().fg(Color::Rgb(50, 55, 65)))
-                .title(Span::styled(" Tip ", Style::default().fg(Color::Rgb(70, 80, 95))));
+                .border_style(Style::default().fg(Color::Rgb(100, 110, 130)))
+                .title(Span::styled(" Tip ", Style::default().fg(Color::Rgb(140, 150, 170))));
 
             let tip_paragraph = Paragraph::new(Span::styled(
                 tip_text,
