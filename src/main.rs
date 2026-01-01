@@ -473,6 +473,13 @@ impl App {
                             return Ok(());
                         }
                     }
+                    KeyCode::Char('t') => {
+                        // Toggle tips visibility
+                        if let AppState::Question(question) = &mut self.state {
+                            question.show_tips = !question.show_tips;
+                            return Ok(());
+                        }
+                    }
                     KeyCode::Char('s') => {
                         // Submit tests (full mode - 50-200 tests)
                         if let AppState::Question(question) = &mut self.state {
