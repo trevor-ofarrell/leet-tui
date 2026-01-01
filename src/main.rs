@@ -1207,7 +1207,7 @@ impl App {
             // Split question pane into main area and tip area
             let question_chunks = Layout::default()
                 .direction(Direction::Vertical)
-                .constraints([Constraint::Min(0), Constraint::Length(7)])
+                .constraints([Constraint::Min(0), Constraint::Length(4)])
                 .split(chunks[0]);
 
             // Render Question pane
