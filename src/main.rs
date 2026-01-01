@@ -4,6 +4,7 @@ mod language;
 mod leetcode;
 mod progress;
 mod pty;
+mod tips;
 
 use anyhow::Result;
 use crossterm::{
@@ -77,6 +78,7 @@ struct QuestionState {
     solution_file: PathBuf,
     test_output: Option<String>,
     show_results: bool,
+    tip_system: tips::TipSystem,
 }
 
 enum Focus {
