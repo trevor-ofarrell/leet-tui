@@ -72,7 +72,19 @@ Note: Std Dev < 5% indicates stable results
 npm install -g leet-tui
 ```
 
-This will automatically download the correct binary for your platform.
+This installs `leet-tui` globally and adds it to your PATH. Run from anywhere:
+
+```bash
+leet-tui
+```
+
+### Via Cargo
+
+```bash
+cargo install leet-tui
+```
+
+This installs the binary to `~/.cargo/bin/` (make sure it's in your PATH).
 
 ### From source
 
@@ -84,15 +96,30 @@ Prerequisites:
 - For C/C++: GCC or Clang
 
 ```bash
+git clone https://github.com/trevor-ofarrell/leet-tui
+cd leet-tui
 cargo build --release
+```
+
+Then either run directly:
+```bash
 ./target/release/leet-tui
 ```
 
-## Running
+Or install globally:
+```bash
+cargo install --path .
+```
+
+## Usage
+
+Once installed globally, run from any directory:
 
 ```bash
 leet-tui
 ```
+
+Solutions are saved to `~/.local/share/leet-tui/solutions/` organized by language.
 
 ## Keyboard Shortcuts
 
