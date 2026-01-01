@@ -79,6 +79,7 @@ struct QuestionState {
     test_output: Option<String>,
     show_results: bool,
     tip_system: tips::TipSystem,
+    show_tips: bool,
 }
 
 enum Focus {
