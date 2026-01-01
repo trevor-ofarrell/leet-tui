@@ -1312,14 +1312,25 @@ impl App {
                 .border_style(Style::default().fg(Color::Rgb(100, 110, 130)))
                 .title(Span::styled(" Tip ", Style::default().fg(Color::Rgb(140, 150, 170))));
 
+            // Render block first, then text with horizontal padding
+            let tip_inner = tip_block.inner(question_chunks[1]);
+            f.render_widget(tip_block, question_chunks[1]);
+
+            // Add 3 chars horizontal padding
+            let padded_area = Rect {
+                x: tip_inner.x + 3,
+                y: tip_inner.y,
+                width: tip_inner.width.saturating_sub(6),
+                height: tip_inner.height,
+            };
+
             let tip_paragraph = Paragraph::new(Span::styled(
                 tip_text,
                 Style::default().fg(tip_color),
             ))
-            .block(tip_block)
             .wrap(Wrap { trim: true });
 
-            f.render_widget(tip_paragraph, question_chunks[1]);
+            f.render_widget(tip_paragraph, padded_area);
 
             // Render Editor pane
             let editor_focused = matches!(question.focus, Focus::Editor);
