@@ -1294,14 +1294,23 @@ impl App {
             let opacity = question.tip_system.opacity();
             let tip_text = question.tip_system.current_tip();
 
-            // Calculate color based on opacity (fade to background)
-            let tip_intensity = (opacity * 180.0) as u8;
-            let tip_color = Color::Rgb(tip_intensity, tip_intensity, (tip_intensity as f32 * 1.2).min(255.0) as u8);
+            // Fade from background color (dark) to visible color (light cyan-ish)
+            // At opacity 0: blend with dark background (~30-40)
+            // At opacity 1: bright visible text (~160-200)
+            let bg_base = 35.0_f32;
+            let fg_r = 160.0_f32;
+            let fg_g = 180.0_f32;
+            let fg_b = 200.0_f32;
+
+            let r = (bg_base + opacity * (fg_r - bg_base)) as u8;
+            let g = (bg_base + opacity * (fg_g - bg_base)) as u8;
+            let b = (bg_base + opacity * (fg_b - bg_base)) as u8;
+            let tip_color = Color::Rgb(r, g, b);
 
             let tip_block = Block::default()
                 .borders(Borders::ALL)
-                .border_style(Style::default().fg(Color::Rgb(60, 60, 70)))
-                .title(Span::styled(" Tip ", Style::default().fg(Color::Rgb(80, 80, 100))));
+                .border_style(Style::default().fg(Color::Rgb(50, 55, 65)))
+                .title(Span::styled(" Tip ", Style::default().fg(Color::Rgb(70, 80, 95))));
 
             let tip_paragraph = Paragraph::new(Span::styled(
                 tip_text,
