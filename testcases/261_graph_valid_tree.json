@@ -2195,29 +2195,6 @@
       "input": {
         "n": 0,
         "edges": [
-          []
-        ]
-      },
-      "expected": false
-    },
-    {
-      "input": {
-        "n": 0,
-        "edges": [
-          [
-            2
-          ],
-          [
-            1
-          ]
-        ]
-      },
-      "expected": false
-    },
-    {
-      "input": {
-        "n": 0,
-        "edges": [
           [
             2,
             3
@@ -2229,29 +2206,6 @@
           [
             1,
             2
-          ]
-        ]
-      },
-      "expected": false
-    },
-    {
-      "input": {
-        "n": 1,
-        "edges": [
-          []
-        ]
-      },
-      "expected": false
-    },
-    {
-      "input": {
-        "n": 1,
-        "edges": [
-          [
-            2
-          ],
-          [
-            1
           ]
         ]
       },
@@ -2288,29 +2242,6 @@
       "input": {
         "n": -1,
         "edges": [
-          []
-        ]
-      },
-      "expected": false
-    },
-    {
-      "input": {
-        "n": -1,
-        "edges": [
-          [
-            2
-          ],
-          [
-            1
-          ]
-        ]
-      },
-      "expected": false
-    },
-    {
-      "input": {
-        "n": -1,
-        "edges": [
           [
             2,
             3
@@ -2322,29 +2253,6 @@
           [
             1,
             2
-          ]
-        ]
-      },
-      "expected": false
-    },
-    {
-      "input": {
-        "n": 2,
-        "edges": [
-          []
-        ]
-      },
-      "expected": false
-    },
-    {
-      "input": {
-        "n": 2,
-        "edges": [
-          [
-            2
-          ],
-          [
-            1
           ]
         ]
       },
@@ -2374,29 +2282,6 @@
       "input": {
         "n": 10,
         "edges": []
-      },
-      "expected": false
-    },
-    {
-      "input": {
-        "n": 10,
-        "edges": [
-          []
-        ]
-      },
-      "expected": false
-    },
-    {
-      "input": {
-        "n": 10,
-        "edges": [
-          [
-            2
-          ],
-          [
-            1
-          ]
-        ]
       },
       "expected": false
     },

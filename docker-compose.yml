@@ -1,0 +1,31 @@
+services:
+  sandbox:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: leet-sandbox
+    volumes:
+      # Only persist caches and config - NO host project access
+      - cargo-registry:/usr/local/cargo/registry
+      - cargo-git:/usr/local/cargo/git
+      - claude-config:/root/.claude
+    working_dir: /app
+    stdin_open: true
+    tty: true
+    environment:
+      - TERM=xterm-256color
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    # Security: fully sandboxed
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETUID
+      - SETGID
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  cargo-registry:
+  cargo-git:
+  claude-config:

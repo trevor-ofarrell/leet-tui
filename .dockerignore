@@ -1,0 +1,28 @@
+# Build artifacts
+target/
+node_modules/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Keep Docker files in context but exclude from COPY
+# (They're needed for build context)
+
+# Test artifacts
+*.log
+test_report.json
+scripts/__pycache__/
+
+# Claude config
+.claude/
