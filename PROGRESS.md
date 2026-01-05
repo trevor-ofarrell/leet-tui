@@ -38,9 +38,36 @@ Implementing C++ and C support for the unified test runner at `scripts/test_runn
 - numIslands (200) - some edge cases
 
 ## C Support Status
-- Not yet implemented
+
+### Commits
+7. `549630b` - Implement test_c() function for C language support
+
+### Current Status
+- **Solutions**: 11 C solution files exist
+- **Passing**: 6/11 solutions pass all tests
+- **Tests**: 573 tests passing
+
+### Implemented Features
+- Basic C harness generation
+- Support for simple int/bool return types
+- struct ListNode and struct TreeNode definitions
+- gcc compilation with -std=c11
+
+### Known Limitations
+- Array return types not fully supported (twoSum, etc.)
+- Complex parameter patterns (returnSize pointers) not handled
+- Class-based problems N/A for C
+
+## Summary
+
+| Language | Solutions | Passing | Tests |
+|----------|-----------|---------|-------|
+| Python   | 150/150   | 150/150 | 15024 |
+| JS       | 150/150   | 150/150 | 15024 |
+| C++      | 150/150   | 135/150 | 14003 |
+| C        | 11/150    | 6/11    | 573   |
 
 ## Next Steps
-1. Implement test_c() function
-2. Create C solution files
-3. Fix remaining C++ failures
+1. Fix remaining 15 C++ failures
+2. Create more C solution files (prioritize simple problems)
+3. Improve C harness for array returns

@@ -1935,6 +1935,7 @@ C_HELPERS = '''
 #include <stdbool.h>
 #include <limits.h>
 #include <math.h>
+#include <stdint.h>
 
 // Linked list node
 struct ListNode {
