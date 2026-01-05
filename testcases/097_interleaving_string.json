@@ -2,117 +2,887 @@
   "problem_id": 97,
   "title": "Interleaving String",
   "run_tests": [
-    {"input": ["aabcc", "dbbca", "aadbbcbcac"], "expected": true},
-    {"input": ["aabcc", "dbbca", "aadbbbaccc"], "expected": false},
-    {"input": ["", "", ""], "expected": true},
-    {"input": ["a", "b", "ab"], "expected": true},
-    {"input": ["a", "b", "ba"], "expected": true}
+    {
+      "input": [
+        "aabcc",
+        "dbbca",
+        "aadbbcbcac"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aabcc",
+        "dbbca",
+        "aadbbbaccc"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "",
+        "",
+        ""
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "a",
+        "b",
+        "ab"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "a",
+        "b",
+        "ba"
+      ],
+      "expected": true
+    }
   ],
   "submit_tests": [
-    {"input": ["aabcc", "dbbca", "aadbbcbcac"], "expected": true},
-    {"input": ["aabcc", "dbbca", "aadbbbaccc"], "expected": false},
-    {"input": ["", "", ""], "expected": true},
-    {"input": ["a", "b", "ab"], "expected": true},
-    {"input": ["a", "b", "ba"], "expected": true},
-    {"input": ["", "a", "a"], "expected": true},
-    {"input": ["a", "", "a"], "expected": true},
-    {"input": ["", "a", "b"], "expected": false},
-    {"input": ["a", "", "b"], "expected": false},
-    {"input": ["a", "b", "a"], "expected": false},
-    {"input": ["a", "b", "b"], "expected": false},
-    {"input": ["a", "b", "aa"], "expected": false},
-    {"input": ["a", "b", "bb"], "expected": false},
-    {"input": ["a", "b", "abc"], "expected": false},
-    {"input": ["aa", "bb", "aabb"], "expected": true},
-    {"input": ["aa", "bb", "abab"], "expected": true},
-    {"input": ["aa", "bb", "abba"], "expected": true},
-    {"input": ["aa", "bb", "baba"], "expected": true},
-    {"input": ["aa", "bb", "bbaa"], "expected": true},
-    {"input": ["aa", "bb", "aaab"], "expected": false},
-    {"input": ["aa", "bb", "aabba"], "expected": false},
-    {"input": ["ab", "cd", "abcd"], "expected": true},
-    {"input": ["ab", "cd", "acbd"], "expected": true},
-    {"input": ["ab", "cd", "acdb"], "expected": true},
-    {"input": ["ab", "cd", "cabd"], "expected": true},
-    {"input": ["ab", "cd", "cadb"], "expected": true},
-    {"input": ["ab", "cd", "cdab"], "expected": true},
-    {"input": ["ab", "cd", "abdc"], "expected": false},
-    {"input": ["ab", "cd", "dcba"], "expected": false},
-    {"input": ["abc", "def", "adbecf"], "expected": true},
-    {"input": ["abc", "def", "abcdef"], "expected": true},
-    {"input": ["abc", "def", "defabc"], "expected": true},
-    {"input": ["abc", "def", "adbfce"], "expected": false},
-    {"input": ["abc", "def", "abdecf"], "expected": true},
-    {"input": ["abc", "def", "abdefc"], "expected": true},
-    {"input": ["aaa", "aaa", "aaaaaa"], "expected": true},
-    {"input": ["aaa", "aaa", "aaaaaaa"], "expected": false},
-    {"input": ["aaa", "aaa", "aaaaa"], "expected": false},
-    {"input": ["aaa", "bbb", "aaabbb"], "expected": true},
-    {"input": ["aaa", "bbb", "ababab"], "expected": true},
-    {"input": ["aaa", "bbb", "bababa"], "expected": true},
-    {"input": ["aaa", "bbb", "bbbaaa"], "expected": true},
-    {"input": ["aaa", "bbb", "aababb"], "expected": true},
-    {"input": ["aaa", "bbb", "abbaba"], "expected": true},
-    {"input": ["a", "", ""], "expected": false},
-    {"input": ["", "a", ""], "expected": false},
-    {"input": ["", "", "a"], "expected": false},
-    {"input": ["ab", "", "ab"], "expected": true},
-    {"input": ["", "ab", "ab"], "expected": true},
-    {"input": ["ab", "", "ba"], "expected": false},
-    {"input": ["", "ab", "ba"], "expected": false},
-    {"input": ["aa", "ab", "aaba"], "expected": false},
-    {"input": ["aa", "ab", "aaab"], "expected": true},
-    {"input": ["aa", "ab", "abaa"], "expected": true},
-    {"input": ["aa", "ab", "aaba"], "expected": false},
-    {"input": ["ab", "ab", "aabb"], "expected": true},
-    {"input": ["ab", "ab", "abab"], "expected": true},
-    {"input": ["db", "b", "cbb"], "expected": false},
-    {"input": ["aab", "aac", "aaaacb"], "expected": false},
-    {"input": ["aabd", "abdc", "aabdabdc"], "expected": true},
-    {"input": ["aabd", "abdc", "aabdbadc"], "expected": false},
-    {"input": ["xxxx", "xxxx", "xxxxxxxx"], "expected": true},
-    {"input": ["xxxx", "xxxx", "xxxxxxxy"], "expected": false},
-    {"input": ["xxxx", "yyyy", "xxyxyxyy"], "expected": true},
-    {"input": ["xxxx", "yyyy", "xxyyxxyy"], "expected": true},
-    {"input": ["xxxx", "yyyy", "xyxyxyxy"], "expected": true},
-    {"input": ["xxxx", "yyyy", "yxyxyxyx"], "expected": true},
-    {"input": ["xxxx", "yyyy", "yyyyxxxx"], "expected": true},
-    {"input": ["ab", "bc", "abbc"], "expected": true},
-    {"input": ["ab", "bc", "abcb"], "expected": false},
-    {"input": ["ab", "bc", "babc"], "expected": true},
-    {"input": ["ab", "bc", "bcab"], "expected": true},
-    {"input": ["ab", "bc", "bacb"], "expected": false},
-    {"input": ["cabbaa", "ccbaba", "ccbcabbabaa"], "expected": false},
-    {"input": ["bbbbbabbbbabaababaaaabbababbaaabbabbaaabaaaaababbbababbbbbabbbbababbabaabababbbaabababababbbaaababaa", "babaaaabbababbbabbbbaabaabbaabbbbaabaaabaababaaaabaaabbaaabaaaabaabaabbbbbbbbbbbabaaabbababbabbabaab", "babbbabbbaaabbababbbbababaabbabaabaaabbbbabbbaaabbbaaaaabbbbaabbaaabababbaaaaaabababbababaababbababbbababbbbaaaabaabbabbaaaaabbabbaaaabbbaabaaabaababaababbaaabbbbbabbbbaabbabaabbbbabaaabbababbabbabbab"], "expected": false},
-    {"input": ["aaaa", "aaaa", "aaaaaaaa"], "expected": true},
-    {"input": ["abcd", "efgh", "aebfcgdh"], "expected": true},
-    {"input": ["abcd", "efgh", "efghabcd"], "expected": true},
-    {"input": ["abcd", "efgh", "abcdefgh"], "expected": true},
-    {"input": ["abcd", "efgh", "aebcfgdh"], "expected": false},
-    {"input": ["a", "a", "aa"], "expected": true},
-    {"input": ["a", "a", "aaa"], "expected": false},
-    {"input": ["a", "a", "a"], "expected": false},
-    {"input": ["aa", "aa", "aaaa"], "expected": true},
-    {"input": ["aa", "aa", "aaaaa"], "expected": false},
-    {"input": ["aa", "aa", "aaa"], "expected": false},
-    {"input": ["abc", "", "abc"], "expected": true},
-    {"input": ["", "abc", "abc"], "expected": true},
-    {"input": ["abc", "", "ab"], "expected": false},
-    {"input": ["", "abc", "ab"], "expected": false},
-    {"input": ["xyz", "xyz", "xxyzyz"], "expected": true},
-    {"input": ["xyz", "xyz", "xyzxyz"], "expected": true},
-    {"input": ["xyz", "xyz", "xyxyzz"], "expected": true},
-    {"input": ["abcde", "fghij", "afbgchdeij"], "expected": true},
-    {"input": ["abcde", "fghij", "fghijabcde"], "expected": true},
-    {"input": ["abcde", "fghij", "abcdefghij"], "expected": true},
-    {"input": ["abcde", "fghij", "fabgchdiej"], "expected": true},
-    {"input": ["cac", "bba", "bcabac"], "expected": false},
-    {"input": ["cac", "bba", "bcabca"], "expected": true},
-    {"input": ["cac", "bba", "cbabac"], "expected": true},
-    {"input": ["cac", "bba", "cabbac"], "expected": true},
-    {"input": ["abb", "bba", "abbabb"], "expected": false},
-    {"input": ["abb", "bba", "abbbab"], "expected": false},
-    {"input": ["abb", "bba", "abbba"], "expected": false},
-    {"input": ["abb", "bba", "abbbba"], "expected": true}
+    {
+      "input": [
+        "aabcc",
+        "dbbca",
+        "aadbbcbcac"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aabcc",
+        "dbbca",
+        "aadbbbaccc"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "",
+        "",
+        ""
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "a",
+        "b",
+        "ab"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "a",
+        "b",
+        "ba"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "",
+        "a",
+        "a"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "a",
+        "",
+        "a"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "",
+        "a",
+        "b"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "a",
+        "",
+        "b"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "a",
+        "b",
+        "a"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "a",
+        "b",
+        "b"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "a",
+        "b",
+        "aa"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "a",
+        "b",
+        "bb"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "a",
+        "b",
+        "abc"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "aa",
+        "bb",
+        "aabb"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aa",
+        "bb",
+        "abab"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aa",
+        "bb",
+        "abba"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aa",
+        "bb",
+        "baba"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aa",
+        "bb",
+        "bbaa"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aa",
+        "bb",
+        "aaab"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "aa",
+        "bb",
+        "aabba"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "ab",
+        "cd",
+        "abcd"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "ab",
+        "cd",
+        "acbd"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "ab",
+        "cd",
+        "acdb"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "ab",
+        "cd",
+        "cabd"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "ab",
+        "cd",
+        "cadb"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "ab",
+        "cd",
+        "cdab"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "ab",
+        "cd",
+        "abdc"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "ab",
+        "cd",
+        "dcba"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "abc",
+        "def",
+        "adbecf"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abc",
+        "def",
+        "abcdef"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abc",
+        "def",
+        "defabc"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abc",
+        "def",
+        "adbfce"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "abc",
+        "def",
+        "abdecf"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abc",
+        "def",
+        "abdefc"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aaa",
+        "aaa",
+        "aaaaaa"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aaa",
+        "aaa",
+        "aaaaaaa"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "aaa",
+        "aaa",
+        "aaaaa"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "aaa",
+        "bbb",
+        "aaabbb"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aaa",
+        "bbb",
+        "ababab"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aaa",
+        "bbb",
+        "bababa"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aaa",
+        "bbb",
+        "bbbaaa"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aaa",
+        "bbb",
+        "aababb"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aaa",
+        "bbb",
+        "abbaba"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "a",
+        "",
+        ""
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "",
+        "a",
+        ""
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "",
+        "",
+        "a"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "ab",
+        "",
+        "ab"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "",
+        "ab",
+        "ab"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "ab",
+        "",
+        "ba"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "",
+        "ab",
+        "ba"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "aa",
+        "ab",
+        "aaba"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aa",
+        "ab",
+        "aaab"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aa",
+        "ab",
+        "abaa"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aa",
+        "ab",
+        "aaba"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "ab",
+        "ab",
+        "aabb"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "ab",
+        "ab",
+        "abab"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "db",
+        "b",
+        "cbb"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "aab",
+        "aac",
+        "aaaacb"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aabd",
+        "abdc",
+        "aabdabdc"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aabd",
+        "abdc",
+        "aabdbadc"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "xxxx",
+        "xxxx",
+        "xxxxxxxx"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "xxxx",
+        "xxxx",
+        "xxxxxxxy"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "xxxx",
+        "yyyy",
+        "xxyxyxyy"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "xxxx",
+        "yyyy",
+        "xxyyxxyy"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "xxxx",
+        "yyyy",
+        "xyxyxyxy"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "xxxx",
+        "yyyy",
+        "yxyxyxyx"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "xxxx",
+        "yyyy",
+        "yyyyxxxx"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "ab",
+        "bc",
+        "abbc"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "ab",
+        "bc",
+        "abcb"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "ab",
+        "bc",
+        "babc"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "ab",
+        "bc",
+        "bcab"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "ab",
+        "bc",
+        "bacb"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "cabbaa",
+        "ccbaba",
+        "ccbcabbabaa"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "bbbbbabbbbabaababaaaabbababbaaabbabbaaabaaaaababbbababbbbbabbbbababbabaabababbbaabababababbbaaababaa",
+        "babaaaabbababbbabbbbaabaabbaabbbbaabaaabaababaaaabaaabbaaabaaaabaabaabbbbbbbbbbbabaaabbababbabbabaab",
+        "babbbabbbaaabbababbbbababaabbabaabaaabbbbabbbaaabbbaaaaabbbbaabbaaabababbaaaaaabababbababaababbababbbababbbbaaaabaabbabbaaaaabbabbaaaabbbaabaaabaababaababbaaabbbbbabbbbaabbabaabbbbabaaabbababbabbabbab"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "aaaa",
+        "aaaa",
+        "aaaaaaaa"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abcd",
+        "efgh",
+        "aebfcgdh"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abcd",
+        "efgh",
+        "efghabcd"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abcd",
+        "efgh",
+        "abcdefgh"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abcd",
+        "efgh",
+        "aebcfgdh"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "a",
+        "a",
+        "aa"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "a",
+        "a",
+        "aaa"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "a",
+        "a",
+        "a"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "aa",
+        "aa",
+        "aaaa"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aa",
+        "aa",
+        "aaaaa"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "aa",
+        "aa",
+        "aaa"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "abc",
+        "",
+        "abc"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "",
+        "abc",
+        "abc"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abc",
+        "",
+        "ab"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "",
+        "abc",
+        "ab"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "xyz",
+        "xyz",
+        "xxyzyz"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "xyz",
+        "xyz",
+        "xyzxyz"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "xyz",
+        "xyz",
+        "xyxyzz"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abcde",
+        "fghij",
+        "afbgchdeij"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abcde",
+        "fghij",
+        "fghijabcde"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abcde",
+        "fghij",
+        "abcdefghij"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abcde",
+        "fghij",
+        "fabgchdiej"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "cac",
+        "bba",
+        "bcabac"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "cac",
+        "bba",
+        "bcabca"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "cac",
+        "bba",
+        "cbabac"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "cac",
+        "bba",
+        "cabbac"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abb",
+        "bba",
+        "abbabb"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abb",
+        "bba",
+        "abbbab"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abb",
+        "bba",
+        "abbba"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "abb",
+        "bba",
+        "abbbba"
+      ],
+      "expected": true
+    }
   ]
 }

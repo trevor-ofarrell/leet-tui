@@ -2,126 +2,721 @@
   "problem_id": 190,
   "title": "Reverse Bits",
   "run_tests": [
-    {"input": [43261596], "expected": 964176192},
-    {"input": [4294967293], "expected": 3221225471},
-    {"input": [0], "expected": 0}
+    {
+      "input": [
+        43261596
+      ],
+      "expected": 964176192
+    },
+    {
+      "input": [
+        4294967293
+      ],
+      "expected": 3221225471
+    },
+    {
+      "input": [
+        0
+      ],
+      "expected": 0
+    }
   ],
   "submit_tests": [
-    {"input": [0], "expected": 0},
-    {"input": [1], "expected": 2147483648},
-    {"input": [2], "expected": 1073741824},
-    {"input": [3], "expected": 3221225472},
-    {"input": [4], "expected": 536870912},
-    {"input": [5], "expected": 2684354560},
-    {"input": [6], "expected": 1610612736},
-    {"input": [7], "expected": 3758096384},
-    {"input": [8], "expected": 268435456},
-    {"input": [9], "expected": 2415919104},
-    {"input": [10], "expected": 1342177280},
-    {"input": [15], "expected": 4026531840},
-    {"input": [16], "expected": 134217728},
-    {"input": [31], "expected": 4160749568},
-    {"input": [32], "expected": 67108864},
-    {"input": [43261596], "expected": 964176192},
-    {"input": [63], "expected": 4227858432},
-    {"input": [64], "expected": 33554432},
-    {"input": [100], "expected": 637534208},
-    {"input": [127], "expected": 4261412864},
-    {"input": [128], "expected": 16777216},
-    {"input": [255], "expected": 4278190080},
-    {"input": [256], "expected": 8388608},
-    {"input": [511], "expected": 4286578688},
-    {"input": [512], "expected": 4194304},
-    {"input": [1000], "expected": 398458880},
-    {"input": [1023], "expected": 4290772992},
-    {"input": [1024], "expected": 2097152},
-    {"input": [2047], "expected": 4292870144},
-    {"input": [2048], "expected": 1048576},
-    {"input": [4095], "expected": 4293918720},
-    {"input": [4096], "expected": 524288},
-    {"input": [8191], "expected": 4294443008},
-    {"input": [8192], "expected": 262144},
-    {"input": [10000], "expected": 348913664},
-    {"input": [16383], "expected": 4294705152},
-    {"input": [16384], "expected": 131072},
-    {"input": [32767], "expected": 4294836224},
-    {"input": [32768], "expected": 65536},
-    {"input": [65535], "expected": 4294901760},
-    {"input": [65536], "expected": 32768},
-    {"input": [100000], "expected": 431259648},
-    {"input": [131071], "expected": 4294934528},
-    {"input": [131072], "expected": 16384},
-    {"input": [262143], "expected": 4294950912},
-    {"input": [262144], "expected": 8192},
-    {"input": [524287], "expected": 4294959104},
-    {"input": [524288], "expected": 4096},
-    {"input": [1000000], "expected": 32495853568},
-    {"input": [1048575], "expected": 4294963200},
-    {"input": [1048576], "expected": 2048},
-    {"input": [2097151], "expected": 4294965248},
-    {"input": [2097152], "expected": 1024},
-    {"input": [4194303], "expected": 4294966272},
-    {"input": [4194304], "expected": 512},
-    {"input": [8388607], "expected": 4294966784},
-    {"input": [8388608], "expected": 256},
-    {"input": [10000000], "expected": 3087794176},
-    {"input": [16777215], "expected": 4294967040},
-    {"input": [16777216], "expected": 128},
-    {"input": [33554431], "expected": 4294967168},
-    {"input": [33554432], "expected": 64},
-    {"input": [67108863], "expected": 4294967232},
-    {"input": [67108864], "expected": 32},
-    {"input": [100000000], "expected": 1334542336},
-    {"input": [134217727], "expected": 4294967264},
-    {"input": [134217728], "expected": 16},
-    {"input": [268435455], "expected": 4294967280},
-    {"input": [268435456], "expected": 8},
-    {"input": [536870911], "expected": 4294967288},
-    {"input": [536870912], "expected": 4},
-    {"input": [1000000000], "expected": 549487617},
-    {"input": [1073741823], "expected": 4294967292},
-    {"input": [1073741824], "expected": 2},
-    {"input": [2147483647], "expected": 4294967294},
-    {"input": [2147483648], "expected": 1},
-    {"input": [2147483649], "expected": 2147483649},
-    {"input": [3000000000], "expected": 1090519057},
-    {"input": [3221225472], "expected": 3},
-    {"input": [3758096384], "expected": 7},
-    {"input": [4026531840], "expected": 15},
-    {"input": [4160749568], "expected": 31},
-    {"input": [4227858432], "expected": 63},
-    {"input": [4261412864], "expected": 127},
-    {"input": [4278190080], "expected": 255},
-    {"input": [4286578688], "expected": 511},
-    {"input": [4290772992], "expected": 1023},
-    {"input": [4292870144], "expected": 2047},
-    {"input": [4293918720], "expected": 4095},
-    {"input": [4294443008], "expected": 8191},
-    {"input": [4294705152], "expected": 16383},
-    {"input": [4294836224], "expected": 32767},
-    {"input": [4294901760], "expected": 65535},
-    {"input": [4294934528], "expected": 131071},
-    {"input": [4294950912], "expected": 262143},
-    {"input": [4294959104], "expected": 524287},
-    {"input": [4294963200], "expected": 1048575},
-    {"input": [4294965248], "expected": 2097151},
-    {"input": [4294966272], "expected": 4194303},
-    {"input": [4294966784], "expected": 8388607},
-    {"input": [4294967040], "expected": 16777215},
-    {"input": [4294967168], "expected": 33554431},
-    {"input": [4294967232], "expected": 67108863},
-    {"input": [4294967264], "expected": 134217727},
-    {"input": [4294967280], "expected": 268435455},
-    {"input": [4294967288], "expected": 536870911},
-    {"input": [4294967292], "expected": 1073741823},
-    {"input": [4294967293], "expected": 3221225471},
-    {"input": [4294967294], "expected": 2147483647},
-    {"input": [4294967295], "expected": 4294967295},
-    {"input": [2863311530], "expected": 1431655765},
-    {"input": [1431655765], "expected": 2863311530},
-    {"input": [858993459], "expected": 3435973836},
-    {"input": [3435973836], "expected": 858993459},
-    {"input": [252645135], "expected": 4042322160},
-    {"input": [4042322160], "expected": 252645135}
+    {
+      "input": [
+        0
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        1
+      ],
+      "expected": 2147483648
+    },
+    {
+      "input": [
+        2
+      ],
+      "expected": 1073741824
+    },
+    {
+      "input": [
+        3
+      ],
+      "expected": 3221225472
+    },
+    {
+      "input": [
+        4
+      ],
+      "expected": 536870912
+    },
+    {
+      "input": [
+        5
+      ],
+      "expected": 2684354560
+    },
+    {
+      "input": [
+        6
+      ],
+      "expected": 1610612736
+    },
+    {
+      "input": [
+        7
+      ],
+      "expected": 3758096384
+    },
+    {
+      "input": [
+        8
+      ],
+      "expected": 268435456
+    },
+    {
+      "input": [
+        9
+      ],
+      "expected": 2415919104
+    },
+    {
+      "input": [
+        10
+      ],
+      "expected": 1342177280
+    },
+    {
+      "input": [
+        15
+      ],
+      "expected": 4026531840
+    },
+    {
+      "input": [
+        16
+      ],
+      "expected": 134217728
+    },
+    {
+      "input": [
+        31
+      ],
+      "expected": 4160749568
+    },
+    {
+      "input": [
+        32
+      ],
+      "expected": 67108864
+    },
+    {
+      "input": [
+        43261596
+      ],
+      "expected": 964176192
+    },
+    {
+      "input": [
+        63
+      ],
+      "expected": 4227858432
+    },
+    {
+      "input": [
+        64
+      ],
+      "expected": 33554432
+    },
+    {
+      "input": [
+        100
+      ],
+      "expected": 637534208
+    },
+    {
+      "input": [
+        127
+      ],
+      "expected": 4261412864
+    },
+    {
+      "input": [
+        128
+      ],
+      "expected": 16777216
+    },
+    {
+      "input": [
+        255
+      ],
+      "expected": 4278190080
+    },
+    {
+      "input": [
+        256
+      ],
+      "expected": 8388608
+    },
+    {
+      "input": [
+        511
+      ],
+      "expected": 4286578688
+    },
+    {
+      "input": [
+        512
+      ],
+      "expected": 4194304
+    },
+    {
+      "input": [
+        1000
+      ],
+      "expected": 398458880
+    },
+    {
+      "input": [
+        1023
+      ],
+      "expected": 4290772992
+    },
+    {
+      "input": [
+        1024
+      ],
+      "expected": 2097152
+    },
+    {
+      "input": [
+        2047
+      ],
+      "expected": 4292870144
+    },
+    {
+      "input": [
+        2048
+      ],
+      "expected": 1048576
+    },
+    {
+      "input": [
+        4095
+      ],
+      "expected": 4293918720
+    },
+    {
+      "input": [
+        4096
+      ],
+      "expected": 524288
+    },
+    {
+      "input": [
+        8191
+      ],
+      "expected": 4294443008
+    },
+    {
+      "input": [
+        8192
+      ],
+      "expected": 262144
+    },
+    {
+      "input": [
+        10000
+      ],
+      "expected": 149159936
+    },
+    {
+      "input": [
+        16383
+      ],
+      "expected": 4294705152
+    },
+    {
+      "input": [
+        16384
+      ],
+      "expected": 131072
+    },
+    {
+      "input": [
+        32767
+      ],
+      "expected": 4294836224
+    },
+    {
+      "input": [
+        32768
+      ],
+      "expected": 65536
+    },
+    {
+      "input": [
+        65535
+      ],
+      "expected": 4294901760
+    },
+    {
+      "input": [
+        65536
+      ],
+      "expected": 32768
+    },
+    {
+      "input": [
+        100000
+      ],
+      "expected": 90275840
+    },
+    {
+      "input": [
+        131071
+      ],
+      "expected": 4294934528
+    },
+    {
+      "input": [
+        131072
+      ],
+      "expected": 16384
+    },
+    {
+      "input": [
+        262143
+      ],
+      "expected": 4294950912
+    },
+    {
+      "input": [
+        262144
+      ],
+      "expected": 8192
+    },
+    {
+      "input": [
+        524287
+      ],
+      "expected": 4294959104
+    },
+    {
+      "input": [
+        524288
+      ],
+      "expected": 4096
+    },
+    {
+      "input": [
+        1000000
+      ],
+      "expected": 37941248
+    },
+    {
+      "input": [
+        1048575
+      ],
+      "expected": 4294963200
+    },
+    {
+      "input": [
+        1048576
+      ],
+      "expected": 2048
+    },
+    {
+      "input": [
+        2097151
+      ],
+      "expected": 4294965248
+    },
+    {
+      "input": [
+        2097152
+      ],
+      "expected": 1024
+    },
+    {
+      "input": [
+        4194303
+      ],
+      "expected": 4294966272
+    },
+    {
+      "input": [
+        4194304
+      ],
+      "expected": 512
+    },
+    {
+      "input": [
+        8388607
+      ],
+      "expected": 4294966784
+    },
+    {
+      "input": [
+        8388608
+      ],
+      "expected": 256
+    },
+    {
+      "input": [
+        10000000
+      ],
+      "expected": 23664896
+    },
+    {
+      "input": [
+        16777215
+      ],
+      "expected": 4294967040
+    },
+    {
+      "input": [
+        16777216
+      ],
+      "expected": 128
+    },
+    {
+      "input": [
+        33554431
+      ],
+      "expected": 4294967168
+    },
+    {
+      "input": [
+        33554432
+      ],
+      "expected": 64
+    },
+    {
+      "input": [
+        67108863
+      ],
+      "expected": 4294967232
+    },
+    {
+      "input": [
+        67108864
+      ],
+      "expected": 32
+    },
+    {
+      "input": [
+        100000000
+      ],
+      "expected": 8892320
+    },
+    {
+      "input": [
+        134217727
+      ],
+      "expected": 4294967264
+    },
+    {
+      "input": [
+        134217728
+      ],
+      "expected": 16
+    },
+    {
+      "input": [
+        268435455
+      ],
+      "expected": 4294967280
+    },
+    {
+      "input": [
+        268435456
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        536870911
+      ],
+      "expected": 4294967288
+    },
+    {
+      "input": [
+        536870912
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        1000000000
+      ],
+      "expected": 5462492
+    },
+    {
+      "input": [
+        1073741823
+      ],
+      "expected": 4294967292
+    },
+    {
+      "input": [
+        1073741824
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        2147483647
+      ],
+      "expected": 4294967294
+    },
+    {
+      "input": [
+        2147483648
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        2147483649
+      ],
+      "expected": 2147483649
+    },
+    {
+      "input": [
+        3000000000
+      ],
+      "expected": 7998285
+    },
+    {
+      "input": [
+        3221225472
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        3758096384
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        4026531840
+      ],
+      "expected": 15
+    },
+    {
+      "input": [
+        4160749568
+      ],
+      "expected": 31
+    },
+    {
+      "input": [
+        4227858432
+      ],
+      "expected": 63
+    },
+    {
+      "input": [
+        4261412864
+      ],
+      "expected": 127
+    },
+    {
+      "input": [
+        4278190080
+      ],
+      "expected": 255
+    },
+    {
+      "input": [
+        4286578688
+      ],
+      "expected": 511
+    },
+    {
+      "input": [
+        4290772992
+      ],
+      "expected": 1023
+    },
+    {
+      "input": [
+        4292870144
+      ],
+      "expected": 2047
+    },
+    {
+      "input": [
+        4293918720
+      ],
+      "expected": 4095
+    },
+    {
+      "input": [
+        4294443008
+      ],
+      "expected": 8191
+    },
+    {
+      "input": [
+        4294705152
+      ],
+      "expected": 16383
+    },
+    {
+      "input": [
+        4294836224
+      ],
+      "expected": 32767
+    },
+    {
+      "input": [
+        4294901760
+      ],
+      "expected": 65535
+    },
+    {
+      "input": [
+        4294934528
+      ],
+      "expected": 131071
+    },
+    {
+      "input": [
+        4294950912
+      ],
+      "expected": 262143
+    },
+    {
+      "input": [
+        4294959104
+      ],
+      "expected": 524287
+    },
+    {
+      "input": [
+        4294963200
+      ],
+      "expected": 1048575
+    },
+    {
+      "input": [
+        4294965248
+      ],
+      "expected": 2097151
+    },
+    {
+      "input": [
+        4294966272
+      ],
+      "expected": 4194303
+    },
+    {
+      "input": [
+        4294966784
+      ],
+      "expected": 8388607
+    },
+    {
+      "input": [
+        4294967040
+      ],
+      "expected": 16777215
+    },
+    {
+      "input": [
+        4294967168
+      ],
+      "expected": 33554431
+    },
+    {
+      "input": [
+        4294967232
+      ],
+      "expected": 67108863
+    },
+    {
+      "input": [
+        4294967264
+      ],
+      "expected": 134217727
+    },
+    {
+      "input": [
+        4294967280
+      ],
+      "expected": 268435455
+    },
+    {
+      "input": [
+        4294967288
+      ],
+      "expected": 536870911
+    },
+    {
+      "input": [
+        4294967292
+      ],
+      "expected": 1073741823
+    },
+    {
+      "input": [
+        4294967293
+      ],
+      "expected": 3221225471
+    },
+    {
+      "input": [
+        4294967294
+      ],
+      "expected": 2147483647
+    },
+    {
+      "input": [
+        4294967295
+      ],
+      "expected": 4294967295
+    },
+    {
+      "input": [
+        2863311530
+      ],
+      "expected": 1431655765
+    },
+    {
+      "input": [
+        1431655765
+      ],
+      "expected": 2863311530
+    },
+    {
+      "input": [
+        858993459
+      ],
+      "expected": 3435973836
+    },
+    {
+      "input": [
+        3435973836
+      ],
+      "expected": 858993459
+    },
+    {
+      "input": [
+        252645135
+      ],
+      "expected": 4042322160
+    },
+    {
+      "input": [
+        4042322160
+      ],
+      "expected": 252645135
+    }
   ]
 }

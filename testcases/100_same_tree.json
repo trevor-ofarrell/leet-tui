@@ -1,0 +1,1916 @@
+{
+  "problem_id": 100,
+  "title": "Same Tree",
+  "run_tests": [
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          3
+        ],
+        "q": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2
+        ],
+        "q": [
+          1,
+          null,
+          2
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          1
+        ],
+        "q": [
+          1,
+          1,
+          2
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [],
+        "q": []
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          1
+        ],
+        "q": [
+          1
+        ]
+      },
+      "expected": true
+    }
+  ],
+  "submit_tests": [
+    {
+      "input": {
+        "p": [],
+        "q": []
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          1
+        ],
+        "q": []
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [],
+        "q": [
+          1
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1
+        ],
+        "q": [
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          1
+        ],
+        "q": [
+          2
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2
+        ],
+        "q": [
+          1,
+          2
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2
+        ],
+        "q": [
+          1,
+          null,
+          2
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          null,
+          2
+        ],
+        "q": [
+          1,
+          null,
+          2
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          null,
+          2
+        ],
+        "q": [
+          1,
+          2,
+          null
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          3
+        ],
+        "q": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          3
+        ],
+        "q": [
+          1,
+          3,
+          2
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          1
+        ],
+        "q": [
+          1,
+          1,
+          2
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "q": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "q": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          8
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "q": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "q": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          null,
+          3,
+          null
+        ],
+        "q": [
+          1,
+          2,
+          null,
+          3,
+          null
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          null,
+          2,
+          null,
+          3
+        ],
+        "q": [
+          1,
+          null,
+          2,
+          null,
+          3
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          null,
+          3,
+          null
+        ],
+        "q": [
+          1,
+          null,
+          2,
+          null,
+          3
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          5,
+          3,
+          8,
+          1,
+          4,
+          7,
+          10
+        ],
+        "q": [
+          5,
+          3,
+          8,
+          1,
+          4,
+          7,
+          10
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          5,
+          3,
+          8,
+          1,
+          4,
+          7,
+          10
+        ],
+        "q": [
+          5,
+          3,
+          8,
+          1,
+          4,
+          7,
+          11
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          0
+        ],
+        "q": [
+          0
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          -1
+        ],
+        "q": [
+          -1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          100
+        ],
+        "q": [
+          100
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          -100
+        ],
+        "q": [
+          -100
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          0
+        ],
+        "q": [
+          1
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          -1
+        ],
+        "q": [
+          1
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "q": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "q": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          2
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          3,
+          null,
+          null,
+          4,
+          5
+        ],
+        "q": [
+          1,
+          2,
+          3,
+          null,
+          null,
+          4,
+          5
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          3,
+          null,
+          null,
+          4,
+          5
+        ],
+        "q": [
+          1,
+          2,
+          3,
+          null,
+          null,
+          5,
+          4
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          10,
+          5,
+          15,
+          3,
+          7,
+          12,
+          20
+        ],
+        "q": [
+          10,
+          5,
+          15,
+          3,
+          7,
+          12,
+          20
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          10,
+          5,
+          15,
+          3,
+          7,
+          12,
+          20
+        ],
+        "q": [
+          10,
+          5,
+          15,
+          3,
+          7,
+          null,
+          20
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "q": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15
+        ],
+        "q": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          16
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          50,
+          25,
+          75,
+          10,
+          30,
+          60,
+          90
+        ],
+        "q": [
+          50,
+          25,
+          75,
+          10,
+          30,
+          60,
+          90
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          50,
+          25,
+          75,
+          10,
+          30,
+          60,
+          90
+        ],
+        "q": [
+          50,
+          25,
+          75,
+          10,
+          30,
+          60,
+          null
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          null,
+          3,
+          null,
+          4,
+          null,
+          5,
+          null
+        ],
+        "q": [
+          1,
+          2,
+          null,
+          3,
+          null,
+          4,
+          null,
+          5,
+          null
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          null,
+          2,
+          null,
+          3,
+          null,
+          4,
+          null,
+          5
+        ],
+        "q": [
+          1,
+          null,
+          2,
+          null,
+          3,
+          null,
+          4,
+          null,
+          5
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          null,
+          3,
+          null,
+          4,
+          null,
+          5,
+          null
+        ],
+        "q": [
+          1,
+          null,
+          2,
+          null,
+          3,
+          null,
+          4,
+          null,
+          5
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          3,
+          9,
+          20,
+          null,
+          null,
+          15,
+          7
+        ],
+        "q": [
+          3,
+          9,
+          20,
+          null,
+          null,
+          15,
+          7
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          3,
+          9,
+          20,
+          null,
+          null,
+          15,
+          7
+        ],
+        "q": [
+          3,
+          9,
+          20,
+          null,
+          null,
+          7,
+          15
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          2,
+          3,
+          4,
+          4,
+          3
+        ],
+        "q": [
+          1,
+          2,
+          2,
+          3,
+          4,
+          4,
+          3
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          2,
+          null,
+          3,
+          null,
+          3
+        ],
+        "q": [
+          1,
+          2,
+          2,
+          null,
+          3,
+          null,
+          3
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          2,
+          3,
+          null,
+          null,
+          3
+        ],
+        "q": [
+          1,
+          2,
+          2,
+          3,
+          null,
+          null,
+          3
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          2,
+          null,
+          3,
+          3,
+          null
+        ],
+        "q": [
+          1,
+          2,
+          2,
+          null,
+          3,
+          null,
+          3
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          4,
+          2,
+          7,
+          1,
+          3,
+          6,
+          9
+        ],
+        "q": [
+          4,
+          2,
+          7,
+          1,
+          3,
+          6,
+          9
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          4,
+          7,
+          2,
+          9,
+          6,
+          3,
+          1
+        ],
+        "q": [
+          4,
+          2,
+          7,
+          1,
+          3,
+          6,
+          9
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          6,
+          4,
+          8,
+          2,
+          5,
+          7,
+          9,
+          1,
+          3
+        ],
+        "q": [
+          6,
+          4,
+          8,
+          2,
+          5,
+          7,
+          9,
+          1,
+          3
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          8,
+          4,
+          12,
+          2,
+          6,
+          10,
+          14,
+          1,
+          3,
+          5,
+          7,
+          9,
+          11,
+          13,
+          15
+        ],
+        "q": [
+          8,
+          4,
+          12,
+          2,
+          6,
+          10,
+          14,
+          1,
+          3,
+          5,
+          7,
+          9,
+          11,
+          13,
+          15
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          -1,
+          -2,
+          -3
+        ],
+        "q": [
+          -1,
+          -2,
+          -3
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          -1,
+          -2,
+          -3
+        ],
+        "q": [
+          -1,
+          -3,
+          -2
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          0,
+          -1,
+          1
+        ],
+        "q": [
+          0,
+          -1,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          0,
+          -1,
+          1
+        ],
+        "q": [
+          0,
+          1,
+          -1
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          5,
+          4,
+          null,
+          3,
+          null,
+          2,
+          null,
+          1
+        ],
+        "q": [
+          5,
+          4,
+          null,
+          3,
+          null,
+          2,
+          null,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          5,
+          null,
+          4,
+          null,
+          3,
+          null,
+          2,
+          null,
+          1
+        ],
+        "q": [
+          5,
+          null,
+          4,
+          null,
+          3,
+          null,
+          2,
+          null,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          5,
+          4,
+          null,
+          3,
+          null,
+          2,
+          null,
+          1
+        ],
+        "q": [
+          5,
+          null,
+          4,
+          null,
+          3,
+          null,
+          2,
+          null,
+          1
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          3,
+          4,
+          null,
+          null,
+          5
+        ],
+        "q": [
+          1,
+          2,
+          3,
+          4,
+          null,
+          null,
+          5
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          3,
+          4,
+          null,
+          null,
+          5
+        ],
+        "q": [
+          1,
+          2,
+          3,
+          null,
+          4,
+          5,
+          null
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          3,
+          null,
+          4,
+          5,
+          null
+        ],
+        "q": [
+          1,
+          2,
+          3,
+          null,
+          4,
+          5,
+          null
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          99,
+          50,
+          150
+        ],
+        "q": [
+          99,
+          50,
+          150
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          99,
+          50,
+          150
+        ],
+        "q": [
+          99,
+          150,
+          50
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          -50,
+          -75,
+          -25
+        ],
+        "q": [
+          -50,
+          -75,
+          -25
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          0,
+          -50,
+          50,
+          -75,
+          -25,
+          25,
+          75
+        ],
+        "q": [
+          0,
+          -50,
+          50,
+          -75,
+          -25,
+          25,
+          75
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          8
+        ],
+        "q": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          8
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          8,
+          null
+        ],
+        "q": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          8
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          7,
+          4,
+          10,
+          2,
+          5,
+          8,
+          12,
+          1,
+          3,
+          null,
+          6,
+          null,
+          9,
+          11,
+          15
+        ],
+        "q": [
+          7,
+          4,
+          10,
+          2,
+          5,
+          8,
+          12,
+          1,
+          3,
+          null,
+          6,
+          null,
+          9,
+          11,
+          15
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          7,
+          4,
+          10,
+          2,
+          5,
+          8,
+          12,
+          1,
+          3,
+          null,
+          6,
+          null,
+          9,
+          11,
+          15
+        ],
+        "q": [
+          7,
+          4,
+          10,
+          2,
+          5,
+          8,
+          12,
+          1,
+          3,
+          6,
+          null,
+          null,
+          9,
+          11,
+          15
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          null,
+          2,
+          3,
+          4
+        ],
+        "q": [
+          1,
+          null,
+          2,
+          3,
+          4
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2,
+          null,
+          3,
+          4
+        ],
+        "q": [
+          1,
+          2,
+          null,
+          3,
+          4
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          null,
+          2,
+          3,
+          4
+        ],
+        "q": [
+          1,
+          2,
+          null,
+          3,
+          4
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          5,
+          1,
+          4,
+          null,
+          null,
+          3,
+          6
+        ],
+        "q": [
+          5,
+          1,
+          4,
+          null,
+          null,
+          3,
+          6
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          5,
+          1,
+          4,
+          null,
+          null,
+          3,
+          6
+        ],
+        "q": [
+          5,
+          4,
+          1,
+          6,
+          3,
+          null,
+          null
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          10,
+          5,
+          null,
+          null,
+          8
+        ],
+        "q": [
+          10,
+          5,
+          null,
+          null,
+          8
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          10,
+          5,
+          null,
+          null,
+          8
+        ],
+        "q": [
+          10,
+          null,
+          5,
+          8,
+          null
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          3,
+          1,
+          null,
+          null,
+          2
+        ],
+        "q": [
+          3,
+          1,
+          null,
+          null,
+          2
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          3,
+          1,
+          null,
+          null,
+          2
+        ],
+        "q": [
+          3,
+          null,
+          1,
+          2,
+          null
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          2,
+          1,
+          3
+        ],
+        "q": [
+          2,
+          1,
+          3
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          2,
+          1,
+          3
+        ],
+        "q": [
+          2,
+          3,
+          1
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          5,
+          3,
+          6,
+          2,
+          4,
+          null,
+          null,
+          1
+        ],
+        "q": [
+          5,
+          3,
+          6,
+          2,
+          4,
+          null,
+          null,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "p": [
+          5,
+          3,
+          6,
+          2,
+          4,
+          null,
+          null,
+          1
+        ],
+        "q": [
+          5,
+          3,
+          6,
+          2,
+          4,
+          null,
+          7,
+          1
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [],
+        "q": [
+          1,
+          2
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [],
+        "q": [
+          1,
+          null,
+          2
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [],
+        "q": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1
+        ],
+        "q": [
+          1,
+          2
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1
+        ],
+        "q": [
+          1,
+          null,
+          2
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1
+        ],
+        "q": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2
+        ],
+        "q": []
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2
+        ],
+        "q": [
+          1
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          2
+        ],
+        "q": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          null,
+          2
+        ],
+        "q": []
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          null,
+          2
+        ],
+        "q": [
+          1
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          null,
+          2
+        ],
+        "q": [
+          1,
+          2
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "p": [
+          1,
+          null,
+          2
+        ],
+        "q": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": false
+    }
+  ]
+}

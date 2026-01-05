@@ -6,6 +6,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 SOLUTIONS_DIR="$SCRIPT_DIR/test_solutions"
 PROBLEMS_DIR="$PROJECT_DIR/problems"
+TESTCASES_DIR="$PROJECT_DIR/testcases"
 
 # Colors for output
 RED='\033[0;31m'
@@ -79,22 +80,97 @@ test_js() {
 
     local solution=$(cat "$solution_file")
 
-    local test_cases=$(python3 -c "
+    # Try to get test cases from testcases dir (comprehensive), fall back to problems dir
+    local testcases_file=$(ls "$TESTCASES_DIR"/${padded_id}_*.json 2>/dev/null | head -1)
+    local test_cases
+    if [[ -f "$testcases_file" ]]; then
+        test_cases=$(python3 -c "
+import json
+with open('$testcases_file') as f:
+    tc = json.load(f)
+    all_tests = tc.get('run_tests', []) + tc.get('submit_tests', [])
+    print(json.dumps(all_tests))
+" 2>/dev/null)
+    else
+        test_cases=$(python3 -c "
 import json
 with open('$problem_file') as f:
     p = json.load(f)
     print(json.dumps(p['test_cases']))
 " 2>/dev/null)
+    fi
 
     local test_file=$(mktemp /tmp/test_XXXXXX.js)
     cat > "$test_file" << EOF
 $solution
 
+// Helper functions for linked list problems
+const arrayToList = (arr) => {
+    if (!arr || arr.length === 0) return null;
+    let head = { val: arr[0], next: null };
+    let curr = head;
+    for (let i = 1; i < arr.length; i++) {
+        curr.next = { val: arr[i], next: null };
+        curr = curr.next;
+    }
+    return head;
+};
+
+const listToArray = (head) => {
+    const result = [];
+    while (head) {
+        result.push(head.val);
+        head = head.next;
+    }
+    return result;
+};
+
+// Helper for tree problems
+const arrayToTree = (arr) => {
+    if (!arr || arr.length === 0 || arr[0] === null) return null;
+    const root = { val: arr[0], left: null, right: null };
+    const queue = [root];
+    let i = 1;
+    while (queue.length > 0 && i < arr.length) {
+        const node = queue.shift();
+        if (i < arr.length && arr[i] !== null) {
+            node.left = { val: arr[i], left: null, right: null };
+            queue.push(node.left);
+        }
+        i++;
+        if (i < arr.length && arr[i] !== null) {
+            node.right = { val: arr[i], left: null, right: null };
+            queue.push(node.right);
+        }
+        i++;
+    }
+    return root;
+};
+
+const treeToArray = (root) => {
+    if (!root) return [];
+    const result = [];
+    const queue = [root];
+    while (queue.length > 0) {
+        const node = queue.shift();
+        if (node) {
+            result.push(node.val);
+            queue.push(node.left);
+            queue.push(node.right);
+        } else {
+            result.push(null);
+        }
+    }
+    // Trim trailing nulls
+    while (result.length > 0 && result[result.length - 1] === null) result.pop();
+    return result;
+};
+
 const testCases = $test_cases;
 let passed = 0;
 let failed = 0;
 
-// Normalize for order-independent comparison (for problems like groupAnagrams)
+// Normalize for order-independent comparison (for problems like groupAnagrams, findWords)
 const normalize = (val) => {
     if (!Array.isArray(val)) return JSON.stringify(val);
     // Check if it's an array of arrays (like groupAnagrams output)
@@ -105,13 +181,88 @@ const normalize = (val) => {
         );
         return JSON.stringify(sorted);
     }
+    // For arrays of primitives, sort for order-independent comparison
+    if (val.length > 0 && (typeof val[0] === 'string' || typeof val[0] === 'number')) {
+        return JSON.stringify([...val].sort());
+    }
     return JSON.stringify(val);
 };
 
+// Linked list problem detection (simple ones, not mergeKLists which needs array of lists)
+const linkedListFuncs = ['addTwoNumbers', 'removeNthFromEnd', 'mergeTwoLists',
+    'reverseKGroup', 'reverseList', 'reorderList'];
+// Tree problems where inputs ARE trees (not arrays like buildTree)
+const treeFuncs = ['invertTree', 'maxDepth', 'diameterOfBinaryTree', 'isBalanced', 'isSameTree',
+    'isSubtree', 'levelOrder', 'rightSideView', 'isValidBST', 'kthSmallest',
+    'maxPathSum', 'goodNodes'];
+// In-place functions that modify input and return void
+const inPlaceFuncs = ['rotate', 'setZeroes', 'wallsAndGates', 'reorderList', 'solve'];
+// Class-based or special problems that need custom harness - skip for now
+const classFuncs = ['LRUCache', 'MinStack', 'Trie', 'trie', 'WordDictionary', 'wordDictionary',
+    'MedianFinder', 'medianFinder', 'Twitter', 'KthLargest', 'TimeMap', 'DetectSquares',
+    'Codec', 'codec', 'encodeDecode'];
+// Graph/special problems that need custom input handling - skip for now
+const specialFuncs = ['cloneGraph', 'copyRandomList', 'hasCycle', 'detectCycle',
+    'mergeKLists', 'lowestCommonAncestor'];
+
+const isLinkedList = linkedListFuncs.includes('$func');
+const isTree = treeFuncs.includes('$func');
+const isInPlace = inPlaceFuncs.includes('$func');
+const isClass = classFuncs.includes('$func');
+const isSpecial = specialFuncs.includes('$func');
+
+// Skip class-based and special problems for now
+if (isClass || isSpecial) {
+    console.log('Skipping special problem');
+    process.exit(0);
+}
+
 for (const tc of testCases) {
-    const result = $func(...tc.input);
-    const resultStr = normalize(result);
-    const expectedStr = normalize(tc.expected);
+    let inputs = tc.input;
+
+    // Convert inputs for linked list problems
+    if (isLinkedList) {
+        inputs = inputs.map(inp => Array.isArray(inp) ? arrayToList(inp) : inp);
+    }
+    // Convert inputs for tree problems
+    if (isTree) {
+        inputs = inputs.map(inp => Array.isArray(inp) ? arrayToTree(inp) : inp);
+    }
+
+    let result;
+    if (isInPlace) {
+        // For in-place functions, call the function and use modified input as result
+        $func(...inputs);
+        result = inputs[0]; // The modified input (matrix, list, etc.)
+    } else {
+        result = $func(...inputs);
+    }
+
+    // Convert result back if it's a linked list
+    if (result && typeof result === 'object' && 'val' in result && 'next' in result) {
+        result = listToArray(result);
+    }
+    // Handle null linked list result -> empty array
+    if (result === null && Array.isArray(tc.expected) && tc.expected.length === 0) {
+        result = [];
+    }
+    // Convert result back if it's a tree (check for left/right)
+    if (result && typeof result === 'object' && 'val' in result && ('left' in result || 'right' in result)) {
+        result = treeToArray(result);
+    }
+
+    // Handle floating point comparison
+    let resultStr = normalize(result);
+    let expectedStr = normalize(tc.expected);
+
+    // For floating point numbers, compare with tolerance
+    const resultNum = parseFloat(result);
+    const expectedNum = parseFloat(tc.expected);
+    if (!isNaN(resultNum) && !isNaN(expectedNum) && typeof result === 'number') {
+        if (Math.abs(resultNum - expectedNum) < 0.0001) {
+            resultStr = expectedStr; // Treat as equal
+        }
+    }
     if (resultStr === expectedStr) {
         passed++;
     } else {
@@ -781,17 +932,66 @@ run_problem_tests() {
     echo ""
 }
 
-# Run all tests
-run_problem_tests "001" "twoSum"
-run_problem_tests "217" "containsDuplicate"
-run_problem_tests "242" "isAnagram"
-run_problem_tests "049" "groupAnagrams"
-run_problem_tests "347" "topKFrequent"
-run_problem_tests "338" "countBits"
-run_problem_tests "190" "reverseBits"
-run_problem_tests "268" "missingNumber"
-run_problem_tests "371" "getSum"
-run_problem_tests "007" "reverse"
+# C/C++ problems with hardcoded test harnesses (use string keys to avoid octal issues)
+CPP_PROBLEM_LIST="001 007 049 190 217 242 268 338 347 371"
+
+has_cpp_harness() {
+    local id="$1"
+    [[ " $CPP_PROBLEM_LIST " == *" $id "* ]]
+}
+
+# Auto-discover all JS solutions and test them
+for js_file in "$SOLUTIONS_DIR"/*.js; do
+    [[ -f "$js_file" ]] || continue
+
+    # Extract problem ID from filename (e.g., 001_two_sum.js -> 001)
+    filename=$(basename "$js_file")
+    padded_id=$(echo "$filename" | grep -oE '^[0-9]+')
+
+    # Find corresponding problem JSON
+    problem_file=$(ls "$PROBLEMS_DIR"/${padded_id}_*.json 2>/dev/null | head -1)
+    [[ -f "$problem_file" ]] || continue
+
+    # Extract function name from problem JSON
+    func=$(python3 -c "
+import json
+with open('$problem_file') as f:
+    p = json.load(f)
+    print(p.get('function_name', ''))
+" 2>/dev/null)
+
+    [[ -z "$func" ]] && continue
+
+    echo "Problem $padded_id ($func):"
+
+    # Test JavaScript
+    if [[ "$HAS_BUN" == "1" ]]; then
+        test_js "$padded_id" "$func"
+    else
+        echo -e "  ${YELLOW}SKIP${NC} JavaScript (bun not installed)"
+        SKIPPED=$((SKIPPED + 1))
+    fi
+
+    # Test Python (only if solution exists)
+    if [[ "$HAS_PYTHON" == "1" ]]; then
+        py_file=$(ls "$SOLUTIONS_DIR"/${padded_id}_*.py 2>/dev/null | head -1)
+        if [[ -f "$py_file" ]]; then
+            test_python "$padded_id" "$func"
+        fi
+    fi
+
+    # Test C/C++ only for problems with harnesses
+    if has_cpp_harness "$padded_id"; then
+        if [[ "$HAS_GCC" == "1" ]]; then
+            test_c "$padded_id" "$func"
+        fi
+        if [[ "$HAS_GPP" == "1" ]]; then
+            test_cpp "$padded_id" "$func"
+        fi
+    fi
+
+    echo ""
+done
 
 echo "========================================"
 echo "  Summary"

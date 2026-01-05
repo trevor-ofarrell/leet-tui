@@ -2,158 +2,937 @@
   "problem_id": 678,
   "title": "Valid Parenthesis String",
   "run_tests": [
-    {"input": ["()"], "expected": true},
-    {"input": ["(*)"], "expected": true},
-    {"input": ["(*))"], "expected": true},
-    {"input": [")("], "expected": false},
-    {"input": ["(((*)"], "expected": false}
+    {
+      "input": [
+        "()"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(*))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        ")("
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "(((*)"
+      ],
+      "expected": false
+    }
   ],
   "submit_tests": [
-    {"input": ["()"], "expected": true},
-    {"input": ["(*)"], "expected": true},
-    {"input": ["(*))"], "expected": true},
-    {"input": ["((*)"], "expected": true},
-    {"input": [""], "expected": true},
-    {"input": ["*"], "expected": true},
-    {"input": ["("], "expected": false},
-    {"input": [")"], "expected": false},
-    {"input": [")("], "expected": false},
-    {"input": ["()()"], "expected": true},
-    {"input": ["(())"], "expected": true},
-    {"input": ["(**)"], "expected": true},
-    {"input": ["(***)"], "expected": true},
-    {"input": ["(****)"], "expected": true},
-    {"input": ["*("], "expected": false},
-    {"input": ["*)"], "expected": true},
-    {"input": ["(*"], "expected": true},
-    {"input": ["*)*("], "expected": false},
-    {"input": ["((((*)"], "expected": false},
-    {"input": ["(((*))*"], "expected": true},
-    {"input": ["((*)*)"], "expected": true},
-    {"input": ["(*()*)"], "expected": true},
-    {"input": ["(*()*"], "expected": true},
-    {"input": ["*()*)"], "expected": true},
-    {"input": ["*(*)*"], "expected": true},
-    {"input": ["*(*)"], "expected": true},
-    {"input": ["***"], "expected": true},
-    {"input": ["****"], "expected": true},
-    {"input": ["((()))"], "expected": true},
-    {"input": ["(()())"], "expected": true},
-    {"input": ["(()(()))"], "expected": true},
-    {"input": ["((((())))"], "expected": false},
-    {"input": ["((((()))"], "expected": false},
-    {"input": ["((((()))))"], "expected": true},
-    {"input": ["(())(())"], "expected": true},
-    {"input": ["(*)(*)"], "expected": true},
-    {"input": ["(*(*))"], "expected": true},
-    {"input": ["(*)*)"], "expected": true},
-    {"input": ["(*)*"], "expected": true},
-    {"input": ["*()(*)"], "expected": true},
-    {"input": ["*(*)*("], "expected": false},
-    {"input": ["(*())("], "expected": false},
-    {"input": ["*(())"], "expected": true},
-    {"input": ["(()*)"], "expected": true},
-    {"input": ["()*()"], "expected": true},
-    {"input": ["()()*"], "expected": true},
-    {"input": ["*()()*"], "expected": true},
-    {"input": ["(**)(*)"], "expected": true},
-    {"input": ["((**))"], "expected": true},
-    {"input": ["(**)"], "expected": true},
-    {"input": ["((((((((((*"], "expected": false},
-    {"input": ["*)))))))))"], "expected": false},
-    {"input": ["(*)(*)(*)(*)"], "expected": true},
-    {"input": ["(())(())(*)(*)"], "expected": true},
-    {"input": ["((*)(*))"], "expected": true},
-    {"input": ["(((*)))"], "expected": true},
-    {"input": ["((*)**)"], "expected": true},
-    {"input": ["(**)**"], "expected": true},
-    {"input": [")*("], "expected": false},
-    {"input": [")*(*)"], "expected": false},
-    {"input": ["(*)()(*)"], "expected": true},
-    {"input": ["())"], "expected": false},
-    {"input": ["(()"], "expected": false},
-    {"input": ["(*))("], "expected": false},
-    {"input": ["(()*)()"], "expected": true},
-    {"input": ["()(*())"], "expected": true},
-    {"input": ["(()*())"], "expected": true},
-    {"input": ["(((*)*)*)"], "expected": true},
-    {"input": ["((*))*"], "expected": true},
-    {"input": ["()(*)()"], "expected": true},
-    {"input": ["*()()"], "expected": true},
-    {"input": ["()*)*"], "expected": true},
-    {"input": ["(*)*)*"], "expected": true},
-    {"input": ["(((((((((*)))))))*"], "expected": false},
-    {"input": ["(((((((((*)))))))))"], "expected": true},
-    {"input": ["(((((*))))"], "expected": false},
-    {"input": ["((((*)))))"], "expected": false},
-    {"input": ["(((((*)))))"], "expected": true},
-    {"input": ["**((*)"], "expected": true},
-    {"input": ["(*))*)"], "expected": true},
-    {"input": ["**(*)*)"], "expected": true},
-    {"input": ["(()*"], "expected": true},
-    {"input": ["*(()"], "expected": false},
-    {"input": ["*())"], "expected": true},
-    {"input": ["(())*)"], "expected": true},
-    {"input": ["((())**)"], "expected": true},
-    {"input": ["((*()))"], "expected": true},
-    {"input": ["(*(*)())"], "expected": true},
-    {"input": ["())*)*"], "expected": false},
-    {"input": ["(*))*"], "expected": true},
-    {"input": ["*)(*"], "expected": false},
-    {"input": ["((*)(*)"], "expected": false},
-    {"input": ["(*(*)*)*"], "expected": true},
-    {"input": ["((*))(*)"], "expected": true},
-    {"input": ["(*)(*)*"], "expected": true},
-    {"input": ["**((**))"], "expected": true},
-    {"input": ["((**)(**))"], "expected": true},
-    {"input": ["(())((*))"], "expected": true},
-    {"input": ["(((((((((("], "expected": false},
-    {"input": ["))))))))))))"], "expected": false},
-    {"input": ["**********"], "expected": true},
-    {"input": ["(((((*)))))*"], "expected": true},
-    {"input": ["(((((((((())))))))("], "expected": false},
-    {"input": ["(((((((((())))))))))"], "expected": true},
-    {"input": ["(*)(*)(*)(*)*"], "expected": true},
-    {"input": ["((())))("], "expected": false},
-    {"input": ["((())))*"], "expected": true},
-    {"input": ["*((()))"], "expected": true},
-    {"input": ["((()))*"], "expected": true},
-    {"input": ["(**(()))**"], "expected": true},
-    {"input": ["()**()**"], "expected": true},
-    {"input": ["((((((((*))))))))"], "expected": true},
-    {"input": ["((((((((*))))))*))"], "expected": false},
-    {"input": ["((*(*(*(*))))"], "expected": false},
-    {"input": ["((*(*(*(*)*)))"], "expected": true},
-    {"input": ["((***))"], "expected": true},
-    {"input": ["(((***)))"], "expected": true},
-    {"input": ["((***))*"], "expected": true},
-    {"input": ["***(())***"], "expected": true},
-    {"input": ["***((()))***"], "expected": true},
-    {"input": ["*(*(*(*(*))))"], "expected": false},
-    {"input": ["*(*(*(*(*)))))"], "expected": true},
-    {"input": ["(*)()(*)()"], "expected": true},
-    {"input": ["(()()(*)(*))"], "expected": true},
-    {"input": ["()(())(*)(())"], "expected": true},
-    {"input": ["((((()))))(*)"], "expected": true},
-    {"input": ["(*)(((())))"], "expected": true},
-    {"input": ["((((()))))(*(*))"], "expected": true},
-    {"input": ["((*(*)))((*))"], "expected": true},
-    {"input": ["((*(*))((*)))"], "expected": true},
-    {"input": [")*"], "expected": false},
-    {"input": ["*("], "expected": false},
-    {"input": ["(((())*)*))*"], "expected": true},
-    {"input": ["((*)((*)))"], "expected": true},
-    {"input": ["(()(*)())"], "expected": true},
-    {"input": ["()*()*()"], "expected": true},
-    {"input": ["((**)(()))"], "expected": true},
-    {"input": ["((((*)())))"], "expected": true},
-    {"input": ["(())(*)*()"], "expected": true},
-    {"input": ["()()()()()"], "expected": true},
-    {"input": ["(*)(*)(*)(*)(*)"], "expected": true},
-    {"input": ["*****"], "expected": true},
-    {"input": ["*((((*))))"], "expected": true},
-    {"input": ["((((*)))))"], "expected": false},
-    {"input": ["(((((*))))*"], "expected": true},
-    {"input": ["(((((*)))))"], "expected": true}
+    {
+      "input": [
+        "()"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(*))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        ""
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "("
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        ")"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        ")("
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "()()"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(())"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(**)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(***)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(****)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "*("
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "*)*("
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "((((*)"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "(((*))*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((*)*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(*()*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(*()*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "*()*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "*(*)*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "*(*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "***"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "****"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((()))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(()())"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(()(()))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((((())))"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "((((()))"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "((((()))))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(())(())"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(*)(*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(*(*))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(*)*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(*)*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "*()(*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "*(*)*("
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "(*())("
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "*(())"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(()*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "()*()"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "()()*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "*()()*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(**)(*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((**))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(**)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((((((((((*"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "*)))))))))"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "(*)(*)(*)(*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(())(())(*)(*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((*)(*))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(((*)))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((*)**)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(**)**"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        ")*("
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        ")*(*)"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "(*)()(*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "())"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "(()"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "(*))("
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "(()*)()"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "()(*())"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(()*())"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(((*)*)*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((*))*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "()(*)()"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "*()()"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "()*)*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(*)*)*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(((((((((*)))))))*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(((((((((*)))))))))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(((((*))))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((((*)))))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(((((*)))))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "**((*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(*))*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "**(*)*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(()*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "*(()"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "*())"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(())*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((())**)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((*()))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(*(*)())"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "())*)*"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "(*))*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "*)(*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((*)(*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(*(*)*)*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((*))(*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(*)(*)*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "**((**))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((**)(**))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(())((*))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(((((((((("
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "))))))))))))"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "**********"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(((((*)))))*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(((((((((())))))))("
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "(((((((((())))))))))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(*)(*)(*)(*)*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((())))("
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "((())))*"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "*((()))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((()))*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(**(()))**"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "()**()**"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((((((((*))))))))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((((((((*))))))*))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((*(*(*(*))))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((*(*(*(*)*)))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((***))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(((***)))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((***))*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "***(())***"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "***((()))***"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "*(*(*(*(*))))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "*(*(*(*(*)))))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(*)()(*)()"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(()()(*)(*))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "()(())(*)(())"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((((()))))(*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(*)(((())))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((((()))))(*(*))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((*(*)))((*))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((*(*))((*)))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        ")*"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "*("
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "(((())*)*))*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((*)((*)))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(()(*)())"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "()*()*()"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((**)(()))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((((*)())))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(())(*)*()"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "()()()()()"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(*)(*)(*)(*)(*)"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "*****"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "*((((*))))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "((((*)))))"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(((((*))))*"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "(((((*)))))"
+      ],
+      "expected": true
+    },
+    {
+      "input": {
+        "s": ""
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s": "*"
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "s": "("
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "s": ")"
+      },
+      "expected": false
+    }
   ]
 }

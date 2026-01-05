@@ -2,112 +2,1171 @@
   "problem_id": 312,
   "title": "Burst Balloons",
   "run_tests": [
-    {"input": [[3,1,5,8]], "expected": 167},
-    {"input": [[1,5]], "expected": 10},
-    {"input": [[1]], "expected": 1},
-    {"input": [[5]], "expected": 5},
-    {"input": [[1,2,3]], "expected": 12}
+    {
+      "input": [
+        [
+          3,
+          1,
+          5,
+          8
+        ]
+      ],
+      "expected": 167
+    },
+    {
+      "input": [
+        [
+          1,
+          5
+        ]
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        [
+          1
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          5
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": 12
+    }
   ],
   "submit_tests": [
-    {"input": [[3,1,5,8]], "expected": 167},
-    {"input": [[1,5]], "expected": 10},
-    {"input": [[1]], "expected": 1},
-    {"input": [[5]], "expected": 5},
-    {"input": [[1,2,3]], "expected": 12},
-    {"input": [[2,3,4]], "expected": 36},
-    {"input": [[1,1,1]], "expected": 3},
-    {"input": [[1,2]], "expected": 4},
-    {"input": [[2,1]], "expected": 4},
-    {"input": [[10]], "expected": 10},
-    {"input": [[100]], "expected": 100},
-    {"input": [[0]], "expected": 0},
-    {"input": [[0,0]], "expected": 0},
-    {"input": [[0,0,0]], "expected": 0},
-    {"input": [[1,0,1]], "expected": 2},
-    {"input": [[0,1,0]], "expected": 1},
-    {"input": [[1,1]], "expected": 2},
-    {"input": [[2,2]], "expected": 8},
-    {"input": [[3,3]], "expected": 18},
-    {"input": [[1,2,3,4]], "expected": 40},
-    {"input": [[4,3,2,1]], "expected": 40},
-    {"input": [[1,1,1,1]], "expected": 6},
-    {"input": [[2,2,2,2]], "expected": 40},
-    {"input": [[5,5,5,5]], "expected": 400},
-    {"input": [[10,10,10,10]], "expected": 4000},
-    {"input": [[1,2,3,4,5]], "expected": 110},
-    {"input": [[5,4,3,2,1]], "expected": 110},
-    {"input": [[3,1,5]], "expected": 35},
-    {"input": [[1,3,5]], "expected": 35},
-    {"input": [[5,3,1]], "expected": 35},
-    {"input": [[2,4,6]], "expected": 72},
-    {"input": [[6,4,2]], "expected": 72},
-    {"input": [[1,3,1]], "expected": 8},
-    {"input": [[3,1,3]], "expected": 18},
-    {"input": [[2,1,2]], "expected": 8},
-    {"input": [[9,7,6,3]], "expected": 582},
-    {"input": [[7,9,8,0,7,1,3,5,5,2,3]], "expected": 1654},
-    {"input": [[8,3,4,3,5,0,5,6,6,2,8,5,6,2,3,8,3,5,1,0,2]], "expected": 3630},
-    {"input": [[1,2,1,2,1]], "expected": 16},
-    {"input": [[2,1,2,1,2]], "expected": 24},
-    {"input": [[5,10,5]], "expected": 350},
-    {"input": [[10,5,10]], "expected": 650},
-    {"input": [[1,5,1]], "expected": 12},
-    {"input": [[5,1,5]], "expected": 35},
-    {"input": [[8,2,6,8,9,8,1,4,1,5,3,0,7,7,0,4,2,2,5]], "expected": 3446},
-    {"input": [[9,76,64,21,97,60]], "expected": 1086136},
-    {"input": [[35,16,83,87,32,55,28,97,88,54,42,11,45,42,73,99,66,22,9,53]], "expected": 6144898},
-    {"input": [[1,6,8]], "expected": 70},
-    {"input": [[8,6,1]], "expected": 70},
-    {"input": [[6,1,8]], "expected": 70},
-    {"input": [[2,3]], "expected": 12},
-    {"input": [[3,2]], "expected": 12},
-    {"input": [[4,5]], "expected": 40},
-    {"input": [[5,4]], "expected": 40},
-    {"input": [[10,1]], "expected": 20},
-    {"input": [[1,10]], "expected": 20},
-    {"input": [[10,10]], "expected": 200},
-    {"input": [[50,50]], "expected": 5000},
-    {"input": [[100,100]], "expected": 20000},
-    {"input": [[1,1,1,1,1]], "expected": 10},
-    {"input": [[2,2,2,2,2]], "expected": 80},
-    {"input": [[3,3,3,3,3]], "expected": 270},
-    {"input": [[5,5,5,5,5]], "expected": 1250},
-    {"input": [[10,10,10,10,10]], "expected": 10000},
-    {"input": [[1,100,1]], "expected": 202},
-    {"input": [[100,1,100]], "expected": 10200},
-    {"input": [[50,1,50]], "expected": 2600},
-    {"input": [[1,50,1]], "expected": 102},
-    {"input": [[99,1,99]], "expected": 9998},
-    {"input": [[1,99,1]], "expected": 200},
-    {"input": [[50,100,50]], "expected": 260000},
-    {"input": [[100,50,100]], "expected": 510000},
-    {"input": [[1,2,3,2,1]], "expected": 24},
-    {"input": [[3,2,1,2,3]], "expected": 48},
-    {"input": [[5,4,3,2,1,2,3,4,5]], "expected": 420},
-    {"input": [[1,2,3,4,5,4,3,2,1]], "expected": 252},
-    {"input": [[10,9,8,7,6,5,4,3,2,1]], "expected": 2130},
-    {"input": [[1,2,3,4,5,6,7,8,9,10]], "expected": 2130},
-    {"input": [[10,1,10,1,10]], "expected": 1250},
-    {"input": [[1,10,1,10,1]], "expected": 310},
-    {"input": [[5,10,5,10,5]], "expected": 3050},
-    {"input": [[10,5,10,5,10]], "expected": 5500},
-    {"input": [[0,1,2,3]], "expected": 12},
-    {"input": [[3,2,1,0]], "expected": 12},
-    {"input": [[0,0,1,0,0]], "expected": 1},
-    {"input": [[1,0,0,0,1]], "expected": 2},
-    {"input": [[1,2,0,2,1]], "expected": 12},
-    {"input": [[0,5,0]], "expected": 5},
-    {"input": [[5,0,5]], "expected": 25},
-    {"input": [[9]], "expected": 9},
-    {"input": [[99]], "expected": 99},
-    {"input": [[50]], "expected": 50},
-    {"input": [[25]], "expected": 25},
-    {"input": [[75]], "expected": 75},
-    {"input": [[7,7,7]], "expected": 392},
-    {"input": [[8,8,8]], "expected": 576},
-    {"input": [[9,9,9]], "expected": 810},
-    {"input": [[4,4,4,4]], "expected": 160},
-    {"input": [[6,6,6,6]], "expected": 540},
-    {"input": [[8,8,8,8]], "expected": 1792}
+    {
+      "input": [
+        [
+          3,
+          1,
+          5,
+          8
+        ]
+      ],
+      "expected": 167
+    },
+    {
+      "input": [
+        [
+          1,
+          5
+        ]
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        [
+          1
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          5
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": 12
+    },
+    {
+      "input": [
+        [
+          2,
+          3,
+          4
+        ]
+      ],
+      "expected": 36
+    },
+    {
+      "input": [
+        [
+          1,
+          1,
+          1
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        [
+          1,
+          2
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          2,
+          1
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          10
+        ]
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        [
+          100
+        ]
+      ],
+      "expected": 100
+    },
+    {
+      "input": [
+        [
+          0
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        [
+          0,
+          0
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        [
+          1,
+          0,
+          1
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          0,
+          1,
+          0
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          1,
+          1
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          2,
+          2
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        [
+          3,
+          3
+        ]
+      ],
+      "expected": 12
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4
+        ]
+      ],
+      "expected": 40
+    },
+    {
+      "input": [
+        [
+          4,
+          3,
+          2,
+          1
+        ]
+      ],
+      "expected": 40
+    },
+    {
+      "input": [
+        [
+          1,
+          1,
+          1,
+          1
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        [
+          2,
+          2,
+          2,
+          2
+        ]
+      ],
+      "expected": 22
+    },
+    {
+      "input": [
+        [
+          5,
+          5,
+          5,
+          5
+        ]
+      ],
+      "expected": 280
+    },
+    {
+      "input": [
+        [
+          10,
+          10,
+          10,
+          10
+        ]
+      ],
+      "expected": 2110
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": 110
+    },
+    {
+      "input": [
+        [
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      ],
+      "expected": 110
+    },
+    {
+      "input": [
+        [
+          3,
+          1,
+          5
+        ]
+      ],
+      "expected": 35
+    },
+    {
+      "input": [
+        [
+          1,
+          3,
+          5
+        ]
+      ],
+      "expected": 25
+    },
+    {
+      "input": [
+        [
+          5,
+          3,
+          1
+        ]
+      ],
+      "expected": 25
+    },
+    {
+      "input": [
+        [
+          2,
+          4,
+          6
+        ]
+      ],
+      "expected": 66
+    },
+    {
+      "input": [
+        [
+          6,
+          4,
+          2
+        ]
+      ],
+      "expected": 66
+    },
+    {
+      "input": [
+        [
+          1,
+          3,
+          1
+        ]
+      ],
+      "expected": 9
+    },
+    {
+      "input": [
+        [
+          3,
+          1,
+          3
+        ]
+      ],
+      "expected": 21
+    },
+    {
+      "input": [
+        [
+          2,
+          1,
+          2
+        ]
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        [
+          9,
+          7,
+          6,
+          3
+        ]
+      ],
+      "expected": 576
+    },
+    {
+      "input": [
+        [
+          7,
+          9,
+          8,
+          0,
+          7,
+          1,
+          3,
+          5,
+          5,
+          2,
+          3
+        ]
+      ],
+      "expected": 1654
+    },
+    {
+      "input": [
+        [
+          8,
+          3,
+          4,
+          3,
+          5,
+          0,
+          5,
+          6,
+          6,
+          2,
+          8,
+          5,
+          6,
+          2,
+          3,
+          8,
+          3,
+          5,
+          1,
+          0,
+          2
+        ]
+      ],
+      "expected": 3394
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          1,
+          2,
+          1
+        ]
+      ],
+      "expected": 14
+    },
+    {
+      "input": [
+        [
+          2,
+          1,
+          2,
+          1,
+          2
+        ]
+      ],
+      "expected": 22
+    },
+    {
+      "input": [
+        [
+          5,
+          10,
+          5
+        ]
+      ],
+      "expected": 280
+    },
+    {
+      "input": [
+        [
+          10,
+          5,
+          10
+        ]
+      ],
+      "expected": 610
+    },
+    {
+      "input": [
+        [
+          1,
+          5,
+          1
+        ]
+      ],
+      "expected": 15
+    },
+    {
+      "input": [
+        [
+          5,
+          1,
+          5
+        ]
+      ],
+      "expected": 55
+    },
+    {
+      "input": [
+        [
+          8,
+          2,
+          6,
+          8,
+          9,
+          8,
+          1,
+          4,
+          1,
+          5,
+          3,
+          0,
+          7,
+          7,
+          0,
+          4,
+          2,
+          2,
+          5
+        ]
+      ],
+      "expected": 3630
+    },
+    {
+      "input": [
+        [
+          9,
+          76,
+          64,
+          21,
+          97,
+          60
+        ]
+      ],
+      "expected": 1086136
+    },
+    {
+      "input": [
+        [
+          35,
+          16,
+          83,
+          87,
+          32,
+          55,
+          28,
+          97,
+          88,
+          54,
+          42,
+          11,
+          45,
+          42,
+          73,
+          99,
+          66,
+          22,
+          9,
+          53
+        ]
+      ],
+      "expected": 5743306
+    },
+    {
+      "input": [
+        [
+          1,
+          6,
+          8
+        ]
+      ],
+      "expected": 64
+    },
+    {
+      "input": [
+        [
+          8,
+          6,
+          1
+        ]
+      ],
+      "expected": 64
+    },
+    {
+      "input": [
+        [
+          6,
+          1,
+          8
+        ]
+      ],
+      "expected": 104
+    },
+    {
+      "input": [
+        [
+          2,
+          3
+        ]
+      ],
+      "expected": 9
+    },
+    {
+      "input": [
+        [
+          3,
+          2
+        ]
+      ],
+      "expected": 9
+    },
+    {
+      "input": [
+        [
+          4,
+          5
+        ]
+      ],
+      "expected": 25
+    },
+    {
+      "input": [
+        [
+          5,
+          4
+        ]
+      ],
+      "expected": 25
+    },
+    {
+      "input": [
+        [
+          10,
+          1
+        ]
+      ],
+      "expected": 20
+    },
+    {
+      "input": [
+        [
+          1,
+          10
+        ]
+      ],
+      "expected": 20
+    },
+    {
+      "input": [
+        [
+          10,
+          10
+        ]
+      ],
+      "expected": 110
+    },
+    {
+      "input": [
+        [
+          50,
+          50
+        ]
+      ],
+      "expected": 2550
+    },
+    {
+      "input": [
+        [
+          100,
+          100
+        ]
+      ],
+      "expected": 10100
+    },
+    {
+      "input": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        [
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      ],
+      "expected": 30
+    },
+    {
+      "input": [
+        [
+          3,
+          3,
+          3,
+          3,
+          3
+        ]
+      ],
+      "expected": 93
+    },
+    {
+      "input": [
+        [
+          5,
+          5,
+          5,
+          5,
+          5
+        ]
+      ],
+      "expected": 405
+    },
+    {
+      "input": [
+        [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      ],
+      "expected": 3110
+    },
+    {
+      "input": [
+        [
+          1,
+          100,
+          1
+        ]
+      ],
+      "expected": 300
+    },
+    {
+      "input": [
+        [
+          100,
+          1,
+          100
+        ]
+      ],
+      "expected": 20100
+    },
+    {
+      "input": [
+        [
+          50,
+          1,
+          50
+        ]
+      ],
+      "expected": 5050
+    },
+    {
+      "input": [
+        [
+          1,
+          50,
+          1
+        ]
+      ],
+      "expected": 150
+    },
+    {
+      "input": [
+        [
+          99,
+          1,
+          99
+        ]
+      ],
+      "expected": 19701
+    },
+    {
+      "input": [
+        [
+          1,
+          99,
+          1
+        ]
+      ],
+      "expected": 297
+    },
+    {
+      "input": [
+        [
+          50,
+          100,
+          50
+        ]
+      ],
+      "expected": 252550
+    },
+    {
+      "input": [
+        [
+          100,
+          50,
+          100
+        ]
+      ],
+      "expected": 510100
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          2,
+          1
+        ]
+      ],
+      "expected": 22
+    },
+    {
+      "input": [
+        [
+          3,
+          2,
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": 46
+    },
+    {
+      "input": [
+        [
+          5,
+          4,
+          3,
+          2,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "expected": 334
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      ],
+      "expected": 215
+    },
+    {
+      "input": [
+        [
+          10,
+          9,
+          8,
+          7,
+          6,
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      ],
+      "expected": 2420
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      ],
+      "expected": 2420
+    },
+    {
+      "input": [
+        [
+          10,
+          1,
+          10,
+          1,
+          10
+        ]
+      ],
+      "expected": 1310
+    },
+    {
+      "input": [
+        [
+          1,
+          10,
+          1,
+          10,
+          1
+        ]
+      ],
+      "expected": 230
+    },
+    {
+      "input": [
+        [
+          5,
+          10,
+          5,
+          10,
+          5
+        ]
+      ],
+      "expected": 1280
+    },
+    {
+      "input": [
+        [
+          10,
+          5,
+          10,
+          5,
+          10
+        ]
+      ],
+      "expected": 2110
+    },
+    {
+      "input": [
+        [
+          0,
+          1,
+          2,
+          3
+        ]
+      ],
+      "expected": 12
+    },
+    {
+      "input": [
+        [
+          3,
+          2,
+          1,
+          0
+        ]
+      ],
+      "expected": 12
+    },
+    {
+      "input": [
+        [
+          0,
+          0,
+          1,
+          0,
+          0
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        [
+          1,
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        [
+          1,
+          2,
+          0,
+          2,
+          1
+        ]
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        [
+          0,
+          5,
+          0
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        [
+          5,
+          0,
+          5
+        ]
+      ],
+      "expected": 30
+    },
+    {
+      "input": [
+        [
+          9
+        ]
+      ],
+      "expected": 9
+    },
+    {
+      "input": [
+        [
+          99
+        ]
+      ],
+      "expected": 99
+    },
+    {
+      "input": [
+        [
+          50
+        ]
+      ],
+      "expected": 50
+    },
+    {
+      "input": [
+        [
+          25
+        ]
+      ],
+      "expected": 25
+    },
+    {
+      "input": [
+        [
+          75
+        ]
+      ],
+      "expected": 75
+    },
+    {
+      "input": [
+        [
+          7,
+          7,
+          7
+        ]
+      ],
+      "expected": 399
+    },
+    {
+      "input": [
+        [
+          8,
+          8,
+          8
+        ]
+      ],
+      "expected": 584
+    },
+    {
+      "input": [
+        [
+          9,
+          9,
+          9
+        ]
+      ],
+      "expected": 819
+    },
+    {
+      "input": [
+        [
+          4,
+          4,
+          4,
+          4
+        ]
+      ],
+      "expected": 148
+    },
+    {
+      "input": [
+        [
+          6,
+          6,
+          6,
+          6
+        ]
+      ],
+      "expected": 474
+    },
+    {
+      "input": [
+        [
+          8,
+          8,
+          8,
+          8
+        ]
+      ],
+      "expected": 1096
+    },
+    {
+      "input": {
+        "nums": [
+          1
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2
+        ]
+      },
+      "expected": 4
+    }
   ]
 }

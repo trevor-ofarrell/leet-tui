@@ -2,112 +2,655 @@
   "problem_id": 3,
   "title": "Longest Substring Without Repeating Characters",
   "run_tests": [
-    {"input": ["abcabcbb"], "expected": 3},
-    {"input": ["bbbbb"], "expected": 1},
-    {"input": ["pwwkew"], "expected": 3},
-    {"input": [""], "expected": 0},
-    {"input": ["a"], "expected": 1}
+    {
+      "input": [
+        "abcabcbb"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "bbbbb"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "pwwkew"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        ""
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "a"
+      ],
+      "expected": 1
+    }
   ],
   "submit_tests": [
-    {"input": ["abcabcbb"], "expected": 3},
-    {"input": ["bbbbb"], "expected": 1},
-    {"input": ["pwwkew"], "expected": 3},
-    {"input": [""], "expected": 0},
-    {"input": ["a"], "expected": 1},
-    {"input": ["ab"], "expected": 2},
-    {"input": ["aa"], "expected": 1},
-    {"input": ["aab"], "expected": 2},
-    {"input": ["dvdf"], "expected": 3},
-    {"input": ["anviaj"], "expected": 5},
-    {"input": ["abcdefghijklmnopqrstuvwxyz"], "expected": 26},
-    {"input": ["aaaaaaaaa"], "expected": 1},
-    {"input": ["abcdef"], "expected": 6},
-    {"input": ["abba"], "expected": 2},
-    {"input": ["tmmzuxt"], "expected": 5},
-    {"input": ["ohvhjdml"], "expected": 6},
-    {"input": ["ckilbkd"], "expected": 5},
-    {"input": ["aabaab!bb"], "expected": 3},
-    {"input": ["wobgrovw"], "expected": 6},
-    {"input": ["   "], "expected": 1},
-    {"input": [" "], "expected": 1},
-    {"input": ["au"], "expected": 2},
-    {"input": ["cdd"], "expected": 2},
-    {"input": ["abcb"], "expected": 3},
-    {"input": ["bpfbhmipx"], "expected": 7},
-    {"input": ["xxzqi"], "expected": 4},
-    {"input": ["ggububgvfk"], "expected": 6},
-    {"input": ["jbpnbwwd"], "expected": 5},
-    {"input": ["nfpdmpi"], "expected": 5},
-    {"input": ["umvejcuuk"], "expected": 6},
-    {"input": ["ABCDEFG"], "expected": 7},
-    {"input": ["AaBbCc"], "expected": 6},
-    {"input": ["123456789"], "expected": 9},
-    {"input": ["112233"], "expected": 2},
-    {"input": ["!@#$%^&*()"], "expected": 10},
-    {"input": ["a1b2c3"], "expected": 6},
-    {"input": ["abcdefghij"], "expected": 10},
-    {"input": ["abcdabcde"], "expected": 5},
-    {"input": ["abcdeabcdef"], "expected": 6},
-    {"input": ["zyxwvutsrq"], "expected": 10},
-    {"input": ["qwertyuiop"], "expected": 10},
-    {"input": ["asdfghjkl"], "expected": 9},
-    {"input": ["zxcvbnm"], "expected": 7},
-    {"input": ["aabbccddee"], "expected": 2},
-    {"input": ["abcabcabcabc"], "expected": 3},
-    {"input": ["xyzxyzxyz"], "expected": 3},
-    {"input": ["mnopqrstuvwxyzabcdefghijkl"], "expected": 26},
-    {"input": ["banana"], "expected": 3},
-    {"input": ["mississippi"], "expected": 4},
-    {"input": ["character"], "expected": 5},
-    {"input": ["programming"], "expected": 7},
-    {"input": ["algorithm"], "expected": 7},
-    {"input": ["substring"], "expected": 7},
-    {"input": ["repetition"], "expected": 6},
-    {"input": ["aaabbbccc"], "expected": 2},
-    {"input": ["abababab"], "expected": 2},
-    {"input": ["xyxyxyxy"], "expected": 2},
-    {"input": ["aeiou"], "expected": 5},
-    {"input": ["aeioua"], "expected": 5},
-    {"input": ["aaeiou"], "expected": 5},
-    {"input": ["abcdefga"], "expected": 7},
-    {"input": ["zzzzzzzzza"], "expected": 2},
-    {"input": ["azzzzzzzz"], "expected": 2},
-    {"input": ["abcdefghijklmnop"], "expected": 16},
-    {"input": ["pqrstuvwxyzabcde"], "expected": 16},
-    {"input": ["aAbBcCdD"], "expected": 8},
-    {"input": ["1a2b3c4d"], "expected": 8},
-    {"input": ["!a@b#c$d"], "expected": 8},
-    {"input": ["  a  b  "], "expected": 3},
-    {"input": ["a b c d e"], "expected": 3},
-    {"input": ["longestsubstring"], "expected": 8},
-    {"input": ["withoutrepeating"], "expected": 8},
-    {"input": ["characters"], "expected": 6},
-    {"input": ["uniqueletters"], "expected": 7},
-    {"input": ["aaaabbbbcccc"], "expected": 2},
-    {"input": ["aabbccddeeff"], "expected": 2},
-    {"input": ["abcdefghijka"], "expected": 11},
-    {"input": ["zabcdefghijk"], "expected": 12},
-    {"input": ["solution"], "expected": 7},
-    {"input": ["slidingwindow"], "expected": 9},
-    {"input": ["hashmap"], "expected": 5},
-    {"input": ["twopointers"], "expected": 8},
-    {"input": ["optimization"], "expected": 7},
-    {"input": ["efficiency"], "expected": 6},
-    {"input": ["complexity"], "expected": 8},
-    {"input": ["runtime"], "expected": 7},
-    {"input": ["spacetime"], "expected": 8},
-    {"input": ["traversal"], "expected": 6},
-    {"input": ["iteration"], "expected": 6},
-    {"input": ["recursion"], "expected": 7},
-    {"input": ["memoization"], "expected": 7},
-    {"input": ["dynamic"], "expected": 7},
-    {"input": ["greedy"], "expected": 5},
-    {"input": ["backtracking"], "expected": 8},
-    {"input": ["divideconquer"], "expected": 10},
-    {"input": ["binarysearch"], "expected": 9},
-    {"input": ["linearsearch"], "expected": 8},
-    {"input": ["depthfirst"], "expected": 9},
-    {"input": ["breadthfirst"], "expected": 8},
-    {"input": ["topological"], "expected": 7}
+    {
+      "input": [
+        "abcabcbb"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "bbbbb"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "pwwkew"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        ""
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "a"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "ab"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "aa"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "aab"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "dvdf"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "anviaj"
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "abcdefghijklmnopqrstuvwxyz"
+      ],
+      "expected": 26
+    },
+    {
+      "input": [
+        "aaaaaaaaa"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "abcdef"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "abba"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "tmmzuxt"
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "ohvhjdml"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "ckilbkd"
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "aabaab!bb"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "wobgrovw"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "   "
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        " "
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "au"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "cdd"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "abcb"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "bpfbhmipx"
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        "xxzqi"
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "ggububgvfk"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "jbpnbwwd"
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "nfpdmpi"
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "umvejcuuk"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "ABCDEFG"
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        "AaBbCc"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "123456789"
+      ],
+      "expected": 9
+    },
+    {
+      "input": [
+        "112233"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "!@#$%^&*()"
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        "a1b2c3"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "abcdefghij"
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        "abcdabcde"
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "abcdeabcdef"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "zyxwvutsrq"
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        "qwertyuiop"
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        "asdfghjkl"
+      ],
+      "expected": 9
+    },
+    {
+      "input": [
+        "zxcvbnm"
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        "aabbccddee"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "abcabcabcabc"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "xyzxyzxyz"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "mnopqrstuvwxyzabcdefghijkl"
+      ],
+      "expected": 26
+    },
+    {
+      "input": [
+        "banana"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "mississippi"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "character"
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "programming"
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "algorithm"
+      ],
+      "expected": 9
+    },
+    {
+      "input": [
+        "substring"
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        "repetition"
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "aaabbbccc"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "abababab"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "xyxyxyxy"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "aeiou"
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "aeioua"
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "aaeiou"
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "abcdefga"
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        "zzzzzzzzza"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "azzzzzzzz"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "abcdefghijklmnop"
+      ],
+      "expected": 16
+    },
+    {
+      "input": [
+        "pqrstuvwxyzabcde"
+      ],
+      "expected": 16
+    },
+    {
+      "input": [
+        "aAbBcCdD"
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        "1a2b3c4d"
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        "!a@b#c$d"
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        "  a  b  "
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "a b c d e"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "longestsubstring"
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        "withoutrepeating"
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        "characters"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "uniqueletters"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "aaaabbbbcccc"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "aabbccddeeff"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "abcdefghijka"
+      ],
+      "expected": 11
+    },
+    {
+      "input": [
+        "zabcdefghijk"
+      ],
+      "expected": 12
+    },
+    {
+      "input": [
+        "solution"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "slidingwindow"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "hashmap"
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "twopointers"
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        "optimization"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "efficiency"
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "complexity"
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        "runtime"
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        "spacetime"
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        "traversal"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "iteration"
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        "recursion"
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        "memoization"
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        "dynamic"
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        "greedy"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "backtracking"
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        "divideconquer"
+      ],
+      "expected": 9
+    },
+    {
+      "input": [
+        "binarysearch"
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        "linearsearch"
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        "depthfirst"
+      ],
+      "expected": 9
+    },
+    {
+      "input": [
+        "breadthfirst"
+      ],
+      "expected": 9
+    },
+    {
+      "input": [
+        "topological"
+      ],
+      "expected": 6
+    },
+    {
+      "input": {
+        "s": ""
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "s": "aaaaaaa"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "s": "abcabcabc"
+      },
+      "expected": 3
+    }
   ]
 }

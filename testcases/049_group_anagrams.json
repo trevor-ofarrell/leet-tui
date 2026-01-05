@@ -2,108 +2,1733 @@
   "problem_id": 49,
   "title": "Group Anagrams",
   "run_tests": [
-    {"input": [["eat", "tea", "tan", "ate", "nat", "bat"]], "expected": [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]},
-    {"input": [[""]], "expected": [[""]]},
-    {"input": [["a"]], "expected": [["a"]]}
+    {
+      "input": [
+        [
+          "eat",
+          "tea",
+          "tan",
+          "ate",
+          "nat",
+          "bat"
+        ]
+      ],
+      "expected": [
+        [
+          "bat"
+        ],
+        [
+          "nat",
+          "tan"
+        ],
+        [
+          "ate",
+          "eat",
+          "tea"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          ""
+        ]
+      ],
+      "expected": [
+        [
+          ""
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "a"
+        ]
+      ],
+      "expected": [
+        [
+          "a"
+        ]
+      ]
+    }
   ],
   "submit_tests": [
-    {"input": [["eat", "tea", "tan", "ate", "nat", "bat"]], "expected": [["bat"], ["nat", "tan"], ["ate", "eat", "tea"]]},
-    {"input": [[""]], "expected": [[""]]},
-    {"input": [["a"]], "expected": [["a"]]},
-    {"input": [["ab", "ba"]], "expected": [["ab", "ba"]]},
-    {"input": [["abc", "bca", "cab"]], "expected": [["abc", "bca", "cab"]]},
-    {"input": [["abc", "def"]], "expected": [["abc"], ["def"]]},
-    {"input": [["aa", "aa"]], "expected": [["aa", "aa"]]},
-    {"input": [["", ""]], "expected": [["", ""]]},
-    {"input": [["listen", "silent", "enlist"]], "expected": [["listen", "silent", "enlist"]]},
-    {"input": [["cat", "dog", "tac", "god"]], "expected": [["cat", "tac"], ["dog", "god"]]},
-    {"input": [["evil", "vile", "live"]], "expected": [["evil", "vile", "live"]]},
-    {"input": [["abc", "def", "ghi"]], "expected": [["abc"], ["def"], ["ghi"]]},
-    {"input": [["aaa", "aaa", "aaa"]], "expected": [["aaa", "aaa", "aaa"]]},
-    {"input": [["a", "b", "c", "d"]], "expected": [["a"], ["b"], ["c"], ["d"]]},
-    {"input": [["ab", "cd", "ba", "dc"]], "expected": [["ab", "ba"], ["cd", "dc"]]},
-    {"input": [["xyz", "zyx", "yxz", "abc"]], "expected": [["xyz", "zyx", "yxz"], ["abc"]]},
-    {"input": [["one", "neo", "eno", "two"]], "expected": [["one", "neo", "eno"], ["two"]]},
-    {"input": [["star", "rats", "arts", "tars"]], "expected": [["star", "rats", "arts", "tars"]]},
-    {"input": [["hello", "world", "olleh"]], "expected": [["hello", "olleh"], ["world"]]},
-    {"input": [["aabb", "bbaa", "abab", "baba"]], "expected": [["aabb", "bbaa", "abab", "baba"]]},
-    {"input": [["test", "sett", "tset"]], "expected": [["test", "sett", "tset"]]},
-    {"input": [["code", "deco", "ecod", "odec"]], "expected": [["code", "deco", "ecod", "odec"]]},
-    {"input": [["a", "a", "a", "b", "b"]], "expected": [["a", "a", "a"], ["b", "b"]]},
-    {"input": [["zzz", "zzz"]], "expected": [["zzz", "zzz"]]},
-    {"input": [["abc", "bac", "cba", "xyz", "zxy", "yxz"]], "expected": [["abc", "bac", "cba"], ["xyz", "zxy", "yxz"]]},
-    {"input": [["read", "dear", "dare"]], "expected": [["read", "dear", "dare"]]},
-    {"input": [["spot", "stop", "tops", "pots"]], "expected": [["spot", "stop", "tops", "pots"]]},
-    {"input": [["now", "won", "own"]], "expected": [["now", "won", "own"]]},
-    {"input": [["pin", "nip", "ink"]], "expected": [["pin", "nip"], ["ink"]]},
-    {"input": [["bored", "robed", "robe"]], "expected": [["bored", "robed"], ["robe"]]},
-    {"input": [["act", "cat", "tac", "atc", "cta", "tca"]], "expected": [["act", "cat", "tac", "atc", "cta", "tca"]]},
-    {"input": [["part", "trap", "rapt", "prat"]], "expected": [["part", "trap", "rapt", "prat"]]},
-    {"input": [["race", "care", "acre"]], "expected": [["race", "care", "acre"]]},
-    {"input": [["flow", "fowl", "wolf"]], "expected": [["flow", "fowl", "wolf"]]},
-    {"input": [["night", "thing"]], "expected": [["night", "thing"]]},
-    {"input": [["mile", "lime", "slime"]], "expected": [["mile", "lime"], ["slime"]]},
-    {"input": [["emit", "item", "mite", "time"]], "expected": [["emit", "item", "mite", "time"]]},
-    {"input": [["loop", "polo", "pool"]], "expected": [["loop", "polo", "pool"]]},
-    {"input": [["save", "vase", "aves"]], "expected": [["save", "vase", "aves"]]},
-    {"input": [["post", "stop", "spot", "tops", "opts", "pots"]], "expected": [["post", "stop", "spot", "tops", "opts", "pots"]]},
-    {"input": [["reef", "free", "feer"]], "expected": [["reef", "free", "feer"]]},
-    {"input": [["break", "baker"]], "expected": [["break", "baker"]]},
-    {"input": [["night", "thing", "bight"]], "expected": [["night", "thing"], ["bight"]]},
-    {"input": [["abcd", "dcba", "abdc", "wxyz"]], "expected": [["abcd", "dcba", "abdc"], ["wxyz"]]},
-    {"input": [["race", "care", "racer"]], "expected": [["race", "care"], ["racer"]]},
-    {"input": [["pear", "reap", "pare", "rape"]], "expected": [["pear", "reap", "pare", "rape"]]},
-    {"input": [["apes", "pase", "peas", "sepa"]], "expected": [["apes", "pase", "peas", "sepa"]]},
-    {"input": [["drawer", "reward", "warder"]], "expected": [["drawer", "reward", "warder"]]},
-    {"input": [["leader", "dealer"]], "expected": [["leader", "dealer"]]},
-    {"input": [["garden", "ranged", "danger", "gander"]], "expected": [["garden", "ranged", "danger", "gander"]]},
-    {"input": [["skate", "stake", "steak", "takes", "teaks"]], "expected": [["skate", "stake", "steak", "takes", "teaks"]]},
-    {"input": [["weird", "wired", "wider"]], "expected": [["weird", "wired", "wider"]]},
-    {"input": [["fired", "fried", "fride"]], "expected": [["fired", "fried", "fride"]]},
-    {"input": [["allergy", "gallery", "largely"]], "expected": [["allergy"], ["gallery", "largely"]]},
-    {"input": [["players", "parsley", "replays", "sparely"]], "expected": [["players", "parsley", "replays", "sparely"]]},
-    {"input": [["retains", "stainer", "retinas", "antsier"]], "expected": [["retains", "stainer", "retinas", "antsier"]]},
-    {"input": [["painter", "repaint", "pertain"]], "expected": [["painter", "repaint", "pertain"]]},
-    {"input": [["rescue", "secure", "recuse"]], "expected": [["rescue", "secure", "recuse"]]},
-    {"input": [["abcdefg", "gfedcba", "bcdafge"]], "expected": [["abcdefg", "gfedcba", "bcdafge"]]},
-    {"input": [["abcdefgh", "hgfedcba"]], "expected": [["abcdefgh", "hgfedcba"]]},
-    {"input": [["zz", "zz", "zz", "zz"]], "expected": [["zz", "zz", "zz", "zz"]]},
-    {"input": [["a", "b", "a", "b"]], "expected": [["a", "a"], ["b", "b"]]},
-    {"input": [["abc", "abc", "abc"]], "expected": [["abc", "abc", "abc"]]},
-    {"input": [["abc", "bca", "xyz"]], "expected": [["abc", "bca"], ["xyz"]]},
-    {"input": [["aab", "aba", "baa"]], "expected": [["aab", "aba", "baa"]]},
-    {"input": [["abc", "abd", "acd"]], "expected": [["abc"], ["abd"], ["acd"]]},
-    {"input": [["az", "za", "bz", "zb"]], "expected": [["az", "za"], ["bz", "zb"]]},
-    {"input": [["silent", "listen", "tinsel", "inlets"]], "expected": [["silent", "listen", "tinsel", "inlets"]]},
-    {"input": [["stressed", "desserts"]], "expected": [["stressed", "desserts"]]},
-    {"input": [["bad", "dab", "add"]], "expected": [["bad", "dab"], ["add"]]},
-    {"input": [["sub", "bus", "tub"]], "expected": [["sub", "bus"], ["tub"]]},
-    {"input": [["bin", "nib", "fin"]], "expected": [["bin", "nib"], ["fin"]]},
-    {"input": [["lap", "pal", "pal"]], "expected": [["lap", "pal", "pal"]]},
-    {"input": [["pot", "top", "opt", "pot"]], "expected": [["pot", "top", "opt", "pot"]]},
-    {"input": [["bat", "tab", "act", "cat"]], "expected": [["bat", "tab"], ["act", "cat"]]},
-    {"input": [["ten", "net", "one"]], "expected": [["ten", "net"], ["one"]]},
-    {"input": [["tea", "eat", "ate", "eta"]], "expected": [["tea", "eat", "ate", "eta"]]},
-    {"input": [["ant", "tan", "nat", "ban"]], "expected": [["ant", "tan", "nat"], ["ban"]]},
-    {"input": [["odd", "add", "dad"]], "expected": [["odd"], ["add"], ["dad"]]},
-    {"input": [["mom", "omm", "mmo"]], "expected": [["mom", "omm", "mmo"]]},
-    {"input": [["peach", "cheap", "beach"]], "expected": [["peach", "cheap"], ["beach"]]},
-    {"input": [["earth", "heart", "hater"]], "expected": [["earth", "heart", "hater"]]},
-    {"input": [["master", "stream", "tamers"]], "expected": [["master", "stream", "tamers"]]},
-    {"input": [["plates", "staple", "petals", "palest"]], "expected": [["plates", "staple", "petals", "palest"]]},
-    {"input": [["alerting", "triangle", "integral"]], "expected": [["alerting", "triangle", "integral"]]},
-    {"input": [["nameless", "salesmen"]], "expected": [["nameless", "salesmen"]]},
-    {"input": [["orchestra", "carthorse"]], "expected": [["orchestra", "carthorse"]]},
-    {"input": [["admirer", "married"]], "expected": [["admirer", "married"]]},
-    {"input": [["notes", "stone", "onset", "tones"]], "expected": [["notes", "stone", "onset", "tones"]]},
-    {"input": [["lemon", "melon"]], "expected": [["lemon", "melon"]]},
-    {"input": [["shore", "horse"]], "expected": [["shore", "horse"]]},
-    {"input": [["angel", "glean", "angle"]], "expected": [["angel", "glean", "angle"]]},
-    {"input": [["below", "elbow", "bowel"]], "expected": [["below", "elbow", "bowel"]]},
-    {"input": [["study", "dusty"]], "expected": [["study", "dusty"]]},
-    {"input": [["begin", "being", "binge"]], "expected": [["begin", "being", "binge"]]},
-    {"input": [["grown", "wrong"]], "expected": [["grown", "wrong"]]},
-    {"input": [["thaw", "what"]], "expected": [["thaw", "what"]]},
-    {"input": [["raw", "war"]], "expected": [["raw", "war"]]}
+    {
+      "input": [
+        [
+          "eat",
+          "tea",
+          "tan",
+          "ate",
+          "nat",
+          "bat"
+        ]
+      ],
+      "expected": [
+        [
+          "bat"
+        ],
+        [
+          "nat",
+          "tan"
+        ],
+        [
+          "ate",
+          "eat",
+          "tea"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          ""
+        ]
+      ],
+      "expected": [
+        [
+          ""
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "a"
+        ]
+      ],
+      "expected": [
+        [
+          "a"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "ab",
+          "ba"
+        ]
+      ],
+      "expected": [
+        [
+          "ab",
+          "ba"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "abc",
+          "bca",
+          "cab"
+        ]
+      ],
+      "expected": [
+        [
+          "abc",
+          "bca",
+          "cab"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "abc",
+          "def"
+        ]
+      ],
+      "expected": [
+        [
+          "abc"
+        ],
+        [
+          "def"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "aa",
+          "aa"
+        ]
+      ],
+      "expected": [
+        [
+          "aa",
+          "aa"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "",
+          ""
+        ]
+      ],
+      "expected": [
+        [
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "listen",
+          "silent",
+          "enlist"
+        ]
+      ],
+      "expected": [
+        [
+          "listen",
+          "silent",
+          "enlist"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "cat",
+          "dog",
+          "tac",
+          "god"
+        ]
+      ],
+      "expected": [
+        [
+          "cat",
+          "tac"
+        ],
+        [
+          "dog",
+          "god"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "evil",
+          "vile",
+          "live"
+        ]
+      ],
+      "expected": [
+        [
+          "evil",
+          "vile",
+          "live"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "abc",
+          "def",
+          "ghi"
+        ]
+      ],
+      "expected": [
+        [
+          "abc"
+        ],
+        [
+          "def"
+        ],
+        [
+          "ghi"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "aaa",
+          "aaa",
+          "aaa"
+        ]
+      ],
+      "expected": [
+        [
+          "aaa",
+          "aaa",
+          "aaa"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "a",
+          "b",
+          "c",
+          "d"
+        ]
+      ],
+      "expected": [
+        [
+          "a"
+        ],
+        [
+          "b"
+        ],
+        [
+          "c"
+        ],
+        [
+          "d"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "ab",
+          "cd",
+          "ba",
+          "dc"
+        ]
+      ],
+      "expected": [
+        [
+          "ab",
+          "ba"
+        ],
+        [
+          "cd",
+          "dc"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "xyz",
+          "zyx",
+          "yxz",
+          "abc"
+        ]
+      ],
+      "expected": [
+        [
+          "xyz",
+          "zyx",
+          "yxz"
+        ],
+        [
+          "abc"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "one",
+          "neo",
+          "eno",
+          "two"
+        ]
+      ],
+      "expected": [
+        [
+          "one",
+          "neo",
+          "eno"
+        ],
+        [
+          "two"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "star",
+          "rats",
+          "arts",
+          "tars"
+        ]
+      ],
+      "expected": [
+        [
+          "star",
+          "rats",
+          "arts",
+          "tars"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "hello",
+          "world",
+          "olleh"
+        ]
+      ],
+      "expected": [
+        [
+          "hello",
+          "olleh"
+        ],
+        [
+          "world"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "aabb",
+          "bbaa",
+          "abab",
+          "baba"
+        ]
+      ],
+      "expected": [
+        [
+          "aabb",
+          "bbaa",
+          "abab",
+          "baba"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "test",
+          "sett",
+          "tset"
+        ]
+      ],
+      "expected": [
+        [
+          "test",
+          "sett",
+          "tset"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "code",
+          "deco",
+          "ecod",
+          "odec"
+        ]
+      ],
+      "expected": [
+        [
+          "code",
+          "deco",
+          "ecod",
+          "odec"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "a",
+          "a",
+          "a",
+          "b",
+          "b"
+        ]
+      ],
+      "expected": [
+        [
+          "a",
+          "a",
+          "a"
+        ],
+        [
+          "b",
+          "b"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "zzz",
+          "zzz"
+        ]
+      ],
+      "expected": [
+        [
+          "zzz",
+          "zzz"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "abc",
+          "bac",
+          "cba",
+          "xyz",
+          "zxy",
+          "yxz"
+        ]
+      ],
+      "expected": [
+        [
+          "abc",
+          "bac",
+          "cba"
+        ],
+        [
+          "xyz",
+          "zxy",
+          "yxz"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "read",
+          "dear",
+          "dare"
+        ]
+      ],
+      "expected": [
+        [
+          "read",
+          "dear",
+          "dare"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "spot",
+          "stop",
+          "tops",
+          "pots"
+        ]
+      ],
+      "expected": [
+        [
+          "spot",
+          "stop",
+          "tops",
+          "pots"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "now",
+          "won",
+          "own"
+        ]
+      ],
+      "expected": [
+        [
+          "now",
+          "won",
+          "own"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "pin",
+          "nip",
+          "ink"
+        ]
+      ],
+      "expected": [
+        [
+          "pin",
+          "nip"
+        ],
+        [
+          "ink"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "bored",
+          "robed",
+          "robe"
+        ]
+      ],
+      "expected": [
+        [
+          "bored",
+          "robed"
+        ],
+        [
+          "robe"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "act",
+          "cat",
+          "tac",
+          "atc",
+          "cta",
+          "tca"
+        ]
+      ],
+      "expected": [
+        [
+          "act",
+          "cat",
+          "tac",
+          "atc",
+          "cta",
+          "tca"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "part",
+          "trap",
+          "rapt",
+          "prat"
+        ]
+      ],
+      "expected": [
+        [
+          "part",
+          "trap",
+          "rapt",
+          "prat"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "race",
+          "care",
+          "acre"
+        ]
+      ],
+      "expected": [
+        [
+          "race",
+          "care",
+          "acre"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "flow",
+          "fowl",
+          "wolf"
+        ]
+      ],
+      "expected": [
+        [
+          "flow",
+          "fowl",
+          "wolf"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "night",
+          "thing"
+        ]
+      ],
+      "expected": [
+        [
+          "night",
+          "thing"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "mile",
+          "lime",
+          "slime"
+        ]
+      ],
+      "expected": [
+        [
+          "mile",
+          "lime"
+        ],
+        [
+          "slime"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "emit",
+          "item",
+          "mite",
+          "time"
+        ]
+      ],
+      "expected": [
+        [
+          "emit",
+          "item",
+          "mite",
+          "time"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "loop",
+          "polo",
+          "pool"
+        ]
+      ],
+      "expected": [
+        [
+          "loop",
+          "polo",
+          "pool"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "save",
+          "vase",
+          "aves"
+        ]
+      ],
+      "expected": [
+        [
+          "save",
+          "vase",
+          "aves"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "post",
+          "stop",
+          "spot",
+          "tops",
+          "opts",
+          "pots"
+        ]
+      ],
+      "expected": [
+        [
+          "post",
+          "stop",
+          "spot",
+          "tops",
+          "opts",
+          "pots"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "reef",
+          "free",
+          "feer"
+        ]
+      ],
+      "expected": [
+        [
+          "reef",
+          "free",
+          "feer"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "break",
+          "baker"
+        ]
+      ],
+      "expected": [
+        [
+          "break",
+          "baker"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "night",
+          "thing",
+          "bight"
+        ]
+      ],
+      "expected": [
+        [
+          "night",
+          "thing"
+        ],
+        [
+          "bight"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "abcd",
+          "dcba",
+          "abdc",
+          "wxyz"
+        ]
+      ],
+      "expected": [
+        [
+          "abcd",
+          "dcba",
+          "abdc"
+        ],
+        [
+          "wxyz"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "race",
+          "care",
+          "racer"
+        ]
+      ],
+      "expected": [
+        [
+          "race",
+          "care"
+        ],
+        [
+          "racer"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "pear",
+          "reap",
+          "pare",
+          "rape"
+        ]
+      ],
+      "expected": [
+        [
+          "pear",
+          "reap",
+          "pare",
+          "rape"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "apes",
+          "pase",
+          "peas",
+          "sepa"
+        ]
+      ],
+      "expected": [
+        [
+          "apes",
+          "pase",
+          "peas",
+          "sepa"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "drawer",
+          "reward",
+          "warder"
+        ]
+      ],
+      "expected": [
+        [
+          "drawer",
+          "reward",
+          "warder"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "leader",
+          "dealer"
+        ]
+      ],
+      "expected": [
+        [
+          "leader",
+          "dealer"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "garden",
+          "ranged",
+          "danger",
+          "gander"
+        ]
+      ],
+      "expected": [
+        [
+          "garden",
+          "ranged",
+          "danger",
+          "gander"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "skate",
+          "stake",
+          "steak",
+          "takes",
+          "teaks"
+        ]
+      ],
+      "expected": [
+        [
+          "skate",
+          "stake",
+          "steak",
+          "takes",
+          "teaks"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "weird",
+          "wired",
+          "wider"
+        ]
+      ],
+      "expected": [
+        [
+          "weird",
+          "wired",
+          "wider"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "fired",
+          "fried",
+          "fride"
+        ]
+      ],
+      "expected": [
+        [
+          "fired",
+          "fried",
+          "fride"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "allergy",
+          "gallery",
+          "largely"
+        ]
+      ],
+      "expected": [
+        [
+          "allergy",
+          "gallery",
+          "largely"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "players",
+          "parsley",
+          "replays",
+          "sparely"
+        ]
+      ],
+      "expected": [
+        [
+          "players",
+          "parsley",
+          "replays",
+          "sparely"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "retains",
+          "stainer",
+          "retinas",
+          "antsier"
+        ]
+      ],
+      "expected": [
+        [
+          "retains",
+          "stainer",
+          "retinas",
+          "antsier"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "painter",
+          "repaint",
+          "pertain"
+        ]
+      ],
+      "expected": [
+        [
+          "painter",
+          "repaint",
+          "pertain"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "rescue",
+          "secure",
+          "recuse"
+        ]
+      ],
+      "expected": [
+        [
+          "rescue",
+          "secure",
+          "recuse"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "abcdefg",
+          "gfedcba",
+          "bcdafge"
+        ]
+      ],
+      "expected": [
+        [
+          "abcdefg",
+          "gfedcba",
+          "bcdafge"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "abcdefgh",
+          "hgfedcba"
+        ]
+      ],
+      "expected": [
+        [
+          "abcdefgh",
+          "hgfedcba"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "zz",
+          "zz",
+          "zz",
+          "zz"
+        ]
+      ],
+      "expected": [
+        [
+          "zz",
+          "zz",
+          "zz",
+          "zz"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "a",
+          "b",
+          "a",
+          "b"
+        ]
+      ],
+      "expected": [
+        [
+          "a",
+          "a"
+        ],
+        [
+          "b",
+          "b"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "abc",
+          "abc",
+          "abc"
+        ]
+      ],
+      "expected": [
+        [
+          "abc",
+          "abc",
+          "abc"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "abc",
+          "bca",
+          "xyz"
+        ]
+      ],
+      "expected": [
+        [
+          "abc",
+          "bca"
+        ],
+        [
+          "xyz"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "aab",
+          "aba",
+          "baa"
+        ]
+      ],
+      "expected": [
+        [
+          "aab",
+          "aba",
+          "baa"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "abc",
+          "abd",
+          "acd"
+        ]
+      ],
+      "expected": [
+        [
+          "abc"
+        ],
+        [
+          "abd"
+        ],
+        [
+          "acd"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "az",
+          "za",
+          "bz",
+          "zb"
+        ]
+      ],
+      "expected": [
+        [
+          "az",
+          "za"
+        ],
+        [
+          "bz",
+          "zb"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "silent",
+          "listen",
+          "tinsel",
+          "inlets"
+        ]
+      ],
+      "expected": [
+        [
+          "silent",
+          "listen",
+          "tinsel",
+          "inlets"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "stressed",
+          "desserts"
+        ]
+      ],
+      "expected": [
+        [
+          "stressed",
+          "desserts"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "bad",
+          "dab",
+          "add"
+        ]
+      ],
+      "expected": [
+        [
+          "bad",
+          "dab"
+        ],
+        [
+          "add"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "sub",
+          "bus",
+          "tub"
+        ]
+      ],
+      "expected": [
+        [
+          "sub",
+          "bus"
+        ],
+        [
+          "tub"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "bin",
+          "nib",
+          "fin"
+        ]
+      ],
+      "expected": [
+        [
+          "bin",
+          "nib"
+        ],
+        [
+          "fin"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "lap",
+          "pal",
+          "pal"
+        ]
+      ],
+      "expected": [
+        [
+          "lap",
+          "pal",
+          "pal"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "pot",
+          "top",
+          "opt",
+          "pot"
+        ]
+      ],
+      "expected": [
+        [
+          "pot",
+          "top",
+          "opt",
+          "pot"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "bat",
+          "tab",
+          "act",
+          "cat"
+        ]
+      ],
+      "expected": [
+        [
+          "bat",
+          "tab"
+        ],
+        [
+          "act",
+          "cat"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "ten",
+          "net",
+          "one"
+        ]
+      ],
+      "expected": [
+        [
+          "ten",
+          "net"
+        ],
+        [
+          "one"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "tea",
+          "eat",
+          "ate",
+          "eta"
+        ]
+      ],
+      "expected": [
+        [
+          "tea",
+          "eat",
+          "ate",
+          "eta"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "ant",
+          "tan",
+          "nat",
+          "ban"
+        ]
+      ],
+      "expected": [
+        [
+          "ant",
+          "tan",
+          "nat"
+        ],
+        [
+          "ban"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "odd",
+          "add",
+          "dad"
+        ]
+      ],
+      "expected": [
+        [
+          "odd"
+        ],
+        [
+          "add",
+          "dad"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "mom",
+          "omm",
+          "mmo"
+        ]
+      ],
+      "expected": [
+        [
+          "mom",
+          "omm",
+          "mmo"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "peach",
+          "cheap",
+          "beach"
+        ]
+      ],
+      "expected": [
+        [
+          "peach",
+          "cheap"
+        ],
+        [
+          "beach"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "earth",
+          "heart",
+          "hater"
+        ]
+      ],
+      "expected": [
+        [
+          "earth",
+          "heart",
+          "hater"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "master",
+          "stream",
+          "tamers"
+        ]
+      ],
+      "expected": [
+        [
+          "master",
+          "stream",
+          "tamers"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "plates",
+          "staple",
+          "petals",
+          "palest"
+        ]
+      ],
+      "expected": [
+        [
+          "plates",
+          "staple",
+          "petals",
+          "palest"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "alerting",
+          "triangle",
+          "integral"
+        ]
+      ],
+      "expected": [
+        [
+          "alerting",
+          "triangle",
+          "integral"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "nameless",
+          "salesmen"
+        ]
+      ],
+      "expected": [
+        [
+          "nameless",
+          "salesmen"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "orchestra",
+          "carthorse"
+        ]
+      ],
+      "expected": [
+        [
+          "orchestra",
+          "carthorse"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "admirer",
+          "married"
+        ]
+      ],
+      "expected": [
+        [
+          "admirer",
+          "married"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "notes",
+          "stone",
+          "onset",
+          "tones"
+        ]
+      ],
+      "expected": [
+        [
+          "notes",
+          "stone",
+          "onset",
+          "tones"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "lemon",
+          "melon"
+        ]
+      ],
+      "expected": [
+        [
+          "lemon",
+          "melon"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "shore",
+          "horse"
+        ]
+      ],
+      "expected": [
+        [
+          "shore",
+          "horse"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "angel",
+          "glean",
+          "angle"
+        ]
+      ],
+      "expected": [
+        [
+          "angel",
+          "glean",
+          "angle"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "below",
+          "elbow",
+          "bowel"
+        ]
+      ],
+      "expected": [
+        [
+          "below",
+          "elbow",
+          "bowel"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "study",
+          "dusty"
+        ]
+      ],
+      "expected": [
+        [
+          "study",
+          "dusty"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "begin",
+          "being",
+          "binge"
+        ]
+      ],
+      "expected": [
+        [
+          "begin",
+          "being",
+          "binge"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "grown",
+          "wrong"
+        ]
+      ],
+      "expected": [
+        [
+          "grown",
+          "wrong"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "thaw",
+          "what"
+        ]
+      ],
+      "expected": [
+        [
+          "thaw",
+          "what"
+        ]
+      ]
+    },
+    {
+      "input": [
+        [
+          "raw",
+          "war"
+        ]
+      ],
+      "expected": [
+        [
+          "raw",
+          "war"
+        ]
+      ]
+    }
   ]
 }

@@ -2,91 +2,1156 @@
   "problem_id": 416,
   "title": "Partition Equal Subset Sum",
   "run_tests": [
-    {"input": {"nums": [1, 5, 11, 5]}, "expected": true},
-    {"input": {"nums": [1, 2, 3, 5]}, "expected": false},
-    {"input": {"nums": [1, 1]}, "expected": true},
-    {"input": {"nums": [1, 2, 5]}, "expected": false},
-    {"input": {"nums": [2, 2, 2, 2]}, "expected": true}
+    {
+      "input": {
+        "nums": [
+          1,
+          5,
+          11,
+          5
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          5
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          5
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      "expected": true
+    }
   ],
   "submit_tests": [
-    {"input": {"nums": [1, 5, 11, 5]}, "expected": true},
-    {"input": {"nums": [1, 2, 3, 5]}, "expected": false},
-    {"input": {"nums": [1, 1]}, "expected": true},
-    {"input": {"nums": [1, 2, 5]}, "expected": false},
-    {"input": {"nums": [2, 2, 2, 2]}, "expected": true},
-    {"input": {"nums": [1]}, "expected": false},
-    {"input": {"nums": [2]}, "expected": false},
-    {"input": {"nums": [100]}, "expected": false},
-    {"input": {"nums": [1, 1, 1]}, "expected": false},
-    {"input": {"nums": [2, 2]}, "expected": true},
-    {"input": {"nums": [1, 2]}, "expected": false},
-    {"input": {"nums": [1, 3]}, "expected": false},
-    {"input": {"nums": [3, 3]}, "expected": true},
-    {"input": {"nums": [5, 5]}, "expected": true},
-    {"input": {"nums": [1, 1, 1, 1]}, "expected": true},
-    {"input": {"nums": [1, 2, 3]}, "expected": true},
-    {"input": {"nums": [3, 2, 1]}, "expected": true},
-    {"input": {"nums": [1, 1, 2]}, "expected": true},
-    {"input": {"nums": [2, 1, 1]}, "expected": true},
-    {"input": {"nums": [1, 2, 1]}, "expected": true},
-    {"input": {"nums": [1, 2, 4]}, "expected": false},
-    {"input": {"nums": [1, 3, 4]}, "expected": true},
-    {"input": {"nums": [4, 3, 1]}, "expected": true},
-    {"input": {"nums": [1, 1, 1, 1, 1]}, "expected": false},
-    {"input": {"nums": [1, 2, 3, 4]}, "expected": true},
-    {"input": {"nums": [4, 3, 2, 1]}, "expected": true},
-    {"input": {"nums": [2, 2, 2, 2, 2]}, "expected": false},
-    {"input": {"nums": [1, 1, 1, 1, 1, 1]}, "expected": true},
-    {"input": {"nums": [1, 2, 3, 4, 5]}, "expected": false},
-    {"input": {"nums": [5, 4, 3, 2, 1]}, "expected": false},
-    {"input": {"nums": [1, 2, 3, 4, 5, 6]}, "expected": false},
-    {"input": {"nums": [1, 2, 3, 4, 5, 6, 7]}, "expected": true},
-    {"input": {"nums": [7, 6, 5, 4, 3, 2, 1]}, "expected": true},
-    {"input": {"nums": [1, 1, 1, 1, 1, 1, 1]}, "expected": false},
-    {"input": {"nums": [2, 2, 2, 2, 2, 2, 2]}, "expected": false},
-    {"input": {"nums": [1, 1, 1, 1, 1, 1, 1, 1]}, "expected": true},
-    {"input": {"nums": [2, 2, 2, 2, 2, 2, 2, 2]}, "expected": true},
-    {"input": {"nums": [3, 3, 3, 3, 3, 3, 3, 3]}, "expected": true},
-    {"input": {"nums": [1, 2, 3, 4, 5, 6, 7, 8]}, "expected": true},
-    {"input": {"nums": [8, 7, 6, 5, 4, 3, 2, 1]}, "expected": true},
-    {"input": {"nums": [1, 1, 1, 1, 1, 1, 1, 1, 1]}, "expected": false},
-    {"input": {"nums": [1, 2, 3, 4, 5, 6, 7, 8, 9]}, "expected": false},
-    {"input": {"nums": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}, "expected": true},
-    {"input": {"nums": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}, "expected": false},
-    {"input": {"nums": [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]}, "expected": false},
-    {"input": {"nums": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]}, "expected": true},
-    {"input": {"nums": [100, 100]}, "expected": true},
-    {"input": {"nums": [100, 100, 100]}, "expected": false},
-    {"input": {"nums": [100, 100, 100, 100]}, "expected": true},
-    {"input": {"nums": [1, 100, 99]}, "expected": true},
-    {"input": {"nums": [99, 1, 100]}, "expected": true},
-    {"input": {"nums": [1, 100, 100]}, "expected": false},
-    {"input": {"nums": [50, 50, 50, 50]}, "expected": true},
-    {"input": {"nums": [25, 25, 25, 25, 25, 25, 25, 25]}, "expected": true},
-    {"input": {"nums": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10]}, "expected": true},
-    {"input": {"nums": [10, 10, 10, 10, 10, 10, 10, 10, 10]}, "expected": false},
-    {"input": {"nums": [14, 9, 8, 4, 3, 2]}, "expected": true},
-    {"input": {"nums": [3, 3, 3, 4, 5]}, "expected": true},
-    {"input": {"nums": [1, 2, 5, 2]}, "expected": false},
-    {"input": {"nums": [2, 2, 3, 5]}, "expected": false},
-    {"input": {"nums": [1, 1, 3, 3, 7]}, "expected": false},
-    {"input": {"nums": [3, 1, 1, 2, 2, 1]}, "expected": true},
-    {"input": {"nums": [1, 2, 3, 4, 5, 5]}, "expected": true},
-    {"input": {"nums": [5, 5, 4, 3, 2, 1]}, "expected": true},
-    {"input": {"nums": [23, 13, 11, 7, 6, 5, 5]}, "expected": true},
-    {"input": {"nums": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}, "expected": true},
-    {"input": {"nums": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]}, "expected": true},
-    {"input": {"nums": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}, "expected": true},
-    {"input": {"nums": [66, 90, 7, 6, 32, 16, 1, 28]}, "expected": true},
-    {"input": {"nums": [28, 63, 95, 30, 39, 16, 36, 44, 37]}, "expected": true},
-    {"input": {"nums": [1, 5, 5, 11]}, "expected": true},
-    {"input": {"nums": [11, 5, 5, 1]}, "expected": true},
-    {"input": {"nums": [5, 1, 11, 5]}, "expected": true},
-    {"input": {"nums": [5, 11, 1, 5]}, "expected": true},
-    {"input": {"nums": [5, 5, 1, 11]}, "expected": true},
-    {"input": {"nums": [11, 1, 5, 5]}, "expected": true},
-    {"input": {"nums": [1, 2, 3, 4, 6]}, "expected": true},
-    {"input": {"nums": [6, 4, 3, 2, 1]}, "expected": true},
-    {"input": {"nums": [4, 4, 4, 4, 4, 4, 4, 4, 4, 4]}, "expected": true}
+    {
+      "input": {
+        "nums": [
+          1,
+          5,
+          11,
+          5
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          5
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          5
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          2
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          100
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          2,
+          2
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          3
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          3,
+          3
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          5,
+          5
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          1,
+          2
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          2,
+          1,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          4
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          3,
+          4
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          4,
+          3,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          7,
+          6,
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          8,
+          7,
+          6,
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          10,
+          9,
+          8,
+          7,
+          6,
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          100,
+          100
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          100,
+          100,
+          100
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          100,
+          100,
+          100,
+          100
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          100,
+          99
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          99,
+          1,
+          100
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          100,
+          100
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          50,
+          50,
+          50,
+          50
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          25,
+          25,
+          25,
+          25,
+          25,
+          25,
+          25,
+          25
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          14,
+          9,
+          8,
+          4,
+          3,
+          2
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          3,
+          3,
+          3,
+          4,
+          5
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          5,
+          2
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          2,
+          2,
+          3,
+          5
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          1,
+          3,
+          3,
+          7
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          3,
+          1,
+          1,
+          2,
+          2,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          5
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          5,
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          23,
+          13,
+          11,
+          7,
+          6,
+          5,
+          5
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          66,
+          90,
+          7,
+          6,
+          32,
+          16,
+          1,
+          28
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          28,
+          63,
+          95,
+          30,
+          39,
+          16,
+          36,
+          44,
+          37
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          5,
+          5,
+          11
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          11,
+          5,
+          5,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          5,
+          1,
+          11,
+          5
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          5,
+          11,
+          1,
+          5
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          5,
+          5,
+          1,
+          11
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          11,
+          1,
+          5,
+          5
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          3,
+          4,
+          6
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          6,
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": []
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          0
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          -1
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          2,
+          1
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          0,
+          0,
+          0
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          -1,
+          -1,
+          -1
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          -5,
+          -3,
+          -1,
+          0,
+          2,
+          4
+        ]
+      },
+      "expected": false
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          -1,
+          2,
+          -2,
+          0
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          100,
+          200,
+          300
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          -100,
+          -200,
+          -300
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          0,
+          1,
+          0,
+          1,
+          0
+        ]
+      },
+      "expected": true
+    },
+    {
+      "input": {
+        "nums": [
+          1,
+          2,
+          1,
+          2,
+          1,
+          2
+        ]
+      },
+      "expected": false
+    }
   ]
 }

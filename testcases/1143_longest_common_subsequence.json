@@ -2,91 +2,693 @@
   "problem_id": 1143,
   "title": "Longest Common Subsequence",
   "run_tests": [
-    {"input": {"text1": "abcde", "text2": "ace"}, "expected": 3},
-    {"input": {"text1": "abc", "text2": "abc"}, "expected": 3},
-    {"input": {"text1": "abc", "text2": "def"}, "expected": 0},
-    {"input": {"text1": "a", "text2": "a"}, "expected": 1},
-    {"input": {"text1": "a", "text2": "b"}, "expected": 0}
+    {
+      "input": {
+        "text1": "abcde",
+        "text2": "ace"
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "text1": "abc",
+        "text2": "abc"
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "text1": "abc",
+        "text2": "def"
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "text1": "a",
+        "text2": "a"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "a",
+        "text2": "b"
+      },
+      "expected": 0
+    }
   ],
   "submit_tests": [
-    {"input": {"text1": "abcde", "text2": "ace"}, "expected": 3},
-    {"input": {"text1": "abc", "text2": "abc"}, "expected": 3},
-    {"input": {"text1": "abc", "text2": "def"}, "expected": 0},
-    {"input": {"text1": "a", "text2": "a"}, "expected": 1},
-    {"input": {"text1": "a", "text2": "b"}, "expected": 0},
-    {"input": {"text1": "ab", "text2": "ab"}, "expected": 2},
-    {"input": {"text1": "ab", "text2": "ba"}, "expected": 1},
-    {"input": {"text1": "ab", "text2": "cd"}, "expected": 0},
-    {"input": {"text1": "aa", "text2": "aa"}, "expected": 2},
-    {"input": {"text1": "aa", "text2": "a"}, "expected": 1},
-    {"input": {"text1": "a", "text2": "aa"}, "expected": 1},
-    {"input": {"text1": "aaa", "text2": "aaa"}, "expected": 3},
-    {"input": {"text1": "aaa", "text2": "a"}, "expected": 1},
-    {"input": {"text1": "a", "text2": "aaa"}, "expected": 1},
-    {"input": {"text1": "abc", "text2": "a"}, "expected": 1},
-    {"input": {"text1": "abc", "text2": "b"}, "expected": 1},
-    {"input": {"text1": "abc", "text2": "c"}, "expected": 1},
-    {"input": {"text1": "abc", "text2": "ab"}, "expected": 2},
-    {"input": {"text1": "abc", "text2": "bc"}, "expected": 2},
-    {"input": {"text1": "abc", "text2": "ac"}, "expected": 2},
-    {"input": {"text1": "abc", "text2": "cba"}, "expected": 1},
-    {"input": {"text1": "abcd", "text2": "abcd"}, "expected": 4},
-    {"input": {"text1": "abcd", "text2": "dcba"}, "expected": 1},
-    {"input": {"text1": "abcd", "text2": "acbd"}, "expected": 3},
-    {"input": {"text1": "abcd", "text2": "ad"}, "expected": 2},
-    {"input": {"text1": "abcde", "text2": "abcde"}, "expected": 5},
-    {"input": {"text1": "abcde", "text2": "edcba"}, "expected": 1},
-    {"input": {"text1": "abcde", "text2": "aec"}, "expected": 2},
-    {"input": {"text1": "abcde", "text2": "bd"}, "expected": 2},
-    {"input": {"text1": "abcde", "text2": "ae"}, "expected": 2},
-    {"input": {"text1": "abcdefg", "text2": "abcdefg"}, "expected": 7},
-    {"input": {"text1": "abcdefg", "text2": "gfedcba"}, "expected": 1},
-    {"input": {"text1": "abcdefg", "text2": "aceg"}, "expected": 4},
-    {"input": {"text1": "abcdefg", "text2": "bdf"}, "expected": 3},
-    {"input": {"text1": "abcdefghij", "text2": "abcdefghij"}, "expected": 10},
-    {"input": {"text1": "abcdefghij", "text2": "jihgfedcba"}, "expected": 1},
-    {"input": {"text1": "abcdefghij", "text2": "acegi"}, "expected": 5},
-    {"input": {"text1": "abcdefghij", "text2": "bdfhj"}, "expected": 5},
-    {"input": {"text1": "bsbininm", "text2": "jmjkbkjkv"}, "expected": 1},
-    {"input": {"text1": "oxcpqrsvwf", "text2": "shmtulqrypy"}, "expected": 2},
-    {"input": {"text1": "hofubmnylkra", "text2": "pqhgxgdofcvmr"}, "expected": 5},
-    {"input": {"text1": "bl", "text2": "yby"}, "expected": 1},
-    {"input": {"text1": "pmjghexybyrgzczy", "text2": "hafcdqbgncrcbihkd"}, "expected": 4},
-    {"input": {"text1": "ezupkr", "text2": "ubmrapg"}, "expected": 2},
-    {"input": {"text1": "aaaa", "text2": "aaaa"}, "expected": 4},
-    {"input": {"text1": "aaaa", "text2": "bbbb"}, "expected": 0},
-    {"input": {"text1": "abab", "text2": "baba"}, "expected": 3},
-    {"input": {"text1": "abab", "text2": "abab"}, "expected": 4},
-    {"input": {"text1": "abab", "text2": "cdcd"}, "expected": 0},
-    {"input": {"text1": "aabb", "text2": "bbaa"}, "expected": 2},
-    {"input": {"text1": "aabb", "text2": "abab"}, "expected": 3},
-    {"input": {"text1": "abcabc", "text2": "abcabc"}, "expected": 6},
-    {"input": {"text1": "abcabc", "text2": "cbacba"}, "expected": 4},
-    {"input": {"text1": "abcabc", "text2": "abc"}, "expected": 3},
-    {"input": {"text1": "abc", "text2": "abcabc"}, "expected": 3},
-    {"input": {"text1": "xyzabc", "text2": "abcxyz"}, "expected": 3},
-    {"input": {"text1": "abcxyz", "text2": "xyzabc"}, "expected": 3},
-    {"input": {"text1": "xaxbxcx", "text2": "abc"}, "expected": 3},
-    {"input": {"text1": "abc", "text2": "xaxbxcx"}, "expected": 3},
-    {"input": {"text1": "axyb", "text2": "abyxb"}, "expected": 3},
-    {"input": {"text1": "psnw", "text2": "vozsh"}, "expected": 1},
-    {"input": {"text1": "mhunuzqrkzsnidwbun", "text2": "szulspmhwpazoxijwbq"}, "expected": 6},
-    {"input": {"text1": "programming", "text2": "contest"}, "expected": 2},
-    {"input": {"text1": "algorithm", "text2": "logarithm"}, "expected": 7},
-    {"input": {"text1": "subsequence", "text2": "consequence"}, "expected": 8},
-    {"input": {"text1": "dynamic", "text2": "programming"}, "expected": 2},
-    {"input": {"text1": "computer", "text2": "science"}, "expected": 2},
-    {"input": {"text1": "abcdefghijklmnop", "text2": "abcdefghijklmnop"}, "expected": 16},
-    {"input": {"text1": "abcdefghijklmnop", "text2": "ponmlkjihgfedcba"}, "expected": 1},
-    {"input": {"text1": "abcdefghijklmnop", "text2": "acegikmop"}, "expected": 9},
-    {"input": {"text1": "abcdefghijklmnop", "text2": "bdfhjlnp"}, "expected": 8},
-    {"input": {"text1": "aaaaaaaaaa", "text2": "aaaaaaaaaa"}, "expected": 10},
-    {"input": {"text1": "aaaaaaaaaa", "text2": "bbbbbbbbbb"}, "expected": 0},
-    {"input": {"text1": "ababababab", "text2": "bababababab"}, "expected": 10},
-    {"input": {"text1": "abababab", "text2": "abababab"}, "expected": 8},
-    {"input": {"text1": "xyxyxyxyxy", "text2": "yxyxyxyxyx"}, "expected": 9},
-    {"input": {"text1": "qpqpqpqpqp", "text2": "pqpqpqpqpq"}, "expected": 9},
-    {"input": {"text1": "aaaabbbb", "text2": "bbbbaaaa"}, "expected": 4},
-    {"input": {"text1": "aabbccdd", "text2": "ddccbbaa"}, "expected": 2}
+    {
+      "input": {
+        "text1": "abcde",
+        "text2": "ace"
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "text1": "abc",
+        "text2": "abc"
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "text1": "abc",
+        "text2": "def"
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "text1": "a",
+        "text2": "a"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "a",
+        "text2": "b"
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "text1": "ab",
+        "text2": "ab"
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "text1": "ab",
+        "text2": "ba"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "ab",
+        "text2": "cd"
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "text1": "aa",
+        "text2": "aa"
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "text1": "aa",
+        "text2": "a"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "a",
+        "text2": "aa"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "aaa",
+        "text2": "aaa"
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "text1": "aaa",
+        "text2": "a"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "a",
+        "text2": "aaa"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "abc",
+        "text2": "a"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "abc",
+        "text2": "b"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "abc",
+        "text2": "c"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "abc",
+        "text2": "ab"
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "text1": "abc",
+        "text2": "bc"
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "text1": "abc",
+        "text2": "ac"
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "text1": "abc",
+        "text2": "cba"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "abcd",
+        "text2": "abcd"
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "text1": "abcd",
+        "text2": "dcba"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "abcd",
+        "text2": "acbd"
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "text1": "abcd",
+        "text2": "ad"
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "text1": "abcde",
+        "text2": "abcde"
+      },
+      "expected": 5
+    },
+    {
+      "input": {
+        "text1": "abcde",
+        "text2": "edcba"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "abcde",
+        "text2": "aec"
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "text1": "abcde",
+        "text2": "bd"
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "text1": "abcde",
+        "text2": "ae"
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "text1": "abcdefg",
+        "text2": "abcdefg"
+      },
+      "expected": 7
+    },
+    {
+      "input": {
+        "text1": "abcdefg",
+        "text2": "gfedcba"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "abcdefg",
+        "text2": "aceg"
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "text1": "abcdefg",
+        "text2": "bdf"
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "text1": "abcdefghij",
+        "text2": "abcdefghij"
+      },
+      "expected": 10
+    },
+    {
+      "input": {
+        "text1": "abcdefghij",
+        "text2": "jihgfedcba"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "abcdefghij",
+        "text2": "acegi"
+      },
+      "expected": 5
+    },
+    {
+      "input": {
+        "text1": "abcdefghij",
+        "text2": "bdfhj"
+      },
+      "expected": 5
+    },
+    {
+      "input": {
+        "text1": "bsbininm",
+        "text2": "jmjkbkjkv"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "oxcpqrsvwf",
+        "text2": "shmtulqrypy"
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "text1": "hofubmnylkra",
+        "text2": "pqhgxgdofcvmr"
+      },
+      "expected": 5
+    },
+    {
+      "input": {
+        "text1": "bl",
+        "text2": "yby"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "pmjghexybyrgzczy",
+        "text2": "hafcdqbgncrcbihkd"
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "text1": "ezupkr",
+        "text2": "ubmrapg"
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "text1": "aaaa",
+        "text2": "aaaa"
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "text1": "aaaa",
+        "text2": "bbbb"
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "text1": "abab",
+        "text2": "baba"
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "text1": "abab",
+        "text2": "abab"
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "text1": "abab",
+        "text2": "cdcd"
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "text1": "aabb",
+        "text2": "bbaa"
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "text1": "aabb",
+        "text2": "abab"
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "text1": "abcabc",
+        "text2": "abcabc"
+      },
+      "expected": 6
+    },
+    {
+      "input": {
+        "text1": "abcabc",
+        "text2": "cbacba"
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "text1": "abcabc",
+        "text2": "abc"
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "text1": "abc",
+        "text2": "abcabc"
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "text1": "xyzabc",
+        "text2": "abcxyz"
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "text1": "abcxyz",
+        "text2": "xyzabc"
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "text1": "xaxbxcx",
+        "text2": "abc"
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "text1": "abc",
+        "text2": "xaxbxcx"
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "text1": "axyb",
+        "text2": "abyxb"
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "text1": "psnw",
+        "text2": "vozsh"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "mhunuzqrkzsnidwbun",
+        "text2": "szulspmhwpazoxijwbq"
+      },
+      "expected": 6
+    },
+    {
+      "input": {
+        "text1": "programming",
+        "text2": "contest"
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "text1": "algorithm",
+        "text2": "logarithm"
+      },
+      "expected": 7
+    },
+    {
+      "input": {
+        "text1": "subsequence",
+        "text2": "consequence"
+      },
+      "expected": 8
+    },
+    {
+      "input": {
+        "text1": "dynamic",
+        "text2": "programming"
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "text1": "computer",
+        "text2": "science"
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "text1": "abcdefghijklmnop",
+        "text2": "abcdefghijklmnop"
+      },
+      "expected": 16
+    },
+    {
+      "input": {
+        "text1": "abcdefghijklmnop",
+        "text2": "ponmlkjihgfedcba"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "abcdefghijklmnop",
+        "text2": "acegikmop"
+      },
+      "expected": 9
+    },
+    {
+      "input": {
+        "text1": "abcdefghijklmnop",
+        "text2": "bdfhjlnp"
+      },
+      "expected": 8
+    },
+    {
+      "input": {
+        "text1": "aaaaaaaaaa",
+        "text2": "aaaaaaaaaa"
+      },
+      "expected": 10
+    },
+    {
+      "input": {
+        "text1": "aaaaaaaaaa",
+        "text2": "bbbbbbbbbb"
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "text1": "ababababab",
+        "text2": "bababababab"
+      },
+      "expected": 10
+    },
+    {
+      "input": {
+        "text1": "abababab",
+        "text2": "abababab"
+      },
+      "expected": 8
+    },
+    {
+      "input": {
+        "text1": "xyxyxyxyxy",
+        "text2": "yxyxyxyxyx"
+      },
+      "expected": 9
+    },
+    {
+      "input": {
+        "text1": "qpqpqpqpqp",
+        "text2": "pqpqpqpqpq"
+      },
+      "expected": 9
+    },
+    {
+      "input": {
+        "text1": "aaaabbbb",
+        "text2": "bbbbaaaa"
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "text1": "aabbccdd",
+        "text2": "ddccbbaa"
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "text1": "",
+        "text2": ""
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "text1": "",
+        "text2": "a"
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "text1": "",
+        "text2": "aa"
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "text1": "",
+        "text2": "ab"
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "text1": "",
+        "text2": "aaa"
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "text1": "a",
+        "text2": ""
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "text1": "a",
+        "text2": "ab"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "aa",
+        "text2": ""
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "text1": "aa",
+        "text2": "ab"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "aa",
+        "text2": "aaa"
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "text1": "ab",
+        "text2": ""
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "text1": "ab",
+        "text2": "a"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "ab",
+        "text2": "aa"
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "text1": "ab",
+        "text2": "aaa"
+      },
+      "expected": 1
+    }
   ]
 }

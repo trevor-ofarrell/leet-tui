@@ -2,140 +2,1982 @@
   "problem_id": 127,
   "title": "Word Ladder",
   "run_tests": [
-    {"input": ["hit", "cog", ["hot","dot","dog","lot","log","cog"]], "expected": 5},
-    {"input": ["hit", "cog", ["hot","dot","dog","lot","log"]], "expected": 0},
-    {"input": ["a", "c", ["a","b","c"]], "expected": 2},
-    {"input": ["hot", "dog", ["hot","dog"]], "expected": 0},
-    {"input": ["cat", "dog", ["cat","cot","cog","dog"]], "expected": 4}
+    {
+      "input": [
+        "hit",
+        "cog",
+        [
+          "hot",
+          "dot",
+          "dog",
+          "lot",
+          "log",
+          "cog"
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "hit",
+        "cog",
+        [
+          "hot",
+          "dot",
+          "dog",
+          "lot",
+          "log"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "a",
+        "c",
+        [
+          "a",
+          "b",
+          "c"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "hot",
+        "dog",
+        [
+          "hot",
+          "dog"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "cat",
+        "dog",
+        [
+          "cat",
+          "cot",
+          "cog",
+          "dog"
+        ]
+      ],
+      "expected": 4
+    }
   ],
   "submit_tests": [
-    {"input": ["hit", "cog", ["hot","dot","dog","lot","log","cog"]], "expected": 5},
-    {"input": ["hit", "cog", ["hot","dot","dog","lot","log"]], "expected": 0},
-    {"input": ["a", "c", ["a","b","c"]], "expected": 2},
-    {"input": ["hot", "dog", ["hot","dog"]], "expected": 0},
-    {"input": ["cat", "dog", ["cat","cot","cog","dog"]], "expected": 4},
-    {"input": ["a", "b", ["b"]], "expected": 2},
-    {"input": ["a", "b", ["a","c"]], "expected": 0},
-    {"input": ["ab", "cd", ["ab","ad","cd"]], "expected": 3},
-    {"input": ["abc", "def", ["abc","dbc","dec","def"]], "expected": 4},
-    {"input": ["game", "code", ["game","gale","gale","code"]], "expected": 0},
-    {"input": ["game", "code", ["came","game","code","cade"]], "expected": 0},
-    {"input": ["game", "code", ["game","came","cade","code"]], "expected": 4},
-    {"input": ["aaa", "bbb", ["aab","abb","bbb"]], "expected": 4},
-    {"input": ["red", "tax", ["ted","tex","red","tax","tad","den","rex","pee"]], "expected": 4},
-    {"input": ["lost", "miss", ["most","mist","miss","lost","fist","fish"]], "expected": 4},
-    {"input": ["lost", "cost", ["most","cost","lost"]], "expected": 2},
-    {"input": ["talk", "tail", ["talk","tall","tail"]], "expected": 3},
-    {"input": ["sand", "acne", ["sand","sane","acne"]], "expected": 3},
-    {"input": ["hit", "hot", ["hot"]], "expected": 2},
-    {"input": ["hot", "hot", ["hot"]], "expected": 0},
-    {"input": ["abc", "abc", ["abc"]], "expected": 0},
-    {"input": ["dog", "cog", ["cog"]], "expected": 2},
-    {"input": ["dog", "cog", ["log","cog"]], "expected": 2},
-    {"input": ["dog", "log", ["log"]], "expected": 2},
-    {"input": ["leet", "code", ["leet","leet","code"]], "expected": 0},
-    {"input": ["qa", "sq", ["si","go","se","cm","so","ph","os","sq"]], "expected": 0},
-    {"input": ["qa", "sq", ["si","go","se","cm","so","ph","os","sq","sa"]], "expected": 0},
-    {"input": ["ta", "if", ["ts","sc","ph","ca","jr","hf","to","if","ha","is","io"]], "expected": 0},
-    {"input": ["kiss", "tusk", ["miss","dusk","kiss","musk","tusk","diss","disk","sang","ties","muss"]], "expected": 5},
-    {"input": ["this", "that", ["this","thit","that"]], "expected": 3},
-    {"input": ["aaaa", "zzzz", ["aaaz","aazz","azzz","zzzz"]], "expected": 5},
-    {"input": ["aaaa", "zzzz", ["zaaa","zzaa","zzza","zzzz"]], "expected": 5},
-    {"input": ["abc", "xyz", ["abx","axx","xxx","xxz","xyz"]], "expected": 6},
-    {"input": ["abc", "xyz", ["abc"]], "expected": 0},
-    {"input": ["aa", "bb", ["ab","bb"]], "expected": 3},
-    {"input": ["aa", "bb", ["ba","bb"]], "expected": 3},
-    {"input": ["ab", "ba", ["bb","ba"]], "expected": 3},
-    {"input": ["ab", "ba", ["aa","ba"]], "expected": 3},
-    {"input": ["abcd", "dcba", ["abca","dbca","dcba"]], "expected": 4},
-    {"input": ["star", "stop", ["star","scar","scop","stop"]], "expected": 0},
-    {"input": ["star", "stop", ["star","stor","stop"]], "expected": 3},
-    {"input": ["mare", "mage", ["mare","mage"]], "expected": 2},
-    {"input": ["mare", "mage", ["mare","more","moge","mage"]], "expected": 4},
-    {"input": ["lead", "gold", ["load","goad","gold","lead"]], "expected": 4},
-    {"input": ["best", "lost", ["best","lest","lost"]], "expected": 3},
-    {"input": ["lost", "best", ["bost","best","lost"]], "expected": 3},
-    {"input": ["five", "four", ["five","fire","fore","fore","four"]], "expected": 4},
-    {"input": ["five", "nine", ["five","fine","nine"]], "expected": 3},
-    {"input": ["sail", "boat", ["sail","bail","bait","boat"]], "expected": 4},
-    {"input": ["sail", "boat", ["sail","bail","bait"]], "expected": 0},
-    {"input": ["slow", "fast", ["slow","slot","flat","fast"]], "expected": 0},
-    {"input": ["slow", "fast", ["slow","slaw","flaw","flay","flat","fast"]], "expected": 6},
-    {"input": ["read", "play", ["read","rpad","plad","play"]], "expected": 0},
-    {"input": ["mind", "body", ["bind","bond","body","mind"]], "expected": 4},
-    {"input": ["test", "rest", ["rest"]], "expected": 2},
-    {"input": ["test", "best", ["best"]], "expected": 2},
-    {"input": ["test", "west", ["west"]], "expected": 2},
-    {"input": ["test", "nest", ["nest"]], "expected": 2},
-    {"input": ["abcde", "edcba", ["abcda","abcba","ebcba","edcba"]], "expected": 5},
-    {"input": ["aab", "bba", ["aab","abb","bbb","bba"]], "expected": 4},
-    {"input": ["ab", "cd", ["ad","cd"]], "expected": 3},
-    {"input": ["ab", "cd", ["cb","cd"]], "expected": 3},
-    {"input": ["ab", "ab", []], "expected": 0},
-    {"input": ["abc", "def", []], "expected": 0},
-    {"input": ["a", "z", ["b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]], "expected": 2},
-    {"input": ["lm", "no", ["ln","lo","mo","mn","no"]], "expected": 3},
-    {"input": ["cat", "hat", ["hat"]], "expected": 2},
-    {"input": ["cat", "bat", ["bat"]], "expected": 2},
-    {"input": ["cat", "fat", ["fat"]], "expected": 2},
-    {"input": ["cat", "mat", ["mat"]], "expected": 2},
-    {"input": ["hot", "dot", ["hot","dot","dog"]], "expected": 2},
-    {"input": ["hot", "dog", ["hot","dot","dog"]], "expected": 3},
-    {"input": ["cet", "ism", ["cet","get","gee","ges","iss","ism"]], "expected": 0},
-    {"input": ["cet", "ism", ["cet","get","gee","gem","ism","gsm"]], "expected": 0},
-    {"input": ["hit", "cog", ["hot","cot","cog"]], "expected": 4},
-    {"input": ["hit", "cog", ["hot","cot","dot","dog","cog"]], "expected": 4},
-    {"input": ["abc", "abd", ["abd"]], "expected": 2},
-    {"input": ["abc", "bbc", ["bbc"]], "expected": 2},
-    {"input": ["abc", "adc", ["adc"]], "expected": 2},
-    {"input": ["zzz", "aaa", ["azz","aaz","aaa"]], "expected": 4},
-    {"input": ["zzz", "aaa", ["zaz","aaz","aaa"]], "expected": 4},
-    {"input": ["nape", "mild", ["dose","ends","dine","jars","prow","soap","guns","hops","cray","hove","ella","hour","lens","jive","wiry","earl","mara","part","flue","putt","rory","bull","york","ruts","lily","vamp","bask","peer","boat","dens","lyre","jets","wide","rile","boos","down","path","onyx","mows","toke","soto","dork","nape","mans","loin","jots","male","sits","minn","sale","pets","hugo","woke","suds","rugs","vole","warp","mite","pews","lips","pals","nigh","sulk","vice","clod","iowa","gibe","shad","carl","huns","coot","sera","mils","rose","orly","ford","void","time","eloy","risk","veep","reps","dolt","hens","tray","melt","rung","rich","saga","lust","yews","rode","many","cods","rape","last","tile","nosy","take","nope","toni","bank","jock","jody","diss","nips","bake","lima","wore","kins","cult","hart","wuss","tale","sing","lake","bogy","wigs","kari","magi","bass","pent","tost","fops","bags","duns","will","tart","drug","gale","mold","disk","spay","hows","naps","puss","gina","kara","zorn","boll","cams","boas","rave","sets","lego","hays","judy","chap","live","bahs","ohio","nibs","cuts","pups","data","kate","rump","hews","mary","stow","fang","bolt","rues","mesh","mice","rise","rant","dune","jell","laws","jove","bode","sung","nils","vila","mode","hued","cell","fies","swot","wads","gust","lamb","reis","curd","rev","kev","hulk","euds","slim","oh","smew","anna","elms","rove","drab","elms","wist","coat","san","scam","cell","spud","deem","span","oven","hall","harv","cent","yawn","tiki","pang","bert","bobs","semi","cert","wuss","bern","onus","fawn","oils","heep","taps","laud","tutt","brad","hump","raps","dena","emit","chum","lite","haul","laps","rats","bail","keck","hoot","dory","bide","hast","gnar","late","fees","alms","poor","dear","coil","lend","mike","aid","yaks","aver","pens","wash","visa","huey","paid","neat","sown","foes","viny","paid","mows","pert","fuss","dogs","lore","dare","foes","jowl","warm","enos","lola","chaw","chow","tits","lour","shaw","chet","orbs","gown","eked","gals","poll","gush","sash","brim","woof","tyke","chap","peal","nats","hoax","ells","shin","brig","tats","jots","axel","dolt","glen","pats","alit","bold","oast","nods","burp","foes","lank","buss","coke","nags","true","says","eggs","slab","void","laud","jade","yews","bile","stow","lice","pout","quay","wive","pout","knit","sloe","orly","foes","bays","cove","life","oleo","pock","pole","bold","wart","cyst","prom","noel","dine","mile","soul","gift","etch","doth","jars","piny","bead","ahem","weed","dolt","buoy","mild"]], "expected": 6},
-    {"input": ["same", "game", ["same","game"]], "expected": 2},
-    {"input": ["same", "tame", ["same","tame"]], "expected": 2},
-    {"input": ["same", "dame", ["same","dame"]], "expected": 2},
-    {"input": ["same", "same", ["same","tame","dame"]], "expected": 0},
-    {"input": ["lost", "lost", ["lost","most","cost"]], "expected": 0},
-    {"input": ["cat", "dog", ["cat","bat","bet","bot","dog"]], "expected": 0},
-    {"input": ["cat", "dog", ["cat","dat","dag","dog"]], "expected": 4},
-    {"input": ["abc", "xyz", ["dbc","dxc","dxz","xyz"]], "expected": 5},
-    {"input": ["abc", "xyx", ["axc","xxc","xxx","xyx"]], "expected": 5},
-    {"input": ["aaa", "zzz", ["aaz","azz","zzz"]], "expected": 4},
-    {"input": ["aaa", "zzz", ["zaa","zza","zzz"]], "expected": 4},
-    {"input": ["aaa", "zzz", ["aza","azz","zzz"]], "expected": 4},
-    {"input": ["word", "work", ["work"]], "expected": 2},
-    {"input": ["word", "worm", ["worm"]], "expected": 2},
-    {"input": ["word", "wore", ["wore"]], "expected": 2},
-    {"input": ["word", "cord", ["cord"]], "expected": 2},
-    {"input": ["abcd", "abcd", ["abcd","efgh"]], "expected": 0},
-    {"input": ["aaaa", "bbbb", ["aaab","aabb","abbb","bbbb"]], "expected": 5},
-    {"input": ["aaaa", "bbbb", ["baaa","bbaa","bbba","bbbb"]], "expected": 5},
-    {"input": ["aaaa", "bbbb", ["abaa","abba","abbb","bbbb"]], "expected": 5},
-    {"input": ["luck", "duck", ["duck"]], "expected": 2},
-    {"input": ["luck", "lock", ["lock"]], "expected": 2},
-    {"input": ["luck", "lick", ["lick"]], "expected": 2},
-    {"input": ["abc", "cba", ["cbc","cba"]], "expected": 3},
-    {"input": ["abc", "cba", ["aba","cba"]], "expected": 3},
-    {"input": ["leet", "code", ["leed","ceed","coed","code"]], "expected": 5},
-    {"input": ["sand", "hand", ["hand"]], "expected": 2},
-    {"input": ["sand", "band", ["band"]], "expected": 2},
-    {"input": ["sand", "wand", ["wand"]], "expected": 2},
-    {"input": ["sand", "land", ["land"]], "expected": 2},
-    {"input": ["ab", "yz", ["az","yz"]], "expected": 3},
-    {"input": ["ab", "yz", ["yb","yz"]], "expected": 3},
-    {"input": ["aba", "cdc", ["abc","cbc","cdc"]], "expected": 4},
-    {"input": ["mass", "mall", ["mass","mast","malt","mall"]], "expected": 4},
-    {"input": ["cold", "warm", ["cold","cord","card","ward","warm"]], "expected": 5},
-    {"input": ["head", "tail", ["head","heal","teal","tell","tall","tail"]], "expected": 6},
-    {"input": ["lead", "gold", ["lead","load","goad","gold"]], "expected": 4},
-    {"input": ["charge", "comedo", ["change","charge","comedo"]], "expected": 0},
-    {"input": ["abc", "bcd", ["abc","bbc","bbd","bcd"]], "expected": 4},
-    {"input": ["abc", "def", ["dbc","dfc","dfe","def"]], "expected": 5},
-    {"input": ["abc", "ghi", ["dbc","dhi","ghi"]], "expected": 4},
-    {"input": ["catch", "hatch", ["catch","hatch"]], "expected": 2},
-    {"input": ["light", "night", ["light","night"]], "expected": 2},
-    {"input": ["right", "sight", ["sight"]], "expected": 2},
-    {"input": ["fight", "might", ["might"]], "expected": 2},
-    {"input": ["tight", "light", ["light"]], "expected": 2}
+    {
+      "input": [
+        "hit",
+        "cog",
+        [
+          "hot",
+          "dot",
+          "dog",
+          "lot",
+          "log",
+          "cog"
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "hit",
+        "cog",
+        [
+          "hot",
+          "dot",
+          "dog",
+          "lot",
+          "log"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "a",
+        "c",
+        [
+          "a",
+          "b",
+          "c"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "hot",
+        "dog",
+        [
+          "hot",
+          "dog"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "cat",
+        "dog",
+        [
+          "cat",
+          "cot",
+          "cog",
+          "dog"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "a",
+        "b",
+        [
+          "b"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "a",
+        "b",
+        [
+          "a",
+          "c"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "ab",
+        "cd",
+        [
+          "ab",
+          "ad",
+          "cd"
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "abc",
+        "def",
+        [
+          "abc",
+          "dbc",
+          "dec",
+          "def"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "game",
+        "code",
+        [
+          "game",
+          "gale",
+          "gale",
+          "code"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "game",
+        "code",
+        [
+          "came",
+          "game",
+          "code",
+          "cade"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "game",
+        "code",
+        [
+          "game",
+          "came",
+          "cade",
+          "code"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "aaa",
+        "bbb",
+        [
+          "aab",
+          "abb",
+          "bbb"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "red",
+        "tax",
+        [
+          "ted",
+          "tex",
+          "red",
+          "tax",
+          "tad",
+          "den",
+          "rex",
+          "pee"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "lost",
+        "miss",
+        [
+          "most",
+          "mist",
+          "miss",
+          "lost",
+          "fist",
+          "fish"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "lost",
+        "cost",
+        [
+          "most",
+          "cost",
+          "lost"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "talk",
+        "tail",
+        [
+          "talk",
+          "tall",
+          "tail"
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "sand",
+        "acne",
+        [
+          "sand",
+          "sane",
+          "acne"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "hit",
+        "hot",
+        [
+          "hot"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "hot",
+        "hot",
+        [
+          "hot"
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "abc",
+        "abc",
+        [
+          "abc"
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "dog",
+        "cog",
+        [
+          "cog"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "dog",
+        "cog",
+        [
+          "log",
+          "cog"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "dog",
+        "log",
+        [
+          "log"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "leet",
+        "code",
+        [
+          "leet",
+          "leet",
+          "code"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "qa",
+        "sq",
+        [
+          "si",
+          "go",
+          "se",
+          "cm",
+          "so",
+          "ph",
+          "os",
+          "sq"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "qa",
+        "sq",
+        [
+          "si",
+          "go",
+          "se",
+          "cm",
+          "so",
+          "ph",
+          "os",
+          "sq",
+          "sa"
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "ta",
+        "if",
+        [
+          "ts",
+          "sc",
+          "ph",
+          "ca",
+          "jr",
+          "hf",
+          "to",
+          "if",
+          "ha",
+          "is",
+          "io"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "kiss",
+        "tusk",
+        [
+          "miss",
+          "dusk",
+          "kiss",
+          "musk",
+          "tusk",
+          "diss",
+          "disk",
+          "sang",
+          "ties",
+          "muss"
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "this",
+        "that",
+        [
+          "this",
+          "thit",
+          "that"
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "aaaa",
+        "zzzz",
+        [
+          "aaaz",
+          "aazz",
+          "azzz",
+          "zzzz"
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "aaaa",
+        "zzzz",
+        [
+          "zaaa",
+          "zzaa",
+          "zzza",
+          "zzzz"
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "abc",
+        "xyz",
+        [
+          "abx",
+          "axx",
+          "xxx",
+          "xxz",
+          "xyz"
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "abc",
+        "xyz",
+        [
+          "abc"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "aa",
+        "bb",
+        [
+          "ab",
+          "bb"
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "aa",
+        "bb",
+        [
+          "ba",
+          "bb"
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "ab",
+        "ba",
+        [
+          "bb",
+          "ba"
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "ab",
+        "ba",
+        [
+          "aa",
+          "ba"
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "abcd",
+        "dcba",
+        [
+          "abca",
+          "dbca",
+          "dcba"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "star",
+        "stop",
+        [
+          "star",
+          "scar",
+          "scop",
+          "stop"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "star",
+        "stop",
+        [
+          "star",
+          "stor",
+          "stop"
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "mare",
+        "mage",
+        [
+          "mare",
+          "mage"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "mare",
+        "mage",
+        [
+          "mare",
+          "more",
+          "moge",
+          "mage"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "lead",
+        "gold",
+        [
+          "load",
+          "goad",
+          "gold",
+          "lead"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "best",
+        "lost",
+        [
+          "best",
+          "lest",
+          "lost"
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "lost",
+        "best",
+        [
+          "bost",
+          "best",
+          "lost"
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "five",
+        "four",
+        [
+          "five",
+          "fire",
+          "fore",
+          "fore",
+          "four"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "five",
+        "nine",
+        [
+          "five",
+          "fine",
+          "nine"
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "sail",
+        "boat",
+        [
+          "sail",
+          "bail",
+          "bait",
+          "boat"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "sail",
+        "boat",
+        [
+          "sail",
+          "bail",
+          "bait"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "slow",
+        "fast",
+        [
+          "slow",
+          "slot",
+          "flat",
+          "fast"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "slow",
+        "fast",
+        [
+          "slow",
+          "slaw",
+          "flaw",
+          "flay",
+          "flat",
+          "fast"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "read",
+        "play",
+        [
+          "read",
+          "rpad",
+          "plad",
+          "play"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "mind",
+        "body",
+        [
+          "bind",
+          "bond",
+          "body",
+          "mind"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "test",
+        "rest",
+        [
+          "rest"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "test",
+        "best",
+        [
+          "best"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "test",
+        "west",
+        [
+          "west"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "test",
+        "nest",
+        [
+          "nest"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "abcde",
+        "edcba",
+        [
+          "abcda",
+          "abcba",
+          "ebcba",
+          "edcba"
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "aab",
+        "bba",
+        [
+          "aab",
+          "abb",
+          "bbb",
+          "bba"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "ab",
+        "cd",
+        [
+          "ad",
+          "cd"
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "ab",
+        "cd",
+        [
+          "cb",
+          "cd"
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "ab",
+        "ab",
+        []
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "abc",
+        "def",
+        []
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "a",
+        "z",
+        [
+          "b",
+          "c",
+          "d",
+          "e",
+          "f",
+          "g",
+          "h",
+          "i",
+          "j",
+          "k",
+          "l",
+          "m",
+          "n",
+          "o",
+          "p",
+          "q",
+          "r",
+          "s",
+          "t",
+          "u",
+          "v",
+          "w",
+          "x",
+          "y",
+          "z"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "lm",
+        "no",
+        [
+          "ln",
+          "lo",
+          "mo",
+          "mn",
+          "no"
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "cat",
+        "hat",
+        [
+          "hat"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "cat",
+        "bat",
+        [
+          "bat"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "cat",
+        "fat",
+        [
+          "fat"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "cat",
+        "mat",
+        [
+          "mat"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "hot",
+        "dot",
+        [
+          "hot",
+          "dot",
+          "dog"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "hot",
+        "dog",
+        [
+          "hot",
+          "dot",
+          "dog"
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "cet",
+        "ism",
+        [
+          "cet",
+          "get",
+          "gee",
+          "ges",
+          "iss",
+          "ism"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "cet",
+        "ism",
+        [
+          "cet",
+          "get",
+          "gee",
+          "gem",
+          "ism",
+          "gsm"
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "hit",
+        "cog",
+        [
+          "hot",
+          "cot",
+          "cog"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "hit",
+        "cog",
+        [
+          "hot",
+          "cot",
+          "dot",
+          "dog",
+          "cog"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "abc",
+        "abd",
+        [
+          "abd"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "abc",
+        "bbc",
+        [
+          "bbc"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "abc",
+        "adc",
+        [
+          "adc"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "zzz",
+        "aaa",
+        [
+          "azz",
+          "aaz",
+          "aaa"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "zzz",
+        "aaa",
+        [
+          "zaz",
+          "aaz",
+          "aaa"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "nape",
+        "mild",
+        [
+          "dose",
+          "ends",
+          "dine",
+          "jars",
+          "prow",
+          "soap",
+          "guns",
+          "hops",
+          "cray",
+          "hove",
+          "ella",
+          "hour",
+          "lens",
+          "jive",
+          "wiry",
+          "earl",
+          "mara",
+          "part",
+          "flue",
+          "putt",
+          "rory",
+          "bull",
+          "york",
+          "ruts",
+          "lily",
+          "vamp",
+          "bask",
+          "peer",
+          "boat",
+          "dens",
+          "lyre",
+          "jets",
+          "wide",
+          "rile",
+          "boos",
+          "down",
+          "path",
+          "onyx",
+          "mows",
+          "toke",
+          "soto",
+          "dork",
+          "nape",
+          "mans",
+          "loin",
+          "jots",
+          "male",
+          "sits",
+          "minn",
+          "sale",
+          "pets",
+          "hugo",
+          "woke",
+          "suds",
+          "rugs",
+          "vole",
+          "warp",
+          "mite",
+          "pews",
+          "lips",
+          "pals",
+          "nigh",
+          "sulk",
+          "vice",
+          "clod",
+          "iowa",
+          "gibe",
+          "shad",
+          "carl",
+          "huns",
+          "coot",
+          "sera",
+          "mils",
+          "rose",
+          "orly",
+          "ford",
+          "void",
+          "time",
+          "eloy",
+          "risk",
+          "veep",
+          "reps",
+          "dolt",
+          "hens",
+          "tray",
+          "melt",
+          "rung",
+          "rich",
+          "saga",
+          "lust",
+          "yews",
+          "rode",
+          "many",
+          "cods",
+          "rape",
+          "last",
+          "tile",
+          "nosy",
+          "take",
+          "nope",
+          "toni",
+          "bank",
+          "jock",
+          "jody",
+          "diss",
+          "nips",
+          "bake",
+          "lima",
+          "wore",
+          "kins",
+          "cult",
+          "hart",
+          "wuss",
+          "tale",
+          "sing",
+          "lake",
+          "bogy",
+          "wigs",
+          "kari",
+          "magi",
+          "bass",
+          "pent",
+          "tost",
+          "fops",
+          "bags",
+          "duns",
+          "will",
+          "tart",
+          "drug",
+          "gale",
+          "mold",
+          "disk",
+          "spay",
+          "hows",
+          "naps",
+          "puss",
+          "gina",
+          "kara",
+          "zorn",
+          "boll",
+          "cams",
+          "boas",
+          "rave",
+          "sets",
+          "lego",
+          "hays",
+          "judy",
+          "chap",
+          "live",
+          "bahs",
+          "ohio",
+          "nibs",
+          "cuts",
+          "pups",
+          "data",
+          "kate",
+          "rump",
+          "hews",
+          "mary",
+          "stow",
+          "fang",
+          "bolt",
+          "rues",
+          "mesh",
+          "mice",
+          "rise",
+          "rant",
+          "dune",
+          "jell",
+          "laws",
+          "jove",
+          "bode",
+          "sung",
+          "nils",
+          "vila",
+          "mode",
+          "hued",
+          "cell",
+          "fies",
+          "swot",
+          "wads",
+          "gust",
+          "lamb",
+          "reis",
+          "curd",
+          "rev",
+          "kev",
+          "hulk",
+          "euds",
+          "slim",
+          "oh",
+          "smew",
+          "anna",
+          "elms",
+          "rove",
+          "drab",
+          "elms",
+          "wist",
+          "coat",
+          "san",
+          "scam",
+          "cell",
+          "spud",
+          "deem",
+          "span",
+          "oven",
+          "hall",
+          "harv",
+          "cent",
+          "yawn",
+          "tiki",
+          "pang",
+          "bert",
+          "bobs",
+          "semi",
+          "cert",
+          "wuss",
+          "bern",
+          "onus",
+          "fawn",
+          "oils",
+          "heep",
+          "taps",
+          "laud",
+          "tutt",
+          "brad",
+          "hump",
+          "raps",
+          "dena",
+          "emit",
+          "chum",
+          "lite",
+          "haul",
+          "laps",
+          "rats",
+          "bail",
+          "keck",
+          "hoot",
+          "dory",
+          "bide",
+          "hast",
+          "gnar",
+          "late",
+          "fees",
+          "alms",
+          "poor",
+          "dear",
+          "coil",
+          "lend",
+          "mike",
+          "aid",
+          "yaks",
+          "aver",
+          "pens",
+          "wash",
+          "visa",
+          "huey",
+          "paid",
+          "neat",
+          "sown",
+          "foes",
+          "viny",
+          "paid",
+          "mows",
+          "pert",
+          "fuss",
+          "dogs",
+          "lore",
+          "dare",
+          "foes",
+          "jowl",
+          "warm",
+          "enos",
+          "lola",
+          "chaw",
+          "chow",
+          "tits",
+          "lour",
+          "shaw",
+          "chet",
+          "orbs",
+          "gown",
+          "eked",
+          "gals",
+          "poll",
+          "gush",
+          "sash",
+          "brim",
+          "woof",
+          "tyke",
+          "chap",
+          "peal",
+          "nats",
+          "hoax",
+          "ells",
+          "shin",
+          "brig",
+          "tats",
+          "jots",
+          "axel",
+          "dolt",
+          "glen",
+          "pats",
+          "alit",
+          "bold",
+          "oast",
+          "nods",
+          "burp",
+          "foes",
+          "lank",
+          "buss",
+          "coke",
+          "nags",
+          "true",
+          "says",
+          "eggs",
+          "slab",
+          "void",
+          "laud",
+          "jade",
+          "yews",
+          "bile",
+          "stow",
+          "lice",
+          "pout",
+          "quay",
+          "wive",
+          "pout",
+          "knit",
+          "sloe",
+          "orly",
+          "foes",
+          "bays",
+          "cove",
+          "life",
+          "oleo",
+          "pock",
+          "pole",
+          "bold",
+          "wart",
+          "cyst",
+          "prom",
+          "noel",
+          "dine",
+          "mile",
+          "soul",
+          "gift",
+          "etch",
+          "doth",
+          "jars",
+          "piny",
+          "bead",
+          "ahem",
+          "weed",
+          "dolt",
+          "buoy",
+          "mild"
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "same",
+        "game",
+        [
+          "same",
+          "game"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "same",
+        "tame",
+        [
+          "same",
+          "tame"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "same",
+        "dame",
+        [
+          "same",
+          "dame"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "same",
+        "same",
+        [
+          "same",
+          "tame",
+          "dame"
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "lost",
+        "lost",
+        [
+          "lost",
+          "most",
+          "cost"
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "cat",
+        "dog",
+        [
+          "cat",
+          "bat",
+          "bet",
+          "bot",
+          "dog"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "cat",
+        "dog",
+        [
+          "cat",
+          "dat",
+          "dag",
+          "dog"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "abc",
+        "xyz",
+        [
+          "dbc",
+          "dxc",
+          "dxz",
+          "xyz"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "abc",
+        "xyx",
+        [
+          "axc",
+          "xxc",
+          "xxx",
+          "xyx"
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "aaa",
+        "zzz",
+        [
+          "aaz",
+          "azz",
+          "zzz"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "aaa",
+        "zzz",
+        [
+          "zaa",
+          "zza",
+          "zzz"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "aaa",
+        "zzz",
+        [
+          "aza",
+          "azz",
+          "zzz"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "word",
+        "work",
+        [
+          "work"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "word",
+        "worm",
+        [
+          "worm"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "word",
+        "wore",
+        [
+          "wore"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "word",
+        "cord",
+        [
+          "cord"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "abcd",
+        "abcd",
+        [
+          "abcd",
+          "efgh"
+        ]
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "aaaa",
+        "bbbb",
+        [
+          "aaab",
+          "aabb",
+          "abbb",
+          "bbbb"
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "aaaa",
+        "bbbb",
+        [
+          "baaa",
+          "bbaa",
+          "bbba",
+          "bbbb"
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "aaaa",
+        "bbbb",
+        [
+          "abaa",
+          "abba",
+          "abbb",
+          "bbbb"
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "luck",
+        "duck",
+        [
+          "duck"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "luck",
+        "lock",
+        [
+          "lock"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "luck",
+        "lick",
+        [
+          "lick"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "abc",
+        "cba",
+        [
+          "cbc",
+          "cba"
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "abc",
+        "cba",
+        [
+          "aba",
+          "cba"
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "leet",
+        "code",
+        [
+          "leed",
+          "ceed",
+          "coed",
+          "code"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "sand",
+        "hand",
+        [
+          "hand"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "sand",
+        "band",
+        [
+          "band"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "sand",
+        "wand",
+        [
+          "wand"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "sand",
+        "land",
+        [
+          "land"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "ab",
+        "yz",
+        [
+          "az",
+          "yz"
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "ab",
+        "yz",
+        [
+          "yb",
+          "yz"
+        ]
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "aba",
+        "cdc",
+        [
+          "abc",
+          "cbc",
+          "cdc"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "mass",
+        "mall",
+        [
+          "mass",
+          "mast",
+          "malt",
+          "mall"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "cold",
+        "warm",
+        [
+          "cold",
+          "cord",
+          "card",
+          "ward",
+          "warm"
+        ]
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "head",
+        "tail",
+        [
+          "head",
+          "heal",
+          "teal",
+          "tell",
+          "tall",
+          "tail"
+        ]
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "lead",
+        "gold",
+        [
+          "lead",
+          "load",
+          "goad",
+          "gold"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "charge",
+        "comedo",
+        [
+          "change",
+          "charge",
+          "comedo"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "abc",
+        "bcd",
+        [
+          "abc",
+          "bbc",
+          "bbd",
+          "bcd"
+        ]
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "abc",
+        "def",
+        [
+          "dbc",
+          "dfc",
+          "dfe",
+          "def"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "abc",
+        "ghi",
+        [
+          "dbc",
+          "dhi",
+          "ghi"
+        ]
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "catch",
+        "hatch",
+        [
+          "catch",
+          "hatch"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "light",
+        "night",
+        [
+          "light",
+          "night"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "right",
+        "sight",
+        [
+          "sight"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "fight",
+        "might",
+        [
+          "might"
+        ]
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "tight",
+        "light",
+        [
+          "light"
+        ]
+      ],
+      "expected": 2
+    }
   ]
 }

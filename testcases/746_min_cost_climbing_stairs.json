@@ -2,85 +2,1152 @@
   "problem_id": 746,
   "title": "Min Cost Climbing Stairs",
   "run_tests": [
-    {"input": {"cost": [10, 15, 20]}, "expected": 15},
-    {"input": {"cost": [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]}, "expected": 6},
-    {"input": {"cost": [0, 0]}, "expected": 0},
-    {"input": {"cost": [1, 1]}, "expected": 1},
-    {"input": {"cost": [10, 15]}, "expected": 10}
+    {
+      "input": {
+        "cost": [
+          10,
+          15,
+          20
+        ]
+      },
+      "expected": 15
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          100,
+          1,
+          1,
+          1,
+          100,
+          1,
+          1,
+          100,
+          1
+        ]
+      },
+      "expected": 6
+    },
+    {
+      "input": {
+        "cost": [
+          0,
+          0
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          1
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "cost": [
+          10,
+          15
+        ]
+      },
+      "expected": 10
+    }
   ],
   "submit_tests": [
-    {"input": {"cost": [10, 15, 20]}, "expected": 15},
-    {"input": {"cost": [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]}, "expected": 6},
-    {"input": {"cost": [0, 0]}, "expected": 0},
-    {"input": {"cost": [1, 1]}, "expected": 1},
-    {"input": {"cost": [10, 15]}, "expected": 10},
-    {"input": {"cost": [0, 0, 0]}, "expected": 0},
-    {"input": {"cost": [1, 2, 3]}, "expected": 2},
-    {"input": {"cost": [3, 2, 1]}, "expected": 2},
-    {"input": {"cost": [5, 5, 5, 5]}, "expected": 10},
-    {"input": {"cost": [1, 2]}, "expected": 1},
-    {"input": {"cost": [2, 1]}, "expected": 1},
-    {"input": {"cost": [100, 1]}, "expected": 1},
-    {"input": {"cost": [1, 100]}, "expected": 1},
-    {"input": {"cost": [1, 1, 1]}, "expected": 1},
-    {"input": {"cost": [1, 1, 1, 1]}, "expected": 2},
-    {"input": {"cost": [10, 1, 10, 1, 10]}, "expected": 3},
-    {"input": {"cost": [1, 10, 1, 10, 1]}, "expected": 3},
-    {"input": {"cost": [0, 1, 0, 1, 0]}, "expected": 0},
-    {"input": {"cost": [1, 0, 1, 0, 1]}, "expected": 0},
-    {"input": {"cost": [999, 999]}, "expected": 999},
-    {"input": {"cost": [1, 2, 3, 4, 5]}, "expected": 6},
-    {"input": {"cost": [5, 4, 3, 2, 1]}, "expected": 6},
-    {"input": {"cost": [1, 3, 1, 3, 1]}, "expected": 3},
-    {"input": {"cost": [3, 1, 3, 1, 3]}, "expected": 3},
-    {"input": {"cost": [100, 100, 100, 100]}, "expected": 200},
-    {"input": {"cost": [1, 2, 1, 2, 1, 2]}, "expected": 4},
-    {"input": {"cost": [2, 1, 2, 1, 2, 1]}, "expected": 4},
-    {"input": {"cost": [50, 50, 50, 50, 50]}, "expected": 100},
-    {"input": {"cost": [10, 20, 30, 40, 50, 60]}, "expected": 90},
-    {"input": {"cost": [60, 50, 40, 30, 20, 10]}, "expected": 90},
-    {"input": {"cost": [1, 1, 1, 1, 1, 1, 1]}, "expected": 3},
-    {"input": {"cost": [0, 0, 0, 0, 0, 0, 0]}, "expected": 0},
-    {"input": {"cost": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}, "expected": 25},
-    {"input": {"cost": [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]}, "expected": 25},
-    {"input": {"cost": [1, 100, 1, 100, 1, 100, 1]}, "expected": 4},
-    {"input": {"cost": [100, 1, 100, 1, 100, 1, 100]}, "expected": 4},
-    {"input": {"cost": [1, 2, 4, 8, 16, 32]}, "expected": 21},
-    {"input": {"cost": [32, 16, 8, 4, 2, 1]}, "expected": 21},
-    {"input": {"cost": [5, 10, 15, 20, 25]}, "expected": 30},
-    {"input": {"cost": [25, 20, 15, 10, 5]}, "expected": 30},
-    {"input": {"cost": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}, "expected": 5},
-    {"input": {"cost": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2]}, "expected": 10},
-    {"input": {"cost": [1, 3, 5, 7, 9, 11, 13, 15]}, "expected": 32},
-    {"input": {"cost": [15, 13, 11, 9, 7, 5, 3, 1]}, "expected": 32},
-    {"input": {"cost": [0, 100, 0, 100, 0]}, "expected": 0},
-    {"input": {"cost": [100, 0, 100, 0, 100]}, "expected": 0},
-    {"input": {"cost": [1, 1, 2, 2, 3, 3, 4, 4]}, "expected": 8},
-    {"input": {"cost": [4, 4, 3, 3, 2, 2, 1, 1]}, "expected": 8},
-    {"input": {"cost": [7, 3, 7, 3, 7, 3, 7, 3, 7]}, "expected": 15},
-    {"input": {"cost": [3, 7, 3, 7, 3, 7, 3, 7, 3]}, "expected": 15},
-    {"input": {"cost": [1, 5, 2, 4, 3, 6, 1, 5, 2, 4]}, "expected": 12},
-    {"input": {"cost": [999, 1, 999, 1, 999]}, "expected": 3},
-    {"input": {"cost": [1, 999, 1, 999, 1]}, "expected": 3},
-    {"input": {"cost": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10]}, "expected": 50},
-    {"input": {"cost": [1, 2, 3, 2, 1, 2, 3, 2, 1]}, "expected": 6},
-    {"input": {"cost": [5, 1, 5, 1, 5, 1, 5, 1, 5, 1]}, "expected": 5},
-    {"input": {"cost": [1, 5, 1, 5, 1, 5, 1, 5, 1, 5]}, "expected": 5},
-    {"input": {"cost": [100, 99, 98, 97, 96, 95, 94, 93, 92, 91]}, "expected": 480},
-    {"input": {"cost": [91, 92, 93, 94, 95, 96, 97, 98, 99, 100]}, "expected": 480},
-    {"input": {"cost": [1, 100, 1, 1, 100, 1, 1, 100, 1, 1]}, "expected": 5},
-    {"input": {"cost": [50, 25, 75, 100, 10, 90, 30, 60]}, "expected": 125},
-    {"input": {"cost": [8, 6, 4, 2, 1, 3, 5, 7, 9]}, "expected": 17},
-    {"input": {"cost": [1, 9, 2, 8, 3, 7, 4, 6, 5]}, "expected": 15},
-    {"input": {"cost": [10, 1, 1, 1, 1, 1, 1, 1, 1, 10]}, "expected": 5},
-    {"input": {"cost": [1, 10, 10, 10, 10, 10, 10, 10, 10, 1]}, "expected": 5},
-    {"input": {"cost": [500, 500, 500, 500, 500, 500]}, "expected": 1500},
-    {"input": {"cost": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]}, "expected": 6},
-    {"input": {"cost": [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]}, "expected": 50},
-    {"input": {"cost": [20, 18, 16, 14, 12, 10, 8, 6, 4, 2]}, "expected": 50},
-    {"input": {"cost": [1, 2, 3, 4, 5, 4, 3, 2, 1]}, "expected": 10},
-    {"input": {"cost": [9, 8, 7, 6, 5, 6, 7, 8, 9]}, "expected": 26},
-    {"input": {"cost": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}, "expected": 20},
-    {"input": {"cost": [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]}, "expected": 20}
+    {
+      "input": {
+        "cost": [
+          10,
+          15,
+          20
+        ]
+      },
+      "expected": 15
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          100,
+          1,
+          1,
+          1,
+          100,
+          1,
+          1,
+          100,
+          1
+        ]
+      },
+      "expected": 6
+    },
+    {
+      "input": {
+        "cost": [
+          0,
+          0
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          1
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "cost": [
+          10,
+          15
+        ]
+      },
+      "expected": 10
+    },
+    {
+      "input": {
+        "cost": [
+          0,
+          0,
+          0
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "cost": [
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "cost": [
+          5,
+          5,
+          5,
+          5
+        ]
+      },
+      "expected": 10
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          2
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "cost": [
+          2,
+          1
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "cost": [
+          100,
+          1
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          100
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": 1
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "cost": [
+          10,
+          1,
+          10,
+          1,
+          10
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          10,
+          1,
+          10,
+          1
+        ]
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "cost": [
+          0,
+          1,
+          0,
+          1,
+          0
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          0,
+          1,
+          0,
+          1
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "cost": [
+          999,
+          999
+        ]
+      },
+      "expected": 999
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "expected": 6
+    },
+    {
+      "input": {
+        "cost": [
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": 6
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          3,
+          1,
+          3,
+          1
+        ]
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "cost": [
+          3,
+          1,
+          3,
+          1,
+          3
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "cost": [
+          100,
+          100,
+          100,
+          100
+        ]
+      },
+      "expected": 200
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          2,
+          1,
+          2,
+          1,
+          2
+        ]
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "cost": [
+          2,
+          1,
+          2,
+          1,
+          2,
+          1
+        ]
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "cost": [
+          50,
+          50,
+          50,
+          50,
+          50
+        ]
+      },
+      "expected": 100
+    },
+    {
+      "input": {
+        "cost": [
+          10,
+          20,
+          30,
+          40,
+          50,
+          60
+        ]
+      },
+      "expected": 90
+    },
+    {
+      "input": {
+        "cost": [
+          60,
+          50,
+          40,
+          30,
+          20,
+          10
+        ]
+      },
+      "expected": 90
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "cost": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "expected": 25
+    },
+    {
+      "input": {
+        "cost": [
+          10,
+          9,
+          8,
+          7,
+          6,
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": 25
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          100,
+          1,
+          100,
+          1,
+          100,
+          1
+        ]
+      },
+      "expected": 4
+    },
+    {
+      "input": {
+        "cost": [
+          100,
+          1,
+          100,
+          1,
+          100,
+          1,
+          100
+        ]
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          2,
+          4,
+          8,
+          16,
+          32
+        ]
+      },
+      "expected": 21
+    },
+    {
+      "input": {
+        "cost": [
+          32,
+          16,
+          8,
+          4,
+          2,
+          1
+        ]
+      },
+      "expected": 21
+    },
+    {
+      "input": {
+        "cost": [
+          5,
+          10,
+          15,
+          20,
+          25
+        ]
+      },
+      "expected": 30
+    },
+    {
+      "input": {
+        "cost": [
+          25,
+          20,
+          15,
+          10,
+          5
+        ]
+      },
+      "expected": 30
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": 5
+    },
+    {
+      "input": {
+        "cost": [
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2,
+          2
+        ]
+      },
+      "expected": 10
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          3,
+          5,
+          7,
+          9,
+          11,
+          13,
+          15
+        ]
+      },
+      "expected": 28
+    },
+    {
+      "input": {
+        "cost": [
+          15,
+          13,
+          11,
+          9,
+          7,
+          5,
+          3,
+          1
+        ]
+      },
+      "expected": 28
+    },
+    {
+      "input": {
+        "cost": [
+          0,
+          100,
+          0,
+          100,
+          0
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "cost": [
+          100,
+          0,
+          100,
+          0,
+          100
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          1,
+          2,
+          2,
+          3,
+          3,
+          4,
+          4
+        ]
+      },
+      "expected": 10
+    },
+    {
+      "input": {
+        "cost": [
+          4,
+          4,
+          3,
+          3,
+          2,
+          2,
+          1,
+          1
+        ]
+      },
+      "expected": 10
+    },
+    {
+      "input": {
+        "cost": [
+          7,
+          3,
+          7,
+          3,
+          7,
+          3,
+          7,
+          3,
+          7
+        ]
+      },
+      "expected": 12
+    },
+    {
+      "input": {
+        "cost": [
+          3,
+          7,
+          3,
+          7,
+          3,
+          7,
+          3,
+          7,
+          3
+        ]
+      },
+      "expected": 15
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          5,
+          2,
+          4,
+          3,
+          6,
+          1,
+          5,
+          2,
+          4
+        ]
+      },
+      "expected": 9
+    },
+    {
+      "input": {
+        "cost": [
+          999,
+          1,
+          999,
+          1,
+          999
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          999,
+          1,
+          999,
+          1
+        ]
+      },
+      "expected": 3
+    },
+    {
+      "input": {
+        "cost": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "expected": 50
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          2,
+          3,
+          2,
+          1,
+          2,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": 8
+    },
+    {
+      "input": {
+        "cost": [
+          5,
+          1,
+          5,
+          1,
+          5,
+          1,
+          5,
+          1,
+          5,
+          1
+        ]
+      },
+      "expected": 5
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          5,
+          1,
+          5,
+          1,
+          5,
+          1,
+          5,
+          1,
+          5
+        ]
+      },
+      "expected": 5
+    },
+    {
+      "input": {
+        "cost": [
+          100,
+          99,
+          98,
+          97,
+          96,
+          95,
+          94,
+          93,
+          92,
+          91
+        ]
+      },
+      "expected": 475
+    },
+    {
+      "input": {
+        "cost": [
+          91,
+          92,
+          93,
+          94,
+          95,
+          96,
+          97,
+          98,
+          99,
+          100
+        ]
+      },
+      "expected": 475
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          100,
+          1,
+          1,
+          100,
+          1,
+          1,
+          100,
+          1,
+          1
+        ]
+      },
+      "expected": 6
+    },
+    {
+      "input": {
+        "cost": [
+          50,
+          25,
+          75,
+          100,
+          10,
+          90,
+          30,
+          60
+        ]
+      },
+      "expected": 140
+    },
+    {
+      "input": {
+        "cost": [
+          8,
+          6,
+          4,
+          2,
+          1,
+          3,
+          5,
+          7,
+          9
+        ]
+      },
+      "expected": 18
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          9,
+          2,
+          8,
+          3,
+          7,
+          4,
+          6,
+          5
+        ]
+      },
+      "expected": 15
+    },
+    {
+      "input": {
+        "cost": [
+          10,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          10
+        ]
+      },
+      "expected": 5
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          1
+        ]
+      },
+      "expected": 41
+    },
+    {
+      "input": {
+        "cost": [
+          500,
+          500,
+          500,
+          500,
+          500,
+          500
+        ]
+      },
+      "expected": 1500
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": 6
+    },
+    {
+      "input": {
+        "cost": [
+          2,
+          4,
+          6,
+          8,
+          10,
+          12,
+          14,
+          16,
+          18,
+          20
+        ]
+      },
+      "expected": 50
+    },
+    {
+      "input": {
+        "cost": [
+          20,
+          18,
+          16,
+          14,
+          12,
+          10,
+          8,
+          6,
+          4,
+          2
+        ]
+      },
+      "expected": 50
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          4,
+          3,
+          2,
+          1
+        ]
+      },
+      "expected": 12
+    },
+    {
+      "input": {
+        "cost": [
+          9,
+          8,
+          7,
+          6,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "expected": 28
+    },
+    {
+      "input": {
+        "cost": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "expected": 20
+    },
+    {
+      "input": {
+        "cost": [
+          9,
+          8,
+          7,
+          6,
+          5,
+          4,
+          3,
+          2,
+          1,
+          0
+        ]
+      },
+      "expected": 20
+    },
+    {
+      "input": {
+        "cost": []
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "cost": [
+          0
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "cost": [
+          1
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "cost": [
+          -1
+        ]
+      },
+      "expected": 0
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      "expected": 2
+    },
+    {
+      "input": {
+        "cost": [
+          -1,
+          -1,
+          -1
+        ]
+      },
+      "expected": -2
+    },
+    {
+      "input": {
+        "cost": [
+          -5,
+          -3,
+          -1,
+          0,
+          2,
+          4
+        ]
+      },
+      "expected": -4
+    },
+    {
+      "input": {
+        "cost": [
+          1,
+          -1,
+          2,
+          -2,
+          0
+        ]
+      },
+      "expected": -3
+    },
+    {
+      "input": {
+        "cost": [
+          100,
+          200,
+          300
+        ]
+      },
+      "expected": 200
+    },
+    {
+      "input": {
+        "cost": [
+          -100,
+          -200,
+          -300
+        ]
+      },
+      "expected": -500
+    }
   ]
 }

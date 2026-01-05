@@ -2,139 +2,931 @@
   "problem_id": 424,
   "title": "Longest Repeating Character Replacement",
   "run_tests": [
-    {"input": ["ABAB", 2], "expected": 4},
-    {"input": ["AABABBA", 1], "expected": 4},
-    {"input": ["A", 0], "expected": 1},
-    {"input": ["AAAA", 2], "expected": 4},
-    {"input": ["ABCD", 2], "expected": 3}
+    {
+      "input": [
+        "ABAB",
+        2
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "AABABBA",
+        1
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "A",
+        0
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "AAAA",
+        2
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "ABCD",
+        2
+      ],
+      "expected": 3
+    }
   ],
   "submit_tests": [
-    {"input": ["ABAB", 2], "expected": 4},
-    {"input": ["AABABBA", 1], "expected": 4},
-    {"input": ["A", 0], "expected": 1},
-    {"input": ["AAAA", 2], "expected": 4},
-    {"input": ["ABCD", 2], "expected": 3},
-    {"input": ["", 0], "expected": 0},
-    {"input": ["A", 1], "expected": 1},
-    {"input": ["A", 5], "expected": 1},
-    {"input": ["AA", 0], "expected": 2},
-    {"input": ["AB", 0], "expected": 1},
-    {"input": ["AB", 1], "expected": 2},
-    {"input": ["AB", 2], "expected": 2},
-    {"input": ["AAA", 0], "expected": 3},
-    {"input": ["AAB", 0], "expected": 2},
-    {"input": ["AAB", 1], "expected": 3},
-    {"input": ["ABA", 0], "expected": 1},
-    {"input": ["ABA", 1], "expected": 3},
-    {"input": ["ABC", 0], "expected": 1},
-    {"input": ["ABC", 1], "expected": 2},
-    {"input": ["ABC", 2], "expected": 3},
-    {"input": ["ABCDE", 0], "expected": 1},
-    {"input": ["ABCDE", 1], "expected": 2},
-    {"input": ["ABCDE", 2], "expected": 3},
-    {"input": ["ABCDE", 3], "expected": 4},
-    {"input": ["ABCDE", 4], "expected": 5},
-    {"input": ["ABCDE", 5], "expected": 5},
-    {"input": ["AAAAA", 0], "expected": 5},
-    {"input": ["AAAAA", 1], "expected": 5},
-    {"input": ["AAAAA", 5], "expected": 5},
-    {"input": ["BBBBB", 2], "expected": 5},
-    {"input": ["AABBB", 0], "expected": 3},
-    {"input": ["AABBB", 1], "expected": 4},
-    {"input": ["AABBB", 2], "expected": 5},
-    {"input": ["AAABB", 0], "expected": 3},
-    {"input": ["AAABB", 1], "expected": 4},
-    {"input": ["AAABB", 2], "expected": 5},
-    {"input": ["ABABA", 0], "expected": 1},
-    {"input": ["ABABA", 1], "expected": 3},
-    {"input": ["ABABA", 2], "expected": 5},
-    {"input": ["BABAB", 0], "expected": 1},
-    {"input": ["BABAB", 1], "expected": 3},
-    {"input": ["BABAB", 2], "expected": 5},
-    {"input": ["AABBCC", 0], "expected": 2},
-    {"input": ["AABBCC", 1], "expected": 3},
-    {"input": ["AABBCC", 2], "expected": 4},
-    {"input": ["AABBCC", 3], "expected": 5},
-    {"input": ["AABBCC", 4], "expected": 6},
-    {"input": ["ABCABC", 0], "expected": 1},
-    {"input": ["ABCABC", 1], "expected": 2},
-    {"input": ["ABCABC", 2], "expected": 3},
-    {"input": ["ABCABC", 3], "expected": 4},
-    {"input": ["ABCABC", 4], "expected": 5},
-    {"input": ["AAABBB", 0], "expected": 3},
-    {"input": ["AAABBB", 1], "expected": 4},
-    {"input": ["AAABBB", 2], "expected": 5},
-    {"input": ["AAABBB", 3], "expected": 6},
-    {"input": ["BBBCCC", 2], "expected": 5},
-    {"input": ["BBBCCC", 3], "expected": 6},
-    {"input": ["ABBBBA", 0], "expected": 4},
-    {"input": ["ABBBBA", 1], "expected": 5},
-    {"input": ["ABBBBA", 2], "expected": 6},
-    {"input": ["BAAAAB", 0], "expected": 4},
-    {"input": ["BAAAAB", 1], "expected": 5},
-    {"input": ["BAAAAB", 2], "expected": 6},
-    {"input": ["ABAABA", 0], "expected": 2},
-    {"input": ["ABAABA", 1], "expected": 4},
-    {"input": ["ABAABA", 2], "expected": 5},
-    {"input": ["ABAABA", 3], "expected": 6},
-    {"input": ["ABCDEFG", 0], "expected": 1},
-    {"input": ["ABCDEFG", 3], "expected": 4},
-    {"input": ["ABCDEFG", 6], "expected": 7},
-    {"input": ["ABCDEFG", 7], "expected": 7},
-    {"input": ["ZZZZZZZ", 0], "expected": 7},
-    {"input": ["ZZZZZZZ", 3], "expected": 7},
-    {"input": ["AAZZZAA", 0], "expected": 3},
-    {"input": ["AAZZZAA", 1], "expected": 4},
-    {"input": ["AAZZZAA", 2], "expected": 5},
-    {"input": ["AAZZZAA", 3], "expected": 6},
-    {"input": ["AAZZZAA", 4], "expected": 7},
-    {"input": ["ABABABAB", 0], "expected": 1},
-    {"input": ["ABABABAB", 1], "expected": 3},
-    {"input": ["ABABABAB", 2], "expected": 5},
-    {"input": ["ABABABAB", 3], "expected": 7},
-    {"input": ["ABABABAB", 4], "expected": 8},
-    {"input": ["AAABAAAA", 0], "expected": 4},
-    {"input": ["AAABAAAA", 1], "expected": 8},
-    {"input": ["AAABAABA", 0], "expected": 3},
-    {"input": ["AAABAABA", 1], "expected": 5},
-    {"input": ["AAABAABA", 2], "expected": 7},
-    {"input": ["XYXYXYXY", 3], "expected": 7},
-    {"input": ["XYXYXYXY", 4], "expected": 8},
-    {"input": ["XXXYYYZZ", 0], "expected": 3},
-    {"input": ["XXXYYYZZ", 2], "expected": 5},
-    {"input": ["XXXYYYZZ", 3], "expected": 6},
-    {"input": ["XXXYYYZZ", 5], "expected": 8},
-    {"input": ["AABCABCA", 2], "expected": 4},
-    {"input": ["AABCABCA", 3], "expected": 5},
-    {"input": ["AABCABCA", 4], "expected": 6},
-    {"input": ["ABCDABCD", 3], "expected": 5},
-    {"input": ["ABCDABCD", 4], "expected": 6},
-    {"input": ["ABCDABCD", 6], "expected": 8},
-    {"input": ["AAAAAABB", 0], "expected": 6},
-    {"input": ["AAAAAABB", 1], "expected": 7},
-    {"input": ["AAAAAABB", 2], "expected": 8},
-    {"input": ["BBAAAAAA", 0], "expected": 6},
-    {"input": ["BBAAAAAA", 1], "expected": 7},
-    {"input": ["BBAAAAAA", 2], "expected": 8},
-    {"input": ["ABCDEFGHIJ", 5], "expected": 6},
-    {"input": ["ABCDEFGHIJ", 9], "expected": 10},
-    {"input": ["ZXZXZXZXZX", 4], "expected": 9},
-    {"input": ["ZXZXZXZXZX", 5], "expected": 10},
-    {"input": ["AAABBBCCC", 2], "expected": 5},
-    {"input": ["AAABBBCCC", 3], "expected": 6},
-    {"input": ["AAABBBCCC", 4], "expected": 7},
-    {"input": ["AAABBBCCC", 6], "expected": 9},
-    {"input": ["AABBCCDD", 3], "expected": 5},
-    {"input": ["AABBCCDD", 4], "expected": 6},
-    {"input": ["AABBCCDD", 6], "expected": 8},
-    {"input": ["ABCDABCDABCD", 4], "expected": 6},
-    {"input": ["ABCDABCDABCD", 6], "expected": 8},
-    {"input": ["ABCDABCDABCD", 9], "expected": 12},
-    {"input": ["AAAAAAAAAA", 0], "expected": 10},
-    {"input": ["AAAAAAAAAA", 5], "expected": 10},
-    {"input": ["ABCDEFGHIJKLMNOP", 7], "expected": 8},
-    {"input": ["ABCDEFGHIJKLMNOP", 15], "expected": 16},
-    {"input": ["AABBCCDDEEFF", 5], "expected": 7},
-    {"input": ["AABBCCDDEEFF", 10], "expected": 12}
+    {
+      "input": [
+        "ABAB",
+        2
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "AABABBA",
+        1
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "A",
+        0
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "AAAA",
+        2
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "ABCD",
+        2
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "",
+        0
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "A",
+        1
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "A",
+        5
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "AA",
+        0
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "AB",
+        0
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "AB",
+        1
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "AB",
+        2
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "AAA",
+        0
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "AAB",
+        0
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "AAB",
+        1
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "ABA",
+        0
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "ABA",
+        1
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "ABC",
+        0
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "ABC",
+        1
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "ABC",
+        2
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "ABCDE",
+        0
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "ABCDE",
+        1
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "ABCDE",
+        2
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "ABCDE",
+        3
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "ABCDE",
+        4
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "ABCDE",
+        5
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "AAAAA",
+        0
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "AAAAA",
+        1
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "AAAAA",
+        5
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "BBBBB",
+        2
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "AABBB",
+        0
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "AABBB",
+        1
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "AABBB",
+        2
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "AAABB",
+        0
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "AAABB",
+        1
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "AAABB",
+        2
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "ABABA",
+        0
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "ABABA",
+        1
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "ABABA",
+        2
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "BABAB",
+        0
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "BABAB",
+        1
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "BABAB",
+        2
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "AABBCC",
+        0
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "AABBCC",
+        1
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "AABBCC",
+        2
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "AABBCC",
+        3
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "AABBCC",
+        4
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "ABCABC",
+        0
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "ABCABC",
+        1
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "ABCABC",
+        2
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "ABCABC",
+        3
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "ABCABC",
+        4
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "AAABBB",
+        0
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "AAABBB",
+        1
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "AAABBB",
+        2
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "AAABBB",
+        3
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "BBBCCC",
+        2
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "BBBCCC",
+        3
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "ABBBBA",
+        0
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "ABBBBA",
+        1
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "ABBBBA",
+        2
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "BAAAAB",
+        0
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "BAAAAB",
+        1
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "BAAAAB",
+        2
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "ABAABA",
+        0
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "ABAABA",
+        1
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "ABAABA",
+        2
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "ABAABA",
+        3
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "ABCDEFG",
+        0
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "ABCDEFG",
+        3
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "ABCDEFG",
+        6
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        "ABCDEFG",
+        7
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        "ZZZZZZZ",
+        0
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        "ZZZZZZZ",
+        3
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        "AAZZZAA",
+        0
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "AAZZZAA",
+        1
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "AAZZZAA",
+        2
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "AAZZZAA",
+        3
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        "AAZZZAA",
+        4
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        "ABABABAB",
+        0
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "ABABABAB",
+        1
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "ABABABAB",
+        2
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "ABABABAB",
+        3
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        "ABABABAB",
+        4
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        "AAABAAAA",
+        0
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "AAABAAAA",
+        1
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        "AAABAABA",
+        0
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "AAABAABA",
+        1
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "AAABAABA",
+        2
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        "XYXYXYXY",
+        3
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        "XYXYXYXY",
+        4
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        "XXXYYYZZ",
+        0
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "XXXYYYZZ",
+        2
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "XXXYYYZZ",
+        3
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "XXXYYYZZ",
+        5
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        "AABCABCA",
+        2
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "AABCABCA",
+        3
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "AABCABCA",
+        4
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        "ABCDABCD",
+        3
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "ABCDABCD",
+        4
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "ABCDABCD",
+        6
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        "AAAAAABB",
+        0
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "AAAAAABB",
+        1
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        "AAAAAABB",
+        2
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        "BBAAAAAA",
+        0
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "BBAAAAAA",
+        1
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        "BBAAAAAA",
+        2
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        "ABCDEFGHIJ",
+        5
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "ABCDEFGHIJ",
+        9
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        "ZXZXZXZXZX",
+        4
+      ],
+      "expected": 9
+    },
+    {
+      "input": [
+        "ZXZXZXZXZX",
+        5
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        "AAABBBCCC",
+        2
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "AAABBBCCC",
+        3
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "AAABBBCCC",
+        4
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        "AAABBBCCC",
+        6
+      ],
+      "expected": 9
+    },
+    {
+      "input": [
+        "AABBCCDD",
+        3
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "AABBCCDD",
+        4
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "AABBCCDD",
+        6
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        "ABCDABCDABCD",
+        4
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "ABCDABCDABCD",
+        6
+      ],
+      "expected": 9
+    },
+    {
+      "input": [
+        "ABCDABCDABCD",
+        9
+      ],
+      "expected": 12
+    },
+    {
+      "input": [
+        "AAAAAAAAAA",
+        0
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        "AAAAAAAAAA",
+        5
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        "ABCDEFGHIJKLMNOP",
+        7
+      ],
+      "expected": 8
+    },
+    {
+      "input": [
+        "ABCDEFGHIJKLMNOP",
+        15
+      ],
+      "expected": 16
+    },
+    {
+      "input": [
+        "AABBCCDDEEFF",
+        5
+      ],
+      "expected": 7
+    },
+    {
+      "input": [
+        "AABBCCDDEEFF",
+        10
+      ],
+      "expected": 12
+    }
   ]
 }

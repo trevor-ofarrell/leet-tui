@@ -2,110 +2,728 @@
   "problem_id": 242,
   "title": "Valid Anagram",
   "run_tests": [
-    {"input": ["anagram", "nagaram"], "expected": true},
-    {"input": ["rat", "car"], "expected": false},
-    {"input": ["a", "a"], "expected": true}
+    {
+      "input": [
+        "anagram",
+        "nagaram"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "rat",
+        "car"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "a",
+        "a"
+      ],
+      "expected": true
+    }
   ],
   "submit_tests": [
-    {"input": ["anagram", "nagaram"], "expected": true},
-    {"input": ["rat", "car"], "expected": false},
-    {"input": ["a", "a"], "expected": true},
-    {"input": ["ab", "ba"], "expected": true},
-    {"input": ["ab", "ab"], "expected": true},
-    {"input": ["abc", "cba"], "expected": true},
-    {"input": ["abc", "abd"], "expected": false},
-    {"input": ["", ""], "expected": true},
-    {"input": ["a", "b"], "expected": false},
-    {"input": ["aa", "a"], "expected": false},
-    {"input": ["a", "aa"], "expected": false},
-    {"input": ["aaa", "aaa"], "expected": true},
-    {"input": ["aab", "aba"], "expected": true},
-    {"input": ["aab", "aab"], "expected": true},
-    {"input": ["aacc", "ccac"], "expected": false},
-    {"input": ["listen", "silent"], "expected": true},
-    {"input": ["evil", "vile"], "expected": true},
-    {"input": ["dusty", "study"], "expected": true},
-    {"input": ["night", "thing"], "expected": true},
-    {"input": ["hello", "world"], "expected": false},
-    {"input": ["eleven", "twelve"], "expected": false},
-    {"input": ["restful", "fluster"], "expected": true},
-    {"input": ["funeral", "realfun"], "expected": true},
-    {"input": ["admirer", "married"], "expected": true},
-    {"input": ["astronomer", "moonstarer"], "expected": true},
-    {"input": ["cat", "act"], "expected": true},
-    {"input": ["dog", "god"], "expected": true},
-    {"input": ["state", "taste"], "expected": true},
-    {"input": ["elvis", "lives"], "expected": true},
-    {"input": ["arc", "car"], "expected": true},
-    {"input": ["angel", "glean"], "expected": true},
-    {"input": ["below", "elbow"], "expected": true},
-    {"input": ["study", "dusty"], "expected": true},
-    {"input": ["night", "thing"], "expected": true},
-    {"input": ["aabb", "bbaa"], "expected": true},
-    {"input": ["aabb", "abab"], "expected": true},
-    {"input": ["abcd", "dcba"], "expected": true},
-    {"input": ["abcd", "abce"], "expected": false},
-    {"input": ["xyyx", "yxxy"], "expected": true},
-    {"input": ["xxyy", "yyxx"], "expected": true},
-    {"input": ["aaabbb", "ababab"], "expected": true},
-    {"input": ["aaabbb", "aaabbc"], "expected": false},
-    {"input": ["zzzzzz", "zzzzzz"], "expected": true},
-    {"input": ["abcdef", "fedcba"], "expected": true},
-    {"input": ["abcdef", "abcdefg"], "expected": false},
-    {"input": ["racecar", "carrace"], "expected": true},
-    {"input": ["racecar", "racecat"], "expected": false},
-    {"input": ["zzz", "zzz"], "expected": true},
-    {"input": ["xyz", "zyx"], "expected": true},
-    {"input": ["xyz", "xyy"], "expected": false},
-    {"input": ["aabbcc", "abcabc"], "expected": true},
-    {"input": ["aabbcc", "aabccc"], "expected": false},
-    {"input": ["qwerty", "ytrewq"], "expected": true},
-    {"input": ["qwerty", "qwertyu"], "expected": false},
-    {"input": ["mnop", "ponm"], "expected": true},
-    {"input": ["mnop", "mnoo"], "expected": false},
-    {"input": ["aeiou", "uoiea"], "expected": true},
-    {"input": ["aeiou", "aeiouu"], "expected": false},
-    {"input": ["abcdefghij", "jihgfedcba"], "expected": true},
-    {"input": ["abcdefghij", "abcdefghik"], "expected": false},
-    {"input": ["aaaaaa", "aaaaaa"], "expected": true},
-    {"input": ["aaaaaa", "aaaaa"], "expected": false},
-    {"input": ["ab", "a"], "expected": false},
-    {"input": ["abc", "ab"], "expected": false},
-    {"input": ["triangle", "integral"], "expected": true},
-    {"input": ["debit", "bited"], "expected": true},
-    {"input": ["spar", "rasp"], "expected": true},
-    {"input": ["save", "vase"], "expected": true},
-    {"input": ["baker", "break"], "expected": true},
-    {"input": ["fired", "fried"], "expected": true},
-    {"input": ["peach", "cheap"], "expected": true},
-    {"input": ["earth", "heart"], "expected": true},
-    {"input": ["master", "stream"], "expected": true},
-    {"input": ["secure", "rescue"], "expected": true},
-    {"input": ["gallery", "largely"], "expected": true},
-    {"input": ["players", "parsley"], "expected": true},
-    {"input": ["bedroom", "boredom"], "expected": true},
-    {"input": ["nameless", "salesmen"], "expected": true},
-    {"input": ["dormitory", "dirtyroom"], "expected": true},
-    {"input": ["abba", "baba"], "expected": true},
-    {"input": ["noon", "onon"], "expected": true},
-    {"input": ["deed", "eded"], "expected": true},
-    {"input": ["peep", "eppe"], "expected": true},
-    {"input": ["level", "levle"], "expected": true},
-    {"input": ["civic", "vicic"], "expected": true},
-    {"input": ["kayak", "yakka"], "expected": false},
-    {"input": ["kayak", "kyaka"], "expected": true},
-    {"input": ["madam", "dmama"], "expected": true},
-    {"input": ["refer", "freer"], "expected": true},
-    {"input": ["rotor", "toror"], "expected": true},
-    {"input": ["radar", "adrar"], "expected": true},
-    {"input": ["stats", "tsats"], "expected": true},
-    {"input": ["tenet", "nette"], "expected": true},
-    {"input": ["sagas", "gassa"], "expected": true},
-    {"input": ["aabaa", "aaaba"], "expected": true},
-    {"input": ["abcba", "bacab"], "expected": true},
-    {"input": ["aaaab", "baaaa"], "expected": true},
-    {"input": ["aaaab", "aaaac"], "expected": false},
-    {"input": ["programming", "grammingpro"], "expected": true},
-    {"input": ["algorithm", "mhtirogla"], "expected": true}
+    {
+      "input": [
+        "anagram",
+        "nagaram"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "rat",
+        "car"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "a",
+        "a"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "ab",
+        "ba"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "ab",
+        "ab"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abc",
+        "cba"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abc",
+        "abd"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "",
+        ""
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "a",
+        "b"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "aa",
+        "a"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "a",
+        "aa"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "aaa",
+        "aaa"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aab",
+        "aba"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aab",
+        "aab"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aacc",
+        "ccac"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "listen",
+        "silent"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "evil",
+        "vile"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "dusty",
+        "study"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "night",
+        "thing"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "hello",
+        "world"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "eleven",
+        "twelve"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "restful",
+        "fluster"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "funeral",
+        "realfun"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "admirer",
+        "married"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "astronomer",
+        "moonstarer"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "cat",
+        "act"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "dog",
+        "god"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "state",
+        "taste"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "elvis",
+        "lives"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "arc",
+        "car"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "angel",
+        "glean"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "below",
+        "elbow"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "study",
+        "dusty"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "night",
+        "thing"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aabb",
+        "bbaa"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aabb",
+        "abab"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abcd",
+        "dcba"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abcd",
+        "abce"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "xyyx",
+        "yxxy"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "xxyy",
+        "yyxx"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aaabbb",
+        "ababab"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aaabbb",
+        "aaabbc"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "zzzzzz",
+        "zzzzzz"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abcdef",
+        "fedcba"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abcdef",
+        "abcdefg"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "racecar",
+        "carrace"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "racecar",
+        "racecat"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "zzz",
+        "zzz"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "xyz",
+        "zyx"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "xyz",
+        "xyy"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "aabbcc",
+        "abcabc"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aabbcc",
+        "aabccc"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "qwerty",
+        "ytrewq"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "qwerty",
+        "qwertyu"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "mnop",
+        "ponm"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "mnop",
+        "mnoo"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "aeiou",
+        "uoiea"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aeiou",
+        "aeiouu"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "abcdefghij",
+        "jihgfedcba"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abcdefghij",
+        "abcdefghik"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "aaaaaa",
+        "aaaaaa"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aaaaaa",
+        "aaaaa"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "ab",
+        "a"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "abc",
+        "ab"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "triangle",
+        "integral"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "debit",
+        "bited"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "spar",
+        "rasp"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "save",
+        "vase"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "baker",
+        "break"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "fired",
+        "fried"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "peach",
+        "cheap"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "earth",
+        "heart"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "master",
+        "stream"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "secure",
+        "rescue"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "gallery",
+        "largely"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "players",
+        "parsley"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "bedroom",
+        "boredom"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "nameless",
+        "salesmen"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "dormitory",
+        "dirtyroom"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abba",
+        "baba"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "noon",
+        "onon"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "deed",
+        "eded"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "peep",
+        "eppe"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "level",
+        "levle"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "civic",
+        "vicic"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "kayak",
+        "yakka"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "kayak",
+        "kyaka"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "madam",
+        "dmama"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "refer",
+        "freer"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "rotor",
+        "toror"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "radar",
+        "adrar"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "stats",
+        "tsats"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "tenet",
+        "nette"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "sagas",
+        "gassa"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aabaa",
+        "aaaba"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "abcba",
+        "bacab"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aaaab",
+        "baaaa"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "aaaab",
+        "aaaac"
+      ],
+      "expected": false
+    },
+    {
+      "input": [
+        "programming",
+        "grammingpro"
+      ],
+      "expected": true
+    },
+    {
+      "input": [
+        "algorithm",
+        "mhtirogla"
+      ],
+      "expected": true
+    }
   ]
 }

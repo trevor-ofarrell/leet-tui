@@ -2,125 +2,833 @@
   "problem_id": 115,
   "title": "Distinct Subsequences",
   "run_tests": [
-    {"input": ["rabbbit", "rabbit"], "expected": 3},
-    {"input": ["babgbag", "bag"], "expected": 5},
-    {"input": ["a", "a"], "expected": 1},
-    {"input": ["a", "b"], "expected": 0},
-    {"input": ["ab", "a"], "expected": 1}
+    {
+      "input": [
+        "rabbbit",
+        "rabbit"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "babgbag",
+        "bag"
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "a",
+        "a"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "a",
+        "b"
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "ab",
+        "a"
+      ],
+      "expected": 1
+    }
   ],
   "submit_tests": [
-    {"input": ["rabbbit", "rabbit"], "expected": 3},
-    {"input": ["babgbag", "bag"], "expected": 5},
-    {"input": ["a", "a"], "expected": 1},
-    {"input": ["a", "b"], "expected": 0},
-    {"input": ["ab", "a"], "expected": 1},
-    {"input": ["ab", "b"], "expected": 1},
-    {"input": ["ab", "ab"], "expected": 1},
-    {"input": ["ab", "ba"], "expected": 0},
-    {"input": ["aa", "a"], "expected": 2},
-    {"input": ["aaa", "a"], "expected": 3},
-    {"input": ["aaa", "aa"], "expected": 3},
-    {"input": ["aaa", "aaa"], "expected": 1},
-    {"input": ["aaaa", "a"], "expected": 4},
-    {"input": ["aaaa", "aa"], "expected": 6},
-    {"input": ["aaaa", "aaa"], "expected": 4},
-    {"input": ["aaaa", "aaaa"], "expected": 1},
-    {"input": ["aaaaa", "a"], "expected": 5},
-    {"input": ["aaaaa", "aa"], "expected": 10},
-    {"input": ["aaaaa", "aaa"], "expected": 10},
-    {"input": ["aaaaa", "aaaa"], "expected": 5},
-    {"input": ["aaaaa", "aaaaa"], "expected": 1},
-    {"input": ["aab", "ab"], "expected": 2},
-    {"input": ["abb", "ab"], "expected": 1},
-    {"input": ["aabb", "ab"], "expected": 2},
-    {"input": ["abab", "ab"], "expected": 3},
-    {"input": ["abba", "ab"], "expected": 1},
-    {"input": ["abc", "abc"], "expected": 1},
-    {"input": ["abc", "ab"], "expected": 1},
-    {"input": ["abc", "ac"], "expected": 1},
-    {"input": ["abc", "bc"], "expected": 1},
-    {"input": ["abc", "a"], "expected": 1},
-    {"input": ["abc", "b"], "expected": 1},
-    {"input": ["abc", "c"], "expected": 1},
-    {"input": ["abc", "d"], "expected": 0},
-    {"input": ["abc", "abcd"], "expected": 0},
-    {"input": ["abcd", "abcd"], "expected": 1},
-    {"input": ["abcd", "abc"], "expected": 1},
-    {"input": ["abcd", "acd"], "expected": 1},
-    {"input": ["abcd", "abd"], "expected": 1},
-    {"input": ["abcd", "bcd"], "expected": 1},
-    {"input": ["abcd", "ad"], "expected": 1},
-    {"input": ["abcd", "bd"], "expected": 1},
-    {"input": ["abcd", "cd"], "expected": 1},
-    {"input": ["", "a"], "expected": 0},
-    {"input": ["a", ""], "expected": 1},
-    {"input": ["", ""], "expected": 1},
-    {"input": ["ab", ""], "expected": 1},
-    {"input": ["abc", ""], "expected": 1},
-    {"input": ["xxyy", "xy"], "expected": 4},
-    {"input": ["xxxyy", "xy"], "expected": 6},
-    {"input": ["xxyy", "xxyy"], "expected": 1},
-    {"input": ["xxxyyy", "xy"], "expected": 9},
-    {"input": ["xyzxyz", "xyz"], "expected": 4},
-    {"input": ["xyzxyzxyz", "xyz"], "expected": 10},
-    {"input": ["aabdbaabeeadcbbdedacbbeecbabebaeeecaeabaedadcbdbcdaabebdadbbaeabdadeaabbabbecebbebcaddaacccebeaeedababedeacdeaaaeeaecbe", "bddabdcae"], "expected": 10582116},
-    {"input": ["dabc", "abc"], "expected": 1},
-    {"input": ["adbc", "abc"], "expected": 1},
-    {"input": ["abdc", "abc"], "expected": 1},
-    {"input": ["abcd", "acd"], "expected": 1},
-    {"input": ["adbdcaedbdade", "abcde"], "expected": 0},
-    {"input": ["ddd", "d"], "expected": 3},
-    {"input": ["ddd", "dd"], "expected": 3},
-    {"input": ["ddd", "ddd"], "expected": 1},
-    {"input": ["dddd", "d"], "expected": 4},
-    {"input": ["dddd", "dd"], "expected": 6},
-    {"input": ["dddd", "ddd"], "expected": 4},
-    {"input": ["dddd", "dddd"], "expected": 1},
-    {"input": ["ababab", "ab"], "expected": 6},
-    {"input": ["ababab", "aba"], "expected": 4},
-    {"input": ["ababab", "abab"], "expected": 3},
-    {"input": ["ababab", "ababa"], "expected": 2},
-    {"input": ["ababab", "ababab"], "expected": 1},
-    {"input": ["abcabc", "abc"], "expected": 4},
-    {"input": ["abcabcabc", "abc"], "expected": 10},
-    {"input": ["aabb", "aabb"], "expected": 1},
-    {"input": ["aabb", "abb"], "expected": 2},
-    {"input": ["aabb", "aab"], "expected": 2},
-    {"input": ["aabbb", "ab"], "expected": 3},
-    {"input": ["aabbb", "abb"], "expected": 6},
-    {"input": ["aabbb", "abbb"], "expected": 2},
-    {"input": ["aabbb", "aabb"], "expected": 3},
-    {"input": ["aabbb", "aabbb"], "expected": 1},
-    {"input": ["aaabbb", "ab"], "expected": 9},
-    {"input": ["aaabbb", "aabb"], "expected": 9},
-    {"input": ["aaabbb", "aab"], "expected": 9},
-    {"input": ["aaabbb", "abb"], "expected": 9},
-    {"input": ["b", "a"], "expected": 0},
-    {"input": ["bbb", "a"], "expected": 0},
-    {"input": ["bbb", "ab"], "expected": 0},
-    {"input": ["xyz", "a"], "expected": 0},
-    {"input": ["xyz", "xyz"], "expected": 1},
-    {"input": ["xyz", "xz"], "expected": 1},
-    {"input": ["xyz", "yz"], "expected": 1},
-    {"input": ["xyz", "xy"], "expected": 1},
-    {"input": ["xyxy", "xy"], "expected": 3},
-    {"input": ["xyxyxy", "xy"], "expected": 6},
-    {"input": ["rrrraabbbbbit", "rabbit"], "expected": 24},
-    {"input": ["rabrabbit", "rabbit"], "expected": 2},
-    {"input": ["babababg", "bag"], "expected": 4},
-    {"input": ["bagbag", "bag"], "expected": 4},
-    {"input": ["bagbagbag", "bag"], "expected": 10},
-    {"input": ["xyx", "x"], "expected": 2},
-    {"input": ["xyx", "y"], "expected": 1},
-    {"input": ["xyx", "xy"], "expected": 1},
-    {"input": ["xyx", "yx"], "expected": 1},
-    {"input": ["xyx", "xx"], "expected": 1},
-    {"input": ["xyxyx", "x"], "expected": 3},
-    {"input": ["xyxyx", "xy"], "expected": 3},
-    {"input": ["xyxyx", "xx"], "expected": 3},
-    {"input": ["xyxyx", "xxx"], "expected": 1},
-    {"input": ["xyxyx", "xyx"], "expected": 3},
-    {"input": ["xyxyx", "xyxy"], "expected": 2},
-    {"input": ["xyxyx", "xyxyx"], "expected": 1}
+    {
+      "input": [
+        "rabbbit",
+        "rabbit"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "babgbag",
+        "bag"
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "a",
+        "a"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "a",
+        "b"
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "ab",
+        "a"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "ab",
+        "b"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "ab",
+        "ab"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "ab",
+        "ba"
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "aa",
+        "a"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "aaa",
+        "a"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "aaa",
+        "aa"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "aaa",
+        "aaa"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "aaaa",
+        "a"
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "aaaa",
+        "aa"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "aaaa",
+        "aaa"
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "aaaa",
+        "aaaa"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "aaaaa",
+        "a"
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "aaaaa",
+        "aa"
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        "aaaaa",
+        "aaa"
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        "aaaaa",
+        "aaaa"
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "aaaaa",
+        "aaaaa"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "aab",
+        "ab"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "abb",
+        "ab"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "aabb",
+        "ab"
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "abab",
+        "ab"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "abba",
+        "ab"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "abc",
+        "abc"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "abc",
+        "ab"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "abc",
+        "ac"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "abc",
+        "bc"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "abc",
+        "a"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "abc",
+        "b"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "abc",
+        "c"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "abc",
+        "d"
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "abc",
+        "abcd"
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "abcd",
+        "abcd"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "abcd",
+        "abc"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "abcd",
+        "acd"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "abcd",
+        "abd"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "abcd",
+        "bcd"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "abcd",
+        "ad"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "abcd",
+        "bd"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "abcd",
+        "cd"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "",
+        "a"
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "a",
+        ""
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "",
+        ""
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "ab",
+        ""
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "abc",
+        ""
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "xxyy",
+        "xy"
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "xxxyy",
+        "xy"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "xxyy",
+        "xxyy"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "xxxyyy",
+        "xy"
+      ],
+      "expected": 9
+    },
+    {
+      "input": [
+        "xyzxyz",
+        "xyz"
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "xyzxyzxyz",
+        "xyz"
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        "aabdbaabeeadcbbdedacbbeecbabebaeeecaeabaedadcbdbcdaabebdadbbaeabdadeaabbabbecebbebcaddaacccebeaeedababedeacdeaaaeeaecbe",
+        "bddabdcae"
+      ],
+      "expected": 10582116
+    },
+    {
+      "input": [
+        "dabc",
+        "abc"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "adbc",
+        "abc"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "abdc",
+        "abc"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "abcd",
+        "acd"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "adbdcaedbdade",
+        "abcde"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "ddd",
+        "d"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "ddd",
+        "dd"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "ddd",
+        "ddd"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "dddd",
+        "d"
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "dddd",
+        "dd"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "dddd",
+        "ddd"
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "dddd",
+        "dddd"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "ababab",
+        "ab"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "ababab",
+        "aba"
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "ababab",
+        "abab"
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "ababab",
+        "ababa"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "ababab",
+        "ababab"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "abcabc",
+        "abc"
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "abcabcabc",
+        "abc"
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        "aabb",
+        "aabb"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "aabb",
+        "abb"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "aabb",
+        "aab"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "aabbb",
+        "ab"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "aabbb",
+        "abb"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "aabbb",
+        "abbb"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "aabbb",
+        "aabb"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "aabbb",
+        "aabbb"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "aaabbb",
+        "ab"
+      ],
+      "expected": 9
+    },
+    {
+      "input": [
+        "aaabbb",
+        "aabb"
+      ],
+      "expected": 9
+    },
+    {
+      "input": [
+        "aaabbb",
+        "aab"
+      ],
+      "expected": 9
+    },
+    {
+      "input": [
+        "aaabbb",
+        "abb"
+      ],
+      "expected": 9
+    },
+    {
+      "input": [
+        "b",
+        "a"
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "bbb",
+        "a"
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "bbb",
+        "ab"
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "xyz",
+        "a"
+      ],
+      "expected": 0
+    },
+    {
+      "input": [
+        "xyz",
+        "xyz"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "xyz",
+        "xz"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "xyz",
+        "yz"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "xyz",
+        "xy"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "xyxy",
+        "xy"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "xyxyxy",
+        "xy"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "rrrraabbbbbit",
+        "rabbit"
+      ],
+      "expected": 80
+    },
+    {
+      "input": [
+        "rabrabbit",
+        "rabbit"
+      ],
+      "expected": 5
+    },
+    {
+      "input": [
+        "babababg",
+        "bag"
+      ],
+      "expected": 6
+    },
+    {
+      "input": [
+        "bagbag",
+        "bag"
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "bagbagbag",
+        "bag"
+      ],
+      "expected": 10
+    },
+    {
+      "input": [
+        "xyx",
+        "x"
+      ],
+      "expected": 2
+    },
+    {
+      "input": [
+        "xyx",
+        "y"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "xyx",
+        "xy"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "xyx",
+        "yx"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "xyx",
+        "xx"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "xyxyx",
+        "x"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "xyxyx",
+        "xy"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "xyxyx",
+        "xx"
+      ],
+      "expected": 3
+    },
+    {
+      "input": [
+        "xyxyx",
+        "xxx"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "xyxyx",
+        "xyx"
+      ],
+      "expected": 4
+    },
+    {
+      "input": [
+        "xyxyx",
+        "xyxy"
+      ],
+      "expected": 1
+    },
+    {
+      "input": [
+        "xyxyx",
+        "xyxyx"
+      ],
+      "expected": 1
+    }
   ]
 }
