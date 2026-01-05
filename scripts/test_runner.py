@@ -1341,7 +1341,13 @@ def generate_cpp_harness(solution_code: str, func_name: str, test_cases: list, i
                 arg_names.append(var_name)
 
                 # Initialize based on type
-                if 'ListNode*' in param_type or 'ListNode *' in param_type:
+                if 'vector<ListNode*>' in param_type:
+                    # Convert array of arrays to vector of linked lists
+                    test_code += f'            vector<ListNode*> {var_name};\n'
+                    for i, lst in enumerate(arg if arg else []):
+                        arr_str = ','.join(map(str, lst)) if lst else ''
+                        test_code += f'            {var_name}.push_back(vectorToList({{{arr_str}}}));\n'
+                elif 'ListNode*' in param_type or 'ListNode *' in param_type:
                     # Convert input array to linked list
                     arr_str = ','.join(map(str, arg)) if arg else ''
                     test_code += f'            ListNode* {var_name} = vectorToList({{{arr_str}}});\n'
@@ -1349,17 +1355,24 @@ def generate_cpp_harness(solution_code: str, func_name: str, test_cases: list, i
                     # Convert input array to tree
                     arr_str = ','.join(map(str, arg)) if arg else ''
                     test_code += f'            TreeNode* {var_name} = vectorToTree({{{arr_str}}});\n'
-                elif 'vector<int>' in param_type:
-                    test_code += f'            vector<int> {var_name} = {{{",".join(map(str, arg)) if arg else ""}}};\n'
                 elif 'vector<vector<int>>' in param_type:
                     inner = ','.join('{' + ','.join(map(str, row)) + '}' for row in arg) if arg else ''
                     test_code += f'            vector<vector<int>> {var_name} = {{{inner}}};\n'
-                elif 'vector<string>' in param_type:
-                    inner = ','.join(f'"{s}"' for s in arg) if arg else ''
-                    test_code += f'            vector<string> {var_name} = {{{inner}}};\n'
+                elif 'vector<int>' in param_type:
+                    test_code += f'            vector<int> {var_name} = {{{",".join(map(str, arg)) if arg else ""}}};\n'
+                elif 'vector<vector<char>>' in param_type:
+                    # Handle 2D char array (like Sudoku boards)
+                    inner = ','.join('{' + ','.join(f"'{c}'" for c in row) + '}' for row in arg) if arg else ''
+                    test_code += f'            vector<vector<char>> {var_name} = {{{inner}}};\n'
                 elif 'vector<vector<string>>' in param_type:
                     inner = ','.join('{' + ','.join(f'"{s}"' for s in row) + '}' for row in arg) if arg else ''
                     test_code += f'            vector<vector<string>> {var_name} = {{{inner}}};\n'
+                elif 'vector<char>' in param_type:
+                    inner = ','.join(f"'{c}'" for c in arg) if arg else ''
+                    test_code += f'            vector<char> {var_name} = {{{inner}}};\n'
+                elif 'vector<string>' in param_type:
+                    inner = ','.join(f'"{s}"' for s in arg) if arg else ''
+                    test_code += f'            vector<string> {var_name} = {{{inner}}};\n'
                 elif 'string' in param_type:
                     escaped = str(arg).replace('\\', '\\\\').replace('"', '\\"')
                     test_code += f'            string {var_name} = "{escaped}";\n'
@@ -1392,8 +1405,9 @@ def generate_cpp_harness(solution_code: str, func_name: str, test_cases: list, i
             test_code += '            string got = toJson(result);\n'
 
         # Convert expected to string for comparison
+        # Use custom delimiter to handle strings containing )"
         expected_json = json.dumps(expected, separators=(',', ':'))
-        test_code += f'            string expected = R"({expected_json})";\n'
+        test_code += f'            string expected = R"JSON({expected_json})JSON";\n'
 
         if is_multi_answer and isinstance(expected, list):
             # For multi-answer, check if got is in expected array
@@ -1401,7 +1415,7 @@ def generate_cpp_harness(solution_code: str, func_name: str, test_cases: list, i
             test_code += '            // Check if result is one of the valid answers\n'
             for valid_answer in expected:
                 valid_json = json.dumps(valid_answer, separators=(',', ':'))
-                test_code += f'            if (got == R"({valid_json})") pass = true;\n'
+                test_code += f'            if (got == R"JSON({valid_json})JSON") pass = true;\n'
         elif is_order_independent:
             test_code += '            bool pass = normalizeJson(got) == normalizeJson(expected);\n'
         elif isinstance(expected, float):
