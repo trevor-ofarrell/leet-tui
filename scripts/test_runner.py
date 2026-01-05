@@ -928,10 +928,100 @@ CPP_HELPERS = '''
 #include <climits>
 #include <cmath>
 #include <sstream>
+#include <iomanip>
 #include <functional>
 #include <numeric>
 
 using namespace std;
+
+// Linked list node
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode* n) : val(x), next(n) {}
+};
+
+// Tree node
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode* l, TreeNode* r) : val(x), left(l), right(r) {}
+};
+
+// Convert vector to linked list
+ListNode* vectorToList(const vector<int>& arr) {
+    if (arr.empty()) return nullptr;
+    ListNode* head = new ListNode(arr[0]);
+    ListNode* curr = head;
+    for (size_t i = 1; i < arr.size(); i++) {
+        curr->next = new ListNode(arr[i]);
+        curr = curr->next;
+    }
+    return head;
+}
+
+// Convert linked list to vector
+vector<int> listToVector(ListNode* head) {
+    vector<int> result;
+    while (head) {
+        result.push_back(head->val);
+        head = head->next;
+    }
+    return result;
+}
+
+// Convert vector to tree (level order)
+TreeNode* vectorToTree(const vector<int>& arr) {
+    if (arr.empty()) return nullptr;
+    TreeNode* root = new TreeNode(arr[0]);
+    queue<TreeNode*> q;
+    q.push(root);
+    size_t i = 1;
+    while (!q.empty() && i < arr.size()) {
+        TreeNode* node = q.front();
+        q.pop();
+        if (i < arr.size() && arr[i] != INT_MIN) {
+            node->left = new TreeNode(arr[i]);
+            q.push(node->left);
+        }
+        i++;
+        if (i < arr.size() && arr[i] != INT_MIN) {
+            node->right = new TreeNode(arr[i]);
+            q.push(node->right);
+        }
+        i++;
+    }
+    return root;
+}
+
+// Convert tree to vector (level order)
+vector<int> treeToVector(TreeNode* root) {
+    if (!root) return {};
+    vector<int> result;
+    queue<TreeNode*> q;
+    q.push(root);
+    while (!q.empty()) {
+        TreeNode* node = q.front();
+        q.pop();
+        if (node) {
+            result.push_back(node->val);
+            q.push(node->left);
+            q.push(node->right);
+        } else {
+            result.push_back(INT_MIN); // null marker
+        }
+    }
+    // Remove trailing nulls
+    while (!result.empty() && result.back() == INT_MIN) {
+        result.pop_back();
+    }
+    return result;
+}
 
 // JSON parsing helpers
 string trim(const string& s) {
@@ -1047,14 +1137,19 @@ vector<vector<string>> parse2DStringArray(const string& s) {
 string toJson(int val) { return to_string(val); }
 string toJson(long long val) { return to_string(val); }
 string toJson(double val) {
+    // Check if it's an integer value
+    if (val == (long long)val) {
+        return to_string((long long)val);
+    }
     stringstream ss;
-    ss << fixed << val;
+    ss << fixed << setprecision(5) << val;
     string s = ss.str();
+    // Remove trailing zeros but keep at least one decimal place
     size_t dot = s.find('.');
     if (dot != string::npos) {
         size_t last = s.find_last_not_of('0');
         if (last > dot) s = s.substr(0, last + 1);
-        else s = s.substr(0, dot);
+        else s = s.substr(0, dot + 2); // Keep .0
     }
     return s;
 }
@@ -1172,18 +1267,19 @@ string normalizeJson(const string& s) {
 
 # C++ function categories (similar to Python/JS)
 CPP_ORDER_INDEPENDENT = {'subsets', 'subsetsWithDup', 'permute', 'permuteUnique', 'combinationSum', 'combinationSum2', 'threeSum', 'letterCombinations', 'generateParenthesis', 'partition', 'solveNQueens', 'groupAnagrams', 'findWords', 'pacificAtlantic', 'topKFrequent'}
+CPP_MULTI_ANSWER = {'longestPalindrome'}  # Functions where multiple answers are valid
 
 
-def generate_cpp_harness(solution_code: str, func_name: str, test_cases: list, is_order_independent: bool = False) -> str:
+def generate_cpp_harness(solution_code: str, func_name: str, test_cases: list, is_order_independent: bool = False, is_multi_answer: bool = False) -> str:
     """Generate a C++ test harness for the solution."""
 
     # Detect function signature from solution code
     # Look for the method in class Solution
     import re
 
-    # Match return type including nested templates like vector<vector<string>>
-    # Pattern handles nested angle brackets
-    pattern = r'((?:\w+(?:<(?:[^<>]|<[^<>]*>)*>)?)+)\s+' + re.escape(func_name) + r'\s*\(([^)]*)\)'
+    # Match return type including nested templates like vector<vector<string>> and pointers like ListNode*
+    # Pattern handles nested angle brackets and pointer types
+    pattern = r'((?:\w+(?:<(?:[^<>]|<[^<>]*>)*>)?)+\*?)\s+' + re.escape(func_name) + r'\s*\(([^)]*)\)'
     match = re.search(pattern, solution_code)
     if not match:
         return None
@@ -1245,7 +1341,15 @@ def generate_cpp_harness(solution_code: str, func_name: str, test_cases: list, i
                 arg_names.append(var_name)
 
                 # Initialize based on type
-                if 'vector<int>' in param_type:
+                if 'ListNode*' in param_type or 'ListNode *' in param_type:
+                    # Convert input array to linked list
+                    arr_str = ','.join(map(str, arg)) if arg else ''
+                    test_code += f'            ListNode* {var_name} = vectorToList({{{arr_str}}});\n'
+                elif 'TreeNode*' in param_type or 'TreeNode *' in param_type:
+                    # Convert input array to tree
+                    arr_str = ','.join(map(str, arg)) if arg else ''
+                    test_code += f'            TreeNode* {var_name} = vectorToTree({{{arr_str}}});\n'
+                elif 'vector<int>' in param_type:
                     test_code += f'            vector<int> {var_name} = {{{",".join(map(str, arg)) if arg else ""}}};\n'
                 elif 'vector<vector<int>>' in param_type:
                     inner = ','.join('{' + ','.join(map(str, row)) + '}' for row in arg) if arg else ''
@@ -1277,15 +1381,32 @@ def generate_cpp_harness(solution_code: str, func_name: str, test_cases: list, i
         call_args = ', '.join(arg_names)
         test_code += f'            auto result = sol.{func_name}({call_args});\n'
 
+        # Convert result based on return type
+        if return_type == 'ListNode*':
+            test_code += '            auto resultVec = listToVector(result);\n'
+            test_code += '            string got = toJson(resultVec);\n'
+        elif return_type == 'TreeNode*':
+            test_code += '            auto resultVec = treeToVector(result);\n'
+            test_code += '            string got = toJson(resultVec);\n'
+        else:
+            test_code += '            string got = toJson(result);\n'
+
         # Convert expected to string for comparison
         expected_json = json.dumps(expected, separators=(',', ':'))
-
-        # Generate comparison
-        test_code += f'            string got = toJson(result);\n'
         test_code += f'            string expected = R"({expected_json})";\n'
 
-        if is_order_independent:
+        if is_multi_answer and isinstance(expected, list):
+            # For multi-answer, check if got is in expected array
+            test_code += '            bool pass = false;\n'
+            test_code += '            // Check if result is one of the valid answers\n'
+            for valid_answer in expected:
+                valid_json = json.dumps(valid_answer, separators=(',', ':'))
+                test_code += f'            if (got == R"({valid_json})") pass = true;\n'
+        elif is_order_independent:
             test_code += '            bool pass = normalizeJson(got) == normalizeJson(expected);\n'
+        elif isinstance(expected, float):
+            # Float comparison with tolerance
+            test_code += f'            bool pass = abs(result - {expected}) < 1e-5;\n'
         else:
             test_code += '            bool pass = got == expected;\n'
 
@@ -1353,8 +1474,9 @@ def test_cpp(problem_id: str, solution_file: Path) -> TestResult:
 
     func_name = problem_info.get('function_name', '')
     is_order_independent = func_name in CPP_ORDER_INDEPENDENT
+    is_multi_answer = func_name in CPP_MULTI_ANSWER
 
-    harness = generate_cpp_harness(solution_code, func_name, test_cases, is_order_independent)
+    harness = generate_cpp_harness(solution_code, func_name, test_cases, is_order_independent, is_multi_answer)
     if not harness:
         return TestResult(problem_id, 'cpp', error=f"Could not parse function {func_name}")
 
