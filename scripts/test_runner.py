@@ -911,12 +911,467 @@ def test_javascript(problem_id: str, solution_file: Path) -> TestResult:
 
 
 # ============================================================================
-# C++ Runner (Placeholder - needs compile step)
+# C++ Runner
 # ============================================================================
 
+CPP_HELPERS = '''
+#include <iostream>
+#include <vector>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <map>
+#include <set>
+#include <queue>
+#include <stack>
+#include <algorithm>
+#include <climits>
+#include <cmath>
+#include <sstream>
+#include <functional>
+#include <numeric>
+
+using namespace std;
+
+// JSON parsing helpers
+string trim(const string& s) {
+    size_t start = s.find_first_not_of(" \\t\\n\\r");
+    if (start == string::npos) return "";
+    size_t end = s.find_last_not_of(" \\t\\n\\r");
+    return s.substr(start, end - start + 1);
+}
+
+// Simple JSON array parser for integers
+vector<int> parseIntArray(const string& s) {
+    vector<int> result;
+    string trimmed = trim(s);
+    if (trimmed.empty() || trimmed == "[]") return result;
+    if (trimmed[0] == '[') trimmed = trimmed.substr(1);
+    if (!trimmed.empty() && trimmed.back() == ']') trimmed.pop_back();
+
+    stringstream ss(trimmed);
+    string token;
+    while (getline(ss, token, ',')) {
+        string t = trim(token);
+        if (!t.empty() && t != "null") {
+            try {
+                result.push_back(stoi(t));
+            } catch (...) {}
+        }
+    }
+    return result;
+}
+
+// Parse 2D int array
+vector<vector<int>> parse2DIntArray(const string& s) {
+    vector<vector<int>> result;
+    string trimmed = trim(s);
+    if (trimmed.empty() || trimmed == "[]") return result;
+
+    int depth = 0;
+    string current;
+    for (size_t i = 0; i < trimmed.size(); i++) {
+        char c = trimmed[i];
+        if (c == '[') {
+            depth++;
+            if (depth == 2) current = "";
+        } else if (c == ']') {
+            if (depth == 2 && !current.empty()) {
+                result.push_back(parseIntArray("[" + current + "]"));
+            }
+            depth--;
+        } else if (depth == 2) {
+            current += c;
+        }
+    }
+    return result;
+}
+
+// Parse string array
+vector<string> parseStringArray(const string& s) {
+    vector<string> result;
+    string trimmed = trim(s);
+    if (trimmed.empty() || trimmed == "[]") return result;
+
+    bool inString = false;
+    string current;
+    bool escaped = false;
+
+    for (size_t i = 1; i < trimmed.size() - 1; i++) {
+        char c = trimmed[i];
+        if (escaped) {
+            current += c;
+            escaped = false;
+        } else if (c == '\\\\') {
+            escaped = true;
+        } else if (c == '"') {
+            if (inString) {
+                result.push_back(current);
+                current = "";
+            }
+            inString = !inString;
+        } else if (inString) {
+            current += c;
+        }
+    }
+    return result;
+}
+
+// Parse 2D string array
+vector<vector<string>> parse2DStringArray(const string& s) {
+    vector<vector<string>> result;
+    string trimmed = trim(s);
+    if (trimmed.empty() || trimmed == "[]") return result;
+
+    int depth = 0;
+    string current;
+    for (size_t i = 0; i < trimmed.size(); i++) {
+        char c = trimmed[i];
+        if (c == '[') {
+            depth++;
+            if (depth == 2) current = "[";
+        } else if (c == ']') {
+            if (depth == 2) {
+                current += "]";
+                result.push_back(parseStringArray(current));
+            }
+            depth--;
+        } else if (depth >= 2) {
+            current += c;
+        }
+    }
+    return result;
+}
+
+// Convert to JSON string
+string toJson(int val) { return to_string(val); }
+string toJson(long long val) { return to_string(val); }
+string toJson(double val) {
+    stringstream ss;
+    ss << fixed << val;
+    string s = ss.str();
+    size_t dot = s.find('.');
+    if (dot != string::npos) {
+        size_t last = s.find_last_not_of('0');
+        if (last > dot) s = s.substr(0, last + 1);
+        else s = s.substr(0, dot);
+    }
+    return s;
+}
+string toJson(bool val) { return val ? "true" : "false"; }
+string toJson(const string& val) {
+    string result = "\\"";
+    for (char c : val) {
+        if (c == '"') result += "\\\\\\"";
+        else if (c == '\\\\') result += "\\\\\\\\";
+        else result += c;
+    }
+    return result + "\\"";
+}
+string toJson(uint32_t val) { return to_string(val); }
+
+string toJson(const vector<int>& arr) {
+    string result = "[";
+    for (size_t i = 0; i < arr.size(); i++) {
+        if (i > 0) result += ",";
+        result += to_string(arr[i]);
+    }
+    return result + "]";
+}
+
+string toJson(const vector<bool>& arr) {
+    string result = "[";
+    for (size_t i = 0; i < arr.size(); i++) {
+        if (i > 0) result += ",";
+        result += arr[i] ? "true" : "false";
+    }
+    return result + "]";
+}
+
+string toJson(const vector<string>& arr) {
+    string result = "[";
+    for (size_t i = 0; i < arr.size(); i++) {
+        if (i > 0) result += ",";
+        result += toJson(arr[i]);
+    }
+    return result + "]";
+}
+
+string toJson(const vector<vector<int>>& arr) {
+    string result = "[";
+    for (size_t i = 0; i < arr.size(); i++) {
+        if (i > 0) result += ",";
+        result += toJson(arr[i]);
+    }
+    return result + "]";
+}
+
+string toJson(const vector<vector<string>>& arr) {
+    string result = "[";
+    for (size_t i = 0; i < arr.size(); i++) {
+        if (i > 0) result += ",";
+        result += toJson(arr[i]);
+    }
+    return result + "]";
+}
+
+// Normalization for order-independent comparison
+string normalizeJson(const string& s) {
+    // Parse as array, sort inner elements, sort outer by string representation
+    string trimmed = trim(s);
+    if (trimmed.empty() || trimmed[0] != '[') return trimmed;
+
+    // Check if it contains strings (has quotes)
+    bool hasStrings = trimmed.find('"') != string::npos;
+
+    // For simple arrays (no nested brackets)
+    if (trimmed.find('[', 1) == string::npos) {
+        if (hasStrings) {
+            vector<string> arr = parseStringArray(trimmed);
+            sort(arr.begin(), arr.end());
+            return toJson(arr);
+        } else {
+            vector<int> arr = parseIntArray(trimmed);
+            sort(arr.begin(), arr.end());
+            return toJson(arr);
+        }
+    }
+
+    // For 2D arrays - parse each inner array, sort it, then sort outer by string representation
+    if (hasStrings) {
+        vector<vector<string>> arr = parse2DStringArray(trimmed);
+        vector<string> strs;
+        for (auto& inner : arr) {
+            sort(inner.begin(), inner.end());
+            strs.push_back(toJson(inner));
+        }
+        sort(strs.begin(), strs.end());
+        string result = "[";
+        for (size_t i = 0; i < strs.size(); i++) {
+            if (i > 0) result += ",";
+            result += strs[i];
+        }
+        return result + "]";
+    } else {
+        vector<vector<int>> arr = parse2DIntArray(trimmed);
+        vector<string> strs;
+        for (auto& inner : arr) {
+            sort(inner.begin(), inner.end());
+            strs.push_back(toJson(inner));
+        }
+        sort(strs.begin(), strs.end());
+        string result = "[";
+        for (size_t i = 0; i < strs.size(); i++) {
+            if (i > 0) result += ",";
+            result += strs[i];
+        }
+        return result + "]";
+    }
+}
+'''
+
+# C++ function categories (similar to Python/JS)
+CPP_ORDER_INDEPENDENT = {'subsets', 'subsetsWithDup', 'permute', 'permuteUnique', 'combinationSum', 'combinationSum2', 'threeSum', 'letterCombinations', 'generateParenthesis', 'partition', 'solveNQueens', 'groupAnagrams', 'findWords', 'pacificAtlantic', 'topKFrequent'}
+
+
+def generate_cpp_harness(solution_code: str, func_name: str, test_cases: list, is_order_independent: bool = False) -> str:
+    """Generate a C++ test harness for the solution."""
+
+    # Detect function signature from solution code
+    # Look for the method in class Solution
+    import re
+
+    # Match return type including nested templates like vector<vector<string>>
+    # Pattern handles nested angle brackets
+    pattern = r'((?:\w+(?:<(?:[^<>]|<[^<>]*>)*>)?)+)\s+' + re.escape(func_name) + r'\s*\(([^)]*)\)'
+    match = re.search(pattern, solution_code)
+    if not match:
+        return None
+
+    return_type = match.group(1).strip()
+    params_str = match.group(2).strip()
+
+    # Parse parameters
+    params = []
+    if params_str:
+        # Split by comma but respect template brackets
+        depth = 0
+        current = ""
+        for c in params_str:
+            if c in '<':
+                depth += 1
+            elif c in '>':
+                depth -= 1
+            elif c == ',' and depth == 0:
+                params.append(current.strip())
+                current = ""
+                continue
+            current += c
+        if current.strip():
+            params.append(current.strip())
+
+    # Generate test code
+    test_code = CPP_HELPERS + '\n' + solution_code + '\n\n'
+    test_code += 'int main() {\n'
+    test_code += '    Solution sol;\n'
+    test_code += '    cout << "[";\n'
+    test_code += '    bool first = true;\n\n'
+
+    for i, tc in enumerate(test_cases):
+        inp = tc.get('input', {})
+        expected = tc.get('expected')
+
+        # Convert input to argument values
+        if isinstance(inp, dict):
+            args = list(inp.values())
+        elif isinstance(inp, list):
+            args = inp
+        else:
+            args = [inp]
+
+        test_code += f'    // Test case {i}\n'
+        test_code += '    {\n'
+        test_code += '        if (!first) cout << ",";\n'
+        test_code += '        first = false;\n'
+        test_code += '        try {\n'
+
+        # Declare variables for each argument
+        arg_names = []
+        for j, (arg, param) in enumerate(zip(args, params)):
+            param_parts = param.rsplit(None, 1)
+            if len(param_parts) >= 2:
+                param_type = param_parts[0].replace('&', '').strip()
+                var_name = f'arg{j}'
+                arg_names.append(var_name)
+
+                # Initialize based on type
+                if 'vector<int>' in param_type:
+                    test_code += f'            vector<int> {var_name} = {{{",".join(map(str, arg)) if arg else ""}}};\n'
+                elif 'vector<vector<int>>' in param_type:
+                    inner = ','.join('{' + ','.join(map(str, row)) + '}' for row in arg) if arg else ''
+                    test_code += f'            vector<vector<int>> {var_name} = {{{inner}}};\n'
+                elif 'vector<string>' in param_type:
+                    inner = ','.join(f'"{s}"' for s in arg) if arg else ''
+                    test_code += f'            vector<string> {var_name} = {{{inner}}};\n'
+                elif 'vector<vector<string>>' in param_type:
+                    inner = ','.join('{' + ','.join(f'"{s}"' for s in row) + '}' for row in arg) if arg else ''
+                    test_code += f'            vector<vector<string>> {var_name} = {{{inner}}};\n'
+                elif 'string' in param_type:
+                    escaped = str(arg).replace('\\', '\\\\').replace('"', '\\"')
+                    test_code += f'            string {var_name} = "{escaped}";\n'
+                elif 'int' in param_type or 'long' in param_type:
+                    test_code += f'            {param_type} {var_name} = {arg};\n'
+                elif 'uint32_t' in param_type:
+                    test_code += f'            uint32_t {var_name} = {arg}u;\n'
+                elif 'char' in param_type:
+                    test_code += f'            char {var_name} = \'{arg}\';\n'
+                elif 'bool' in param_type:
+                    test_code += f'            bool {var_name} = {"true" if arg else "false"};\n'
+                elif 'double' in param_type or 'float' in param_type:
+                    test_code += f'            {param_type} {var_name} = {arg};\n'
+                else:
+                    # Default to int
+                    test_code += f'            int {var_name} = {arg};\n'
+
+        # Call function
+        call_args = ', '.join(arg_names)
+        test_code += f'            auto result = sol.{func_name}({call_args});\n'
+
+        # Convert expected to string for comparison
+        expected_json = json.dumps(expected, separators=(',', ':'))
+
+        # Generate comparison
+        test_code += f'            string got = toJson(result);\n'
+        test_code += f'            string expected = R"({expected_json})";\n'
+
+        if is_order_independent:
+            test_code += '            bool pass = normalizeJson(got) == normalizeJson(expected);\n'
+        else:
+            test_code += '            bool pass = got == expected;\n'
+
+        input_json = json.dumps(tc.get('input'), separators=(',', ':')).replace('\\', '\\\\').replace('"', '\\"')
+        test_code += f'            cout << "{{\\"pass\\":" << (pass ? "true" : "false") << ",\\"got\\":" << got << ",\\"expected\\":" << expected << "}}";\n'
+        test_code += '        } catch (exception& e) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"" << e.what() << "\\"}";\n'
+        test_code += '        } catch (...) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"unknown error\\"}";\n'
+        test_code += '        }\n'
+        test_code += '    }\n\n'
+
+    test_code += '    cout << "]" << endl;\n'
+    test_code += '    return 0;\n'
+    test_code += '}\n'
+
+    return test_code
+
+
+def run_cpp_compiled(harness_code: str, timeout: int = 60) -> tuple:
+    """Compile and run C++ code, return (stdout, stderr, returncode)."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        src_file = os.path.join(tmpdir, 'test.cpp')
+        exe_file = os.path.join(tmpdir, 'test')
+
+        with open(src_file, 'w') as f:
+            f.write(harness_code)
+
+        # Compile
+        compile_result = subprocess.run(
+            ['g++', '-std=c++17', '-O2', '-o', exe_file, src_file],
+            capture_output=True,
+            text=True,
+            timeout=30
+        )
+
+        if compile_result.returncode != 0:
+            return "", f"Compile error: {compile_result.stderr[:500]}", 1
+
+        # Run
+        try:
+            run_result = subprocess.run(
+                [exe_file],
+                capture_output=True,
+                text=True,
+                timeout=timeout
+            )
+            return run_result.stdout, run_result.stderr, run_result.returncode
+        except subprocess.TimeoutExpired:
+            return "", "Timeout", -1
+
+
 def test_cpp(problem_id: str, solution_file: Path) -> TestResult:
-    """Test a C++ solution (not yet implemented)."""
-    return TestResult(problem_id, 'cpp', error="C++ testing not yet implemented")
+    """Test a C++ solution."""
+    start = time.time()
+
+    problem_info = get_problem_info(problem_id)
+    test_cases = get_test_cases(problem_id)
+
+    if not problem_info or not test_cases:
+        return TestResult(problem_id, 'cpp', error="Missing files")
+
+    with open(solution_file) as f:
+        solution_code = f.read()
+
+    func_name = problem_info.get('function_name', '')
+    is_order_independent = func_name in CPP_ORDER_INDEPENDENT
+
+    harness = generate_cpp_harness(solution_code, func_name, test_cases, is_order_independent)
+    if not harness:
+        return TestResult(problem_id, 'cpp', error=f"Could not parse function {func_name}")
+
+    stdout, stderr, rc = run_cpp_compiled(harness)
+
+    if rc != 0 or not stdout.strip():
+        return TestResult(problem_id, 'cpp', error=stderr[:500] or "Unknown error")
+
+    try:
+        results = json.loads(stdout.strip())
+        passed = sum(1 for r in results if r.get('pass'))
+        total = len(results)
+        failures = [r for r in results if not r.get('pass')][:3]
+        duration = (time.time() - start) * 1000
+        return TestResult(problem_id, 'cpp', passed, total, failures, None, duration)
+    except json.JSONDecodeError as e:
+        return TestResult(problem_id, 'cpp', error=f"Parse error: {stdout[:200]}")
 
 
 def test_c(problem_id: str, solution_file: Path) -> TestResult:
