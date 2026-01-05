@@ -924,6 +924,7 @@ CPP_HELPERS = '''
 #include <set>
 #include <queue>
 #include <stack>
+#include <list>
 #include <algorithm>
 #include <climits>
 #include <cmath>
@@ -953,6 +954,14 @@ struct TreeNode {
     TreeNode(int x, TreeNode* l, TreeNode* r) : val(x), left(l), right(r) {}
 };
 
+// Random pointer list node (for problem 138) - named RandomNode to avoid conflicts with graph Node
+struct RandomNode {
+    int val;
+    RandomNode* next;
+    RandomNode* random;
+    RandomNode(int _val) : val(_val), next(nullptr), random(nullptr) {}
+};
+
 // Convert vector to linked list
 ListNode* vectorToList(const vector<int>& arr) {
     if (arr.empty()) return nullptr;
@@ -973,6 +982,64 @@ vector<int> listToVector(ListNode* head) {
         head = head->next;
     }
     return result;
+}
+
+// Create random list from array of [val, random_index] pairs
+RandomNode* createRandomList(const vector<pair<int, int>>& arr) {
+    if (arr.empty()) return nullptr;
+    vector<RandomNode*> nodes;
+    for (const auto& p : arr) {
+        nodes.push_back(new RandomNode(p.first));
+    }
+    for (size_t i = 0; i < nodes.size(); i++) {
+        if (i < nodes.size() - 1) nodes[i]->next = nodes[i + 1];
+        if (arr[i].second >= 0 && arr[i].second < (int)nodes.size()) {
+            nodes[i]->random = nodes[arr[i].second];
+        }
+    }
+    return nodes[0];
+}
+
+// Convert random list to JSON array
+string randomListToJson(RandomNode* head) {
+    if (!head) return "[]";
+    vector<RandomNode*> nodes;
+    map<RandomNode*, int> nodeToIdx;
+    RandomNode* curr = head;
+    int idx = 0;
+    while (curr) {
+        nodeToIdx[curr] = idx++;
+        nodes.push_back(curr);
+        curr = curr->next;
+    }
+    string result = "[";
+    for (size_t i = 0; i < nodes.size(); i++) {
+        if (i > 0) result += ",";
+        result += "[" + to_string(nodes[i]->val) + ",";
+        if (nodes[i]->random) {
+            result += to_string(nodeToIdx[nodes[i]->random]);
+        } else {
+            result += "null";
+        }
+        result += "]";
+    }
+    return result + "]";
+}
+
+// Create linked list with cycle at position pos (-1 for no cycle)
+ListNode* createCycleList(const vector<int>& arr, int pos) {
+    if (arr.empty()) return nullptr;
+    vector<ListNode*> nodes;
+    for (int val : arr) {
+        nodes.push_back(new ListNode(val));
+    }
+    for (size_t i = 0; i < nodes.size() - 1; i++) {
+        nodes[i]->next = nodes[i + 1];
+    }
+    if (pos >= 0 && pos < (int)nodes.size()) {
+        nodes.back()->next = nodes[pos];
+    }
+    return nodes[0];
 }
 
 // Special marker for null tree nodes (using LLONG_MIN since tree values are int)
@@ -1285,6 +1352,10 @@ string normalizeJson(const string& s) {
 # C++ function categories (similar to Python/JS)
 CPP_ORDER_INDEPENDENT = {'subsets', 'subsetsWithDup', 'permute', 'permuteUnique', 'combinationSum', 'combinationSum2', 'threeSum', 'letterCombinations', 'generateParenthesis', 'partition', 'solveNQueens', 'groupAnagrams', 'findWords', 'pacificAtlantic', 'topKFrequent'}
 CPP_MULTI_ANSWER = {'longestPalindrome'}  # Functions where multiple answers are valid
+CPP_CLASS_FUNCS = {'LRUCache': 'LRUCache', 'MinStack': 'MinStack', 'KthLargest': 'KthLargest', 'MedianFinder': 'MedianFinder', 'TimeMap': 'TimeMap'}
+CPP_CYCLE_FUNCS = {'hasCycle'}  # Need special cycle list creation
+CPP_INPLACE_LIST_FUNCS = {'reorderList'}  # Void return, modifies list in place
+CPP_RANDOM_LIST_FUNCS = {'copyRandomList'}  # Special Node* with random pointer
 
 
 def generate_cpp_harness(solution_code: str, func_name: str, test_cases: list, is_order_independent: bool = False, is_multi_answer: bool = False) -> str:
@@ -1461,6 +1532,247 @@ def generate_cpp_harness(solution_code: str, func_name: str, test_cases: list, i
     return test_code
 
 
+def generate_cpp_class_harness(solution_code: str, class_name: str, test_cases: list) -> str:
+    """Generate a C++ test harness for class-based solutions (LRUCache, MinStack, etc.)."""
+    import json
+
+    test_code = CPP_HELPERS + '\n' + solution_code + '\n\n'
+    test_code += 'int main() {\n'
+    test_code += '    cout << "[";\n'
+    test_code += '    bool first = true;\n\n'
+
+    for i, tc in enumerate(test_cases):
+        inp = tc.get('input', [])
+        expected = tc.get('expected', [])
+
+        # Input format: [[methods], [args]]
+        methods = inp[0]
+        args = inp[1]
+
+        test_code += f'    // Test case {i}\n'
+        test_code += '    {\n'
+        test_code += '        if (!first) cout << ",";\n'
+        test_code += '        first = false;\n'
+        test_code += '        try {\n'
+        test_code += '            vector<string> outputs;\n'
+        test_code += f'            {class_name}* instance = nullptr;\n\n'
+
+        for j, (method, arg) in enumerate(zip(methods, args)):
+            if method == class_name:
+                # Constructor call
+                if class_name == 'LRUCache':
+                    test_code += f'            instance = new {class_name}({arg[0]});\n'
+                elif class_name == 'MinStack':
+                    test_code += f'            instance = new {class_name}();\n'
+                else:
+                    # Generic constructor with int args
+                    args_str = ', '.join(map(str, arg))
+                    test_code += f'            instance = new {class_name}({args_str});\n'
+                test_code += '            outputs.push_back("null");\n'
+            else:
+                # Method call
+                args_str = ', '.join(map(str, arg))
+                if method in ('put', 'push', 'pop'):
+                    test_code += f'            instance->{method}({args_str});\n'
+                    test_code += '            outputs.push_back("null");\n'
+                elif method in ('get', 'top', 'getMin'):
+                    test_code += '            {\n'
+                    test_code += f'                int r = instance->{method}({args_str});\n'
+                    # For MinStack getMin/top on empty stack, check sentinel value
+                    if class_name == 'MinStack' and method in ('getMin', 'top'):
+                        test_code += '                if (r == INT_MAX) outputs.push_back("null");\n'
+                        test_code += '                else outputs.push_back(to_string(r));\n'
+                    else:
+                        test_code += '                outputs.push_back(to_string(r));\n'
+                    test_code += '            }\n'
+                else:
+                    # Generic method - try to handle various return types
+                    test_code += '            {\n'
+                    test_code += f'                auto r = instance->{method}({args_str});\n'
+                    test_code += '                outputs.push_back(to_string(r));\n'
+                    test_code += '            }\n'
+
+        test_code += '\n            // Build expected output string\n'
+        expected_json = json.dumps(expected, separators=(',', ':'))
+        test_code += f'            string expected = R"JSON({expected_json})JSON";\n'
+
+        test_code += '            // Build got output string\n'
+        test_code += '            string got = "[";\n'
+        test_code += '            for (size_t i = 0; i < outputs.size(); i++) {\n'
+        test_code += '                if (i > 0) got += ",";\n'
+        test_code += '                got += outputs[i];\n'
+        test_code += '            }\n'
+        test_code += '            got += "]";\n'
+
+        test_code += '            bool pass = got == expected;\n'
+        test_code += '            cout << "{\\"pass\\":" << (pass ? "true" : "false") << ",\\"got\\":" << got << ",\\"expected\\":" << expected << "}";\n'
+        test_code += '            delete instance;\n'
+        test_code += '        } catch (exception& e) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"" << e.what() << "\\"}";\n'
+        test_code += '        } catch (...) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"unknown error\\"}";\n'
+        test_code += '        }\n'
+        test_code += '    }\n\n'
+
+    test_code += '    cout << "]" << endl;\n'
+    test_code += '    return 0;\n'
+    test_code += '}\n'
+
+    return test_code
+
+
+def generate_cpp_cycle_harness(solution_code: str, func_name: str, test_cases: list) -> str:
+    """Generate a C++ test harness for hasCycle (cycle detection in linked list)."""
+    import json
+
+    test_code = CPP_HELPERS + '\n' + solution_code + '\n\n'
+    test_code += 'int main() {\n'
+    test_code += '    Solution sol;\n'
+    test_code += '    cout << "[";\n'
+    test_code += '    bool first = true;\n\n'
+
+    for i, tc in enumerate(test_cases):
+        inp = tc.get('input', [])
+        expected = tc.get('expected', False)
+
+        # Input format: [[arr], pos]
+        arr = inp[0] if len(inp) > 0 else []
+        pos = inp[1] if len(inp) > 1 else -1
+
+        test_code += f'    // Test case {i}\n'
+        test_code += '    {\n'
+        test_code += '        if (!first) cout << ",";\n'
+        test_code += '        first = false;\n'
+        test_code += '        try {\n'
+
+        # Create the array values
+        arr_str = ','.join(map(str, arr)) if arr else ''
+        test_code += f'            ListNode* head = createCycleList({{{arr_str}}}, {pos});\n'
+        test_code += f'            bool result = sol.{func_name}(head);\n'
+
+        expected_str = 'true' if expected else 'false'
+        test_code += f'            bool expected = {expected_str};\n'
+        test_code += '            bool pass = result == expected;\n'
+        test_code += '            cout << "{\\"pass\\":" << (pass ? "true" : "false") << ",\\"got\\":" << (result ? "true" : "false") << ",\\"expected\\":" << (expected ? "true" : "false") << "}";\n'
+        test_code += '        } catch (exception& e) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"" << e.what() << "\\"}";\n'
+        test_code += '        } catch (...) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"unknown error\\"}";\n'
+        test_code += '        }\n'
+        test_code += '    }\n\n'
+
+    test_code += '    cout << "]" << endl;\n'
+    test_code += '    return 0;\n'
+    test_code += '}\n'
+
+    return test_code
+
+
+def generate_cpp_inplace_list_harness(solution_code: str, func_name: str, test_cases: list) -> str:
+    """Generate a C++ test harness for in-place list modification (reorderList)."""
+    import json
+
+    test_code = CPP_HELPERS + '\n' + solution_code + '\n\n'
+    test_code += 'int main() {\n'
+    test_code += '    Solution sol;\n'
+    test_code += '    cout << "[";\n'
+    test_code += '    bool first = true;\n\n'
+
+    for i, tc in enumerate(test_cases):
+        inp = tc.get('input', [])
+        expected = tc.get('expected', [])
+
+        # Input format: [[arr]] - single array wrapped
+        arr = inp[0] if len(inp) > 0 and isinstance(inp[0], list) else inp
+
+        test_code += f'    // Test case {i}\n'
+        test_code += '    {\n'
+        test_code += '        if (!first) cout << ",";\n'
+        test_code += '        first = false;\n'
+        test_code += '        try {\n'
+
+        # Create the list
+        arr_str = ','.join(map(str, arr)) if arr else ''
+        test_code += f'            ListNode* head = vectorToList({{{arr_str}}});\n'
+        test_code += f'            sol.{func_name}(head);\n'
+        test_code += '            auto resultVec = listToVector(head);\n'
+        test_code += '            string got = toJson(resultVec);\n'
+
+        expected_json = json.dumps(expected, separators=(',', ':'))
+        test_code += f'            string expected = R"JSON({expected_json})JSON";\n'
+        test_code += '            bool pass = got == expected;\n'
+        test_code += '            cout << "{\\"pass\\":" << (pass ? "true" : "false") << ",\\"got\\":" << got << ",\\"expected\\":" << expected << "}";\n'
+        test_code += '        } catch (exception& e) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"" << e.what() << "\\"}";\n'
+        test_code += '        } catch (...) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"unknown error\\"}";\n'
+        test_code += '        }\n'
+        test_code += '    }\n\n'
+
+    test_code += '    cout << "]" << endl;\n'
+    test_code += '    return 0;\n'
+    test_code += '}\n'
+
+    return test_code
+
+
+def generate_cpp_random_list_harness(solution_code: str, func_name: str, test_cases: list) -> str:
+    """Generate a C++ test harness for copyRandomList (Node* with random pointer)."""
+    import json
+
+    test_code = CPP_HELPERS + '\n' + solution_code + '\n\n'
+    test_code += 'int main() {\n'
+    test_code += '    Solution sol;\n'
+    test_code += '    cout << "[";\n'
+    test_code += '    bool first = true;\n\n'
+
+    for i, tc in enumerate(test_cases):
+        inp = tc.get('input', [])
+        expected = tc.get('expected', [])
+
+        # Input format: [[[val, random_idx], ...]]
+        arr = inp[0] if len(inp) > 0 else []
+
+        test_code += f'    // Test case {i}\n'
+        test_code += '    {\n'
+        test_code += '        if (!first) cout << ",";\n'
+        test_code += '        first = false;\n'
+        test_code += '        try {\n'
+
+        # Create the random list initialization
+        if arr:
+            pairs = []
+            for item in arr:
+                val = item[0]
+                rand_idx = item[1] if item[1] is not None else -1
+                pairs.append(f'{{{val},{rand_idx}}}')
+            pairs_str = ','.join(pairs)
+            test_code += f'            vector<pair<int, int>> arr = {{{pairs_str}}};\n'
+            test_code += '            RandomNode* head = createRandomList(arr);\n'
+        else:
+            test_code += '            RandomNode* head = nullptr;\n'
+
+        test_code += f'            RandomNode* result = sol.{func_name}(head);\n'
+        test_code += '            string got = randomListToJson(result);\n'
+
+        expected_json = json.dumps(expected, separators=(',', ':'))
+        test_code += f'            string expected = R"JSON({expected_json})JSON";\n'
+        test_code += '            bool pass = got == expected;\n'
+        test_code += '            cout << "{\\"pass\\":" << (pass ? "true" : "false") << ",\\"got\\":" << got << ",\\"expected\\":" << expected << "}";\n'
+        test_code += '        } catch (exception& e) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"" << e.what() << "\\"}";\n'
+        test_code += '        } catch (...) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"unknown error\\"}";\n'
+        test_code += '        }\n'
+        test_code += '    }\n\n'
+
+    test_code += '    cout << "]" << endl;\n'
+    test_code += '    return 0;\n'
+    test_code += '}\n'
+
+    return test_code
+
+
 def run_cpp_compiled(harness_code: str, timeout: int = 60) -> tuple:
     """Compile and run C++ code, return (stdout, stderr, returncode)."""
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -1508,10 +1820,21 @@ def test_cpp(problem_id: str, solution_file: Path) -> TestResult:
         solution_code = f.read()
 
     func_name = problem_info.get('function_name', '')
-    is_order_independent = func_name in CPP_ORDER_INDEPENDENT
-    is_multi_answer = func_name in CPP_MULTI_ANSWER
 
-    harness = generate_cpp_harness(solution_code, func_name, test_cases, is_order_independent, is_multi_answer)
+    # Handle special problem types
+    if func_name in CPP_CLASS_FUNCS:
+        harness = generate_cpp_class_harness(solution_code, CPP_CLASS_FUNCS[func_name], test_cases)
+    elif func_name in CPP_CYCLE_FUNCS:
+        harness = generate_cpp_cycle_harness(solution_code, func_name, test_cases)
+    elif func_name in CPP_INPLACE_LIST_FUNCS:
+        harness = generate_cpp_inplace_list_harness(solution_code, func_name, test_cases)
+    elif func_name in CPP_RANDOM_LIST_FUNCS:
+        harness = generate_cpp_random_list_harness(solution_code, func_name, test_cases)
+    else:
+        is_order_independent = func_name in CPP_ORDER_INDEPENDENT
+        is_multi_answer = func_name in CPP_MULTI_ANSWER
+        harness = generate_cpp_harness(solution_code, func_name, test_cases, is_order_independent, is_multi_answer)
+
     if not harness:
         return TestResult(problem_id, 'cpp', error=f"Could not parse function {func_name}")
 
