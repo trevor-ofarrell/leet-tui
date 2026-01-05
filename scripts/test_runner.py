@@ -975,23 +975,26 @@ vector<int> listToVector(ListNode* head) {
     return result;
 }
 
-// Convert vector to tree (level order)
-TreeNode* vectorToTree(const vector<int>& arr) {
-    if (arr.empty()) return nullptr;
-    TreeNode* root = new TreeNode(arr[0]);
+// Special marker for null tree nodes (using LLONG_MIN since tree values are int)
+const long long TREE_NULL = LLONG_MIN;
+
+// Convert vector to tree (level order) - uses LLONG_MIN as null marker
+TreeNode* vectorToTree(const vector<long long>& arr) {
+    if (arr.empty() || arr[0] == TREE_NULL) return nullptr;
+    TreeNode* root = new TreeNode((int)arr[0]);
     queue<TreeNode*> q;
     q.push(root);
     size_t i = 1;
     while (!q.empty() && i < arr.size()) {
         TreeNode* node = q.front();
         q.pop();
-        if (i < arr.size() && arr[i] != INT_MIN) {
-            node->left = new TreeNode(arr[i]);
+        if (i < arr.size() && arr[i] != TREE_NULL) {
+            node->left = new TreeNode((int)arr[i]);
             q.push(node->left);
         }
         i++;
-        if (i < arr.size() && arr[i] != INT_MIN) {
-            node->right = new TreeNode(arr[i]);
+        if (i < arr.size() && arr[i] != TREE_NULL) {
+            node->right = new TreeNode((int)arr[i]);
             q.push(node->right);
         }
         i++;
@@ -1021,6 +1024,20 @@ vector<int> treeToVector(TreeNode* root) {
         result.pop_back();
     }
     return result;
+}
+
+// Convert tree vector to JSON with null for INT_MIN
+string treeVectorToJson(const vector<int>& arr) {
+    string result = "[";
+    for (size_t i = 0; i < arr.size(); i++) {
+        if (i > 0) result += ",";
+        if (arr[i] == INT_MIN) {
+            result += "null";
+        } else {
+            result += to_string(arr[i]);
+        }
+    }
+    return result + "]";
 }
 
 // JSON parsing helpers
@@ -1352,8 +1369,12 @@ def generate_cpp_harness(solution_code: str, func_name: str, test_cases: list, i
                     arr_str = ','.join(map(str, arg)) if arg else ''
                     test_code += f'            ListNode* {var_name} = vectorToList({{{arr_str}}});\n'
                 elif 'TreeNode*' in param_type or 'TreeNode *' in param_type:
-                    # Convert input array to tree
-                    arr_str = ','.join(map(str, arg)) if arg else ''
+                    # Convert input array to tree (use LLONG_MIN for null nodes)
+                    if arg:
+                        arr_vals = [str(x) + 'LL' if x is not None else 'TREE_NULL' for x in arg]
+                        arr_str = ','.join(arr_vals)
+                    else:
+                        arr_str = ''
                     test_code += f'            TreeNode* {var_name} = vectorToTree({{{arr_str}}});\n'
                 elif 'vector<vector<int>>' in param_type:
                     inner = ','.join('{' + ','.join(map(str, row)) + '}' for row in arg) if arg else ''
@@ -1400,7 +1421,7 @@ def generate_cpp_harness(solution_code: str, func_name: str, test_cases: list, i
             test_code += '            string got = toJson(resultVec);\n'
         elif return_type == 'TreeNode*':
             test_code += '            auto resultVec = treeToVector(result);\n'
-            test_code += '            string got = toJson(resultVec);\n'
+            test_code += '            string got = treeVectorToJson(resultVec);\n'
         else:
             test_code += '            string got = toJson(result);\n'
 
