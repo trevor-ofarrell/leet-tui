@@ -984,6 +984,15 @@ vector<int> listToVector(ListNode* head) {
     return result;
 }
 
+// Find a node by value in a tree (for LCA problems)
+TreeNode* findNode(TreeNode* root, int val) {
+    if (!root) return nullptr;
+    if (root->val == val) return root;
+    TreeNode* left = findNode(root->left, val);
+    if (left) return left;
+    return findNode(root->right, val);
+}
+
 // Create random list from array of [val, random_index] pairs
 RandomNode* createRandomList(const vector<pair<int, int>>& arr) {
     if (arr.empty()) return nullptr;
@@ -1352,10 +1361,11 @@ string normalizeJson(const string& s) {
 # C++ function categories (similar to Python/JS)
 CPP_ORDER_INDEPENDENT = {'subsets', 'subsetsWithDup', 'permute', 'permuteUnique', 'combinationSum', 'combinationSum2', 'threeSum', 'letterCombinations', 'generateParenthesis', 'partition', 'solveNQueens', 'groupAnagrams', 'findWords', 'pacificAtlantic', 'topKFrequent'}
 CPP_MULTI_ANSWER = {'longestPalindrome'}  # Functions where multiple answers are valid
-CPP_CLASS_FUNCS = {'LRUCache': 'LRUCache', 'MinStack': 'MinStack', 'KthLargest': 'KthLargest', 'MedianFinder': 'MedianFinder', 'TimeMap': 'TimeMap'}
+CPP_CLASS_FUNCS = {'LRUCache': 'LRUCache', 'MinStack': 'MinStack', 'KthLargest': 'KthLargest', 'MedianFinder': 'MedianFinder', 'TimeMap': 'TimeMap', 'Trie': 'Trie', 'WordDictionary': 'WordDictionary', 'DetectSquares': 'DetectSquares', 'Codec': 'Codec', 'Twitter': 'Twitter'}
 CPP_CYCLE_FUNCS = {'hasCycle'}  # Need special cycle list creation
 CPP_INPLACE_LIST_FUNCS = {'reorderList'}  # Void return, modifies list in place
 CPP_RANDOM_LIST_FUNCS = {'copyRandomList'}  # Special Node* with random pointer
+CPP_LCA_FUNCS = {'lowestCommonAncestor'}  # Need to find nodes by value in tree
 
 
 def generate_cpp_harness(solution_code: str, func_name: str, test_cases: list, is_order_independent: bool = False, is_multi_answer: bool = False) -> str:
@@ -1716,6 +1726,63 @@ def generate_cpp_inplace_list_harness(solution_code: str, func_name: str, test_c
     return test_code
 
 
+def generate_cpp_lca_harness(solution_code: str, func_name: str, test_cases: list) -> str:
+    """Generate a C++ test harness for lowestCommonAncestor (needs to find nodes by value)."""
+    import json
+
+    test_code = CPP_HELPERS + '\n' + solution_code + '\n\n'
+    test_code += 'int main() {\n'
+    test_code += '    Solution sol;\n'
+    test_code += '    cout << "[";\n'
+    test_code += '    bool first = true;\n\n'
+
+    for i, tc in enumerate(test_cases):
+        inp = tc.get('input', {})
+        expected = tc.get('expected')
+
+        # Input format: {root: [...], p: int, q: int}
+        root_arr = inp.get('root', [])
+        p_val = inp.get('p', 0)
+        q_val = inp.get('q', 0)
+
+        test_code += f'    // Test case {i}\n'
+        test_code += '    {\n'
+        test_code += '        if (!first) cout << ",";\n'
+        test_code += '        first = false;\n'
+        test_code += '        try {\n'
+
+        # Create the tree
+        if root_arr:
+            arr_vals = [str(x) + 'LL' if x is not None else 'TREE_NULL' for x in root_arr]
+            arr_str = ','.join(arr_vals)
+            test_code += f'            TreeNode* root = vectorToTree({{{arr_str}}});\n'
+        else:
+            test_code += '            TreeNode* root = nullptr;\n'
+
+        # Find nodes by value
+        test_code += f'            TreeNode* p = findNode(root, {p_val});\n'
+        test_code += f'            TreeNode* q = findNode(root, {q_val});\n'
+
+        test_code += f'            TreeNode* result = sol.{func_name}(root, p, q);\n'
+        test_code += '            int got_val = result ? result->val : INT_MIN;\n'
+
+        test_code += f'            int expected_val = {expected};\n'
+        test_code += '            bool pass = got_val == expected_val;\n'
+        test_code += '            cout << "{\\"pass\\":" << (pass ? "true" : "false") << ",\\"got\\":" << got_val << ",\\"expected\\":" << expected_val << "}";\n'
+        test_code += '        } catch (exception& e) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"" << e.what() << "\\"}";\n'
+        test_code += '        } catch (...) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"unknown error\\"}";\n'
+        test_code += '        }\n'
+        test_code += '    }\n\n'
+
+    test_code += '    cout << "]" << endl;\n'
+    test_code += '    return 0;\n'
+    test_code += '}\n'
+
+    return test_code
+
+
 def generate_cpp_random_list_harness(solution_code: str, func_name: str, test_cases: list) -> str:
     """Generate a C++ test harness for copyRandomList (Node* with random pointer)."""
     import json
@@ -1830,6 +1897,8 @@ def test_cpp(problem_id: str, solution_file: Path) -> TestResult:
         harness = generate_cpp_inplace_list_harness(solution_code, func_name, test_cases)
     elif func_name in CPP_RANDOM_LIST_FUNCS:
         harness = generate_cpp_random_list_harness(solution_code, func_name, test_cases)
+    elif func_name in CPP_LCA_FUNCS:
+        harness = generate_cpp_lca_harness(solution_code, func_name, test_cases)
     else:
         is_order_independent = func_name in CPP_ORDER_INDEPENDENT
         is_multi_answer = func_name in CPP_MULTI_ANSWER
