@@ -1928,9 +1928,256 @@ def test_cpp(problem_id: str, solution_file: Path) -> TestResult:
         return TestResult(problem_id, 'cpp', error=f"Parse error: {stdout[:200]}")
 
 
+C_HELPERS = '''
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include <limits.h>
+#include <math.h>
+
+// Linked list node
+struct ListNode {
+    int val;
+    struct ListNode* next;
+};
+
+// Tree node
+struct TreeNode {
+    int val;
+    struct TreeNode* left;
+    struct TreeNode* right;
+};
+
+// Create a new list node
+struct ListNode* createListNode(int val) {
+    struct ListNode* node = (struct ListNode*)malloc(sizeof(struct ListNode));
+    node->val = val;
+    node->next = NULL;
+    return node;
+}
+
+// Convert array to linked list
+struct ListNode* arrayToList(int* arr, int size) {
+    if (size == 0) return NULL;
+    struct ListNode* head = createListNode(arr[0]);
+    struct ListNode* curr = head;
+    for (int i = 1; i < size; i++) {
+        curr->next = createListNode(arr[i]);
+        curr = curr->next;
+    }
+    return head;
+}
+
+// Convert linked list to string (for output)
+void listToString(struct ListNode* head, char* buf) {
+    strcpy(buf, "[");
+    struct ListNode* curr = head;
+    while (curr) {
+        char num[20];
+        sprintf(num, "%d", curr->val);
+        strcat(buf, num);
+        if (curr->next) strcat(buf, ",");
+        curr = curr->next;
+    }
+    strcat(buf, "]");
+}
+
+// Output JSON integer
+void printIntJson(int val) {
+    printf("%d", val);
+}
+
+// Output JSON boolean
+void printBoolJson(bool val) {
+    printf("%s", val ? "true" : "false");
+}
+
+// Output JSON array of ints
+void printIntArrayJson(int* arr, int size) {
+    printf("[");
+    for (int i = 0; i < size; i++) {
+        if (i > 0) printf(",");
+        printf("%d", arr[i]);
+    }
+    printf("]");
+}
+
+'''
+
+
+def generate_c_harness(solution_code: str, func_name: str, test_cases: list) -> str:
+    """Generate a C test harness for the solution."""
+    import re
+
+    # Find function signature
+    # C function patterns: returnType funcName(params)
+    pattern = r'(\w+(?:\s*\*)?)\s+' + re.escape(func_name) + r'\s*\(([^)]*)\)'
+    match = re.search(pattern, solution_code)
+
+    if not match:
+        return None
+
+    ret_type = match.group(1).strip()
+    params_str = match.group(2).strip()
+
+    # Parse parameters
+    params = []
+    if params_str:
+        # Split on comma but handle nested types
+        depth = 0
+        current = ""
+        for c in params_str:
+            if c in '<(':
+                depth += 1
+            elif c in '>)':
+                depth -= 1
+            if c == ',' and depth == 0:
+                params.append(current.strip())
+                current = ""
+                continue
+            current += c
+        if current.strip():
+            params.append(current.strip())
+
+    # Generate test code
+    test_code = C_HELPERS + '\n' + solution_code + '\n\n'
+    test_code += 'int main() {\n'
+    test_code += '    printf("[");\n'
+    test_code += '    int first = 1;\n\n'
+
+    for i, tc in enumerate(test_cases):
+        inp = tc.get('input', {})
+        expected = tc.get('expected')
+
+        # Convert input to argument values
+        if isinstance(inp, dict):
+            args = list(inp.values())
+        elif isinstance(inp, list):
+            args = inp
+        else:
+            args = [inp]
+
+        test_code += f'    // Test case {i}\n'
+        test_code += '    {\n'
+        test_code += '        if (!first) printf(",");\n'
+        test_code += '        first = 0;\n'
+
+        # Declare variables for each argument
+        arg_names = []
+        for j, (arg, param) in enumerate(zip(args, params)):
+            # Parse param to get type and name
+            param_parts = param.rsplit(None, 1)
+            if len(param_parts) >= 2:
+                param_type = param_parts[0].strip()
+                var_name = f'arg{j}'
+                arg_names.append(var_name)
+
+                # Initialize based on type
+                if 'int*' in param_type and isinstance(arg, list):
+                    arr_str = ','.join(map(str, arg)) if arg else ''
+                    test_code += f'        int {var_name}_arr[] = {{{arr_str}}};\n'
+                    test_code += f'        int* {var_name} = {var_name}_arr;\n'
+                    test_code += f'        int {var_name}_size = {len(arg)};\n'
+                    arg_names.append(f'{var_name}_size')
+                elif 'int' in param_type:
+                    test_code += f'        int {var_name} = {arg};\n'
+                elif 'bool' in param_type:
+                    test_code += f'        bool {var_name} = {"1" if arg else "0"};\n'
+                elif 'char*' in param_type:
+                    escaped = str(arg).replace('\\', '\\\\').replace('"', '\\"')
+                    test_code += f'        char* {var_name} = "{escaped}";\n'
+
+        # Call function
+        call_args = ', '.join(arg_names)
+        test_code += f'        {"int" if "int" in ret_type else ret_type} result = {func_name}({call_args});\n'
+
+        # Compare result
+        if 'int' in ret_type:
+            test_code += f'        int expected = {expected};\n'
+            test_code += '        int pass = (result == expected) ? 1 : 0;\n'
+            test_code += '        printf("{\\"pass\\":%s,\\"got\\":%d,\\"expected\\":%d}", pass ? "true" : "false", result, expected);\n'
+        elif 'bool' in ret_type:
+            test_code += f'        int expected = {"1" if expected else "0"};\n'
+            test_code += '        int pass = (result == expected) ? 1 : 0;\n'
+            test_code += '        printf("{\\"pass\\":%s,\\"got\\":%s,\\"expected\\":%s}", pass ? "true" : "false", result ? "true" : "false", expected ? "true" : "false");\n'
+
+        test_code += '    }\n\n'
+
+    test_code += '    printf("]\\n");\n'
+    test_code += '    return 0;\n'
+    test_code += '}\n'
+
+    return test_code
+
+
+def run_c_compiled(harness_code: str, timeout: int = 60) -> tuple:
+    """Compile and run C code, return (stdout, stderr, returncode)."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        src_file = os.path.join(tmpdir, 'test.c')
+        exe_file = os.path.join(tmpdir, 'test')
+
+        with open(src_file, 'w') as f:
+            f.write(harness_code)
+
+        # Compile
+        compile_result = subprocess.run(
+            ['gcc', '-std=c11', '-O2', '-o', exe_file, src_file, '-lm'],
+            capture_output=True,
+            text=True,
+            timeout=30
+        )
+
+        if compile_result.returncode != 0:
+            return "", f"Compile error: {compile_result.stderr}", compile_result.returncode
+
+        # Run
+        try:
+            run_result = subprocess.run(
+                [exe_file],
+                capture_output=True,
+                text=True,
+                timeout=timeout
+            )
+            return run_result.stdout, run_result.stderr, run_result.returncode
+        except subprocess.TimeoutExpired:
+            return "", "Timeout", -1
+
+
 def test_c(problem_id: str, solution_file: Path) -> TestResult:
-    """Test a C solution (not yet implemented)."""
-    return TestResult(problem_id, 'c', error="C testing not yet implemented")
+    """Test a C solution."""
+    start = time.time()
+
+    problem_info = get_problem_info(problem_id)
+    test_cases = get_test_cases(problem_id)
+
+    if not problem_info or not test_cases:
+        return TestResult(problem_id, 'c', error="Missing files")
+
+    with open(solution_file) as f:
+        solution_code = f.read()
+
+    func_name = problem_info.get('function_name', '')
+
+    harness = generate_c_harness(solution_code, func_name, test_cases)
+
+    if not harness:
+        return TestResult(problem_id, 'c', error=f"Could not parse function {func_name}")
+
+    stdout, stderr, rc = run_c_compiled(harness)
+
+    if rc != 0 or not stdout.strip():
+        return TestResult(problem_id, 'c', error=stderr[:500] or "Unknown error")
+
+    try:
+        results = json.loads(stdout.strip())
+        passed = sum(1 for r in results if r.get('pass'))
+        total = len(results)
+        failures = [r for r in results if not r.get('pass')][:3]
+        duration = (time.time() - start) * 1000
+        return TestResult(problem_id, 'c', passed, total, failures, None, duration)
+    except json.JSONDecodeError as e:
+        return TestResult(problem_id, 'c', error=f"Parse error: {stdout[:200]}")
 
 
 # ============================================================================
