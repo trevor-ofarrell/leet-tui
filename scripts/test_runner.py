@@ -911,17 +911,1544 @@ def test_javascript(problem_id: str, solution_file: Path) -> TestResult:
 
 
 # ============================================================================
-# C++ Runner (Placeholder - needs compile step)
+# C++ Runner
 # ============================================================================
 
+CPP_HELPERS = '''
+#include <iostream>
+#include <vector>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <map>
+#include <set>
+#include <queue>
+#include <stack>
+#include <list>
+#include <algorithm>
+#include <climits>
+#include <cmath>
+#include <sstream>
+#include <iomanip>
+#include <functional>
+#include <numeric>
+
+using namespace std;
+
+// Linked list node
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode* n) : val(x), next(n) {}
+};
+
+// Tree node
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode* l, TreeNode* r) : val(x), left(l), right(r) {}
+};
+
+// Random pointer list node (for problem 138) - named RandomNode to avoid conflicts with graph Node
+struct RandomNode {
+    int val;
+    RandomNode* next;
+    RandomNode* random;
+    RandomNode(int _val) : val(_val), next(nullptr), random(nullptr) {}
+};
+
+// Convert vector to linked list
+ListNode* vectorToList(const vector<int>& arr) {
+    if (arr.empty()) return nullptr;
+    ListNode* head = new ListNode(arr[0]);
+    ListNode* curr = head;
+    for (size_t i = 1; i < arr.size(); i++) {
+        curr->next = new ListNode(arr[i]);
+        curr = curr->next;
+    }
+    return head;
+}
+
+// Convert linked list to vector
+vector<int> listToVector(ListNode* head) {
+    vector<int> result;
+    while (head) {
+        result.push_back(head->val);
+        head = head->next;
+    }
+    return result;
+}
+
+// Find a node by value in a tree (for LCA problems)
+TreeNode* findNode(TreeNode* root, int val) {
+    if (!root) return nullptr;
+    if (root->val == val) return root;
+    TreeNode* left = findNode(root->left, val);
+    if (left) return left;
+    return findNode(root->right, val);
+}
+
+// Create random list from array of [val, random_index] pairs
+RandomNode* createRandomList(const vector<pair<int, int>>& arr) {
+    if (arr.empty()) return nullptr;
+    vector<RandomNode*> nodes;
+    for (const auto& p : arr) {
+        nodes.push_back(new RandomNode(p.first));
+    }
+    for (size_t i = 0; i < nodes.size(); i++) {
+        if (i < nodes.size() - 1) nodes[i]->next = nodes[i + 1];
+        if (arr[i].second >= 0 && arr[i].second < (int)nodes.size()) {
+            nodes[i]->random = nodes[arr[i].second];
+        }
+    }
+    return nodes[0];
+}
+
+// Convert random list to JSON array
+string randomListToJson(RandomNode* head) {
+    if (!head) return "[]";
+    vector<RandomNode*> nodes;
+    map<RandomNode*, int> nodeToIdx;
+    RandomNode* curr = head;
+    int idx = 0;
+    while (curr) {
+        nodeToIdx[curr] = idx++;
+        nodes.push_back(curr);
+        curr = curr->next;
+    }
+    string result = "[";
+    for (size_t i = 0; i < nodes.size(); i++) {
+        if (i > 0) result += ",";
+        result += "[" + to_string(nodes[i]->val) + ",";
+        if (nodes[i]->random) {
+            result += to_string(nodeToIdx[nodes[i]->random]);
+        } else {
+            result += "null";
+        }
+        result += "]";
+    }
+    return result + "]";
+}
+
+// Create linked list with cycle at position pos (-1 for no cycle)
+ListNode* createCycleList(const vector<int>& arr, int pos) {
+    if (arr.empty()) return nullptr;
+    vector<ListNode*> nodes;
+    for (int val : arr) {
+        nodes.push_back(new ListNode(val));
+    }
+    for (size_t i = 0; i < nodes.size() - 1; i++) {
+        nodes[i]->next = nodes[i + 1];
+    }
+    if (pos >= 0 && pos < (int)nodes.size()) {
+        nodes.back()->next = nodes[pos];
+    }
+    return nodes[0];
+}
+
+// Special marker for null tree nodes (using LLONG_MIN since tree values are int)
+const long long TREE_NULL = LLONG_MIN;
+
+// Convert vector to tree (level order) - uses LLONG_MIN as null marker
+TreeNode* vectorToTree(const vector<long long>& arr) {
+    if (arr.empty() || arr[0] == TREE_NULL) return nullptr;
+    TreeNode* root = new TreeNode((int)arr[0]);
+    queue<TreeNode*> q;
+    q.push(root);
+    size_t i = 1;
+    while (!q.empty() && i < arr.size()) {
+        TreeNode* node = q.front();
+        q.pop();
+        if (i < arr.size() && arr[i] != TREE_NULL) {
+            node->left = new TreeNode((int)arr[i]);
+            q.push(node->left);
+        }
+        i++;
+        if (i < arr.size() && arr[i] != TREE_NULL) {
+            node->right = new TreeNode((int)arr[i]);
+            q.push(node->right);
+        }
+        i++;
+    }
+    return root;
+}
+
+// Convert tree to vector (level order)
+vector<int> treeToVector(TreeNode* root) {
+    if (!root) return {};
+    vector<int> result;
+    queue<TreeNode*> q;
+    q.push(root);
+    while (!q.empty()) {
+        TreeNode* node = q.front();
+        q.pop();
+        if (node) {
+            result.push_back(node->val);
+            q.push(node->left);
+            q.push(node->right);
+        } else {
+            result.push_back(INT_MIN); // null marker
+        }
+    }
+    // Remove trailing nulls
+    while (!result.empty() && result.back() == INT_MIN) {
+        result.pop_back();
+    }
+    return result;
+}
+
+// Convert tree vector to JSON with null for INT_MIN
+string treeVectorToJson(const vector<int>& arr) {
+    string result = "[";
+    for (size_t i = 0; i < arr.size(); i++) {
+        if (i > 0) result += ",";
+        if (arr[i] == INT_MIN) {
+            result += "null";
+        } else {
+            result += to_string(arr[i]);
+        }
+    }
+    return result + "]";
+}
+
+// Convert tree to JSON string (level order with nulls)
+string treeToString(TreeNode* root) {
+    return treeVectorToJson(treeToVector(root));
+}
+
+// Escape string for JSON output
+string escapeJsonString(const string& s) {
+    string result;
+    for (char c : s) {
+        if (c == '"') result += R"x(\\")x";
+        else if (c == 92) result += R"x(\\\\)x";  // backslash
+        else if (c == 10) result += R"x(\\n)x";  // newline
+        else if (c == 13) result += R"x(\\r)x";  // carriage return
+        else if (c == 9) result += R"x(\\t)x";   // tab
+        else result += c;
+    }
+    return result;
+}
+
+// JSON parsing helpers
+string trim(const string& s) {
+    size_t start = s.find_first_not_of(" \\t\\n\\r");
+    if (start == string::npos) return "";
+    size_t end = s.find_last_not_of(" \\t\\n\\r");
+    return s.substr(start, end - start + 1);
+}
+
+// Simple JSON array parser for integers
+vector<int> parseIntArray(const string& s) {
+    vector<int> result;
+    string trimmed = trim(s);
+    if (trimmed.empty() || trimmed == "[]") return result;
+    if (trimmed[0] == '[') trimmed = trimmed.substr(1);
+    if (!trimmed.empty() && trimmed.back() == ']') trimmed.pop_back();
+
+    stringstream ss(trimmed);
+    string token;
+    while (getline(ss, token, ',')) {
+        string t = trim(token);
+        if (!t.empty() && t != "null") {
+            try {
+                result.push_back(stoi(t));
+            } catch (...) {}
+        }
+    }
+    return result;
+}
+
+// Parse 2D int array
+vector<vector<int>> parse2DIntArray(const string& s) {
+    vector<vector<int>> result;
+    string trimmed = trim(s);
+    if (trimmed.empty() || trimmed == "[]") return result;
+
+    int depth = 0;
+    string current;
+    for (size_t i = 0; i < trimmed.size(); i++) {
+        char c = trimmed[i];
+        if (c == '[') {
+            depth++;
+            if (depth == 2) current = "";
+        } else if (c == ']') {
+            if (depth == 2 && !current.empty()) {
+                result.push_back(parseIntArray("[" + current + "]"));
+            }
+            depth--;
+        } else if (depth == 2) {
+            current += c;
+        }
+    }
+    return result;
+}
+
+// Parse string array
+vector<string> parseStringArray(const string& s) {
+    vector<string> result;
+    string trimmed = trim(s);
+    if (trimmed.empty() || trimmed == "[]") return result;
+
+    bool inString = false;
+    string current;
+    bool escaped = false;
+
+    for (size_t i = 1; i < trimmed.size() - 1; i++) {
+        char c = trimmed[i];
+        if (escaped) {
+            current += c;
+            escaped = false;
+        } else if (c == '\\\\') {
+            escaped = true;
+        } else if (c == '"') {
+            if (inString) {
+                result.push_back(current);
+                current = "";
+            }
+            inString = !inString;
+        } else if (inString) {
+            current += c;
+        }
+    }
+    return result;
+}
+
+// Parse 2D string array
+vector<vector<string>> parse2DStringArray(const string& s) {
+    vector<vector<string>> result;
+    string trimmed = trim(s);
+    if (trimmed.empty() || trimmed == "[]") return result;
+
+    int depth = 0;
+    string current;
+    for (size_t i = 0; i < trimmed.size(); i++) {
+        char c = trimmed[i];
+        if (c == '[') {
+            depth++;
+            if (depth == 2) current = "[";
+        } else if (c == ']') {
+            if (depth == 2) {
+                current += "]";
+                result.push_back(parseStringArray(current));
+            }
+            depth--;
+        } else if (depth >= 2) {
+            current += c;
+        }
+    }
+    return result;
+}
+
+// Convert to JSON string
+string toJson(int val) { return to_string(val); }
+string toJson(long long val) { return to_string(val); }
+string toJson(double val) {
+    // Check if it's an integer value
+    if (val == (long long)val) {
+        return to_string((long long)val);
+    }
+    stringstream ss;
+    ss << fixed << setprecision(5) << val;
+    string s = ss.str();
+    // Remove trailing zeros but keep at least one decimal place
+    size_t dot = s.find('.');
+    if (dot != string::npos) {
+        size_t last = s.find_last_not_of('0');
+        if (last > dot) s = s.substr(0, last + 1);
+        else s = s.substr(0, dot + 2); // Keep .0
+    }
+    return s;
+}
+string toJson(bool val) { return val ? "true" : "false"; }
+string toJson(const string& val) {
+    string result = "\\"";
+    for (char c : val) {
+        if (c == '"') result += "\\\\\\"";
+        else if (c == '\\\\') result += "\\\\\\\\";
+        else result += c;
+    }
+    return result + "\\"";
+}
+string toJson(uint32_t val) { return to_string(val); }
+
+string toJson(const vector<int>& arr) {
+    string result = "[";
+    for (size_t i = 0; i < arr.size(); i++) {
+        if (i > 0) result += ",";
+        result += to_string(arr[i]);
+    }
+    return result + "]";
+}
+
+string toJson(const vector<bool>& arr) {
+    string result = "[";
+    for (size_t i = 0; i < arr.size(); i++) {
+        if (i > 0) result += ",";
+        result += arr[i] ? "true" : "false";
+    }
+    return result + "]";
+}
+
+string toJson(const vector<string>& arr) {
+    string result = "[";
+    for (size_t i = 0; i < arr.size(); i++) {
+        if (i > 0) result += ",";
+        result += toJson(arr[i]);
+    }
+    return result + "]";
+}
+
+string toJson(const vector<vector<int>>& arr) {
+    string result = "[";
+    for (size_t i = 0; i < arr.size(); i++) {
+        if (i > 0) result += ",";
+        result += toJson(arr[i]);
+    }
+    return result + "]";
+}
+
+string toJson(const vector<vector<string>>& arr) {
+    string result = "[";
+    for (size_t i = 0; i < arr.size(); i++) {
+        if (i > 0) result += ",";
+        result += toJson(arr[i]);
+    }
+    return result + "]";
+}
+
+// Normalization for order-independent comparison
+string normalizeJson(const string& s) {
+    // Parse as array, sort inner elements, sort outer by string representation
+    string trimmed = trim(s);
+    if (trimmed.empty() || trimmed[0] != '[') return trimmed;
+
+    // Check if it contains strings (has quotes)
+    bool hasStrings = trimmed.find('"') != string::npos;
+
+    // For simple arrays (no nested brackets)
+    if (trimmed.find('[', 1) == string::npos) {
+        if (hasStrings) {
+            vector<string> arr = parseStringArray(trimmed);
+            sort(arr.begin(), arr.end());
+            return toJson(arr);
+        } else {
+            vector<int> arr = parseIntArray(trimmed);
+            sort(arr.begin(), arr.end());
+            return toJson(arr);
+        }
+    }
+
+    // For 2D arrays - parse each inner array, sort it, then sort outer by string representation
+    if (hasStrings) {
+        vector<vector<string>> arr = parse2DStringArray(trimmed);
+        vector<string> strs;
+        for (auto& inner : arr) {
+            sort(inner.begin(), inner.end());
+            strs.push_back(toJson(inner));
+        }
+        sort(strs.begin(), strs.end());
+        string result = "[";
+        for (size_t i = 0; i < strs.size(); i++) {
+            if (i > 0) result += ",";
+            result += strs[i];
+        }
+        return result + "]";
+    } else {
+        vector<vector<int>> arr = parse2DIntArray(trimmed);
+        vector<string> strs;
+        for (auto& inner : arr) {
+            sort(inner.begin(), inner.end());
+            strs.push_back(toJson(inner));
+        }
+        sort(strs.begin(), strs.end());
+        string result = "[";
+        for (size_t i = 0; i < strs.size(); i++) {
+            if (i > 0) result += ",";
+            result += strs[i];
+        }
+        return result + "]";
+    }
+}
+'''
+
+# C++ function categories (similar to Python/JS)
+CPP_ORDER_INDEPENDENT = {'subsets', 'subsetsWithDup', 'permute', 'permuteUnique', 'combinationSum', 'combinationSum2', 'threeSum', 'letterCombinations', 'generateParenthesis', 'partition', 'solveNQueens', 'groupAnagrams', 'findWords', 'pacificAtlantic', 'topKFrequent'}
+CPP_MULTI_ANSWER = {'longestPalindrome'}  # Functions where multiple answers are valid
+CPP_CLASS_FUNCS = {
+    'LRUCache': 'LRUCache', 'MinStack': 'MinStack',
+    'KthLargest': 'KthLargest', 'MedianFinder': 'MedianFinder', 'medianFinder': 'MedianFinder',
+    'TimeMap': 'TimeMap', 'Trie': 'Trie', 'trie': 'Trie',
+    'WordDictionary': 'WordDictionary', 'wordDictionary': 'WordDictionary',
+    'DetectSquares': 'DetectSquares',
+    'Twitter': 'Twitter'
+}
+CPP_CYCLE_FUNCS = {'hasCycle'}  # Need special cycle list creation
+CPP_INPLACE_LIST_FUNCS = {'reorderList'}  # Void return, modifies list in place
+CPP_RANDOM_LIST_FUNCS = {'copyRandomList'}  # Special Node* with random pointer
+CPP_LCA_FUNCS = {'lowestCommonAncestor'}  # Need to find nodes by value in tree
+CPP_CODEC_FUNCS = {'codec'}  # Serialize/deserialize tree
+CPP_ENCODE_DECODE_FUNCS = {'encodeDecode'}  # Encode/decode strings
+CPP_VOID_2D_FUNCS = {'wallsAndGates'}  # Void functions that modify 2D grid in place
+
+
+def generate_cpp_harness(solution_code: str, func_name: str, test_cases: list, is_order_independent: bool = False, is_multi_answer: bool = False) -> str:
+    """Generate a C++ test harness for the solution."""
+
+    # Detect function signature from solution code
+    # Look for the method in class Solution
+    import re
+
+    # Match return type including nested templates like vector<vector<string>> and pointers like ListNode*
+    # Pattern handles nested angle brackets and pointer types
+    pattern = r'((?:\w+(?:<(?:[^<>]|<[^<>]*>)*>)?)+\*?)\s+' + re.escape(func_name) + r'\s*\(([^)]*)\)'
+    match = re.search(pattern, solution_code)
+    if not match:
+        return None
+
+    return_type = match.group(1).strip()
+    params_str = match.group(2).strip()
+
+    # Parse parameters
+    params = []
+    if params_str:
+        # Split by comma but respect template brackets
+        depth = 0
+        current = ""
+        for c in params_str:
+            if c in '<':
+                depth += 1
+            elif c in '>':
+                depth -= 1
+            elif c == ',' and depth == 0:
+                params.append(current.strip())
+                current = ""
+                continue
+            current += c
+        if current.strip():
+            params.append(current.strip())
+
+    # Generate test code
+    test_code = CPP_HELPERS + '\n' + solution_code + '\n\n'
+    test_code += 'int main() {\n'
+    test_code += '    Solution sol;\n'
+    test_code += '    cout << "[";\n'
+    test_code += '    bool first = true;\n\n'
+
+    for i, tc in enumerate(test_cases):
+        inp = tc.get('input', {})
+        expected = tc.get('expected')
+
+        # Convert input to argument values
+        if isinstance(inp, dict):
+            args = list(inp.values())
+        elif isinstance(inp, list):
+            args = inp
+        else:
+            args = [inp]
+
+        test_code += f'    // Test case {i}\n'
+        test_code += '    {\n'
+        test_code += '        if (!first) cout << ",";\n'
+        test_code += '        first = false;\n'
+        test_code += '        try {\n'
+
+        # Declare variables for each argument
+        arg_names = []
+        for j, (arg, param) in enumerate(zip(args, params)):
+            param_parts = param.rsplit(None, 1)
+            if len(param_parts) >= 2:
+                param_type = param_parts[0].replace('&', '').strip()
+                var_name = f'arg{j}'
+                arg_names.append(var_name)
+
+                # Initialize based on type
+                if 'vector<ListNode*>' in param_type:
+                    # Convert array of arrays to vector of linked lists
+                    test_code += f'            vector<ListNode*> {var_name};\n'
+                    for i, lst in enumerate(arg if arg else []):
+                        arr_str = ','.join(map(str, lst)) if lst else ''
+                        test_code += f'            {var_name}.push_back(vectorToList({{{arr_str}}}));\n'
+                elif 'ListNode*' in param_type or 'ListNode *' in param_type:
+                    # Convert input array to linked list
+                    arr_str = ','.join(map(str, arg)) if arg else ''
+                    test_code += f'            ListNode* {var_name} = vectorToList({{{arr_str}}});\n'
+                elif 'TreeNode*' in param_type or 'TreeNode *' in param_type:
+                    # Convert input array to tree (use LLONG_MIN for null nodes)
+                    if arg:
+                        arr_vals = [str(x) + 'LL' if x is not None else 'TREE_NULL' for x in arg]
+                        arr_str = ','.join(arr_vals)
+                    else:
+                        arr_str = ''
+                    test_code += f'            TreeNode* {var_name} = vectorToTree({{{arr_str}}});\n'
+                elif 'vector<vector<int>>' in param_type:
+                    inner = ','.join('{' + ','.join(map(str, row)) + '}' for row in arg) if arg else ''
+                    test_code += f'            vector<vector<int>> {var_name} = {{{inner}}};\n'
+                elif 'vector<int>' in param_type:
+                    test_code += f'            vector<int> {var_name} = {{{",".join(map(str, arg)) if arg else ""}}};\n'
+                elif 'vector<vector<char>>' in param_type:
+                    # Handle 2D char array (like Sudoku boards, islands)
+                    # Input values may be single chars, single-char strings, or integers
+                    def to_char(c):
+                        if isinstance(c, int):
+                            # Convert integer to char (0 -> '0', 1 -> '1', etc.)
+                            return f"'{c}'"
+                        elif isinstance(c, str) and len(c) == 1:
+                            return f"'{c}'"
+                        return f"'{c}'"
+                    inner = ','.join('{' + ','.join(to_char(c) for c in row) + '}' for row in arg) if arg else ''
+                    test_code += f'            vector<vector<char>> {var_name} = {{{inner}}};\n'
+                elif 'vector<vector<string>>' in param_type:
+                    inner = ','.join('{' + ','.join(f'"{s}"' for s in row) + '}' for row in arg) if arg else ''
+                    test_code += f'            vector<vector<string>> {var_name} = {{{inner}}};\n'
+                elif 'vector<char>' in param_type:
+                    inner = ','.join(f"'{c}'" for c in arg) if arg else ''
+                    test_code += f'            vector<char> {var_name} = {{{inner}}};\n'
+                elif 'vector<string>' in param_type:
+                    inner = ','.join(f'"{s}"' for s in arg) if arg else ''
+                    test_code += f'            vector<string> {var_name} = {{{inner}}};\n'
+                elif 'string' in param_type:
+                    escaped = str(arg).replace('\\', '\\\\').replace('"', '\\"')
+                    test_code += f'            string {var_name} = "{escaped}";\n'
+                elif 'int' in param_type or 'long' in param_type:
+                    test_code += f'            {param_type} {var_name} = {arg};\n'
+                elif 'uint32_t' in param_type:
+                    test_code += f'            uint32_t {var_name} = {arg}u;\n'
+                elif 'char' in param_type:
+                    test_code += f'            char {var_name} = \'{arg}\';\n'
+                elif 'bool' in param_type:
+                    test_code += f'            bool {var_name} = {"true" if arg else "false"};\n'
+                elif 'double' in param_type or 'float' in param_type:
+                    test_code += f'            {param_type} {var_name} = {arg};\n'
+                else:
+                    # Default to int
+                    test_code += f'            int {var_name} = {arg};\n'
+
+        # Call function
+        call_args = ', '.join(arg_names)
+        test_code += f'            auto result = sol.{func_name}({call_args});\n'
+
+        # Convert result based on return type
+        if return_type == 'ListNode*':
+            test_code += '            auto resultVec = listToVector(result);\n'
+            test_code += '            string got = toJson(resultVec);\n'
+        elif return_type == 'TreeNode*':
+            test_code += '            string got = result ? treeToString(result) : "null";\n'
+        else:
+            test_code += '            string got = toJson(result);\n'
+
+        # Convert expected to string for comparison
+        # Use custom delimiter to handle strings containing )"
+        expected_json = json.dumps(expected, separators=(',', ':'))
+        test_code += f'            string expected = R"JSON({expected_json})JSON";\n'
+
+        if is_multi_answer and isinstance(expected, list):
+            # For multi-answer, check if got is in expected array
+            test_code += '            bool pass = false;\n'
+            test_code += '            // Check if result is one of the valid answers\n'
+            for valid_answer in expected:
+                valid_json = json.dumps(valid_answer, separators=(',', ':'))
+                test_code += f'            if (got == R"JSON({valid_json})JSON") pass = true;\n'
+        elif is_order_independent:
+            test_code += '            bool pass = normalizeJson(got) == normalizeJson(expected);\n'
+        elif isinstance(expected, float):
+            # Float comparison with tolerance
+            test_code += f'            bool pass = abs(result - {expected}) < 1e-5;\n'
+        else:
+            test_code += '            bool pass = got == expected;\n'
+
+        input_json = json.dumps(tc.get('input'), separators=(',', ':')).replace('\\', '\\\\').replace('"', '\\"')
+        test_code += f'            cout << "{{\\"pass\\":" << (pass ? "true" : "false") << ",\\"got\\":" << got << ",\\"expected\\":" << expected << "}}";\n'
+        test_code += '        } catch (exception& e) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"" << e.what() << "\\"}";\n'
+        test_code += '        } catch (...) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"unknown error\\"}";\n'
+        test_code += '        }\n'
+        test_code += '    }\n\n'
+
+    test_code += '    cout << "]" << endl;\n'
+    test_code += '    return 0;\n'
+    test_code += '}\n'
+
+    return test_code
+
+
+def cpp_value(v):
+    """Convert Python value to C++ literal string."""
+    if isinstance(v, str):
+        # Escape special characters and quote string
+        escaped = v.replace('\\', '\\\\').replace('"', '\\"')
+        return f'"{escaped}"'
+    elif isinstance(v, bool):
+        return 'true' if v else 'false'
+    elif isinstance(v, list):
+        # Convert list to vector initializer
+        return '{' + ', '.join(cpp_value(x) for x in v) + '}'
+    elif v is None:
+        return 'nullptr'
+    else:
+        return str(v)
+
+
+def generate_cpp_class_harness(solution_code: str, class_name: str, test_cases: list) -> str:
+    """Generate a C++ test harness for class-based solutions (LRUCache, MinStack, etc.)."""
+    import json
+
+    test_code = CPP_HELPERS + '\n' + solution_code + '\n\n'
+    test_code += 'int main() {\n'
+    test_code += '    cout << "[";\n'
+    test_code += '    bool first = true;\n\n'
+
+    for i, tc in enumerate(test_cases):
+        inp = tc.get('input', [])
+        expected = tc.get('expected', [])
+
+        # Input format: [[methods], [args]]
+        methods = inp[0]
+        args = inp[1]
+
+        test_code += f'    // Test case {i}\n'
+        test_code += '    {\n'
+        test_code += '        if (!first) cout << ",";\n'
+        test_code += '        first = false;\n'
+        test_code += '        try {\n'
+        test_code += '            vector<string> outputs;\n'
+        test_code += f'            {class_name}* instance = nullptr;\n\n'
+
+        for j, (method, arg) in enumerate(zip(methods, args)):
+            if method == class_name:
+                # Constructor call
+                if class_name == 'LRUCache':
+                    test_code += f'            instance = new {class_name}({arg[0]});\n'
+                elif class_name == 'MinStack':
+                    test_code += f'            instance = new {class_name}();\n'
+                else:
+                    # Generic constructor with args
+                    args_str = ', '.join(cpp_value(a) for a in arg)
+                    test_code += f'            instance = new {class_name}({args_str});\n'
+                test_code += '            outputs.push_back("null");\n'
+            else:
+                # Method call
+                args_str = ', '.join(cpp_value(a) for a in arg)
+                # Void-returning methods
+                void_methods = {'put', 'push', 'pop', 'insert', 'set', 'addWord', 'follow', 'unfollow', 'postTweet', 'add', 'addNum'}
+                # Int-returning methods
+                int_methods = {'get', 'top', 'getMin', 'findMedian', 'count'}
+                # Bool-returning methods
+                bool_methods = {'search', 'startsWith'}
+                # List-returning methods
+                list_methods = {'getNewsFeed'}
+
+                # TimeMap.get returns string, LRUCache.get returns int
+                if class_name == 'TimeMap' and method == 'get':
+                    test_code += '            {\n'
+                    test_code += f'                string r = instance->{method}({args_str});\n'
+                    test_code += '                outputs.push_back("\\"" + r + "\\"");\n'
+                    test_code += '            }\n'
+                elif method in void_methods and not (class_name == 'KthLargest' and method == 'add'):
+                    test_code += f'            instance->{method}({args_str});\n'
+                    test_code += '            outputs.push_back("null");\n'
+                elif method in int_methods or (class_name == 'KthLargest' and method == 'add'):
+                    test_code += '            {\n'
+                    if class_name == 'MedianFinder' and method == 'findMedian':
+                        test_code += f'                double r = instance->{method}({args_str});\n'
+                        test_code += '                if (r == (int)r) outputs.push_back(to_string((int)r));\n'
+                        test_code += '                else { char buf[32]; sprintf(buf, "%.1f", r); outputs.push_back(buf); }\n'
+                    elif class_name == 'MinStack' and method in ('getMin', 'top'):
+                        test_code += f'                int r = instance->{method}({args_str});\n'
+                        test_code += '                if (r == INT_MAX) outputs.push_back("null");\n'
+                        test_code += '                else outputs.push_back(to_string(r));\n'
+                    else:
+                        test_code += f'                int r = instance->{method}({args_str});\n'
+                        test_code += '                outputs.push_back(to_string(r));\n'
+                    test_code += '            }\n'
+                elif method in bool_methods:
+                    test_code += '            {\n'
+                    test_code += f'                bool r = instance->{method}({args_str});\n'
+                    test_code += '                outputs.push_back(r ? "true" : "false");\n'
+                    test_code += '            }\n'
+                elif method in list_methods:
+                    test_code += '            {\n'
+                    test_code += f'                auto r = instance->{method}({args_str});\n'
+                    test_code += '                string s = "[";\n'
+                    test_code += '                for (size_t i = 0; i < r.size(); i++) {\n'
+                    test_code += '                    if (i > 0) s += ",";\n'
+                    test_code += '                    s += to_string(r[i]);\n'
+                    test_code += '                }\n'
+                    test_code += '                s += "]";\n'
+                    test_code += '                outputs.push_back(s);\n'
+                    test_code += '            }\n'
+                else:
+                    # Generic fallback - treat as void
+                    test_code += f'            instance->{method}({args_str});\n'
+                    test_code += '            outputs.push_back("null");\n'
+
+        test_code += '\n            // Build expected output string\n'
+        # Normalize expected values for MedianFinder (1.0 -> 1, but keep 1.5)
+        normalized_expected = []
+        for v in expected:
+            if v is None:
+                normalized_expected.append(None)
+            elif isinstance(v, float) and v == int(v):
+                normalized_expected.append(int(v))
+            else:
+                normalized_expected.append(v)
+        expected_json = json.dumps(normalized_expected, separators=(',', ':'))
+        test_code += f'            string expected = R"JSON({expected_json})JSON";\n'
+
+        test_code += '            // Build got output string\n'
+        test_code += '            string got = "[";\n'
+        test_code += '            for (size_t i = 0; i < outputs.size(); i++) {\n'
+        test_code += '                if (i > 0) got += ",";\n'
+        test_code += '                got += outputs[i];\n'
+        test_code += '            }\n'
+        test_code += '            got += "]";\n'
+
+        test_code += '            bool pass = got == expected;\n'
+        test_code += '            cout << "{\\"pass\\":" << (pass ? "true" : "false") << ",\\"got\\":" << got << ",\\"expected\\":" << expected << "}";\n'
+        test_code += '            delete instance;\n'
+        test_code += '        } catch (exception& e) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"" << e.what() << "\\"}";\n'
+        test_code += '        } catch (...) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"unknown error\\"}";\n'
+        test_code += '        }\n'
+        test_code += '    }\n\n'
+
+    test_code += '    cout << "]" << endl;\n'
+    test_code += '    return 0;\n'
+    test_code += '}\n'
+
+    return test_code
+
+
+def generate_cpp_cycle_harness(solution_code: str, func_name: str, test_cases: list) -> str:
+    """Generate a C++ test harness for hasCycle (cycle detection in linked list)."""
+    import json
+
+    test_code = CPP_HELPERS + '\n' + solution_code + '\n\n'
+    test_code += 'int main() {\n'
+    test_code += '    Solution sol;\n'
+    test_code += '    cout << "[";\n'
+    test_code += '    bool first = true;\n\n'
+
+    for i, tc in enumerate(test_cases):
+        inp = tc.get('input', [])
+        expected = tc.get('expected', False)
+
+        # Input format: [[arr], pos]
+        arr = inp[0] if len(inp) > 0 else []
+        pos = inp[1] if len(inp) > 1 else -1
+
+        test_code += f'    // Test case {i}\n'
+        test_code += '    {\n'
+        test_code += '        if (!first) cout << ",";\n'
+        test_code += '        first = false;\n'
+        test_code += '        try {\n'
+
+        # Create the array values
+        arr_str = ','.join(map(str, arr)) if arr else ''
+        test_code += f'            ListNode* head = createCycleList({{{arr_str}}}, {pos});\n'
+        test_code += f'            bool result = sol.{func_name}(head);\n'
+
+        expected_str = 'true' if expected else 'false'
+        test_code += f'            bool expected = {expected_str};\n'
+        test_code += '            bool pass = result == expected;\n'
+        test_code += '            cout << "{\\"pass\\":" << (pass ? "true" : "false") << ",\\"got\\":" << (result ? "true" : "false") << ",\\"expected\\":" << (expected ? "true" : "false") << "}";\n'
+        test_code += '        } catch (exception& e) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"" << e.what() << "\\"}";\n'
+        test_code += '        } catch (...) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"unknown error\\"}";\n'
+        test_code += '        }\n'
+        test_code += '    }\n\n'
+
+    test_code += '    cout << "]" << endl;\n'
+    test_code += '    return 0;\n'
+    test_code += '}\n'
+
+    return test_code
+
+
+def generate_cpp_inplace_list_harness(solution_code: str, func_name: str, test_cases: list) -> str:
+    """Generate a C++ test harness for in-place list modification (reorderList)."""
+    import json
+
+    test_code = CPP_HELPERS + '\n' + solution_code + '\n\n'
+    test_code += 'int main() {\n'
+    test_code += '    Solution sol;\n'
+    test_code += '    cout << "[";\n'
+    test_code += '    bool first = true;\n\n'
+
+    for i, tc in enumerate(test_cases):
+        inp = tc.get('input', [])
+        expected = tc.get('expected', [])
+
+        # Input format: [[arr]] - single array wrapped
+        arr = inp[0] if len(inp) > 0 and isinstance(inp[0], list) else inp
+
+        test_code += f'    // Test case {i}\n'
+        test_code += '    {\n'
+        test_code += '        if (!first) cout << ",";\n'
+        test_code += '        first = false;\n'
+        test_code += '        try {\n'
+
+        # Create the list
+        arr_str = ','.join(map(str, arr)) if arr else ''
+        test_code += f'            ListNode* head = vectorToList({{{arr_str}}});\n'
+        test_code += f'            sol.{func_name}(head);\n'
+        test_code += '            auto resultVec = listToVector(head);\n'
+        test_code += '            string got = toJson(resultVec);\n'
+
+        expected_json = json.dumps(expected, separators=(',', ':'))
+        test_code += f'            string expected = R"JSON({expected_json})JSON";\n'
+        test_code += '            bool pass = got == expected;\n'
+        test_code += '            cout << "{\\"pass\\":" << (pass ? "true" : "false") << ",\\"got\\":" << got << ",\\"expected\\":" << expected << "}";\n'
+        test_code += '        } catch (exception& e) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"" << e.what() << "\\"}";\n'
+        test_code += '        } catch (...) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"unknown error\\"}";\n'
+        test_code += '        }\n'
+        test_code += '    }\n\n'
+
+    test_code += '    cout << "]" << endl;\n'
+    test_code += '    return 0;\n'
+    test_code += '}\n'
+
+    return test_code
+
+
+def generate_cpp_lca_harness(solution_code: str, func_name: str, test_cases: list) -> str:
+    """Generate a C++ test harness for lowestCommonAncestor (needs to find nodes by value)."""
+    import json
+
+    test_code = CPP_HELPERS + '\n' + solution_code + '\n\n'
+    test_code += 'int main() {\n'
+    test_code += '    Solution sol;\n'
+    test_code += '    cout << "[";\n'
+    test_code += '    bool first = true;\n\n'
+
+    for i, tc in enumerate(test_cases):
+        inp = tc.get('input', {})
+        expected = tc.get('expected')
+
+        # Input format: {root: [...], p: int, q: int}
+        root_arr = inp.get('root', [])
+        p_val = inp.get('p', 0)
+        q_val = inp.get('q', 0)
+
+        test_code += f'    // Test case {i}\n'
+        test_code += '    {\n'
+        test_code += '        if (!first) cout << ",";\n'
+        test_code += '        first = false;\n'
+        test_code += '        try {\n'
+
+        # Create the tree
+        if root_arr:
+            arr_vals = [str(x) + 'LL' if x is not None else 'TREE_NULL' for x in root_arr]
+            arr_str = ','.join(arr_vals)
+            test_code += f'            TreeNode* root = vectorToTree({{{arr_str}}});\n'
+        else:
+            test_code += '            TreeNode* root = nullptr;\n'
+
+        # Find nodes by value
+        test_code += f'            TreeNode* p = findNode(root, {p_val});\n'
+        test_code += f'            TreeNode* q = findNode(root, {q_val});\n'
+
+        test_code += f'            TreeNode* result = sol.{func_name}(root, p, q);\n'
+        test_code += '            int got_val = result ? result->val : INT_MIN;\n'
+
+        test_code += f'            int expected_val = {expected};\n'
+        test_code += '            bool pass = got_val == expected_val;\n'
+        test_code += '            cout << "{\\"pass\\":" << (pass ? "true" : "false") << ",\\"got\\":" << got_val << ",\\"expected\\":" << expected_val << "}";\n'
+        test_code += '        } catch (exception& e) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"" << e.what() << "\\"}";\n'
+        test_code += '        } catch (...) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"unknown error\\"}";\n'
+        test_code += '        }\n'
+        test_code += '    }\n\n'
+
+    test_code += '    cout << "]" << endl;\n'
+    test_code += '    return 0;\n'
+    test_code += '}\n'
+
+    return test_code
+
+
+def generate_cpp_random_list_harness(solution_code: str, func_name: str, test_cases: list) -> str:
+    """Generate a C++ test harness for copyRandomList (Node* with random pointer)."""
+    import json
+
+    test_code = CPP_HELPERS + '\n' + solution_code + '\n\n'
+    test_code += 'int main() {\n'
+    test_code += '    Solution sol;\n'
+    test_code += '    cout << "[";\n'
+    test_code += '    bool first = true;\n\n'
+
+    for i, tc in enumerate(test_cases):
+        inp = tc.get('input', [])
+        expected = tc.get('expected', [])
+
+        # Input format: [[[val, random_idx], ...]]
+        arr = inp[0] if len(inp) > 0 else []
+
+        test_code += f'    // Test case {i}\n'
+        test_code += '    {\n'
+        test_code += '        if (!first) cout << ",";\n'
+        test_code += '        first = false;\n'
+        test_code += '        try {\n'
+
+        # Create the random list initialization
+        if arr:
+            pairs = []
+            for item in arr:
+                val = item[0]
+                rand_idx = item[1] if item[1] is not None else -1
+                pairs.append(f'{{{val},{rand_idx}}}')
+            pairs_str = ','.join(pairs)
+            test_code += f'            vector<pair<int, int>> arr = {{{pairs_str}}};\n'
+            test_code += '            RandomNode* head = createRandomList(arr);\n'
+        else:
+            test_code += '            RandomNode* head = nullptr;\n'
+
+        test_code += f'            RandomNode* result = sol.{func_name}(head);\n'
+        test_code += '            string got = randomListToJson(result);\n'
+
+        expected_json = json.dumps(expected, separators=(',', ':'))
+        test_code += f'            string expected = R"JSON({expected_json})JSON";\n'
+        test_code += '            bool pass = got == expected;\n'
+        test_code += '            cout << "{\\"pass\\":" << (pass ? "true" : "false") << ",\\"got\\":" << got << ",\\"expected\\":" << expected << "}";\n'
+        test_code += '        } catch (exception& e) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"" << e.what() << "\\"}";\n'
+        test_code += '        } catch (...) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"unknown error\\"}";\n'
+        test_code += '        }\n'
+        test_code += '    }\n\n'
+
+    test_code += '    cout << "]" << endl;\n'
+    test_code += '    return 0;\n'
+    test_code += '}\n'
+
+    return test_code
+
+
+def generate_cpp_codec_harness(solution_code: str, test_cases: list) -> str:
+    """Generate a C++ test harness for Codec (serialize/deserialize binary tree)."""
+    import json
+
+    test_code = CPP_HELPERS + '\n' + solution_code + '\n\n'
+    test_code += 'int main() {\n'
+    test_code += '    Codec codec;\n'
+    test_code += '    cout << "[";\n'
+    test_code += '    bool first = true;\n\n'
+
+    for i, tc in enumerate(test_cases):
+        inp = tc.get('input', [[]])
+        expected = tc.get('expected', [])
+
+        # Input format: [[tree array]]
+        tree_arr = inp[0] if len(inp) > 0 else []
+
+        test_code += f'    // Test case {i}\n'
+        test_code += '    {\n'
+        test_code += '        if (!first) cout << ",";\n'
+        test_code += '        first = false;\n'
+        test_code += '        try {\n'
+
+        # Create the tree
+        if tree_arr:
+            arr_vals = [str(x) + 'LL' if x is not None else 'TREE_NULL' for x in tree_arr]
+            arr_str = ','.join(arr_vals)
+            test_code += f'            TreeNode* root = vectorToTree({{{arr_str}}});\n'
+        else:
+            test_code += '            TreeNode* root = nullptr;\n'
+
+        # Serialize and deserialize
+        test_code += '            string serialized = codec.serialize(root);\n'
+        test_code += '            TreeNode* result = codec.deserialize(serialized);\n'
+        test_code += '            string got = treeToString(result);\n'
+
+        expected_json = json.dumps(expected, separators=(',', ':'))
+        test_code += f'            string expected = R"JSON({expected_json})JSON";\n'
+        test_code += '            bool pass = got == expected;\n'
+        test_code += '            cout << "{\\"pass\\":" << (pass ? "true" : "false") << ",\\"got\\":" << got << ",\\"expected\\":" << expected << "}";\n'
+        test_code += '        } catch (exception& e) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"" << e.what() << "\\"}";\n'
+        test_code += '        } catch (...) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"unknown error\\"}";\n'
+        test_code += '        }\n'
+        test_code += '    }\n\n'
+
+    test_code += '    cout << "]" << endl;\n'
+    test_code += '    return 0;\n'
+    test_code += '}\n'
+
+    return test_code
+
+
+def generate_cpp_encode_decode_harness(solution_code: str, test_cases: list) -> str:
+    """Generate a C++ test harness for encode/decode strings."""
+    import json
+
+    test_code = CPP_HELPERS + '\n' + solution_code + '\n\n'
+    test_code += 'int main() {\n'
+    test_code += '    Solution sol;\n'
+    test_code += '    cout << "[";\n'
+    test_code += '    bool first = true;\n\n'
+
+    for i, tc in enumerate(test_cases):
+        inp = tc.get('input', [[]])
+        expected = tc.get('expected', [])
+
+        # Input format: [[[list of strings]]]
+        strs = inp[0][0] if len(inp) > 0 and len(inp[0]) > 0 else []
+
+        test_code += f'    // Test case {i}\n'
+        test_code += '    {\n'
+        test_code += '        if (!first) cout << ",";\n'
+        test_code += '        first = false;\n'
+        test_code += '        try {\n'
+
+        # Build the input vector of strings (escape special characters)
+        def escape_cpp_str(s):
+            return s.replace('\\', '\\\\').replace('"', '\\"').replace('\n', '\\n').replace('\t', '\\t').replace('\r', '\\r')
+        strs_cpp = ', '.join(f'"{escape_cpp_str(s)}"' for s in strs)
+        test_code += f'            vector<string> strs = {{{strs_cpp}}};\n'
+        test_code += '            string encoded = sol.encode(strs);\n'
+        test_code += '            vector<string> decoded = sol.decode(encoded);\n'
+
+        # Build got string (escape special chars for JSON)
+        test_code += '            string got = "[";\n'
+        test_code += '            for (size_t i = 0; i < decoded.size(); i++) {\n'
+        test_code += '                if (i > 0) got += ",";\n'
+        test_code += '                got += "\\"" + escapeJsonString(decoded[i]) + "\\"";\n'
+        test_code += '            }\n'
+        test_code += '            got += "]";\n'
+
+        expected_json = json.dumps(expected, separators=(',', ':'))
+        test_code += f'            string expected = R"JSON({expected_json})JSON";\n'
+        test_code += '            bool pass = got == expected;\n'
+        test_code += '            cout << "{\\"pass\\":" << (pass ? "true" : "false") << ",\\"got\\":" << got << ",\\"expected\\":" << expected << "}";\n'
+        test_code += '        } catch (exception& e) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"" << e.what() << "\\"}";\n'
+        test_code += '        } catch (...) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"unknown error\\"}";\n'
+        test_code += '        }\n'
+        test_code += '    }\n\n'
+
+    test_code += '    cout << "]" << endl;\n'
+    test_code += '    return 0;\n'
+    test_code += '}\n'
+
+    return test_code
+
+
+def generate_cpp_void_2d_harness(solution_code: str, func_name: str, test_cases: list) -> str:
+    """Generate a C++ test harness for void functions that modify 2D grid in place."""
+    import json
+
+    test_code = CPP_HELPERS + '\n' + solution_code + '\n\n'
+    test_code += 'int main() {\n'
+    test_code += '    Solution sol;\n'
+    test_code += '    cout << "[";\n'
+    test_code += '    bool first = true;\n\n'
+
+    for i, tc in enumerate(test_cases):
+        inp = tc.get('input', [[]])
+        expected = tc.get('expected', [])
+
+        # Input format: [[2D grid]]
+        grid = inp[0] if len(inp) > 0 else []
+
+        test_code += f'    // Test case {i}\n'
+        test_code += '    {\n'
+        test_code += '        if (!first) cout << ",";\n'
+        test_code += '        first = false;\n'
+        test_code += '        try {\n'
+
+        # Build the input 2D vector
+        rows = []
+        for row in grid:
+            row_str = ', '.join(str(v) for v in row)
+            rows.append('{' + row_str + '}')
+        grid_cpp = ', '.join(rows)
+        test_code += f'            vector<vector<int>> grid = {{{grid_cpp}}};\n'
+        test_code += f'            sol.{func_name}(grid);\n'
+
+        # Build got string (2D array to JSON)
+        test_code += '            string got = "[";\n'
+        test_code += '            for (size_t i = 0; i < grid.size(); i++) {\n'
+        test_code += '                if (i > 0) got += ",";\n'
+        test_code += '                got += "[";\n'
+        test_code += '                for (size_t j = 0; j < grid[i].size(); j++) {\n'
+        test_code += '                    if (j > 0) got += ",";\n'
+        test_code += '                    got += to_string(grid[i][j]);\n'
+        test_code += '                }\n'
+        test_code += '                got += "]";\n'
+        test_code += '            }\n'
+        test_code += '            got += "]";\n'
+
+        expected_json = json.dumps(expected, separators=(',', ':'))
+        test_code += f'            string expected = R"JSON({expected_json})JSON";\n'
+        test_code += '            bool pass = got == expected;\n'
+        test_code += '            cout << "{\\"pass\\":" << (pass ? "true" : "false") << ",\\"got\\":" << got << ",\\"expected\\":" << expected << "}";\n'
+        test_code += '        } catch (exception& e) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"" << e.what() << "\\"}";\n'
+        test_code += '        } catch (...) {\n'
+        test_code += '            cout << "{\\"pass\\":false,\\"error\\":\\"unknown error\\"}";\n'
+        test_code += '        }\n'
+        test_code += '    }\n\n'
+
+    test_code += '    cout << "]" << endl;\n'
+    test_code += '    return 0;\n'
+    test_code += '}\n'
+
+    return test_code
+
+
+def run_cpp_compiled(harness_code: str, timeout: int = 60) -> tuple:
+    """Compile and run C++ code, return (stdout, stderr, returncode)."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        src_file = os.path.join(tmpdir, 'test.cpp')
+        exe_file = os.path.join(tmpdir, 'test')
+
+        with open(src_file, 'w') as f:
+            f.write(harness_code)
+
+        # Compile
+        compile_result = subprocess.run(
+            ['g++', '-std=c++17', '-O2', '-o', exe_file, src_file],
+            capture_output=True,
+            text=True,
+            timeout=30
+        )
+
+        if compile_result.returncode != 0:
+            return "", f"Compile error: {compile_result.stderr[:500]}", 1
+
+        # Run
+        try:
+            run_result = subprocess.run(
+                [exe_file],
+                capture_output=True,
+                text=True,
+                timeout=timeout
+            )
+            return run_result.stdout, run_result.stderr, run_result.returncode
+        except subprocess.TimeoutExpired:
+            return "", "Timeout", -1
+
+
 def test_cpp(problem_id: str, solution_file: Path) -> TestResult:
-    """Test a C++ solution (not yet implemented)."""
-    return TestResult(problem_id, 'cpp', error="C++ testing not yet implemented")
+    """Test a C++ solution."""
+    start = time.time()
+
+    problem_info = get_problem_info(problem_id)
+    test_cases = get_test_cases(problem_id)
+
+    if not problem_info or not test_cases:
+        return TestResult(problem_id, 'cpp', error="Missing files")
+
+    with open(solution_file) as f:
+        solution_code = f.read()
+
+    func_name = problem_info.get('function_name', '')
+
+    # Handle special problem types
+    if func_name in CPP_CLASS_FUNCS:
+        harness = generate_cpp_class_harness(solution_code, CPP_CLASS_FUNCS[func_name], test_cases)
+    elif func_name in CPP_CYCLE_FUNCS:
+        harness = generate_cpp_cycle_harness(solution_code, func_name, test_cases)
+    elif func_name in CPP_INPLACE_LIST_FUNCS:
+        harness = generate_cpp_inplace_list_harness(solution_code, func_name, test_cases)
+    elif func_name in CPP_RANDOM_LIST_FUNCS:
+        harness = generate_cpp_random_list_harness(solution_code, func_name, test_cases)
+    elif func_name in CPP_LCA_FUNCS:
+        harness = generate_cpp_lca_harness(solution_code, func_name, test_cases)
+    elif func_name in CPP_CODEC_FUNCS:
+        harness = generate_cpp_codec_harness(solution_code, test_cases)
+    elif func_name in CPP_ENCODE_DECODE_FUNCS:
+        harness = generate_cpp_encode_decode_harness(solution_code, test_cases)
+    elif func_name in CPP_VOID_2D_FUNCS:
+        harness = generate_cpp_void_2d_harness(solution_code, func_name, test_cases)
+    else:
+        is_order_independent = func_name in CPP_ORDER_INDEPENDENT
+        is_multi_answer = func_name in CPP_MULTI_ANSWER
+        harness = generate_cpp_harness(solution_code, func_name, test_cases, is_order_independent, is_multi_answer)
+
+    if not harness:
+        return TestResult(problem_id, 'cpp', error=f"Could not parse function {func_name}")
+
+    stdout, stderr, rc = run_cpp_compiled(harness)
+
+    if rc != 0 or not stdout.strip():
+        return TestResult(problem_id, 'cpp', error=stderr[:500] or "Unknown error")
+
+    try:
+        results = json.loads(stdout.strip())
+        passed = sum(1 for r in results if r.get('pass'))
+        total = len(results)
+        failures = [r for r in results if not r.get('pass')][:3]
+        duration = (time.time() - start) * 1000
+        return TestResult(problem_id, 'cpp', passed, total, failures, None, duration)
+    except json.JSONDecodeError as e:
+        return TestResult(problem_id, 'cpp', error=f"Parse error: {stdout[:200]}")
+
+
+C_HELPERS = '''
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include <limits.h>
+#include <math.h>
+#include <stdint.h>
+
+// Linked list node
+struct ListNode {
+    int val;
+    struct ListNode* next;
+};
+
+// Tree node
+struct TreeNode {
+    int val;
+    struct TreeNode* left;
+    struct TreeNode* right;
+};
+
+// Create a new list node
+struct ListNode* createListNode(int val) {
+    struct ListNode* node = (struct ListNode*)malloc(sizeof(struct ListNode));
+    node->val = val;
+    node->next = NULL;
+    return node;
+}
+
+// Convert array to linked list
+struct ListNode* arrayToList(int* arr, int size) {
+    if (size == 0) return NULL;
+    struct ListNode* head = createListNode(arr[0]);
+    struct ListNode* curr = head;
+    for (int i = 1; i < size; i++) {
+        curr->next = createListNode(arr[i]);
+        curr = curr->next;
+    }
+    return head;
+}
+
+// Convert linked list to string (for output)
+void listToString(struct ListNode* head, char* buf) {
+    strcpy(buf, "[");
+    struct ListNode* curr = head;
+    while (curr) {
+        char num[20];
+        sprintf(num, "%d", curr->val);
+        strcat(buf, num);
+        if (curr->next) strcat(buf, ",");
+        curr = curr->next;
+    }
+    strcat(buf, "]");
+}
+
+// Output JSON integer
+void printIntJson(int val) {
+    printf("%d", val);
+}
+
+// Output JSON boolean
+void printBoolJson(bool val) {
+    printf("%s", val ? "true" : "false");
+}
+
+// Output JSON array of ints
+void printIntArrayJson(int* arr, int size) {
+    printf("[");
+    for (int i = 0; i < size; i++) {
+        if (i > 0) printf(",");
+        printf("%d", arr[i]);
+    }
+    printf("]");
+}
+
+'''
+
+
+def generate_c_harness(solution_code: str, func_name: str, test_cases: list) -> str:
+    """Generate a C test harness for the solution."""
+    import re
+
+    # Find function signature
+    # C function patterns: returnType funcName(params)
+    pattern = r'(\w+(?:\s*\*)?)\s+' + re.escape(func_name) + r'\s*\(([^)]*)\)'
+    match = re.search(pattern, solution_code)
+
+    if not match:
+        return None
+
+    ret_type = match.group(1).strip()
+    params_str = match.group(2).strip()
+
+    # Parse parameters
+    params = []
+    if params_str:
+        # Split on comma but handle nested types
+        depth = 0
+        current = ""
+        for c in params_str:
+            if c in '<(':
+                depth += 1
+            elif c in '>)':
+                depth -= 1
+            if c == ',' and depth == 0:
+                params.append(current.strip())
+                current = ""
+                continue
+            current += c
+        if current.strip():
+            params.append(current.strip())
+
+    # Generate test code
+    test_code = C_HELPERS + '\n' + solution_code + '\n\n'
+    test_code += 'int main() {\n'
+    test_code += '    printf("[");\n'
+    test_code += '    int first = 1;\n\n'
+
+    for i, tc in enumerate(test_cases):
+        inp = tc.get('input', {})
+        expected = tc.get('expected')
+
+        # Convert input to argument values
+        if isinstance(inp, dict):
+            args = list(inp.values())
+        elif isinstance(inp, list):
+            args = inp
+        else:
+            args = [inp]
+
+        test_code += f'    // Test case {i}\n'
+        test_code += '    {\n'
+        test_code += '        if (!first) printf(",");\n'
+        test_code += '        first = 0;\n'
+
+        # Declare variables for each argument
+        arg_names = []
+        for j, (arg, param) in enumerate(zip(args, params)):
+            # Parse param to get type and name
+            param_parts = param.rsplit(None, 1)
+            if len(param_parts) >= 2:
+                param_type = param_parts[0].strip()
+                var_name = f'arg{j}'
+                arg_names.append(var_name)
+
+                # Initialize based on type
+                if 'int*' in param_type and isinstance(arg, list):
+                    arr_str = ','.join(map(str, arg)) if arg else ''
+                    test_code += f'        int {var_name}_arr[] = {{{arr_str}}};\n'
+                    test_code += f'        int* {var_name} = {var_name}_arr;\n'
+                    test_code += f'        int {var_name}_size = {len(arg)};\n'
+                    arg_names.append(f'{var_name}_size')
+                elif 'int' in param_type:
+                    test_code += f'        int {var_name} = {arg};\n'
+                elif 'bool' in param_type:
+                    test_code += f'        bool {var_name} = {"1" if arg else "0"};\n'
+                elif 'char*' in param_type:
+                    escaped = str(arg).replace('\\', '\\\\').replace('"', '\\"')
+                    test_code += f'        char* {var_name} = "{escaped}";\n'
+
+        # Call function
+        call_args = ', '.join(arg_names)
+        test_code += f'        {"int" if "int" in ret_type else ret_type} result = {func_name}({call_args});\n'
+
+        # Compare result
+        if 'int' in ret_type:
+            test_code += f'        int expected = {expected};\n'
+            test_code += '        int pass = (result == expected) ? 1 : 0;\n'
+            test_code += '        printf("{\\"pass\\":%s,\\"got\\":%d,\\"expected\\":%d}", pass ? "true" : "false", result, expected);\n'
+        elif 'bool' in ret_type:
+            test_code += f'        int expected = {"1" if expected else "0"};\n'
+            test_code += '        int pass = (result == expected) ? 1 : 0;\n'
+            test_code += '        printf("{\\"pass\\":%s,\\"got\\":%s,\\"expected\\":%s}", pass ? "true" : "false", result ? "true" : "false", expected ? "true" : "false");\n'
+
+        test_code += '    }\n\n'
+
+    test_code += '    printf("]\\n");\n'
+    test_code += '    return 0;\n'
+    test_code += '}\n'
+
+    return test_code
+
+
+def run_c_compiled(harness_code: str, timeout: int = 60) -> tuple:
+    """Compile and run C code, return (stdout, stderr, returncode)."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        src_file = os.path.join(tmpdir, 'test.c')
+        exe_file = os.path.join(tmpdir, 'test')
+
+        with open(src_file, 'w') as f:
+            f.write(harness_code)
+
+        # Compile
+        compile_result = subprocess.run(
+            ['gcc', '-std=c11', '-O2', '-o', exe_file, src_file, '-lm'],
+            capture_output=True,
+            text=True,
+            timeout=30
+        )
+
+        if compile_result.returncode != 0:
+            return "", f"Compile error: {compile_result.stderr}", compile_result.returncode
+
+        # Run
+        try:
+            run_result = subprocess.run(
+                [exe_file],
+                capture_output=True,
+                text=True,
+                timeout=timeout
+            )
+            return run_result.stdout, run_result.stderr, run_result.returncode
+        except subprocess.TimeoutExpired:
+            return "", "Timeout", -1
 
 
 def test_c(problem_id: str, solution_file: Path) -> TestResult:
-    """Test a C solution (not yet implemented)."""
-    return TestResult(problem_id, 'c', error="C testing not yet implemented")
+    """Test a C solution."""
+    start = time.time()
+
+    problem_info = get_problem_info(problem_id)
+    test_cases = get_test_cases(problem_id)
+
+    if not problem_info or not test_cases:
+        return TestResult(problem_id, 'c', error="Missing files")
+
+    with open(solution_file) as f:
+        solution_code = f.read()
+
+    func_name = problem_info.get('function_name', '')
+
+    harness = generate_c_harness(solution_code, func_name, test_cases)
+
+    if not harness:
+        return TestResult(problem_id, 'c', error=f"Could not parse function {func_name}")
+
+    stdout, stderr, rc = run_c_compiled(harness)
+
+    if rc != 0 or not stdout.strip():
+        return TestResult(problem_id, 'c', error=stderr[:500] or "Unknown error")
+
+    try:
+        results = json.loads(stdout.strip())
+        passed = sum(1 for r in results if r.get('pass'))
+        total = len(results)
+        failures = [r for r in results if not r.get('pass')][:3]
+        duration = (time.time() - start) * 1000
+        return TestResult(problem_id, 'c', passed, total, failures, None, duration)
+    except json.JSONDecodeError as e:
+        return TestResult(problem_id, 'c', error=f"Parse error: {stdout[:200]}")
 
 
 # ============================================================================
@@ -1031,7 +2558,7 @@ def print_rich_results(results: dict, totals: dict, duration: float):
 
 def main():
     parser = argparse.ArgumentParser(description='Unified parallel test runner for LeetCode solutions')
-    parser.add_argument('--lang', '-l', type=str, default='python,javascript',
+    parser.add_argument('--lang', '-l', type=str, default='python,javascript,cpp',
                        help='Languages to test (comma-separated: python,javascript,cpp,c)')
     parser.add_argument('--problem', '-p', type=str, help='Test specific problem ID (e.g., 001)')
     parser.add_argument('--workers', '-w', type=int, default=8, help='Number of parallel workers')
