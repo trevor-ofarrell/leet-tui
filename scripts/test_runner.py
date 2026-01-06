@@ -1535,8 +1535,7 @@ def generate_cpp_harness(solution_code: str, func_name: str, test_cases: list, i
             test_code += '            auto resultVec = listToVector(result);\n'
             test_code += '            string got = toJson(resultVec);\n'
         elif return_type == 'TreeNode*':
-            test_code += '            auto resultVec = treeToVector(result);\n'
-            test_code += '            string got = treeVectorToJson(resultVec);\n'
+            test_code += '            string got = result ? treeToString(result) : "null";\n'
         else:
             test_code += '            string got = toJson(result);\n'
 
