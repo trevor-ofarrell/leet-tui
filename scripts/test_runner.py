@@ -1493,9 +1493,12 @@ def generate_cpp_harness(solution_code: str, func_name: str, test_cases: list, i
                     test_code += f'            vector<int> {var_name} = {{{",".join(map(str, arg)) if arg else ""}}};\n'
                 elif 'vector<vector<char>>' in param_type:
                     # Handle 2D char array (like Sudoku boards, islands)
-                    # Input values may be single chars or single-char strings
+                    # Input values may be single chars, single-char strings, or integers
                     def to_char(c):
-                        if isinstance(c, str) and len(c) == 1:
+                        if isinstance(c, int):
+                            # Convert integer to char (0 -> '0', 1 -> '1', etc.)
+                            return f"'{c}'"
+                        elif isinstance(c, str) and len(c) == 1:
                             return f"'{c}'"
                         return f"'{c}'"
                     inner = ','.join('{' + ','.join(to_char(c) for c in row) + '}' for row in arg) if arg else ''
