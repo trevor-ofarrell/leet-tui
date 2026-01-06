@@ -3,336 +3,336 @@
   "title": "Best Time to Buy and Sell Stock with Cooldown",
   "run_tests": [
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2,
           3,
           0,
           2
         ]
-      },
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2
         ]
-      },
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           2,
           1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2,
           3
         ]
-      },
+      ],
       "expected": 2
     }
   ],
   "submit_tests": [
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2,
           3,
           0,
           2
         ]
-      },
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2
         ]
-      },
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           2,
           1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2,
           3
         ]
-      },
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           3,
           2,
           1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           1,
           1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2,
           1
         ]
-      },
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           2,
           1,
           2
         ]
-      },
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           3,
           2
         ]
-      },
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           2,
           3,
           1
         ]
-      },
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2,
           3,
           4
         ]
-      },
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           4,
           3,
           2,
           1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           1,
           1,
           1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2,
           1,
           2
         ]
-      },
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           2,
           1,
           2,
           1
         ]
-      },
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           3,
           2,
           4
         ]
-      },
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           4,
           2,
           3,
           1
         ]
-      },
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2,
           3,
           4,
           5
         ]
-      },
+      ],
       "expected": 4
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           5,
           4,
           3,
           2,
           1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           1,
           1,
           1,
           1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2,
           1,
           2,
           1
         ]
-      },
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           2,
           1,
           2,
           1,
           2
         ]
-      },
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           3,
           2,
           4,
           3
         ]
-      },
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           3,
           4,
           2,
           1,
           5
         ]
-      },
+      ],
       "expected": 5
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -340,12 +340,12 @@
           5,
           6
         ]
-      },
+      ],
       "expected": 5
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           6,
           5,
           4,
@@ -353,12 +353,12 @@
           2,
           1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           1,
           1,
@@ -366,12 +366,12 @@
           1,
           1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2,
           1,
@@ -379,12 +379,12 @@
           1,
           2
         ]
-      },
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           2,
           1,
           2,
@@ -392,12 +392,12 @@
           2,
           1
         ]
-      },
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           3,
           2,
@@ -405,12 +405,12 @@
           3,
           5
         ]
-      },
+      ],
       "expected": 4
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           5,
           3,
           4,
@@ -418,12 +418,12 @@
           1,
           6
         ]
-      },
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -432,12 +432,12 @@
           6,
           7
         ]
-      },
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           7,
           6,
           5,
@@ -446,12 +446,12 @@
           2,
           1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           1,
           1,
@@ -460,12 +460,12 @@
           1,
           1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2,
           1,
@@ -474,12 +474,12 @@
           2,
           1
         ]
-      },
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           2,
           1,
           2,
@@ -488,12 +488,12 @@
           1,
           2
         ]
-      },
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           3,
           2,
@@ -502,12 +502,12 @@
           5,
           4
         ]
-      },
+      ],
       "expected": 4
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           4,
           5,
           3,
@@ -516,12 +516,12 @@
           1,
           7
         ]
-      },
+      ],
       "expected": 7
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -531,12 +531,12 @@
           7,
           8
         ]
-      },
+      ],
       "expected": 7
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           8,
           7,
           6,
@@ -546,12 +546,12 @@
           2,
           1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           1,
           1,
@@ -561,12 +561,12 @@
           1,
           1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2,
           1,
@@ -576,12 +576,12 @@
           1,
           2
         ]
-      },
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           2,
           1,
           2,
@@ -591,12 +591,12 @@
           2,
           1
         ]
-      },
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           3,
           2,
@@ -606,12 +606,12 @@
           4,
           6
         ]
-      },
+      ],
       "expected": 5
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           6,
           4,
           5,
@@ -621,12 +621,12 @@
           1,
           8
         ]
-      },
+      ],
       "expected": 8
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -637,12 +637,12 @@
           8,
           9
         ]
-      },
+      ],
       "expected": 8
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           9,
           8,
           7,
@@ -653,12 +653,12 @@
           2,
           1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           1,
           1,
@@ -669,12 +669,12 @@
           1,
           1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2,
           1,
@@ -685,12 +685,12 @@
           2,
           1
         ]
-      },
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           2,
           1,
           2,
@@ -701,12 +701,12 @@
           1,
           2
         ]
-      },
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           3,
           2,
@@ -717,12 +717,12 @@
           6,
           5
         ]
-      },
+      ],
       "expected": 5
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           5,
           6,
           4,
@@ -733,12 +733,12 @@
           1,
           9
         ]
-      },
+      ],
       "expected": 13
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -750,12 +750,12 @@
           9,
           10
         ]
-      },
+      ],
       "expected": 9
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           10,
           9,
           8,
@@ -767,12 +767,12 @@
           2,
           1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           1,
           1,
@@ -784,12 +784,12 @@
           1,
           1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2,
           1,
@@ -801,12 +801,12 @@
           1,
           2
         ]
-      },
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           2,
           1,
           2,
@@ -818,12 +818,12 @@
           2,
           1
         ]
-      },
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           3,
           2,
@@ -835,12 +835,12 @@
           5,
           7
         ]
-      },
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           7,
           5,
           6,
@@ -852,32 +852,32 @@
           1,
           10
         ]
-      },
+      ],
       "expected": 15
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           4,
           2
         ]
-      },
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           2,
           1,
           4
         ]
-      },
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           6,
           1,
           3,
@@ -885,12 +885,12 @@
           4,
           7
         ]
-      },
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2,
           4,
@@ -902,47 +902,47 @@
           9,
           0
         ]
-      },
+      ],
       "expected": 11
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2,
           3,
           0,
           2
         ]
-      },
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           2,
           1,
           2,
           0,
           1
         ]
-      },
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           4,
           2,
           7
         ]
-      },
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           3,
           2,
           6,
@@ -950,12 +950,12 @@
           0,
           3
         ]
-      },
+      ],
       "expected": 7
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           6,
           1,
           6,
@@ -964,64 +964,64 @@
           0,
           2
         ]
-      },
+      ],
       "expected": 7
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           2,
           4
         ]
-      },
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           4,
           2,
           1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           2,
           4,
           1
         ]
-      },
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           4,
           2,
           5
         ]
-      },
+      ],
       "expected": 4
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           5,
           2,
           4,
           1
         ]
-      },
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           5,
           2,
@@ -1029,12 +1029,12 @@
           3,
           7
         ]
-      },
+      ],
       "expected": 8
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           7,
           3,
           6,
@@ -1042,12 +1042,12 @@
           5,
           1
         ]
-      },
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           6,
           2,
@@ -1059,12 +1059,12 @@
           5,
           10
         ]
-      },
+      ],
       "expected": 15
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           10,
           5,
           9,
@@ -1076,54 +1076,54 @@
           6,
           1
         ]
-      },
+      ],
       "expected": 8
     },
     {
-      "input": {
-        "prices": []
-      },
+      "input": [
+        []
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           0
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           -1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           0,
           0,
           0
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           -1,
           -1,
           -1
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           -5,
           -3,
           -1,
@@ -1131,51 +1131,51 @@
           2,
           4
         ]
-      },
+      ],
       "expected": 9
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           1,
           -1,
           2,
           -2,
           0
         ]
-      },
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           100,
           200,
           300
         ]
-      },
+      ],
       "expected": 200
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           -100,
           -200,
           -300
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "prices": [
+      "input": [
+        [
           0,
           1,
           0,
           1,
           0
         ]
-      },
+      ],
       "expected": 1
     }
   ]

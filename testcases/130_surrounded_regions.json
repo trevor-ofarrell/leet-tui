@@ -3,8 +3,8 @@
   "title": "Surrounded Regions",
   "run_tests": [
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "X",
@@ -30,7 +30,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -59,13 +59,13 @@
       ]
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X"
@@ -73,13 +73,13 @@
       ]
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "O"
@@ -87,8 +87,8 @@
       ]
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "O",
             "O"
@@ -98,7 +98,7 @@
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "O",
@@ -113,13 +113,13 @@
   ],
   "submit_tests": [
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X"
@@ -128,13 +128,13 @@
       "description": "Single cell X"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "O"
@@ -143,8 +143,8 @@
       "description": "Single cell O - on border"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "X"
@@ -154,7 +154,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -168,8 +168,8 @@
       "description": "2x2 all X"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "O",
             "O"
@@ -179,7 +179,7 @@
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "O",
@@ -193,8 +193,8 @@
       "description": "2x2 all O - all on border"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "O"
@@ -204,7 +204,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -218,8 +218,8 @@
       "description": "2x2 diagonal O - on border"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "O",
             "X"
@@ -229,7 +229,7 @@
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "O",
@@ -243,8 +243,8 @@
       "description": "2x2 anti-diagonal O - on border"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "X",
@@ -270,7 +270,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -300,8 +300,8 @@
       "description": "Standard example"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "X",
@@ -318,7 +318,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -339,8 +339,8 @@
       "description": "3x3 center O surrounded"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "O",
             "X",
@@ -357,7 +357,7 @@
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "O",
@@ -378,8 +378,8 @@
       "description": "3x3 diagonal O"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "O",
@@ -396,7 +396,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -417,8 +417,8 @@
       "description": "3x3 all O on edges"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "O",
             "O",
@@ -435,7 +435,7 @@
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "O",
@@ -456,8 +456,8 @@
       "description": "3x3 O ring around X"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "X",
@@ -474,7 +474,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -495,8 +495,8 @@
       "description": "3x3 all X"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "O",
             "O",
@@ -513,7 +513,7 @@
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "O",
@@ -534,8 +534,8 @@
       "description": "3x3 all O - all connected to border"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "X",
@@ -572,7 +572,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -613,8 +613,8 @@
       "description": "5x5 large center O region surrounded"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "O",
             "O",
@@ -651,7 +651,7 @@
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "O",
@@ -692,8 +692,8 @@
       "description": "5x5 O border X box center O"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "O",
@@ -730,7 +730,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -771,8 +771,8 @@
       "description": "5x5 checkerboard"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "O",
             "X",
@@ -809,7 +809,7 @@
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "O",
@@ -850,8 +850,8 @@
       "description": "5x5 corners O surrounded center"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "X",
@@ -901,7 +901,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -955,8 +955,8 @@
       "description": "6x6 hollow O square surrounded"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "O",
             "O",
@@ -1006,7 +1006,7 @@
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "O",
@@ -1060,8 +1060,8 @@
       "description": "6x6 O border X hollow center O"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "X",
@@ -1098,7 +1098,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -1139,8 +1139,8 @@
       "description": "5x5 multiple isolated O cells"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "O",
             "X",
@@ -1177,7 +1177,7 @@
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "O",
@@ -1218,8 +1218,8 @@
       "description": "5x5 O on borders and one center"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "O",
@@ -1284,7 +1284,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -1353,8 +1353,8 @@
       "description": "7x7 nested regions"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "X",
@@ -1436,7 +1436,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -1522,8 +1522,8 @@
       "description": "8x8 triple nested surrounded"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "O",
             "O",
@@ -1605,7 +1605,7 @@
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "O",
@@ -1691,8 +1691,8 @@
       "description": "8x8 O border nested"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "X",
@@ -1718,7 +1718,7 @@
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -1748,8 +1748,8 @@
       "description": "4x4 O connected to edge"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "O",
             "O",
@@ -1775,7 +1775,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "O",
@@ -1805,8 +1805,8 @@
       "description": "4x4 O in corner region"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "X",
@@ -1856,7 +1856,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -1910,8 +1910,8 @@
       "description": "6x6 diamond O surrounded"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "O",
             "X",
@@ -1961,7 +1961,7 @@
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "O",
@@ -2015,8 +2015,8 @@
       "description": "6x6 corner O diamond center"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "O",
@@ -2063,7 +2063,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -2114,8 +2114,8 @@
       "description": "Grid with O pockets"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "O",
             "O",
@@ -2152,7 +2152,7 @@
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "O",
@@ -2193,8 +2193,8 @@
       "description": "5x5 all O - none surrounded"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "X",
@@ -2231,7 +2231,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -2272,8 +2272,8 @@
       "description": "5x5 all X"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "O",
             "X",
@@ -2290,7 +2290,7 @@
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "O",
@@ -2311,8 +2311,8 @@
       "description": "3x3 only center surrounded"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "O",
@@ -2349,7 +2349,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -2390,8 +2390,8 @@
       "description": "5x5 vertical O line on border"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "X",
@@ -2428,7 +2428,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -2469,8 +2469,8 @@
       "description": "5x5 horizontal O lines on borders"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "O",
             "X",
@@ -2552,7 +2552,7 @@
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "O",
@@ -2638,8 +2638,8 @@
       "description": "8x8 large inner region surrounded"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "X",
@@ -2676,7 +2676,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -2717,8 +2717,8 @@
       "description": "5x5 plus shape O connected to border"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "X",
@@ -2768,7 +2768,7 @@
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -2822,8 +2822,8 @@
       "description": "6x6 O connected to corner"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "X",
@@ -2885,7 +2885,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -2951,8 +2951,8 @@
       "description": "5x10 two separate regions surrounded"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "O",
             "X",
@@ -2989,7 +2989,7 @@
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "O",
@@ -3030,8 +3030,8 @@
       "description": "5x5 O corners not connected to center"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "O",
@@ -3096,7 +3096,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -3165,8 +3165,8 @@
       "description": "7x7 grid pattern - all O connected to edge"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "O"
           ],
@@ -3183,7 +3183,7 @@
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "O"
@@ -3204,8 +3204,8 @@
       "description": "5x1 column all O"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "O",
             "O",
@@ -3214,7 +3214,7 @@
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "O",
@@ -3227,8 +3227,8 @@
       "description": "1x5 row all O"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X"
           ],
@@ -3245,7 +3245,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X"
@@ -3266,8 +3266,8 @@
       "description": "5x1 O between X - on border"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "O",
@@ -3276,7 +3276,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -3289,8 +3289,8 @@
       "description": "1x5 O between X - on border"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "X",
             "X",
@@ -3372,7 +3372,7 @@
             "X"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "X",
@@ -3458,8 +3458,8 @@
       "description": "8x8 small center island surrounded"
     },
     {
-      "input": {
-        "board": [
+      "input": [
+        [
           [
             "O",
             "O",
@@ -3581,7 +3581,7 @@
             "O"
           ]
         ]
-      },
+      ],
       "expected": [
         [
           "O",

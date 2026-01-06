@@ -1599,19 +1599,19 @@
       "expected": 3
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           0
         ]
-      },
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1
         ]
-      },
+      ],
       "expected": 0
     }
   ]

@@ -1190,20 +1190,20 @@
       "expected": 0
     },
     {
-      "input": {
-        "stones": [
+      "input": [
+        [
           1
         ]
-      },
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "stones": [
+      "input": [
+        [
           1,
           1
         ]
-      },
+      ],
       "expected": 0
     }
   ]

@@ -1152,20 +1152,20 @@
       "expected": 1096
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1
         ]
-      },
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2
         ]
-      },
+      ],
       "expected": 4
     }
   ]

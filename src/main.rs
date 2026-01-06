@@ -25,6 +25,8 @@ use std::{
     io,
     path::PathBuf,
     process::Command,
+    sync::mpsc::{self, Receiver},
+    thread,
     time::Duration,
 };
 
@@ -80,6 +82,8 @@ struct QuestionState {
     show_results: bool,
     tip_system: tips::TipSystem,
     show_tips: bool,
+    test_running: bool,
+    test_receiver: Option<Receiver<(String, u32)>>,  // (output, problem_id)
 }
 
 enum Focus {
@@ -99,6 +103,8 @@ struct App {
     terminal_height: u16,
     paths: AppPaths,
     progress: Progress,
+    problems: Vec<Problem>,  // Cached problems list to avoid re-parsing on back_to_home
+    client: LeetCodeClient,  // Cached client for format_problem and generate_boilerplate
 }
 
 impl App {
@@ -149,7 +155,7 @@ impl App {
 
         Ok(App {
             state: AppState::Home(HomeState {
-                all_problems: problems,
+                all_problems: problems.clone(),
                 filtered_problems,
                 list_state,
                 search_query: String::new(),
@@ -169,19 +175,20 @@ impl App {
             terminal_height,
             paths,
             progress,
+            problems: problems.clone(),
+            client,  // Cache client for format_problem and generate_boilerplate
         })
     }
 
     fn open_question(&mut self, problem: Problem, language: Language) -> Result<()> {
-        let client = LeetCodeClient::new();
-        let problem_text = client.format_problem(&problem);
+        let problem_text = self.client.format_problem(&problem);
 
         // Use XDG-compliant path for solutions with language extension
         let solution_file = self.paths.solution_file(problem.id, language);
 
         // Only generate boilerplate if file doesn't exist (don't overwrite user's work!)
         if !solution_file.exists() {
-            let boilerplate = client.generate_boilerplate(&problem, language);
+            let boilerplate = self.client.generate_boilerplate(&problem, language);
             fs::write(&solution_file, &boilerplate)?;
         }
 
@@ -204,6 +211,8 @@ impl App {
             show_results: false,
             tip_system: tips::TipSystem::new(),
             show_tips: true,
+            test_running: false,
+            test_receiver: None,
         });
 
         Ok(())
@@ -211,8 +220,7 @@ impl App {
 
     fn reset_template(&mut self) -> Result<()> {
         if let AppState::Question(question) = &mut self.state {
-            let client = LeetCodeClient::new();
-            let boilerplate = client.generate_boilerplate(&question.problem, question.language);
+            let boilerplate = self.client.generate_boilerplate(&question.problem, question.language);
             fs::write(&question.solution_file, &boilerplate)?;
 
             // Send :e! to reload the file in the editor (works for vim/neovim)
@@ -222,23 +230,105 @@ impl App {
         Ok(())
     }
 
-    fn run_tests(solution_file: &PathBuf, problem: &Problem, lang: Language) -> Result<String> {
-        Self::run_tests_with_mode(solution_file, problem, lang, TestMode::Run)
+    /// Prepare test code for async execution (fast - uses cached client)
+    fn prepare_test_code(&self, solution_file: &PathBuf, problem: &Problem, lang: Language, mode: TestMode) -> Result<String> {
+        let solution_code = fs::read_to_string(solution_file)?;
+        Ok(self.client.generate_test_runner_with_mode(problem, &solution_code, lang, mode))
     }
 
-    fn run_tests_with_mode(solution_file: &PathBuf, problem: &Problem, lang: Language, mode: TestMode) -> Result<String> {
-        // Read user's solution
-        let solution_code = fs::read_to_string(solution_file)?;
-
-        // Generate test runner with the solution embedded
-        let client = LeetCodeClient::new();
-        let test_code = client.generate_test_runner_with_mode(problem, &solution_code, lang, mode);
-
+    /// Execute prepared test code (slow - runs compiler/interpreter)
+    fn execute_test_code(solution_file: PathBuf, test_code: String, lang: Language) -> Result<String> {
         match lang {
-            Language::JavaScript => Self::run_js_tests(solution_file, &test_code),
-            Language::Python => Self::run_python_tests(solution_file, &test_code),
-            Language::C => Self::run_c_tests(solution_file, &test_code),
-            Language::Cpp => Self::run_cpp_tests(solution_file, &test_code),
+            Language::JavaScript => Self::run_js_tests(&solution_file, &test_code),
+            Language::Python => Self::run_python_tests(&solution_file, &test_code),
+            Language::C => Self::run_c_tests(&solution_file, &test_code),
+            Language::Cpp => Self::run_cpp_tests(&solution_file, &test_code),
+        }
+    }
+
+    /// Spawn async test execution, returns receiver for results
+    fn spawn_test_async(&self, solution_file: PathBuf, problem: &Problem, lang: Language, mode: TestMode) -> Result<Receiver<(String, u32)>> {
+        let test_code = self.prepare_test_code(&solution_file, problem, lang, mode)?;
+        let problem_id = problem.id;
+        let solution_path = solution_file.display().to_string();
+        let problem_title = problem.title.clone();
+
+        let (tx, rx) = mpsc::channel();
+
+        thread::spawn(move || {
+            let mut result = Self::execute_test_code(solution_file, test_code, lang)
+                .unwrap_or_else(|e| format!("Error running tests: {}", e));
+
+            // Add header with file info
+            let header = format!(
+                "Testing: {}\nSolution: {}\n{}\n",
+                problem_title,
+                solution_path,
+                "─".repeat(50)
+            );
+            result = format!("{}{}", header, result);
+
+            let _ = tx.send((result, problem_id));
+        });
+
+        Ok(rx)
+    }
+
+    /// Run a command with timeout, returns (stdout, stderr, timed_out)
+    fn run_with_timeout(mut child: std::process::Child, timeout_secs: u64, cmd_name: &str) -> (String, String, bool) {
+        use std::time::Instant;
+        use std::io::Read;
+
+        let start = Instant::now();
+        let timeout = Duration::from_secs(timeout_secs);
+
+        // Collect partial output during execution
+        let mut partial_stdout = String::new();
+        let mut partial_stderr = String::new();
+
+        loop {
+            match child.try_wait() {
+                Ok(Some(status)) => {
+                    // Process finished
+                    let output = child.wait_with_output().unwrap_or_else(|_| {
+                        std::process::Output {
+                            status: std::process::ExitStatus::default(),
+                            stdout: vec![],
+                            stderr: b"Failed to get output".to_vec(),
+                        }
+                    });
+                    let stdout = String::from_utf8_lossy(&output.stdout).to_string();
+                    let stderr = String::from_utf8_lossy(&output.stderr).to_string();
+
+                    // If process failed, include exit code info
+                    if !status.success() {
+                        let exit_info = format!("\n[Process exited with status: {}]", status);
+                        return (stdout, format!("{}{}", stderr, exit_info), false);
+                    }
+                    return (stdout, stderr, false);
+                }
+                Ok(None) => {
+                    // Still running
+                    if start.elapsed() > timeout {
+                        let _ = child.kill();
+                        let _ = child.wait();
+                        return (
+                            partial_stdout,
+                            format!(
+                                "TIMEOUT after {}s running '{}'\n\
+                                Your solution may have an infinite loop or is too slow.\n\
+                                Partial output:\n{}",
+                                timeout_secs, cmd_name, partial_stderr
+                            ),
+                            true
+                        );
+                    }
+                    std::thread::sleep(Duration::from_millis(50));
+                }
+                Err(e) => {
+                    return (String::new(), format!("Error waiting for '{}': {}", cmd_name, e), false);
+                }
+            }
         }
     }
 
@@ -246,22 +336,36 @@ impl App {
         let temp_file = solution_file.with_extension("test.js");
         fs::write(&temp_file, test_code)?;
 
-        // Run tests with Bun (faster) or fallback to Node
-        let output = Command::new("bun")
+        // Try bun first, fall back to node
+        let (child, cmd_name) = match Command::new("bun")
             .arg("run")
             .arg(&temp_file)
-            .output()
-            .or_else(|_| Command::new("node").arg(&temp_file).output())?;
+            .stdout(std::process::Stdio::piped())
+            .stderr(std::process::Stdio::piped())
+            .spawn()
+        {
+            Ok(c) => (c, "bun"),
+            Err(_) => {
+                let c = Command::new("node")
+                    .arg(&temp_file)
+                    .stdout(std::process::Stdio::piped())
+                    .stderr(std::process::Stdio::piped())
+                    .spawn()?;
+                (c, "node")
+            }
+        };
 
+        let (stdout, stderr, timed_out) = Self::run_with_timeout(child, 30, cmd_name);
         let _ = fs::remove_file(&temp_file);
 
-        let stdout = String::from_utf8_lossy(&output.stdout);
-        let stderr = String::from_utf8_lossy(&output.stderr);
-
-        if !stderr.is_empty() {
+        if timed_out {
+            Ok(format!("FAILED:\n{}", stderr))
+        } else if !stderr.is_empty() {
             Ok(format!("{}\n\nErrors:\n{}", stdout, stderr))
+        } else if stdout.is_empty() {
+            Ok(format!("No output from test runner.\nTest file: {}", temp_file.display()))
         } else {
-            Ok(stdout.to_string())
+            Ok(stdout)
         }
     }
 
@@ -269,20 +373,34 @@ impl App {
         let temp_file = solution_file.with_extension("test.py");
         fs::write(&temp_file, test_code)?;
 
-        let output = Command::new("python3")
+        let (child, cmd_name) = match Command::new("python3")
             .arg(&temp_file)
-            .output()
-            .or_else(|_| Command::new("python").arg(&temp_file).output())?;
+            .stdout(std::process::Stdio::piped())
+            .stderr(std::process::Stdio::piped())
+            .spawn()
+        {
+            Ok(c) => (c, "python3"),
+            Err(_) => {
+                let c = Command::new("python")
+                    .arg(&temp_file)
+                    .stdout(std::process::Stdio::piped())
+                    .stderr(std::process::Stdio::piped())
+                    .spawn()?;
+                (c, "python")
+            }
+        };
 
+        let (stdout, stderr, timed_out) = Self::run_with_timeout(child, 30, cmd_name);
         let _ = fs::remove_file(&temp_file);
 
-        let stdout = String::from_utf8_lossy(&output.stdout);
-        let stderr = String::from_utf8_lossy(&output.stderr);
-
-        if !stderr.is_empty() {
+        if timed_out {
+            Ok(format!("FAILED:\n{}", stderr))
+        } else if !stderr.is_empty() {
             Ok(format!("{}\n\nErrors:\n{}", stdout, stderr))
+        } else if stdout.is_empty() {
+            Ok(format!("No output from test runner.\nTest file: {}", temp_file.display()))
         } else {
-            Ok(stdout.to_string())
+            Ok(stdout)
         }
     }
 
@@ -292,35 +410,44 @@ impl App {
 
         fs::write(&temp_file, test_code)?;
 
-        // Compile
-        let compile_output = Command::new("gcc")
+        // Compile (with 30s timeout for compilation)
+        let compile_child = Command::new("gcc")
             .arg("-O2")
             .arg("-o")
             .arg(&binary_file)
             .arg(&temp_file)
             .arg("-lm")
-            .output()?;
+            .stdout(std::process::Stdio::piped())
+            .stderr(std::process::Stdio::piped())
+            .spawn()?;
 
-        if !compile_output.status.success() {
+        let (_, compile_stderr, compile_timed_out) = Self::run_with_timeout(compile_child, 30, "gcc");
+
+        if compile_timed_out || !binary_file.exists() {
             let _ = fs::remove_file(&temp_file);
-            let stderr = String::from_utf8_lossy(&compile_output.stderr);
-            return Ok(format!("Compilation Error:\n{}", stderr));
+            return Ok(format!("Compilation Error:\n{}", compile_stderr));
         }
 
-        // Run
-        let run_output = Command::new(&binary_file).output()?;
+        // Run with timeout
+        let run_child = Command::new(&binary_file)
+            .stdout(std::process::Stdio::piped())
+            .stderr(std::process::Stdio::piped())
+            .spawn()?;
+
+        let (stdout, stderr, timed_out) = Self::run_with_timeout(run_child, 30, "test binary");
 
         // Cleanup
         let _ = fs::remove_file(&temp_file);
         let _ = fs::remove_file(&binary_file);
 
-        let stdout = String::from_utf8_lossy(&run_output.stdout);
-        let stderr = String::from_utf8_lossy(&run_output.stderr);
-
-        if !stderr.is_empty() {
+        if timed_out {
+            Ok(format!("FAILED:\n{}", stderr))
+        } else if !stderr.is_empty() {
             Ok(format!("{}\n\nRuntime Errors:\n{}", stdout, stderr))
+        } else if stdout.is_empty() {
+            Ok("No output from test binary.".to_string())
         } else {
-            Ok(stdout.to_string())
+            Ok(stdout)
         }
     }
 
@@ -330,35 +457,44 @@ impl App {
 
         fs::write(&temp_file, test_code)?;
 
-        // Compile with C++17
-        let compile_output = Command::new("g++")
+        // Compile with C++17 (with timeout)
+        let compile_child = Command::new("g++")
             .arg("-std=c++17")
             .arg("-O2")
             .arg("-o")
             .arg(&binary_file)
             .arg(&temp_file)
-            .output()?;
+            .stdout(std::process::Stdio::piped())
+            .stderr(std::process::Stdio::piped())
+            .spawn()?;
 
-        if !compile_output.status.success() {
+        let (_, compile_stderr, compile_timed_out) = Self::run_with_timeout(compile_child, 30, "g++");
+
+        if compile_timed_out || !binary_file.exists() {
             let _ = fs::remove_file(&temp_file);
-            let stderr = String::from_utf8_lossy(&compile_output.stderr);
-            return Ok(format!("Compilation Error:\n{}", stderr));
+            return Ok(format!("Compilation Error:\n{}", compile_stderr));
         }
 
-        // Run
-        let run_output = Command::new(&binary_file).output()?;
+        // Run with timeout
+        let run_child = Command::new(&binary_file)
+            .stdout(std::process::Stdio::piped())
+            .stderr(std::process::Stdio::piped())
+            .spawn()?;
+
+        let (stdout, stderr, timed_out) = Self::run_with_timeout(run_child, 30, "test binary");
 
         // Cleanup
         let _ = fs::remove_file(&temp_file);
         let _ = fs::remove_file(&binary_file);
 
-        let stdout = String::from_utf8_lossy(&run_output.stdout);
-        let stderr = String::from_utf8_lossy(&run_output.stderr);
-
-        if !stderr.is_empty() {
+        if timed_out {
+            Ok(format!("FAILED:\n{}", stderr))
+        } else if !stderr.is_empty() {
             Ok(format!("{}\n\nRuntime Errors:\n{}", stdout, stderr))
+        } else if stdout.is_empty() {
+            Ok("No output from test binary.".to_string())
         } else {
-            Ok(stdout.to_string())
+            Ok(stdout)
         }
     }
 
@@ -367,9 +503,8 @@ impl App {
             // Preserve the language selection
             let selected_language = question.language;
 
-            // Get problems list again
-            let client = LeetCodeClient::new();
-            let problems = client.get_problems()?;
+            // Use cached problems instead of re-parsing all files
+            let problems = self.problems.clone();
 
             // Extract unique categories
             let mut categories: Vec<String> = problems
@@ -428,6 +563,32 @@ impl App {
         Ok(())
     }
 
+    /// Check for completed async test results (non-blocking)
+    fn check_test_results(&mut self) {
+        if let AppState::Question(question) = &mut self.state {
+            if let Some(rx) = &question.test_receiver {
+                // Try to receive without blocking
+                if let Ok((output, problem_id)) = rx.try_recv() {
+                    // Test completed
+                    question.test_running = false;
+                    question.test_receiver = None;
+                    question.results_scroll_offset = 0;
+
+                    // Check if all tests passed
+                    if output.contains("All tests passed") {
+                        self.progress.mark_completed(problem_id);
+                        let _ = self.progress.save(&self.paths.progress_file());
+                    }
+
+                    // Update output after progress changes
+                    if let AppState::Question(question) = &mut self.state {
+                        question.test_output = Some(output);
+                    }
+                }
+            }
+        }
+    }
+
     fn handle_input(&mut self, event: Event) -> Result<()> {
         // Handle global hotkeys
         if let Event::Key(key) = &event {
@@ -444,32 +605,34 @@ impl App {
                         }
                     }
                     KeyCode::Char('r') => {
-                        // Run tests (quick mode - 3-5 tests)
-                        if let AppState::Question(question) = &mut self.state {
-                            // First, save the file in Neovim
-                            // Send Escape to ensure normal mode, then :w to save
+                        // Run tests (quick mode - 3-5 tests) - async
+                        let test_info = if let AppState::Question(question) = &mut self.state {
+                            if question.test_running {
+                                return Ok(()); // Already running, ignore
+                            }
+                            // Save the file in Neovim
                             question.pty.send_key(b"\x1b:w\r")?;
-
-                            // Give Neovim a moment to save the file
                             std::thread::sleep(Duration::from_millis(100));
 
-                            // Mark as started when running tests
-                            self.progress.mark_started(question.problem.id);
+                            Some((question.solution_file.clone(), question.problem.clone(), question.language))
+                        } else {
+                            None
+                        };
 
-                            let output = Self::run_tests(&question.solution_file, &question.problem, question.language)?;
-
-                            // Check if all tests passed and mark as completed
-                            if output.contains("All tests passed") {
-                                self.progress.mark_completed(question.problem.id);
-                            }
-
-                            // Save progress
+                        if let Some((solution_file, problem, language)) = test_info {
+                            self.progress.mark_started(problem.id);
                             let _ = self.progress.save(&self.paths.progress_file());
 
-                            question.test_output = Some(output);
-                            question.results_scroll_offset = 0;
-                            question.show_results = true;
-                            question.focus = Focus::Results;
+                            // Spawn async test execution
+                            let rx = self.spawn_test_async(solution_file, &problem, language, TestMode::Run)?;
+
+                            if let AppState::Question(question) = &mut self.state {
+                                question.test_running = true;
+                                question.test_receiver = Some(rx);
+                                question.test_output = Some("Running tests...".to_string());
+                                question.show_results = true;
+                                question.focus = Focus::Results;
+                            }
                             return Ok(());
                         }
                     }
@@ -481,31 +644,33 @@ impl App {
                         }
                     }
                     KeyCode::Char('s') => {
-                        // Submit tests (full mode - 50-200 tests)
-                        if let AppState::Question(question) = &mut self.state {
-                            // First, save the file in Neovim
+                        // Submit tests (full mode - 50-200 tests) - async
+                        let test_info = if let AppState::Question(question) = &mut self.state {
+                            if question.test_running {
+                                return Ok(()); // Already running, ignore
+                            }
                             question.pty.send_key(b"\x1b:w\r")?;
-
-                            // Give Neovim a moment to save the file
                             std::thread::sleep(Duration::from_millis(100));
 
-                            // Mark as started when running tests
-                            self.progress.mark_started(question.problem.id);
+                            Some((question.solution_file.clone(), question.problem.clone(), question.language))
+                        } else {
+                            None
+                        };
 
-                            let output = Self::run_tests_with_mode(&question.solution_file, &question.problem, question.language, TestMode::Submit)?;
-
-                            // Check if all tests passed and mark as completed
-                            if output.contains("All tests passed") {
-                                self.progress.mark_completed(question.problem.id);
-                            }
-
-                            // Save progress
+                        if let Some((solution_file, problem, language)) = test_info {
+                            self.progress.mark_started(problem.id);
                             let _ = self.progress.save(&self.paths.progress_file());
 
-                            question.test_output = Some(output);
-                            question.results_scroll_offset = 0;
-                            question.show_results = true;
-                            question.focus = Focus::Results;
+                            // Spawn async test execution
+                            let rx = self.spawn_test_async(solution_file, &problem, language, TestMode::Submit)?;
+
+                            if let AppState::Question(question) = &mut self.state {
+                                question.test_running = true;
+                                question.test_receiver = Some(rx);
+                                question.test_output = Some("Running full test suite...".to_string());
+                                question.show_results = true;
+                                question.focus = Focus::Results;
+                            }
                             return Ok(());
                         }
                     }
@@ -1426,18 +1591,29 @@ impl App {
                     })
                     .collect();
 
-                // Build title with scroll indicator
-                let scroll_info = if total_lines > visible_lines {
-                    format!(" [{}/{}] ", scroll_offset + 1, total_lines.saturating_sub(visible_lines) + 1)
+                // Build title with scroll indicator or loading spinner
+                let title = if question.test_running {
+                    // Animated spinner based on time
+                    let spinners = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+                    let idx = (std::time::SystemTime::now()
+                        .duration_since(std::time::UNIX_EPOCH)
+                        .unwrap_or_default()
+                        .as_millis() / 100) as usize % spinners.len();
+                    format!(" {} Running Tests... (please wait) ", spinners[idx])
                 } else {
-                    String::new()
+                    let scroll_info = if total_lines > visible_lines {
+                        format!(" [{}/{}] ", scroll_offset + 1, total_lines.saturating_sub(visible_lines) + 1)
+                    } else {
+                        String::new()
+                    };
+                    format!(" Test Results{} (↑↓/jk: scroll, Esc: close) ", scroll_info)
                 };
 
                 let results_block = Block::default()
                     .borders(Borders::ALL)
                     .title(Span::styled(
-                        format!(" Test Results{} (↑↓/jk: scroll, Esc: close) ", scroll_info),
-                        Style::default().fg(Color::Yellow).add_modifier(Modifier::BOLD),
+                        title,
+                        Style::default().fg(if question.test_running { Color::Cyan } else { Color::Yellow }).add_modifier(Modifier::BOLD),
                     ))
                     .style(Style::default().bg(Color::Rgb(30, 35, 40)));
 
@@ -1469,6 +1645,9 @@ fn main() -> Result<()> {
 
     // Main loop
     loop {
+        // Check for async test results (non-blocking)
+        app.check_test_results();
+
         app.render(&mut terminal)?;
 
         if app.should_quit {

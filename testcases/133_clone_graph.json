@@ -3,8 +3,8 @@
   "title": "Clone Graph",
   "run_tests": [
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             4
@@ -22,7 +22,7 @@
             3
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -44,26 +44,26 @@
       "description": "Square graph with 4 nodes"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           []
         ]
-      },
+      ],
       "expected": [
         []
       ],
       "description": "Single node with no neighbors"
     },
     {
-      "input": {
-        "adjList": []
-      },
+      "input": [
+        []
+      ],
       "expected": [],
       "description": "Empty graph (null node)"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2
           ],
@@ -71,7 +71,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2
@@ -85,26 +85,26 @@
   ],
   "submit_tests": [
     {
-      "input": {
-        "adjList": []
-      },
+      "input": [
+        []
+      ],
       "expected": [],
       "description": "Empty graph - null input"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           []
         ]
-      },
+      ],
       "expected": [
         []
       ],
       "description": "Single node - no neighbors"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2
           ],
@@ -112,7 +112,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2
@@ -124,8 +124,8 @@
       "description": "Two nodes connected"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             4
@@ -143,7 +143,7 @@
             3
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -165,8 +165,8 @@
       "description": "Square graph - 4 nodes"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3
@@ -180,7 +180,7 @@
             2
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -198,8 +198,8 @@
       "description": "Triangle graph"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2
           ],
@@ -219,7 +219,7 @@
             4
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2
@@ -243,8 +243,8 @@
       "description": "Linear chain - 5 nodes"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3,
@@ -260,7 +260,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -280,8 +280,8 @@
       "description": "Star graph - center with 3 spokes"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3,
@@ -301,7 +301,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -325,8 +325,8 @@
       "description": "Star graph - center with 4 spokes"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2
           ],
@@ -350,7 +350,7 @@
             5
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2
@@ -378,8 +378,8 @@
       "description": "Linear chain - 6 nodes"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3
@@ -399,7 +399,7 @@
             3
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -423,8 +423,8 @@
       "description": "Diamond shape"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             5
@@ -446,7 +446,7 @@
             4
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -472,8 +472,8 @@
       "description": "Pentagon graph"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3,
@@ -497,7 +497,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -525,8 +525,8 @@
       "description": "Star - 6 nodes"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             6
@@ -552,7 +552,7 @@
             5
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -582,8 +582,8 @@
       "description": "Hexagon graph"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3
@@ -601,7 +601,7 @@
             3
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -623,13 +623,13 @@
       "description": "Bowtie pattern"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             1
           ]
         ]
-      },
+      ],
       "expected": [
         [
           1
@@ -638,8 +638,8 @@
       "description": "Self-loop single node"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             1,
             2
@@ -649,7 +649,7 @@
             2
           ]
         ]
-      },
+      ],
       "expected": [
         [
           1,
@@ -663,8 +663,8 @@
       "description": "Two nodes with self-loops"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3,
@@ -686,7 +686,7 @@
             3
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -712,8 +712,8 @@
       "description": "Complete graph K4"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3,
@@ -745,7 +745,7 @@
             4
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -781,8 +781,8 @@
       "description": "Complete graph K5"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2
           ],
@@ -794,7 +794,7 @@
             2
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2
@@ -810,8 +810,8 @@
       "description": "Path of 3 nodes"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2
           ],
@@ -827,7 +827,7 @@
             3
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2
@@ -847,8 +847,8 @@
       "description": "Path of 4 nodes"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             7
@@ -878,7 +878,7 @@
             6
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -912,8 +912,8 @@
       "description": "Heptagon graph"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             4,
@@ -945,7 +945,7 @@
             5
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -981,8 +981,8 @@
       "description": "Octahedral graph"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3
@@ -998,7 +998,7 @@
             3
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -1018,8 +1018,8 @@
       "description": "Y-shaped graph"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3
@@ -1047,7 +1047,7 @@
             3
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -1079,8 +1079,8 @@
       "description": "Binary tree shape"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3,
@@ -1108,7 +1108,7 @@
             4
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -1140,8 +1140,8 @@
       "description": "Ternary tree shape"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3,
@@ -1169,7 +1169,7 @@
             4
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -1201,8 +1201,8 @@
       "description": "Two connected stars"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2
           ],
@@ -1222,7 +1222,7 @@
             4
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2
@@ -1246,8 +1246,8 @@
       "description": "Branch with tail"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3,
@@ -1279,7 +1279,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -1315,8 +1315,8 @@
       "description": "Star - 8 nodes"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             8
@@ -1350,7 +1350,7 @@
             7
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -1388,8 +1388,8 @@
       "description": "Octagon cycle"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             9
@@ -1427,7 +1427,7 @@
             8
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -1469,8 +1469,8 @@
       "description": "Nonagon cycle"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             10
@@ -1512,7 +1512,7 @@
             9
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -1558,8 +1558,8 @@
       "description": "Decagon cycle"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3,
@@ -1595,7 +1595,7 @@
             5
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -1635,8 +1635,8 @@
       "description": "K5 with tail"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2
           ],
@@ -1660,7 +1660,7 @@
             5
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2
@@ -1688,8 +1688,8 @@
       "description": "Tree with branching"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3
@@ -1721,7 +1721,7 @@
             7
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -1757,8 +1757,8 @@
       "description": "Unbalanced tree"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3,
@@ -1798,7 +1798,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -1842,8 +1842,8 @@
       "description": "Tree with cycle back to root"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             5
@@ -1867,7 +1867,7 @@
             4
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -1895,8 +1895,8 @@
       "description": "Pentagon with cross edge"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             6,
@@ -1924,7 +1924,7 @@
             5
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -1956,8 +1956,8 @@
       "description": "Hexagon with chords"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3,
@@ -2015,7 +2015,7 @@
             6
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -2077,8 +2077,8 @@
       "description": "Complete graph K7"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2
           ],
@@ -2112,7 +2112,7 @@
             7
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2
@@ -2150,8 +2150,8 @@
       "description": "Chain with clique"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3,
@@ -2191,7 +2191,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -2235,8 +2235,8 @@
       "description": "Star - 10 nodes"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2
           ],
@@ -2266,7 +2266,7 @@
           ],
           []
         ]
-      },
+      ],
       "expected": [
         [
           2
@@ -2300,8 +2300,8 @@
       "description": "Long directed chain (as undirected)"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3,
@@ -2341,7 +2341,7 @@
             4
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -2385,8 +2385,8 @@
       "description": "Three-level tree"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             11
@@ -2432,7 +2432,7 @@
             10
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -2482,8 +2482,8 @@
       "description": "Cycle of 11 nodes"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             12
@@ -2533,7 +2533,7 @@
             11
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -2587,8 +2587,8 @@
       "description": "Cycle of 12 nodes"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3
@@ -2618,7 +2618,7 @@
             3
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -2652,8 +2652,8 @@
       "description": "Triangle with branches"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             4
@@ -2683,7 +2683,7 @@
             5
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -2717,8 +2717,8 @@
       "description": "Square with Y-branch"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3,
@@ -2766,7 +2766,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -2818,8 +2818,8 @@
       "description": "Star - 12 nodes"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2
           ],
@@ -2853,7 +2853,7 @@
             7
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2
@@ -2891,8 +2891,8 @@
       "description": "Chain with square at end"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3
@@ -2916,7 +2916,7 @@
             4
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -2944,8 +2944,8 @@
       "description": "Two triangles sharing vertex"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3
@@ -2973,7 +2973,7 @@
             5
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -3005,8 +3005,8 @@
       "description": "Two triangles sharing edge"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             5,
@@ -3042,7 +3042,7 @@
             7
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -3082,8 +3082,8 @@
       "description": "Two pentagons sharing vertex"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3,
@@ -3129,7 +3129,7 @@
             9
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,
@@ -3179,8 +3179,8 @@
       "description": "Petersen-like graph"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2
           ],
@@ -3240,7 +3240,7 @@
             14
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2
@@ -3304,8 +3304,8 @@
       "description": "Long chain - 15 nodes"
     },
     {
-      "input": {
-        "adjList": [
+      "input": [
+        [
           [
             2,
             3,
@@ -3365,7 +3365,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         [
           2,

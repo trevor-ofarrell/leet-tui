@@ -340,65 +340,8 @@ public:
 
         let mode_label = if is_submit { "SUBMIT" } else { "RUN" };
 
-        // For submit mode: table format with complexity analysis
         // For run mode: verbose output with all details
-        let test_loop_code = if is_submit {
-            r#"
-    // Table header
-    console.log('┌───────┬────────┬──────────────┐');
-    console.log('│ Test  │ Status │     Time     │');
-    console.log('├───────┼────────┼──────────────┤');
-
-    const failures = [];
-
-    testCases.forEach((tc, i) => {
-        try {
-            const start = now();
-            const result = func(...tc.input);
-            const elapsed = now() - start;
-            totalTime += elapsed;
-
-            const resultStr = JSON.stringify(result);
-            const expectedStr = JSON.stringify(tc.expected);
-            const isEqual = resultStr === expectedStr;
-
-            const testNum = String(i + 1).padStart(3);
-            const timeStr = formatTime(elapsed).padStart(12);
-
-            if (isEqual) {
-                console.log(`│ ${testNum}   │   ✓    │${timeStr} │`);
-                passed++;
-            } else {
-                console.log(`│ ${testNum}   │   ✗    │${timeStr} │`);
-                failures.push({ num: i + 1, input: tc.input, expected: expectedStr, got: resultStr });
-                failed++;
-            }
-        } catch (e) {
-            const testNum = String(i + 1).padStart(3);
-            console.log(`│ ${testNum}   │  ERR   │              │`);
-            failures.push({ num: i + 1, error: e.message });
-            failed++;
-        }
-    });
-
-    console.log('└───────┴────────┴──────────────┘');
-
-    // Show failure details
-    if (failures.length > 0) {
-        console.log('\n❌ Failed Tests:');
-        failures.forEach(f => {
-            console.log(`\nTest ${f.num}:`);
-            if (f.error) {
-                console.log(`  Error: ${f.error}`);
-            } else {
-                const inp = JSON.stringify(f.input);
-                console.log(`  Input:    ${inp.slice(0, 80)}${inp.length > 80 ? '...' : ''}`);
-                console.log(`  Expected: ${f.expected.slice(0, 80)}${f.expected.length > 80 ? '...' : ''}`);
-                console.log(`  Got:      ${f.got.slice(0, 80)}${f.got.length > 80 ? '...' : ''}`);
-            }
-        });
-    }"#
-        } else {
+        let test_loop_code = if !is_submit {
             r#"
     testCases.forEach((tc, i) => {
         try {
@@ -427,7 +370,206 @@ public:
             console.log(`Test ${i + 1}: ERROR - ${e.message}`);
             failed++;
         }
-    });"#
+    });"#.to_string()
+        } else {
+            // Submit mode: clean summary with categories
+            r#"
+    const failures = [];
+    const categories = { basic: { passed: 0, total: 0 }, edge: { passed: 0, total: 0 }, standard: { passed: 0, total: 0 } };
+
+    // Categorize and run tests
+    testCases.forEach((tc, i) => {
+        // Determine category based on input characteristics
+        const inp = tc.input;
+        let category = 'standard';
+        if (i < 5) {
+            category = 'basic';  // First 5 tests are basic examples
+        } else if (Array.isArray(inp) && inp.length > 0) {
+            const firstArg = inp[0];
+            if (Array.isArray(firstArg)) {
+                if (firstArg.length === 0 || firstArg.length === 1 || firstArg.length === 2) {
+                    category = 'edge';
+                }
+            } else if (typeof firstArg === 'string' && (firstArg === '' || firstArg.length <= 2)) {
+                category = 'edge';
+            }
+        }
+        categories[category].total++;
+
+        try {
+            const start = now();
+            const result = func(...tc.input);
+            const elapsed = now() - start;
+            totalTime += elapsed;
+
+            const resultStr = JSON.stringify(result);
+            const expectedStr = JSON.stringify(tc.expected);
+            const isEqual = resultStr === expectedStr;
+
+            if (isEqual) {
+                passed++;
+                categories[category].passed++;
+            } else {
+                failed++;
+                failures.push({ num: i + 1, category, input: tc.input, expected: expectedStr, got: resultStr });
+            }
+        } catch (e) {
+            failed++;
+            failures.push({ num: i + 1, category, error: e.message });
+        }
+    });
+
+    // Show category breakdown
+    console.log('┌─────────────────┬────────┬─────────┐');
+    console.log('│ Category        │ Passed │  Total  │');
+    console.log('├─────────────────┼────────┼─────────┤');
+    if (categories.basic.total > 0) {
+        console.log(`│ Basic           │ ${String(categories.basic.passed).padStart(6)} │ ${String(categories.basic.total).padStart(7)} │`);
+    }
+    if (categories.edge.total > 0) {
+        console.log(`│ Edge Cases      │ ${String(categories.edge.passed).padStart(6)} │ ${String(categories.edge.total).padStart(7)} │`);
+    }
+    if (categories.standard.total > 0) {
+        console.log(`│ Standard        │ ${String(categories.standard.passed).padStart(6)} │ ${String(categories.standard.total).padStart(7)} │`);
+    }
+    console.log('└─────────────────┴────────┴─────────┘');
+
+    // Show failure details (max 3)
+    if (failures.length > 0) {
+        console.log(`\n❌ ${failures.length} Failed Test(s):`);
+        failures.slice(0, 3).forEach(f => {
+            console.log(`\n  Test ${f.num} (${f.category}):`);
+            if (f.error) {
+                console.log(`    Error: ${f.error}`);
+            } else {
+                const inp = JSON.stringify(f.input);
+                console.log(`    Input:    ${inp.slice(0, 60)}${inp.length > 60 ? '...' : ''}`);
+                console.log(`    Expected: ${f.expected.slice(0, 60)}${f.expected.length > 60 ? '...' : ''}`);
+                console.log(`    Got:      ${f.got.slice(0, 60)}${f.got.length > 60 ? '...' : ''}`);
+            }
+        });
+        if (failures.length > 3) {
+            console.log(`\n  ... and ${failures.length - 3} more failures`);
+        }
+    }"#.to_string()
+        };
+
+        // Complexity analysis code (only for submit mode)
+        let complexity_code = if is_submit {
+            format!(r#"
+// Complexity analysis
+async function runComplexityAnalysis() {{
+    console.log('\n' + '═'.repeat(50));
+    console.log('Complexity Analysis');
+    console.log('═'.repeat(50));
+    console.log('\nWarming up JIT...');
+
+    // Input generator from problem
+    {complexity_generator}
+
+    const sizes = [10000, 100000, 1000000];
+    const WARMUP_ITERATIONS = 100;
+    const MIN_BENCH_TIME_MS = 200;
+    const BENCHMARK_ROUNDS = 5;
+
+    // Warmup with smaller inputs
+    try {{
+        for (let warmupN of [1000, 5000, 10000]) {{
+            const warmupInput = generateInput(warmupN);
+            for (let i = 0; i < WARMUP_ITERATIONS; i++) {{
+                func(...warmupInput);
+            }}
+        }}
+    }} catch (e) {{
+        console.log('Warmup failed:', e.message);
+        return;
+    }}
+
+    console.log('Running benchmarks (5 rounds each)...\n');
+    console.log('┌─────────────┬──────────────────┬────────────┐');
+    console.log('│      n      │   Median Time    │  Std Dev   │');
+    console.log('├─────────────┼──────────────────┼────────────┤');
+
+    const medianTimes = [];
+
+    for (const n of sizes) {{
+        try {{
+            const inputData = generateInput(n);
+            const roundTimes = [];
+            let totalIterations = 0;
+
+            for (let round = 0; round < BENCHMARK_ROUNDS; round++) {{
+                let iterations = 0;
+                let benchTime = 0;
+
+                while (benchTime < MIN_BENCH_TIME_MS) {{
+                    const start = now();
+                    func(...inputData);
+                    benchTime += now() - start;
+                    iterations++;
+                }}
+
+                const avgTime = benchTime / iterations;
+                roundTimes.push(avgTime);
+                totalIterations += iterations;
+            }}
+
+            // Calculate median
+            roundTimes.sort((a, b) => a - b);
+            const medianTime = roundTimes[Math.floor(roundTimes.length / 2)];
+            medianTimes.push(medianTime);
+
+            // Calculate std dev
+            const mean = roundTimes.reduce((a, b) => a + b, 0) / roundTimes.length;
+            const variance = roundTimes.reduce((sum, t) => sum + Math.pow(t - mean, 2), 0) / roundTimes.length;
+            const stdDev = Math.sqrt(variance);
+            const relStdDev = ((stdDev / mean) * 100).toFixed(1) + '%';
+
+            const nStr = n.toLocaleString().padStart(11);
+            const timeStr = formatTime(medianTime).padStart(16);
+            const stdStr = relStdDev.padStart(10);
+            console.log(`│ ${{nStr}} │ ${{timeStr}} │ ${{stdStr}} │`);
+        }} catch (e) {{
+            const nStr = n.toLocaleString().padStart(11);
+            console.log(`│ ${{nStr}} │ ${{' ERROR'.padStart(16)}} │            │`);
+            medianTimes.push(0);
+        }}
+    }}
+
+    console.log('└─────────────┴──────────────────┴────────────┘');
+
+    // Calculate complexity using log-log slope
+    if (medianTimes.length >= 2 && medianTimes[0] > 0 && medianTimes[1] > 0) {{
+        const slopes = [];
+        for (let i = 1; i < medianTimes.length; i++) {{
+            if (medianTimes[i-1] > 0 && medianTimes[i] > 0) {{
+                const logNRatio = Math.log(sizes[i] / sizes[i-1]);
+                const logTRatio = Math.log(medianTimes[i] / medianTimes[i-1]);
+                slopes.push(logTRatio / logNRatio);
+            }}
+        }}
+
+        if (slopes.length > 0) {{
+            const avgSlope = slopes.reduce((a, b) => a + b, 0) / slopes.length;
+            let complexity;
+            if (avgSlope < 0.15) complexity = 'O(1)';
+            else if (avgSlope < 0.45) complexity = 'O(log n)';
+            else if (avgSlope < 1.25) complexity = 'O(n)';
+            else if (avgSlope < 1.65) complexity = 'O(n log n)';
+            else if (avgSlope < 2.4) complexity = 'O(n²)';
+            else if (avgSlope < 3.4) complexity = 'O(n³)';
+            else complexity = 'O(2ⁿ) or worse';
+
+            console.log(`\nTime Complexity:  ${{complexity}} (slope: ${{avgSlope.toFixed(2)}})`);
+            console.log('Space Complexity: O(n) estimated');
+            console.log('\nNote: Std Dev < 5% indicates stable measurements');
+        }}
+    }}
+}}
+
+runComplexityAnalysis();"#, complexity_generator = problem.complexity_generator)
+        } else {
+            String::new()
         };
 
         format!(
@@ -443,33 +585,16 @@ const now = typeof Bun !== 'undefined'
     ? () => Bun.nanoseconds() / 1e6
     : () => performance.now();
 
-// Memory usage (works in both Bun and Node)
-const getMemory = () => {{
-    if (typeof Bun !== 'undefined') {{
-        return process.memoryUsage().heapUsed;
-    }}
-    if (typeof process !== 'undefined') {{
-        return process.memoryUsage().heapUsed;
-    }}
-    return 0;
-}};
-
 const formatTime = (ms) => {{
-    if (ms < 1) return `${{(ms * 1000).toFixed(2)}} us`;
+    if (ms < 1) return `${{(ms * 1000).toFixed(2)}} µs`;
     if (ms < 1000) return `${{ms.toFixed(2)}} ms`;
     return `${{(ms / 1000).toFixed(2)}} s`;
 }};
 
-const formatMemory = (bytes) => {{
-    if (bytes < 1024) return `${{bytes}} B`;
-    if (bytes < 1024 * 1024) return `${{(bytes / 1024).toFixed(1)}} KB`;
-    return `${{(bytes / (1024 * 1024)).toFixed(2)}} MB`;
-}};
-
 (function runTests() {{
-    console.log('\n' + '='.repeat(50));
+    console.log('\n' + '═'.repeat(50));
     console.log('[{mode_label}] Testing: {title}');
-    console.log('='.repeat(50) + '\n');
+    console.log('═'.repeat(50) + '\n');
 
     let passed = 0;
     let failed = 0;
@@ -484,129 +609,7 @@ const formatMemory = (bytes) => {{
 
     if (failed === 0) {{
         console.log('\n✅ All tests passed!');
-
-        // Run complexity analysis
-        console.log('\n' + '='.repeat(50));
-        console.log('Complexity Analysis');
-        console.log('='.repeat(50) + '\n');
-
-        {complexity_generator}
-
-        // Force garbage collection if available (Bun/Node with --expose-gc)
-        const gc = () => {{
-            if (typeof Bun !== 'undefined') Bun.gc(true);
-            else if (typeof global !== 'undefined' && global.gc) global.gc();
-        }};
-
-        // Benchmark configuration for stable results
-        const WARMUP_ITERATIONS = 500;      // JIT needs many iterations to stabilize
-        const MIN_BENCH_TIME = 200;         // Minimum ms per size for statistical significance
-        const BENCHMARK_ROUNDS = 5;         // Multiple rounds, take median
-        const sizes = [10000, 100000, 1000000];
-        const medianTimes = [];
-
-        // Calculate median helper (more stable than mean)
-        const median = (arr) => {{
-            const sorted = [...arr].sort((a, b) => a - b);
-            const mid = Math.floor(sorted.length / 2);
-            return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2;
-        }};
-
-        // Aggressive warmup phase - critical for JIT stabilization
-        console.log('Warming up JIT compiler...');
-        try {{
-            // Warmup with multiple sizes to trigger all optimization paths
-            for (const warmupN of [1000, 10000, 50000]) {{
-                const warmupInput = generateInput(warmupN);
-                gc();
-                for (let i = 0; i < WARMUP_ITERATIONS; i++) {{
-                    try {{ func(...warmupInput); }} catch {{}}
-                }}
-            }}
-        }} catch {{}}
-        gc();
-
-        console.log('Running benchmarks (5 rounds each, taking median)...\n');
-        console.log('+-------------+------------------+------------+--------------+');
-        console.log('|      n      |   Median Time    |    Runs    |   Std Dev    |');
-        console.log('+-------------+------------------+------------+--------------+');
-
-        sizes.forEach(n => {{
-            gc();
-            try {{
-                const input = generateInput(n);
-                gc();
-
-                const roundTimes = [];
-                let totalIterations = 0;
-
-                // Run multiple benchmark rounds
-                for (let round = 0; round < BENCHMARK_ROUNDS; round++) {{
-                    gc();
-                    // Small pause to let GC complete
-                    const pauseStart = now();
-                    while (now() - pauseStart < 5) {{}}
-
-                    let iterations = 0;
-                    let benchTime = 0;
-                    const benchStart = now();
-
-                    while (benchTime < MIN_BENCH_TIME) {{
-                        try {{ func(...input); }} catch {{}}
-                        benchTime = now() - benchStart;
-                        iterations++;
-                    }}
-
-                    const avgTime = benchTime / iterations;
-                    roundTimes.push(avgTime);
-                    totalIterations += iterations;
-                }}
-
-                // Calculate median (more stable than mean)
-                const medianTime = median(roundTimes);
-                medianTimes.push(medianTime);
-
-                // Calculate relative standard deviation for confidence indicator
-                const mean = roundTimes.reduce((a, b) => a + b, 0) / roundTimes.length;
-                const variance = roundTimes.reduce((sum, t) => sum + Math.pow(t - mean, 2), 0) / roundTimes.length;
-                const stdDev = Math.sqrt(variance);
-                const relStdDev = ((stdDev / mean) * 100).toFixed(1) + '%';
-
-                console.log(`| ${{String(n).padStart(11)}} | ${{formatTime(medianTime).padStart(16)}} | ${{String(totalIterations).padStart(10)}} | ${{relStdDev.padStart(12)}} |`);
-            }} catch (e) {{
-                console.log(`| ${{String(n).padStart(11)}} | ${{('ERROR').padStart(16)}} |            |              |`);
-                medianTimes.push(0);
-            }}
-        }});
-
-        console.log('+-------------+------------------+------------+--------------+');
-
-        // Calculate complexity using log-log slope method
-        if (medianTimes.length >= 2 && medianTimes[0] > 0 && medianTimes[1] > 0) {{
-            const slopes = [];
-            for (let i = 1; i < medianTimes.length; i++) {{
-                if (medianTimes[i-1] > 0 && medianTimes[i] > 0) {{
-                    const logNRatio = Math.log(sizes[i] / sizes[i-1]);
-                    const logTRatio = Math.log(medianTimes[i] / medianTimes[i-1]);
-                    slopes.push(logTRatio / logNRatio);
-                }}
-            }}
-            if (slopes.length >= 1) {{
-                const avgSlope = slopes.reduce((a,b) => a+b, 0) / slopes.length;
-                let timeComplexity = '';
-                if (avgSlope < 0.15) timeComplexity = 'O(1)';
-                else if (avgSlope < 0.45) timeComplexity = 'O(log n)';
-                else if (avgSlope < 1.25) timeComplexity = 'O(n)';
-                else if (avgSlope < 1.65) timeComplexity = 'O(n log n)';
-                else if (avgSlope < 2.4) timeComplexity = 'O(n^2)';
-                else if (avgSlope < 3.4) timeComplexity = 'O(n^3)';
-                else timeComplexity = 'O(2^n) or worse';
-
-                console.log(`\nTime Complexity:  ${{timeComplexity}} (slope: ${{avgSlope.toFixed(2)}})`);
-                console.log('Space Complexity: O(n) estimated');
-                console.log('\nNote: Std Dev < 5% indicates stable results');
-            }}
-        }}
+        {complexity_code}
     }}
 }})();
 "#,
@@ -616,7 +619,7 @@ const formatMemory = (bytes) => {{
             func_name = problem.function_name,
             test_cases = test_cases_json,
             test_loop_code = test_loop_code,
-            complexity_generator = problem.complexity_generator,
+            complexity_code = complexity_code,
         )
     }
 
@@ -688,6 +691,13 @@ const formatMemory = (bytes) => {{
             ""
         };
 
+        // Only include complexity analysis in submit mode
+        let complexity_call = if is_submit {
+            "run_complexity_analysis()"
+        } else {
+            "pass  # Complexity analysis skipped in RUN mode"
+        };
+
         format!(
             r#"# User's solution
 {solution_code}
@@ -747,7 +757,7 @@ def run_tests():
 
     if failed == 0:
         print("\n✅ All tests passed!")
-        run_complexity_analysis()
+        {complexity_call}
 
 def run_complexity_analysis():
     import statistics
@@ -864,6 +874,7 @@ if __name__ == "__main__":
             test_output_code = test_output_code,
             test_footer_code = test_footer_code,
             complexity_generator = python_generator,
+            complexity_call = complexity_call,
         )
     }
 
@@ -1223,6 +1234,19 @@ bool vec_equal(vector<T> a, vector<T> b) {{
 // Compare vectors (order-insensitive - for problems that say "return in any order")
 template<typename T>
 bool vec_equal_any_order(vector<T> a, vector<T> b) {{
+    sort(a.begin(), a.end());
+    sort(b.begin(), b.end());
+    return a == b;
+}}
+
+// Compare 2D vectors (order-insensitive for both inner and outer)
+template<typename T>
+bool vec2d_equal_any_order(vector<vector<T>> a, vector<vector<T>> b) {{
+    if (a.size() != b.size()) return false;
+    // Sort each inner vector
+    for (auto& v : a) sort(v.begin(), v.end());
+    for (auto& v : b) sort(v.begin(), v.end());
+    // Sort outer vectors
     sort(a.begin(), a.end());
     sort(b.begin(), b.end());
     return a == b;

@@ -3,737 +3,737 @@
   "title": "Valid Parentheses",
   "run_tests": [
     {
-      "input": {
-        "s": "()"
-      },
+      "input": [
+        "()"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "()[]{}"
-      },
+      "input": [
+        "()[]{}"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "(]"
-      },
+      "input": [
+        "(]"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "([)]"
-      },
+      "input": [
+        "([)]"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "{[]}"
-      },
+      "input": [
+        "{[]}"
+      ],
       "expected": true
     }
   ],
   "submit_tests": [
     {
-      "input": {
-        "s": ""
-      },
+      "input": [
+        ""
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "("
-      },
+      "input": [
+        "("
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": ")"
-      },
+      "input": [
+        ")"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "["
-      },
+      "input": [
+        "["
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "]"
-      },
+      "input": [
+        "]"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "{"
-      },
+      "input": [
+        "{"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "}"
-      },
+      "input": [
+        "}"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "()"
-      },
+      "input": [
+        "()"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "[]"
-      },
+      "input": [
+        "[]"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "{}"
-      },
+      "input": [
+        "{}"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "(("
-      },
+      "input": [
+        "(("
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "))"
-      },
+      "input": [
+        "))"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "[["
-      },
+      "input": [
+        "[["
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "]]"
-      },
+      "input": [
+        "]]"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "{{"
-      },
+      "input": [
+        "{{"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "}}"
-      },
+      "input": [
+        "}}"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "(]"
-      },
+      "input": [
+        "(]"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "(}"
-      },
+      "input": [
+        "(}"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "[)"
-      },
+      "input": [
+        "[)"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "[}"
-      },
+      "input": [
+        "[}"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "{)"
-      },
+      "input": [
+        "{)"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "{]"
-      },
+      "input": [
+        "{]"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": ")("
-      },
+      "input": [
+        ")("
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "]["
-      },
+      "input": [
+        "]["
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "}{"
-      },
+      "input": [
+        "}{"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "((()))"
-      },
+      "input": [
+        "((()))"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "[[[]]]"
-      },
+      "input": [
+        "[[[]]]"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "{{{}}}"
-      },
+      "input": [
+        "{{{}}}"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "([])"
-      },
+      "input": [
+        "([])"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "{()}"
-      },
+      "input": [
+        "{()}"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "[{}]"
-      },
+      "input": [
+        "[{}]"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "([{}])"
-      },
+      "input": [
+        "([{}])"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "{[()]}"
-      },
+      "input": [
+        "{[()]}"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "[({})]"
-      },
+      "input": [
+        "[({})]"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "([)]"
-      },
+      "input": [
+        "([)]"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "{[}]"
-      },
+      "input": [
+        "{[}]"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "[(])"
-      },
+      "input": [
+        "[(])"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "(){}[]"
-      },
+      "input": [
+        "(){}[]"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "()[]{}"
-      },
+      "input": [
+        "()[]{}"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "{}[]()"
-      },
+      "input": [
+        "{}[]()"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "(())"
-      },
+      "input": [
+        "(())"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "((()))"
-      },
+      "input": [
+        "((()))"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "(((())))"
-      },
+      "input": [
+        "(((())))"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "(((()))))"
-      },
+      "input": [
+        "(((()))))"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "((((()))))"
-      },
+      "input": [
+        "((((()))))"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "(()(()))"
-      },
+      "input": [
+        "(()(()))"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "(()(()()))"
-      },
+      "input": [
+        "(()(()()))"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "(()(()(())))"
-      },
+      "input": [
+        "(()(()(())))"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "((()(()(())))"
-      },
+      "input": [
+        "((()(()(())))"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "()()()()()()()()()()()()()()()()()()()()"
-      },
+      "input": [
+        "()()()()()()()()()()()()()()()()()()()()"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "()()()()()()()()()()()()()()()()()()()()("
-      },
+      "input": [
+        "()()()()()()()()()()()()()()()()()()()()("
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "(((((((((((((((((((())))))))))))))))))))"
-      },
+      "input": [
+        "(((((((((((((((((((())))))))))))))))))))"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "((((((((((((((((((()))))))))))))))))))"
-      },
+      "input": [
+        "((((((((((((((((((()))))))))))))))))))"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "{[()()]}"
-      },
+      "input": [
+        "{[()()]}"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "{[()(]}"
-      },
+      "input": [
+        "{[()(]}"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "([{}]())"
-      },
+      "input": [
+        "([{}]())"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "([{}](])"
-      },
+      "input": [
+        "([{}](])"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "{()[]}"
-      },
+      "input": [
+        "{()[]}"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "{()[}]"
-      },
+      "input": [
+        "{()[}]"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "[{()}]"
-      },
+      "input": [
+        "[{()}]"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "[{(})]"
-      },
+      "input": [
+        "[{(})]"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "(((((((((((((((((((((((((((((((((((((((((((((((((())))))))))))))))))))))))))))))))))))))))))))))))))"
-      },
+      "input": [
+        "(((((((((((((((((((((((((((((((((((((((((((((((((())))))))))))))))))))))))))))))))))))))))))))))))))"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "(){}[](){}[](){}[](){}[](){}[]"
-      },
+      "input": [
+        "(){}[](){}[](){}[](){}[](){}[]"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "({[({[({[({[({[({[({[]})]})]})]})]})]})]})"
-      },
+      "input": [
+        "({[({[({[({[({[({[({[]})]})]})]})]})]})]})"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "({[({[({[({[({[({[({[})]})]})]})]})]})]})"
-      },
+      "input": [
+        "({[({[({[({[({[({[({[})]})]})]})]})]})]})"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "(((([[[{{{{}}}}]]]))))"
-      },
+      "input": [
+        "(((([[[{{{{}}}}]]]))))"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "(((([[[{{{{}}}}]]])))"
-      },
+      "input": [
+        "(((([[[{{{{}}}}]]])))"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "][]["
-      },
+      "input": [
+        "][]["
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": ")()("
-      },
+      "input": [
+        ")()("
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "}{}{"
-      },
+      "input": [
+        "}{}{"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "((([[[{{{}}]}]]))"
-      },
+      "input": [
+        "((([[[{{{}}]}]]))"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "([{([{([{([{([{()}])}])}])}])}])"
-      },
+      "input": [
+        "([{([{([{([{([{()}])}])}])}])}])"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "[[{{(())}}]]"
-      },
+      "input": [
+        "[[{{(())}}]]"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "[[{{(())}]]}"
-      },
+      "input": [
+        "[[{{(())}]]}"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "{{{{{{{{{{}}}}}}}}}}"
-      },
+      "input": [
+        "{{{{{{{{{{}}}}}}}}}}"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "[[[[[[[[[[]]]]]]]]]]]"
-      },
+      "input": [
+        "[[[[[[[[[[]]]]]]]]]]]"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "()()()()()"
-      },
+      "input": [
+        "()()()()()"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "[][][][][]"
-      },
+      "input": [
+        "[][][][][]"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "{}{}{}{}{}"
-      },
+      "input": [
+        "{}{}{}{}{}"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "([]{})([]{})"
-      },
+      "input": [
+        "([]{})([]{})"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "({[]})({[]})"
-      },
+      "input": [
+        "({[]})({[]})"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "(({{[[]]}}))(({{[[]]}}))"
-      },
+      "input": [
+        "(({{[[]]}}))(({{[[]]}}))"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "(({{[[]]}}))(({[[]]}}))"
-      },
+      "input": [
+        "(({{[[]]}}))(({[[]]}}))"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "()(()){(([]))}"
-      },
+      "input": [
+        "()(()){(([]))}"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "()(()){(([))]}"
-      },
+      "input": [
+        "()(()){(([))]}"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "()(()((()))){{{[[[()]]]}}}"
-      },
+      "input": [
+        "()(()((()))){{{[[[()]]]}}}"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "()(()((()))){{{[[[()]]]}}"
-      },
+      "input": [
+        "()(()((()))){{{[[[()]]]}}"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": ")))((("
-      },
+      "input": [
+        ")))((("
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": ")))}}}]]]"
-      },
+      "input": [
+        ")))}}}]]]"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "((())){{}}"
-      },
+      "input": [
+        "((())){{}}"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "(a]"
-      },
+      "input": [
+        "(a]"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "a]"
-      },
+      "input": [
+        "a]"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "(a)"
-      },
+      "input": [
+        "(a)"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "[a{b}c]"
-      },
+      "input": [
+        "[a{b}c]"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "[a{b]c}"
-      },
+      "input": [
+        "[a{b]c}"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "abc"
-      },
+      "input": [
+        "abc"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "((a)(b)(c))"
-      },
+      "input": [
+        "((a)(b)(c))"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "{a[b(c)d]e}"
-      },
+      "input": [
+        "{a[b(c)d]e}"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "{a[b(c]d)e}"
-      },
+      "input": [
+        "{a[b(c]d)e}"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "a"
-      },
+      "input": [
+        "a"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "aa"
-      },
+      "input": [
+        "aa"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "ab"
-      },
+      "input": [
+        "ab"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "aaa"
-      },
+      "input": [
+        "aaa"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "aba"
-      },
+      "input": [
+        "aba"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "abba"
-      },
+      "input": [
+        "abba"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "abcba"
-      },
+      "input": [
+        "abcba"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "aaaaaa"
-      },
+      "input": [
+        "aaaaaa"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "abcdef"
-      },
+      "input": [
+        "abcdef"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "zyxwvu"
-      },
+      "input": [
+        "zyxwvu"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "AaBbCc"
-      },
+      "input": [
+        "AaBbCc"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "a b c"
-      },
+      "input": [
+        "a b c"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "   "
-      },
+      "input": [
+        "   "
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "12345"
-      },
+      "input": [
+        "12345"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "a1b2c3"
-      },
+      "input": [
+        "a1b2c3"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "(((("
-      },
+      "input": [
+        "(((("
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "))))"
-      },
+      "input": [
+        "))))"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "((())"
-      },
+      "input": [
+        "((())"
+      ],
       "expected": false
     }
   ]

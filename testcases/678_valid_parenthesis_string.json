@@ -911,27 +911,27 @@
       "expected": true
     },
     {
-      "input": {
-        "s": ""
-      },
+      "input": [
+        ""
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "*"
-      },
+      "input": [
+        "*"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "("
-      },
+      "input": [
+        "("
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": ")"
-      },
+      "input": [
+        ")"
+      ],
       "expected": false
     }
   ]

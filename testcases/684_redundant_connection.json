@@ -3,8 +3,8 @@
   "title": "Redundant Connection",
   "run_tests": [
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -18,15 +18,15 @@
             3
           ]
         ]
-      },
+      ],
       "expected": [
         2,
         3
       ]
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -48,15 +48,15 @@
             5
           ]
         ]
-      },
+      ],
       "expected": [
         1,
         4
       ]
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -74,7 +74,7 @@
             4
           ]
         ]
-      },
+      ],
       "expected": [
         3,
         4
@@ -83,8 +83,8 @@
   ],
   "submit_tests": [
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -98,7 +98,7 @@
             3
           ]
         ]
-      },
+      ],
       "expected": [
         2,
         3
@@ -106,8 +106,8 @@
       "description": "Simple triangle"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -129,7 +129,7 @@
             5
           ]
         ]
-      },
+      ],
       "expected": [
         1,
         4
@@ -137,8 +137,8 @@
       "description": "Square with tail"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -156,7 +156,7 @@
             4
           ]
         ]
-      },
+      ],
       "expected": [
         3,
         4
@@ -164,8 +164,8 @@
       "description": "Star with extra edge"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -179,7 +179,7 @@
             3
           ]
         ]
-      },
+      ],
       "expected": [
         1,
         3
@@ -187,8 +187,8 @@
       "description": "Triangle last edge redundant"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             2,
             3
@@ -202,7 +202,7 @@
             3
           ]
         ]
-      },
+      ],
       "expected": [
         1,
         3
@@ -210,8 +210,8 @@
       "description": "Triangle different order"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             3
@@ -225,7 +225,7 @@
             3
           ]
         ]
-      },
+      ],
       "expected": [
         2,
         3
@@ -233,8 +233,8 @@
       "description": "Triangle another order"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -252,7 +252,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         4,
         1
@@ -260,8 +260,8 @@
       "description": "Square cycle"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -283,7 +283,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         5,
         1
@@ -291,8 +291,8 @@
       "description": "Pentagon cycle"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -318,7 +318,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         6,
         1
@@ -326,8 +326,8 @@
       "description": "Hexagon cycle"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -345,7 +345,7 @@
             4
           ]
         ]
-      },
+      ],
       "expected": [
         3,
         1
@@ -353,8 +353,8 @@
       "description": "Triangle with tail"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             4
@@ -372,7 +372,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         3,
         1
@@ -380,8 +380,8 @@
       "description": "Triangle with tail different order"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -399,7 +399,7 @@
             2
           ]
         ]
-      },
+      ],
       "expected": [
         4,
         2
@@ -407,8 +407,8 @@
       "description": "Path then cycle back"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -430,7 +430,7 @@
             3
           ]
         ]
-      },
+      ],
       "expected": [
         5,
         3
@@ -438,8 +438,8 @@
       "description": "Long path small cycle"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             5
@@ -461,7 +461,7 @@
             2
           ]
         ]
-      },
+      ],
       "expected": [
         1,
         2
@@ -469,8 +469,8 @@
       "description": "Star with cross edge"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -488,7 +488,7 @@
             4
           ]
         ]
-      },
+      ],
       "expected": [
         2,
         4
@@ -496,8 +496,8 @@
       "description": "Two pairs connected"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -523,7 +523,7 @@
             6
           ]
         ]
-      },
+      ],
       "expected": [
         2,
         6
@@ -531,8 +531,8 @@
       "description": "Three pairs connected"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             2,
             1
@@ -550,7 +550,7 @@
             4
           ]
         ]
-      },
+      ],
       "expected": [
         1,
         4
@@ -558,8 +558,8 @@
       "description": "Star cycle variant"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -589,7 +589,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         7,
         1
@@ -597,8 +597,8 @@
       "description": "7-cycle"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -632,7 +632,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         8,
         1
@@ -640,8 +640,8 @@
       "description": "8-cycle"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -679,7 +679,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         9,
         1
@@ -687,8 +687,8 @@
       "description": "9-cycle"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -730,7 +730,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         10,
         1
@@ -738,8 +738,8 @@
       "description": "10-cycle"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             3,
             4
@@ -761,7 +761,7 @@
             5
           ]
         ]
-      },
+      ],
       "expected": [
         2,
         5
@@ -769,8 +769,8 @@
       "description": "Complex small graph"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -792,7 +792,7 @@
             3
           ]
         ]
-      },
+      ],
       "expected": [
         2,
         3
@@ -800,8 +800,8 @@
       "description": "Star center 1 with edge 2-3"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -823,7 +823,7 @@
             4
           ]
         ]
-      },
+      ],
       "expected": [
         3,
         4
@@ -831,8 +831,8 @@
       "description": "Star with edge between spokes"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -854,7 +854,7 @@
             5
           ]
         ]
-      },
+      ],
       "expected": [
         4,
         5
@@ -862,8 +862,8 @@
       "description": "Star with last spokes connected"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -889,7 +889,7 @@
             6
           ]
         ]
-      },
+      ],
       "expected": [
         4,
         6
@@ -897,8 +897,8 @@
       "description": "Long chain triangle at end"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -924,7 +924,7 @@
             6
           ]
         ]
-      },
+      ],
       "expected": [
         1,
         3
@@ -932,8 +932,8 @@
       "description": "Two triangles second completes last"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -955,7 +955,7 @@
             5
           ]
         ]
-      },
+      ],
       "expected": [
         3,
         5
@@ -963,8 +963,8 @@
       "description": "Chain with shortcut"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -986,7 +986,7 @@
             5
           ]
         ]
-      },
+      ],
       "expected": [
         2,
         5
@@ -994,8 +994,8 @@
       "description": "Chain with long shortcut"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -1029,7 +1029,7 @@
             8
           ]
         ]
-      },
+      ],
       "expected": [
         5,
         8
@@ -1037,8 +1037,8 @@
       "description": "Long chain with cycle at end"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -1080,7 +1080,7 @@
             10
           ]
         ]
-      },
+      ],
       "expected": [
         7,
         10
@@ -1088,8 +1088,8 @@
       "description": "Very long chain small cycle at end"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -1115,7 +1115,7 @@
             6
           ]
         ]
-      },
+      ],
       "expected": [
         3,
         6
@@ -1123,8 +1123,8 @@
       "description": "Mid chain cycle"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             5
@@ -1146,7 +1146,7 @@
             5
           ]
         ]
-      },
+      ],
       "expected": [
         4,
         5
@@ -1154,8 +1154,8 @@
       "description": "Random order with cycle"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             4,
             5
@@ -1177,7 +1177,7 @@
             4
           ]
         ]
-      },
+      ],
       "expected": [
         2,
         4
@@ -1185,8 +1185,8 @@
       "description": "Chain then shortcut"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -1212,7 +1212,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         5,
         1
@@ -1220,8 +1220,8 @@
       "description": "Pentagon with extra node"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             6,
             1
@@ -1247,7 +1247,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         5,
         1
@@ -1255,8 +1255,8 @@
       "description": "Pentagon extra node first"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -1306,7 +1306,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         12,
         1
@@ -1314,8 +1314,8 @@
       "description": "12-cycle"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -1377,7 +1377,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         15,
         1
@@ -1385,8 +1385,8 @@
       "description": "15-cycle"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -1468,7 +1468,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         20,
         1
@@ -1476,8 +1476,8 @@
       "description": "20-cycle"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -1499,7 +1499,7 @@
             3
           ]
         ]
-      },
+      ],
       "expected": [
         3,
         4
@@ -1507,8 +1507,8 @@
       "description": "Diamond with cross"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -1530,7 +1530,7 @@
             4
           ]
         ]
-      },
+      ],
       "expected": [
         4,
         1
@@ -1538,8 +1538,8 @@
       "description": "Square with diagonal"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -1561,7 +1561,7 @@
             3
           ]
         ]
-      },
+      ],
       "expected": [
         4,
         1
@@ -1569,8 +1569,8 @@
       "description": "Square with other diagonal"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -1596,7 +1596,7 @@
             3
           ]
         ]
-      },
+      ],
       "expected": [
         5,
         1
@@ -1604,8 +1604,8 @@
       "description": "Pentagon with chord"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -1631,7 +1631,7 @@
             4
           ]
         ]
-      },
+      ],
       "expected": [
         5,
         1
@@ -1639,8 +1639,8 @@
       "description": "Pentagon with different chord"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             2,
             7
@@ -1670,7 +1670,7 @@
             5
           ]
         ]
-      },
+      ],
       "expected": [
         2,
         8
@@ -1678,8 +1678,8 @@
       "description": "Complex graph with triangle"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             4
@@ -1701,7 +1701,7 @@
             5
           ]
         ]
-      },
+      ],
       "expected": [
         1,
         3
@@ -1709,8 +1709,8 @@
       "description": "Triangle with appendages"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -1740,7 +1740,7 @@
             4
           ]
         ]
-      },
+      ],
       "expected": [
         6,
         1
@@ -1748,8 +1748,8 @@
       "description": "Hexagon with chord"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             5,
             6
@@ -1775,7 +1775,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": [
         6,
         1
@@ -1783,8 +1783,8 @@
       "description": "Hexagon scrambled order"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -1826,7 +1826,7 @@
             10
           ]
         ]
-      },
+      ],
       "expected": [
         1,
         10
@@ -1834,8 +1834,8 @@
       "description": "10-cycle scrambled"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -1865,7 +1865,7 @@
             3
           ]
         ]
-      },
+      ],
       "expected": [
         7,
         3
@@ -1873,8 +1873,8 @@
       "description": "Long tail into cycle"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -1908,7 +1908,7 @@
             4
           ]
         ]
-      },
+      ],
       "expected": [
         8,
         4
@@ -1916,8 +1916,8 @@
       "description": "Longer tail into cycle"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -1939,7 +1939,7 @@
             5
           ]
         ]
-      },
+      ],
       "expected": [
         4,
         5
@@ -1947,8 +1947,8 @@
       "description": "Diamond from chain"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -1974,7 +1974,7 @@
             6
           ]
         ]
-      },
+      ],
       "expected": [
         4,
         5
@@ -1982,8 +1982,8 @@
       "description": "Diamond in middle of graph"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -2009,7 +2009,7 @@
             2
           ]
         ]
-      },
+      ],
       "expected": [
         6,
         2
@@ -2017,8 +2017,8 @@
       "description": "Tail then 5-cycle"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -2048,7 +2048,7 @@
             2
           ]
         ]
-      },
+      ],
       "expected": [
         7,
         2
@@ -2056,8 +2056,8 @@
       "description": "Tail then 6-cycle"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             1,
             2
@@ -2091,7 +2091,7 @@
             2
           ]
         ]
-      },
+      ],
       "expected": [
         8,
         2
@@ -2099,8 +2099,8 @@
       "description": "Tail then 7-cycle"
     },
     {
-      "input": {
-        "edges": [
+      "input": [
+        [
           [
             2,
             3
@@ -2114,7 +2114,7 @@
             2
           ]
         ]
-      },
+      ],
       "expected": [
         1,
         2

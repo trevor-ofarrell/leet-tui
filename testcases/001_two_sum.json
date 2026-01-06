@@ -1569,51 +1569,51 @@
       ]
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3
         ],
-        "target": 10
-      },
+        10
+      ],
       "expected": []
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           3,
           3
         ],
-        "target": 6
-      },
+        6
+      ],
       "expected": [
         0,
         1
       ]
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           0,
           0
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": [
         0,
         1
       ]
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           -1,
           -2,
           -3
         ],
-        "target": -5
-      },
+        -5
+      ],
       "expected": [
         1,
         2

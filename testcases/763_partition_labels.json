@@ -1101,17 +1101,17 @@
       ]
     },
     {
-      "input": {
-        "s": "a"
-      },
+      "input": [
+        "a"
+      ],
       "expected": [
         1
       ]
     },
     {
-      "input": {
-        "s": "ab"
-      },
+      "input": [
+        "ab"
+      ],
       "expected": [
         1,
         1

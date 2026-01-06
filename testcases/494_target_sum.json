@@ -3,710 +3,710 @@
   "title": "Target Sum",
   "run_tests": [
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
           1,
           1
         ],
-        "target": 3
-      },
+        3
+      ],
       "expected": 5
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1
         ],
-        "target": 1
-      },
+        1
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           0,
           0,
           0,
           0,
           0
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": 32
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           1
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": 2
     }
   ],
   "submit_tests": [
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
           1,
           1
         ],
-        "target": 3
-      },
+        3
+      ],
       "expected": 5
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1
         ],
-        "target": 1
-      },
+        1
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           0,
           0,
           0,
           0,
           0
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": 32
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           1
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1
         ],
-        "target": -1
-      },
+        -1
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1
         ],
-        "target": 2
-      },
+        2
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1
         ],
-        "target": -2
-      },
+        -2
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           0
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           0
         ],
-        "target": 1
-      },
+        1
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1
         ],
-        "target": 2
-      },
+        2
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1
         ],
-        "target": -2
-      },
+        -2
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2
         ],
-        "target": 1
-      },
+        1
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2
         ],
-        "target": -1
-      },
+        -1
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2
         ],
-        "target": 3
-      },
+        3
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2
         ],
-        "target": -3
-      },
+        -3
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           0,
           0
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": 4
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           0,
           1
         ],
-        "target": 1
-      },
+        1
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           0,
           1
         ],
-        "target": -1
-      },
+        -1
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1
         ],
-        "target": 1
-      },
+        1
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1
         ],
-        "target": -1
-      },
+        -1
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1
         ],
-        "target": 3
-      },
+        3
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1
         ],
-        "target": -3
-      },
+        -3
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3
         ],
-        "target": 2
-      },
+        2
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3
         ],
-        "target": 4
-      },
+        4
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3
         ],
-        "target": 6
-      },
+        6
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3
         ],
-        "target": -6
-      },
+        -6
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           0,
           0,
           0
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": 8
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           0,
           0,
           1
         ],
-        "target": 1
-      },
+        1
+      ],
       "expected": 4
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           0,
           1,
           1
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": 4
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
           1
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
           1
         ],
-        "target": 2
-      },
+        2
+      ],
       "expected": 4
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
           1
         ],
-        "target": 4
-      },
+        4
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
           1
         ],
-        "target": -4
-      },
+        -4
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3,
           4
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3,
           4
         ],
-        "target": 2
-      },
+        2
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3,
           4
         ],
-        "target": 4
-      },
+        4
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3,
           4
         ],
-        "target": 10
-      },
+        10
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3,
           4
         ],
-        "target": -10
-      },
+        -10
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           0,
           0,
           0,
           0
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": 16
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           0,
           0,
           0,
           1
         ],
-        "target": 1
-      },
+        1
+      ],
       "expected": 8
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           0,
           0,
           1,
           1
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": 8
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
           1,
           1
         ],
-        "target": 1
-      },
+        1
+      ],
       "expected": 10
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
           1,
           1
         ],
-        "target": -1
-      },
+        -1
+      ],
       "expected": 10
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
           1,
           1
         ],
-        "target": 5
-      },
+        5
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
           1,
           1
         ],
-        "target": -5
-      },
+        -5
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3,
           4,
           5
         ],
-        "target": 3
-      },
+        3
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3,
           4,
           5
         ],
-        "target": -3
-      },
+        -3
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3,
           4,
           5
         ],
-        "target": 5
-      },
+        5
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3,
           4,
           5
         ],
-        "target": 15
-      },
+        15
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3,
           4,
           5
         ],
-        "target": -15
-      },
+        -15
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           2,
           2,
           2,
           2,
           2
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           2,
           2,
           2,
           2,
           2
         ],
-        "target": 2
-      },
+        2
+      ],
       "expected": 10
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           2,
           2,
           2,
           2,
           2
         ],
-        "target": 6
-      },
+        6
+      ],
       "expected": 5
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           2,
           2,
           2,
           2,
           2
         ],
-        "target": 10
-      },
+        10
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
@@ -714,13 +714,13 @@
           1,
           1
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": 20
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
@@ -728,13 +728,13 @@
           1,
           1
         ],
-        "target": 2
-      },
+        2
+      ],
       "expected": 15
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
@@ -742,13 +742,13 @@
           1,
           1
         ],
-        "target": 4
-      },
+        4
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
@@ -756,13 +756,13 @@
           1,
           1
         ],
-        "target": 6
-      },
+        6
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -770,13 +770,13 @@
           5,
           6
         ],
-        "target": 3
-      },
+        3
+      ],
       "expected": 5
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -784,13 +784,13 @@
           5,
           6
         ],
-        "target": 7
-      },
+        7
+      ],
       "expected": 4
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -798,13 +798,13 @@
           5,
           6
         ],
-        "target": 21
-      },
+        21
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -812,13 +812,13 @@
           5,
           6
         ],
-        "target": -21
-      },
+        -21
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
@@ -827,13 +827,13 @@
           1,
           1
         ],
-        "target": 1
-      },
+        1
+      ],
       "expected": 35
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
@@ -842,13 +842,13 @@
           1,
           1
         ],
-        "target": 3
-      },
+        3
+      ],
       "expected": 21
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
@@ -857,13 +857,13 @@
           1,
           1
         ],
-        "target": 5
-      },
+        5
+      ],
       "expected": 7
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
@@ -872,13 +872,13 @@
           1,
           1
         ],
-        "target": 7
-      },
+        7
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -887,13 +887,13 @@
           6,
           7
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": 8
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -902,13 +902,13 @@
           6,
           7
         ],
-        "target": 4
-      },
+        4
+      ],
       "expected": 8
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -917,13 +917,13 @@
           6,
           7
         ],
-        "target": 28
-      },
+        28
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
@@ -933,13 +933,13 @@
           1,
           1
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": 70
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
@@ -949,13 +949,13 @@
           1,
           1
         ],
-        "target": 2
-      },
+        2
+      ],
       "expected": 56
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
@@ -965,13 +965,13 @@
           1,
           1
         ],
-        "target": 4
-      },
+        4
+      ],
       "expected": 28
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
@@ -981,13 +981,13 @@
           1,
           1
         ],
-        "target": 6
-      },
+        6
+      ],
       "expected": 8
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1,
           1,
@@ -997,45 +997,45 @@
           1,
           1
         ],
-        "target": 8
-      },
+        8
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2,
           7,
           9,
           981
         ],
-        "target": 1000
-      },
+        1000
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           0
         ],
-        "target": 1
-      },
+        1
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           100
         ],
-        "target": -200
-      },
+        -200
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           7,
           9,
           3,
@@ -1047,160 +1047,160 @@
           3,
           9
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [],
-        "target": 0
-      },
+      "input": [
+        [],
+        0
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [],
-        "target": 1
-      },
+      "input": [
+        [],
+        1
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [],
-        "target": -1
-      },
+      "input": [
+        [],
+        -1
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [],
-        "target": 2
-      },
+      "input": [
+        [],
+        2
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [],
-        "target": 10
-      },
+      "input": [
+        [],
+        10
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           0
         ],
-        "target": -1
-      },
+        -1
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           0
         ],
-        "target": 2
-      },
+        2
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           0
         ],
-        "target": 10
-      },
+        10
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1
         ],
-        "target": 10
-      },
+        10
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           -1
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           -1
         ],
-        "target": -1
-      },
+        -1
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           -1
         ],
-        "target": 2
-      },
+        2
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           -1
         ],
-        "target": 10
-      },
+        10
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [],
-        "target": 3
-      },
+      "input": [
+        [],
+        3
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           0
         ],
-        "target": 3
-      },
+        3
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1
         ],
-        "target": 3
-      },
+        3
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           1
         ],
-        "target": 3
-      },
+        3
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           2,
           1
         ],
-        "target": 3
-      },
+        3
+      ],
       "expected": 1
     }
   ]

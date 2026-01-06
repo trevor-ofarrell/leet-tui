@@ -3,25 +3,25 @@
   "title": "Subtree of Another Tree",
   "run_tests": [
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           3,
           4,
           5,
           1,
           2
         ],
-        "subRoot": [
+        [
           4,
           1,
           2
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           3,
           4,
           5,
@@ -33,162 +33,162 @@
           null,
           0
         ],
-        "subRoot": [
+        [
           4,
           1,
           2
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1
         ],
-        "subRoot": [
+        [
           1
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3
         ],
-        "subRoot": [
+        [
           2
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3
         ],
-        "subRoot": [
+        [
           4
         ]
-      },
+      ],
       "expected": false
     }
   ],
   "submit_tests": [
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1
         ],
-        "subRoot": [
+        [
           1
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1
         ],
-        "subRoot": [
+        [
           2
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           null
         ],
-        "subRoot": [
+        [
           2
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           null,
           2
         ],
-        "subRoot": [
+        [
           2
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3
         ],
-        "subRoot": [
+        [
           2
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3
         ],
-        "subRoot": [
+        [
           3
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3
         ],
-        "subRoot": [
+        [
           1,
           2,
           3
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           3,
           4,
           5,
           1,
           2
         ],
-        "subRoot": [
+        [
           4,
           1,
           2
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           3,
           4,
           5,
@@ -200,17 +200,17 @@
           null,
           0
         ],
-        "subRoot": [
+        [
           4,
           1,
           2
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -219,17 +219,17 @@
           6,
           7
         ],
-        "subRoot": [
+        [
           2,
           4,
           5
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -238,17 +238,17 @@
           6,
           7
         ],
-        "subRoot": [
+        [
           3,
           6,
           7
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -257,17 +257,17 @@
           6,
           7
         ],
-        "subRoot": [
+        [
           2,
           4,
           6
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           null,
@@ -276,17 +276,17 @@
           4,
           null
         ],
-        "subRoot": [
+        [
           3,
           4,
           null
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           null,
           2,
@@ -295,17 +295,17 @@
           null,
           4
         ],
-        "subRoot": [
+        [
           3,
           null,
           4
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           null,
@@ -314,19 +314,19 @@
           4,
           null
         ],
-        "subRoot": [
+        [
           2,
           3,
           null,
           4,
           null
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           5,
           3,
           8,
@@ -335,17 +335,17 @@
           7,
           10
         ],
-        "subRoot": [
+        [
           3,
           1,
           4
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           5,
           3,
           8,
@@ -354,17 +354,17 @@
           7,
           10
         ],
-        "subRoot": [
+        [
           8,
           7,
           10
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           5,
           3,
           8,
@@ -373,7 +373,7 @@
           7,
           10
         ],
-        "subRoot": [
+        [
           5,
           3,
           8,
@@ -382,12 +382,12 @@
           7,
           10
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           5,
           3,
           8,
@@ -396,17 +396,17 @@
           7,
           10
         ],
-        "subRoot": [
+        [
           3,
           1,
           5
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           10,
           5,
           15,
@@ -415,17 +415,17 @@
           12,
           20
         ],
-        "subRoot": [
+        [
           5,
           3,
           7
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           10,
           5,
           15,
@@ -434,17 +434,17 @@
           12,
           20
         ],
-        "subRoot": [
+        [
           15,
           12,
           20
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           10,
           5,
           15,
@@ -453,48 +453,48 @@
           12,
           20
         ],
-        "subRoot": [
+        [
           10
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           0
         ],
-        "subRoot": [
+        [
           0
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           -1
         ],
-        "subRoot": [
+        [
           -1
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           100
         ],
-        "subRoot": [
+        [
           100
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           1,
           1,
@@ -503,17 +503,17 @@
           1,
           1
         ],
-        "subRoot": [
+        [
           1,
           1,
           1
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           1,
           1,
@@ -522,15 +522,15 @@
           1,
           1
         ],
-        "subRoot": [
+        [
           1
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -539,17 +539,17 @@
           4,
           5
         ],
-        "subRoot": [
+        [
           3,
           4,
           5
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -558,17 +558,17 @@
           4,
           5
         ],
-        "subRoot": [
+        [
           3,
           5,
           4
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -585,7 +585,7 @@
           14,
           15
         ],
-        "subRoot": [
+        [
           2,
           4,
           5,
@@ -594,12 +594,12 @@
           10,
           11
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -616,7 +616,7 @@
           14,
           15
         ],
-        "subRoot": [
+        [
           3,
           6,
           7,
@@ -625,12 +625,12 @@
           14,
           15
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           50,
           25,
           75,
@@ -639,17 +639,17 @@
           60,
           90
         ],
-        "subRoot": [
+        [
           25,
           10,
           30
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           50,
           25,
           75,
@@ -658,17 +658,17 @@
           60,
           90
         ],
-        "subRoot": [
+        [
           75,
           60,
           90
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           50,
           25,
           75,
@@ -677,17 +677,17 @@
           60,
           90
         ],
-        "subRoot": [
+        [
           50,
           25,
           75
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           null,
@@ -698,7 +698,7 @@
           5,
           null
         ],
-        "subRoot": [
+        [
           2,
           3,
           null,
@@ -707,12 +707,12 @@
           5,
           null
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           null,
           2,
@@ -723,7 +723,7 @@
           null,
           5
         ],
-        "subRoot": [
+        [
           2,
           null,
           3,
@@ -732,12 +732,12 @@
           null,
           5
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           4,
           2,
           7,
@@ -746,17 +746,17 @@
           6,
           9
         ],
-        "subRoot": [
+        [
           2,
           1,
           3
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           4,
           2,
           7,
@@ -765,17 +765,17 @@
           6,
           9
         ],
-        "subRoot": [
+        [
           7,
           6,
           9
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           4,
           2,
           7,
@@ -784,17 +784,17 @@
           6,
           9
         ],
-        "subRoot": [
+        [
           4,
           2,
           7
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           6,
           4,
           8,
@@ -805,19 +805,19 @@
           1,
           3
         ],
-        "subRoot": [
+        [
           4,
           2,
           5,
           1,
           3
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           6,
           4,
           8,
@@ -828,17 +828,17 @@
           1,
           3
         ],
-        "subRoot": [
+        [
           2,
           1,
           3
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           8,
           4,
           12,
@@ -855,7 +855,7 @@
           13,
           15
         ],
-        "subRoot": [
+        [
           4,
           2,
           6,
@@ -864,12 +864,12 @@
           5,
           7
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           8,
           4,
           12,
@@ -886,7 +886,7 @@
           13,
           15
         ],
-        "subRoot": [
+        [
           12,
           10,
           14,
@@ -895,79 +895,79 @@
           13,
           15
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           -1,
           -2,
           -3
         ],
-        "subRoot": [
+        [
           -2
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           -1,
           -2,
           -3
         ],
-        "subRoot": [
+        [
           -3
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           -1,
           -2,
           -3
         ],
-        "subRoot": [
+        [
           -1,
           -2,
           -3
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           0,
           -1,
           1
         ],
-        "subRoot": [
+        [
           -1
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           0,
           -1,
           1
         ],
-        "subRoot": [
+        [
           1
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -976,17 +976,17 @@
           null,
           5
         ],
-        "subRoot": [
+        [
           2,
           null,
           4
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -995,17 +995,17 @@
           null,
           5
         ],
-        "subRoot": [
+        [
           3,
           null,
           5
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -1014,17 +1014,17 @@
           null,
           5
         ],
-        "subRoot": [
+        [
           2,
           4,
           null
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -1033,77 +1033,77 @@
           null,
           5
         ],
-        "subRoot": [
+        [
           3,
           null,
           5
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           1
         ],
-        "subRoot": [
+        [
           1
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           null,
           1
         ],
-        "subRoot": [
+        [
           1
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           1,
           1
         ],
-        "subRoot": [
+        [
           1
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           12
         ],
-        "subRoot": [
+        [
           12
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           12
         ],
-        "subRoot": [
+        [
           2
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -1115,7 +1115,7 @@
           null,
           6
         ],
-        "subRoot": [
+        [
           2,
           4,
           5,
@@ -1123,12 +1123,12 @@
           null,
           6
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -1140,17 +1140,17 @@
           null,
           6
         ],
-        "subRoot": [
+        [
           2,
           4,
           5
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           3,
           4,
           5,
@@ -1158,46 +1158,46 @@
           null,
           2
         ],
-        "subRoot": [
+        [
           3,
           1,
           2
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3
         ],
-        "subRoot": [
+        [
           1,
           2
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3
         ],
-        "subRoot": [
+        [
           1,
           null,
           3
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           3,
           4,
           5,
@@ -1207,17 +1207,17 @@
           null,
           0
         ],
-        "subRoot": [
+        [
           4,
           1,
           2
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           null,
           1,
@@ -1228,19 +1228,19 @@
           null,
           1
         ],
-        "subRoot": [
+        [
           1,
           null,
           1,
           null,
           1
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           null,
           1,
@@ -1252,19 +1252,19 @@
           1,
           2
         ],
-        "subRoot": [
+        [
           1,
           null,
           1,
           null,
           1
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -1274,18 +1274,18 @@
           7,
           8
         ],
-        "subRoot": [
+        [
           2,
           4,
           5,
           8
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -1295,19 +1295,19 @@
           7,
           8
         ],
-        "subRoot": [
+        [
           2,
           4,
           5,
           null,
           8
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           5,
           4,
           null,
@@ -1317,7 +1317,7 @@
           null,
           1
         ],
-        "subRoot": [
+        [
           4,
           3,
           null,
@@ -1325,12 +1325,12 @@
           null,
           1
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           5,
           null,
           4,
@@ -1341,7 +1341,7 @@
           null,
           1
         ],
-        "subRoot": [
+        [
           4,
           null,
           3,
@@ -1350,40 +1350,40 @@
           null,
           1
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           2,
           1,
           1
         ],
-        "subRoot": [
+        [
           1
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           2,
           1,
           1
         ],
-        "subRoot": [
+        [
           1,
           null,
           1
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           10,
           5,
           15,
@@ -1392,17 +1392,17 @@
           null,
           18
         ],
-        "subRoot": [
+        [
           15,
           null,
           18
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           10,
           5,
           15,
@@ -1411,17 +1411,17 @@
           null,
           18
         ],
-        "subRoot": [
+        [
           5,
           3,
           7
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           10,
           5,
           15,
@@ -1430,16 +1430,16 @@
           12,
           18
         ],
-        "subRoot": [
+        [
           15,
           12
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -1456,17 +1456,17 @@
           8,
           9
         ],
-        "subRoot": [
+        [
           7,
           8,
           9
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -1483,7 +1483,7 @@
           8,
           9
         ],
-        "subRoot": [
+        [
           3,
           6,
           7,
@@ -1492,12 +1492,12 @@
           8,
           9
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2,
           3,
@@ -1514,222 +1514,222 @@
           8,
           9
         ],
-        "subRoot": [
+        [
           3,
           6,
           7
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [],
-        "subRoot": []
-      },
+      "input": [
+        [],
+        []
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [],
-        "subRoot": [
+      "input": [
+        [],
+        [
           0
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [],
-        "subRoot": [
+      "input": [
+        [],
+        [
           1
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [],
-        "subRoot": [
+      "input": [
+        [],
+        [
           -1
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [],
-        "subRoot": [
+      "input": [
+        [],
+        [
           1,
           2
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1
         ],
-        "subRoot": []
-      },
+        []
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1
         ],
-        "subRoot": [
+        [
           0
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1
         ],
-        "subRoot": [
+        [
           -1
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1
         ],
-        "subRoot": [
+        [
           1,
           2
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2
         ],
-        "subRoot": []
-      },
+        []
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2
         ],
-        "subRoot": [
+        [
           0
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2
         ],
-        "subRoot": [
+        [
           1
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2
         ],
-        "subRoot": [
+        [
           -1
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           2
         ],
-        "subRoot": [
+        [
           1,
           2
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           null,
           2
         ],
-        "subRoot": []
-      },
+        []
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           null,
           2
         ],
-        "subRoot": [
+        [
           0
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           null,
           2
         ],
-        "subRoot": [
+        [
           1
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           null,
           2
         ],
-        "subRoot": [
+        [
           -1
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "root": [
+      "input": [
+        [
           1,
           null,
           2
         ],
-        "subRoot": [
+        [
           1,
           2
         ]
-      },
+      ],
       "expected": false
     }
   ]

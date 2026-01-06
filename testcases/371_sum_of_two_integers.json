@@ -726,24 +726,24 @@
       "expected": -111
     },
     {
-      "input": {
-        "a": 0,
-        "b": 0
-      },
+      "input": [
+        0,
+        0
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "a": 1,
-        "b": 0
-      },
+      "input": [
+        1,
+        0
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "a": 0,
-        "b": 1
-      },
+      "input": [
+        0,
+        1
+      ],
       "expected": 1
     }
   ]

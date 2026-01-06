@@ -3,9 +3,9 @@
   "title": "Graph Valid Tree",
   "run_tests": [
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -23,13 +23,13 @@
             4
           ]
         ]
-      },
+      ],
       "expected": true
     },
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -51,58 +51,58 @@
             4
           ]
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "n": 1,
-        "edges": []
-      },
+      "input": [
+        1,
+        []
+      ],
       "expected": true
     },
     {
-      "input": {
-        "n": 2,
-        "edges": []
-      },
+      "input": [
+        2,
+        []
+      ],
       "expected": false
     }
   ],
   "submit_tests": [
     {
-      "input": {
-        "n": 1,
-        "edges": []
-      },
+      "input": [
+        1,
+        []
+      ],
       "expected": true,
       "description": "Single node - valid tree"
     },
     {
-      "input": {
-        "n": 2,
-        "edges": []
-      },
+      "input": [
+        2,
+        []
+      ],
       "expected": false,
       "description": "Two nodes no edge - disconnected"
     },
     {
-      "input": {
-        "n": 2,
-        "edges": [
+      "input": [
+        2,
+        [
           [
             0,
             1
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Two nodes connected - valid tree"
     },
     {
-      "input": {
-        "n": 2,
-        "edges": [
+      "input": [
+        2,
+        [
           [
             0,
             1
@@ -112,35 +112,35 @@
             0
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Two nodes duplicate edge"
     },
     {
-      "input": {
-        "n": 3,
-        "edges": []
-      },
+      "input": [
+        3,
+        []
+      ],
       "expected": false,
       "description": "Three nodes no edges - disconnected"
     },
     {
-      "input": {
-        "n": 3,
-        "edges": [
+      "input": [
+        3,
+        [
           [
             0,
             1
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Three nodes one edge - disconnected"
     },
     {
-      "input": {
-        "n": 3,
-        "edges": [
+      "input": [
+        3,
+        [
           [
             0,
             1
@@ -150,14 +150,14 @@
             2
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Three nodes chain - valid tree"
     },
     {
-      "input": {
-        "n": 3,
-        "edges": [
+      "input": [
+        3,
+        [
           [
             0,
             1
@@ -167,14 +167,14 @@
             2
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Three nodes star - valid tree"
     },
     {
-      "input": {
-        "n": 3,
-        "edges": [
+      "input": [
+        3,
+        [
           [
             0,
             1
@@ -188,14 +188,14 @@
             2
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Three nodes triangle - has cycle"
     },
     {
-      "input": {
-        "n": 4,
-        "edges": [
+      "input": [
+        4,
+        [
           [
             0,
             1
@@ -209,14 +209,14 @@
             3
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Four node chain - valid tree"
     },
     {
-      "input": {
-        "n": 4,
-        "edges": [
+      "input": [
+        4,
+        [
           [
             0,
             1
@@ -230,14 +230,14 @@
             3
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Four node star - valid tree"
     },
     {
-      "input": {
-        "n": 4,
-        "edges": [
+      "input": [
+        4,
+        [
           [
             0,
             1
@@ -255,14 +255,14 @@
             0
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Four node square - has cycle"
     },
     {
-      "input": {
-        "n": 4,
-        "edges": [
+      "input": [
+        4,
+        [
           [
             0,
             1
@@ -272,14 +272,14 @@
             3
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Four nodes two components"
     },
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -297,14 +297,14 @@
             4
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Standard example 1 - valid tree"
     },
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -326,14 +326,14 @@
             4
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Standard example 2 - has cycle"
     },
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -351,14 +351,14 @@
             4
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Five node chain - valid tree"
     },
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -376,14 +376,14 @@
             4
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Five node star - valid tree"
     },
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -405,14 +405,14 @@
             0
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Five node pentagon - has cycle"
     },
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -426,14 +426,14 @@
             4
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Five nodes two components"
     },
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -451,14 +451,14 @@
             4
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Five node balanced tree"
     },
     {
-      "input": {
-        "n": 6,
-        "edges": [
+      "input": [
+        6,
+        [
           [
             0,
             1
@@ -480,14 +480,14 @@
             5
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Six node chain"
     },
     {
-      "input": {
-        "n": 6,
-        "edges": [
+      "input": [
+        6,
+        [
           [
             0,
             1
@@ -509,14 +509,14 @@
             5
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Six node star"
     },
     {
-      "input": {
-        "n": 6,
-        "edges": [
+      "input": [
+        6,
+        [
           [
             0,
             1
@@ -542,14 +542,14 @@
             0
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Six node hexagon cycle"
     },
     {
-      "input": {
-        "n": 6,
-        "edges": [
+      "input": [
+        6,
+        [
           [
             0,
             1
@@ -567,14 +567,14 @@
             5
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Six nodes disconnected"
     },
     {
-      "input": {
-        "n": 6,
-        "edges": [
+      "input": [
+        6,
+        [
           [
             0,
             1
@@ -596,14 +596,14 @@
             5
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Binary tree shape"
     },
     {
-      "input": {
-        "n": 7,
-        "edges": [
+      "input": [
+        7,
+        [
           [
             0,
             1
@@ -629,14 +629,14 @@
             6
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Complete binary tree 3 levels"
     },
     {
-      "input": {
-        "n": 7,
-        "edges": [
+      "input": [
+        7,
+        [
           [
             0,
             1
@@ -662,14 +662,14 @@
             6
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Seven node chain"
     },
     {
-      "input": {
-        "n": 7,
-        "edges": [
+      "input": [
+        7,
+        [
           [
             0,
             1
@@ -695,14 +695,14 @@
             6
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Seven node star"
     },
     {
-      "input": {
-        "n": 7,
-        "edges": [
+      "input": [
+        7,
+        [
           [
             0,
             1
@@ -732,14 +732,14 @@
             0
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Seven node cycle"
     },
     {
-      "input": {
-        "n": 4,
-        "edges": [
+      "input": [
+        4,
+        [
           [
             0,
             1
@@ -757,14 +757,14 @@
             3
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Triangle with tail - cycle"
     },
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -782,14 +782,14 @@
             4
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Triangle and pair - disconnected and cycle"
     },
     {
-      "input": {
-        "n": 8,
-        "edges": [
+      "input": [
+        8,
+        [
           [
             0,
             1
@@ -819,14 +819,14 @@
             7
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Eight node chain"
     },
     {
-      "input": {
-        "n": 8,
-        "edges": [
+      "input": [
+        8,
+        [
           [
             0,
             1
@@ -860,14 +860,14 @@
             0
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Eight node cycle"
     },
     {
-      "input": {
-        "n": 10,
-        "edges": [
+      "input": [
+        10,
+        [
           [
             0,
             1
@@ -905,14 +905,14 @@
             9
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Ten node chain"
     },
     {
-      "input": {
-        "n": 10,
-        "edges": [
+      "input": [
+        10,
+        [
           [
             0,
             1
@@ -950,14 +950,14 @@
             9
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Ten node star"
     },
     {
-      "input": {
-        "n": 10,
-        "edges": [
+      "input": [
+        10,
+        [
           [
             0,
             1
@@ -999,14 +999,14 @@
             0
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Ten node cycle"
     },
     {
-      "input": {
-        "n": 10,
-        "edges": [
+      "input": [
+        10,
+        [
           [
             0,
             1
@@ -1028,14 +1028,14 @@
             9
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Ten nodes five pairs - disconnected"
     },
     {
-      "input": {
-        "n": 6,
-        "edges": [
+      "input": [
+        6,
+        [
           [
             0,
             1
@@ -1061,14 +1061,14 @@
             2
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Tree with extra edge - cycle"
     },
     {
-      "input": {
-        "n": 4,
-        "edges": [
+      "input": [
+        4,
+        [
           [
             0,
             1
@@ -1086,14 +1086,14 @@
             3
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Square missing one edge but has cycle"
     },
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -1115,14 +1115,14 @@
             4
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Chain with cross edge"
     },
     {
-      "input": {
-        "n": 6,
-        "edges": [
+      "input": [
+        6,
+        [
           [
             0,
             1
@@ -1144,14 +1144,14 @@
             5
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Triangle and chain - cycle and disconnected"
     },
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -1173,14 +1173,14 @@
             4
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Triangle with tail - cycle"
     },
     {
-      "input": {
-        "n": 6,
-        "edges": [
+      "input": [
+        6,
+        [
           [
             0,
             1
@@ -1206,14 +1206,14 @@
             5
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Tree shape with extra cross edge"
     },
     {
-      "input": {
-        "n": 7,
-        "edges": [
+      "input": [
+        7,
+        [
           [
             0,
             1
@@ -1243,14 +1243,14 @@
             6
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Chain with shortcut - cycle"
     },
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -1272,14 +1272,14 @@
             2
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Star with edge between spokes"
     },
     {
-      "input": {
-        "n": 8,
-        "edges": [
+      "input": [
+        8,
+        [
           [
             0,
             4
@@ -1305,14 +1305,14 @@
             7
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Two stars disconnected"
     },
     {
-      "input": {
-        "n": 9,
-        "edges": [
+      "input": [
+        9,
+        [
           [
             0,
             1
@@ -1346,14 +1346,14 @@
             8
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Large valid tree"
     },
     {
-      "input": {
-        "n": 9,
-        "edges": [
+      "input": [
+        9,
+        [
           [
             0,
             1
@@ -1391,14 +1391,14 @@
             8
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Large tree with cycle at leaves"
     },
     {
-      "input": {
-        "n": 15,
-        "edges": [
+      "input": [
+        15,
+        [
           [
             0,
             1
@@ -1456,14 +1456,14 @@
             14
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Full binary tree 4 levels"
     },
     {
-      "input": {
-        "n": 20,
-        "edges": [
+      "input": [
+        20,
+        [
           [
             0,
             1
@@ -1541,14 +1541,14 @@
             19
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "20 node chain"
     },
     {
-      "input": {
-        "n": 20,
-        "edges": [
+      "input": [
+        20,
+        [
           [
             0,
             1
@@ -1626,14 +1626,14 @@
             19
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "20 node star"
     },
     {
-      "input": {
-        "n": 20,
-        "edges": [
+      "input": [
+        20,
+        [
           [
             0,
             1
@@ -1715,14 +1715,14 @@
             0
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "20 node cycle"
     },
     {
-      "input": {
-        "n": 4,
-        "edges": [
+      "input": [
+        4,
+        [
           [
             0,
             1
@@ -1748,22 +1748,22 @@
             3
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Complete K4 - many cycles"
     },
     {
-      "input": {
-        "n": 100,
-        "edges": []
-      },
+      "input": [
+        100,
+        []
+      ],
       "expected": false,
       "description": "100 nodes no edges"
     },
     {
-      "input": {
-        "n": 3,
-        "edges": [
+      "input": [
+        3,
+        [
           [
             0,
             1
@@ -1773,14 +1773,14 @@
             1
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Duplicate edge makes invalid"
     },
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -1794,14 +1794,14 @@
             4
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Pair and V - disconnected"
     },
     {
-      "input": {
-        "n": 7,
-        "edges": [
+      "input": [
+        7,
+        [
           [
             0,
             1
@@ -1823,14 +1823,14 @@
             6
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Two separate stars"
     },
     {
-      "input": {
-        "n": 6,
-        "edges": [
+      "input": [
+        6,
+        [
           [
             0,
             1
@@ -1852,14 +1852,14 @@
             5
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Branching chain - valid tree"
     },
     {
-      "input": {
-        "n": 8,
-        "edges": [
+      "input": [
+        8,
+        [
           [
             0,
             1
@@ -1889,14 +1889,14 @@
             7
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Unbalanced tree"
     },
     {
-      "input": {
-        "n": 8,
-        "edges": [
+      "input": [
+        8,
+        [
           [
             0,
             1
@@ -1930,14 +1930,14 @@
             7
           ]
         ]
-      },
+      ],
       "expected": false,
       "description": "Unbalanced tree with cross edge"
     },
     {
-      "input": {
-        "n": 10,
-        "edges": [
+      "input": [
+        10,
+        [
           [
             0,
             1
@@ -1975,14 +1975,14 @@
             9
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "Ternary tree"
     },
     {
-      "input": {
-        "n": 50,
-        "edges": [
+      "input": [
+        50,
+        [
           [
             0,
             1
@@ -2180,21 +2180,21 @@
             49
           ]
         ]
-      },
+      ],
       "expected": true,
       "description": "50 node chain"
     },
     {
-      "input": {
-        "n": 0,
-        "edges": []
-      },
+      "input": [
+        0,
+        []
+      ],
       "expected": false
     },
     {
-      "input": {
-        "n": 0,
-        "edges": [
+      "input": [
+        0,
+        [
           [
             2,
             3
@@ -2208,13 +2208,13 @@
             2
           ]
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "n": 1,
-        "edges": [
+      "input": [
+        1,
+        [
           [
             2,
             3
@@ -2228,20 +2228,20 @@
             2
           ]
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "n": -1,
-        "edges": []
-      },
+      "input": [
+        -1,
+        []
+      ],
       "expected": false
     },
     {
-      "input": {
-        "n": -1,
-        "edges": [
+      "input": [
+        -1,
+        [
           [
             2,
             3
@@ -2255,13 +2255,13 @@
             2
           ]
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "n": 2,
-        "edges": [
+      "input": [
+        2,
+        [
           [
             2,
             3
@@ -2275,20 +2275,20 @@
             2
           ]
         ]
-      },
+      ],
       "expected": false
     },
     {
-      "input": {
-        "n": 10,
-        "edges": []
-      },
+      "input": [
+        10,
+        []
+      ],
       "expected": false
     },
     {
-      "input": {
-        "n": 10,
-        "edges": [
+      "input": [
+        10,
+        [
           [
             2,
             3
@@ -2302,7 +2302,7 @@
             2
           ]
         ]
-      },
+      ],
       "expected": false
     }
   ]

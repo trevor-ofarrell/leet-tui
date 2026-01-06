@@ -3,9 +3,9 @@
   "title": "Number of Connected Components in an Undirected Graph",
   "run_tests": [
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -19,13 +19,13 @@
             4
           ]
         ]
-      },
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -43,79 +43,79 @@
             4
           ]
         ]
-      },
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "n": 3,
-        "edges": []
-      },
+      "input": [
+        3,
+        []
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "n": 1,
-        "edges": []
-      },
+      "input": [
+        1,
+        []
+      ],
       "expected": 1
     }
   ],
   "submit_tests": [
     {
-      "input": {
-        "n": 1,
-        "edges": []
-      },
+      "input": [
+        1,
+        []
+      ],
       "expected": 1,
       "description": "Single node no edges"
     },
     {
-      "input": {
-        "n": 2,
-        "edges": []
-      },
+      "input": [
+        2,
+        []
+      ],
       "expected": 2,
       "description": "Two nodes no edges"
     },
     {
-      "input": {
-        "n": 2,
-        "edges": [
+      "input": [
+        2,
+        [
           [
             0,
             1
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Two nodes connected"
     },
     {
-      "input": {
-        "n": 3,
-        "edges": []
-      },
+      "input": [
+        3,
+        []
+      ],
       "expected": 3,
       "description": "Three nodes no edges"
     },
     {
-      "input": {
-        "n": 3,
-        "edges": [
+      "input": [
+        3,
+        [
           [
             0,
             1
           ]
         ]
-      },
+      ],
       "expected": 2,
       "description": "Three nodes one edge"
     },
     {
-      "input": {
-        "n": 3,
-        "edges": [
+      "input": [
+        3,
+        [
           [
             0,
             1
@@ -125,14 +125,14 @@
             2
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Three nodes chain"
     },
     {
-      "input": {
-        "n": 3,
-        "edges": [
+      "input": [
+        3,
+        [
           [
             0,
             1
@@ -142,14 +142,14 @@
             2
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Three nodes star"
     },
     {
-      "input": {
-        "n": 3,
-        "edges": [
+      "input": [
+        3,
+        [
           [
             0,
             1
@@ -163,35 +163,35 @@
             2
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Three nodes triangle"
     },
     {
-      "input": {
-        "n": 4,
-        "edges": []
-      },
+      "input": [
+        4,
+        []
+      ],
       "expected": 4,
       "description": "Four nodes no edges"
     },
     {
-      "input": {
-        "n": 4,
-        "edges": [
+      "input": [
+        4,
+        [
           [
             0,
             1
           ]
         ]
-      },
+      ],
       "expected": 3,
       "description": "Four nodes one edge"
     },
     {
-      "input": {
-        "n": 4,
-        "edges": [
+      "input": [
+        4,
+        [
           [
             0,
             1
@@ -201,14 +201,14 @@
             3
           ]
         ]
-      },
+      ],
       "expected": 2,
       "description": "Four nodes two pairs"
     },
     {
-      "input": {
-        "n": 4,
-        "edges": [
+      "input": [
+        4,
+        [
           [
             0,
             1
@@ -222,14 +222,14 @@
             3
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Four nodes chain"
     },
     {
-      "input": {
-        "n": 4,
-        "edges": [
+      "input": [
+        4,
+        [
           [
             0,
             1
@@ -243,14 +243,14 @@
             3
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Four nodes star"
     },
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -264,14 +264,14 @@
             4
           ]
         ]
-      },
+      ],
       "expected": 2,
       "description": "Standard example 1"
     },
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -289,22 +289,22 @@
             4
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Standard example 2"
     },
     {
-      "input": {
-        "n": 5,
-        "edges": []
-      },
+      "input": [
+        5,
+        []
+      ],
       "expected": 5,
       "description": "Five nodes no edges"
     },
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -314,14 +314,14 @@
             3
           ]
         ]
-      },
+      ],
       "expected": 3,
       "description": "Five nodes two pairs one solo"
     },
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -339,14 +339,14 @@
             4
           ]
         ]
-      },
+      ],
       "expected": 2,
       "description": "Triangle and pair"
     },
     {
-      "input": {
-        "n": 6,
-        "edges": [
+      "input": [
+        6,
+        [
           [
             0,
             1
@@ -360,14 +360,14 @@
             5
           ]
         ]
-      },
+      ],
       "expected": 3,
       "description": "Six nodes three pairs"
     },
     {
-      "input": {
-        "n": 6,
-        "edges": [
+      "input": [
+        6,
+        [
           [
             0,
             1
@@ -385,14 +385,14 @@
             5
           ]
         ]
-      },
+      ],
       "expected": 2,
       "description": "Six nodes two chains"
     },
     {
-      "input": {
-        "n": 6,
-        "edges": [
+      "input": [
+        6,
+        [
           [
             0,
             1
@@ -414,14 +414,14 @@
             5
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Six node chain"
     },
     {
-      "input": {
-        "n": 6,
-        "edges": [
+      "input": [
+        6,
+        [
           [
             0,
             1
@@ -447,14 +447,14 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Six node cycle"
     },
     {
-      "input": {
-        "n": 7,
-        "edges": [
+      "input": [
+        7,
+        [
           [
             0,
             1
@@ -476,14 +476,14 @@
             6
           ]
         ]
-      },
+      ],
       "expected": 2,
       "description": "Seven nodes two components"
     },
     {
-      "input": {
-        "n": 7,
-        "edges": [
+      "input": [
+        7,
+        [
           [
             0,
             1
@@ -497,14 +497,14 @@
             5
           ]
         ]
-      },
+      ],
       "expected": 4,
       "description": "Seven nodes three pairs one solo"
     },
     {
-      "input": {
-        "n": 8,
-        "edges": [
+      "input": [
+        8,
+        [
           [
             0,
             1
@@ -522,14 +522,14 @@
             7
           ]
         ]
-      },
+      ],
       "expected": 4,
       "description": "Eight nodes four pairs"
     },
     {
-      "input": {
-        "n": 8,
-        "edges": [
+      "input": [
+        8,
+        [
           [
             0,
             1
@@ -555,22 +555,22 @@
             7
           ]
         ]
-      },
+      ],
       "expected": 2,
       "description": "Eight nodes two 4-chains"
     },
     {
-      "input": {
-        "n": 10,
-        "edges": []
-      },
+      "input": [
+        10,
+        []
+      ],
       "expected": 10,
       "description": "Ten nodes no edges"
     },
     {
-      "input": {
-        "n": 10,
-        "edges": [
+      "input": [
+        10,
+        [
           [
             0,
             1
@@ -608,14 +608,14 @@
             9
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Ten node chain"
     },
     {
-      "input": {
-        "n": 10,
-        "edges": [
+      "input": [
+        10,
+        [
           [
             0,
             1
@@ -637,14 +637,14 @@
             9
           ]
         ]
-      },
+      ],
       "expected": 5,
       "description": "Ten nodes five pairs"
     },
     {
-      "input": {
-        "n": 10,
-        "edges": [
+      "input": [
+        10,
+        [
           [
             0,
             1
@@ -670,14 +670,14 @@
             8
           ]
         ]
-      },
+      ],
       "expected": 4,
       "description": "Ten nodes three chains one solo"
     },
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -695,14 +695,14 @@
             4
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Star graph 5 nodes"
     },
     {
-      "input": {
-        "n": 6,
-        "edges": [
+      "input": [
+        6,
+        [
           [
             0,
             1
@@ -724,14 +724,14 @@
             5
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Star graph 6 nodes"
     },
     {
-      "input": {
-        "n": 10,
-        "edges": [
+      "input": [
+        10,
+        [
           [
             0,
             1
@@ -769,14 +769,14 @@
             9
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Star graph 10 nodes"
     },
     {
-      "input": {
-        "n": 4,
-        "edges": [
+      "input": [
+        4,
+        [
           [
             0,
             1
@@ -794,14 +794,14 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Square cycle"
     },
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -823,14 +823,14 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Pentagon cycle"
     },
     {
-      "input": {
-        "n": 6,
-        "edges": [
+      "input": [
+        6,
+        [
           [
             0,
             1
@@ -856,14 +856,14 @@
             3
           ]
         ]
-      },
+      ],
       "expected": 2,
       "description": "Two triangles"
     },
     {
-      "input": {
-        "n": 8,
-        "edges": [
+      "input": [
+        8,
+        [
           [
             0,
             1
@@ -897,14 +897,14 @@
             4
           ]
         ]
-      },
+      ],
       "expected": 2,
       "description": "Two squares"
     },
     {
-      "input": {
-        "n": 4,
-        "edges": [
+      "input": [
+        4,
+        [
           [
             0,
             1
@@ -930,14 +930,14 @@
             3
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Complete graph K4"
     },
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             1
@@ -979,14 +979,14 @@
             4
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Complete graph K5"
     },
     {
-      "input": {
-        "n": 7,
-        "edges": [
+      "input": [
+        7,
+        [
           [
             0,
             1
@@ -1016,14 +1016,14 @@
             3
           ]
         ]
-      },
+      ],
       "expected": 2,
       "description": "Triangle and square"
     },
     {
-      "input": {
-        "n": 9,
-        "edges": [
+      "input": [
+        9,
+        [
           [
             0,
             1
@@ -1061,14 +1061,14 @@
             6
           ]
         ]
-      },
+      ],
       "expected": 3,
       "description": "Three triangles"
     },
     {
-      "input": {
-        "n": 12,
-        "edges": [
+      "input": [
+        12,
+        [
           [
             0,
             1
@@ -1118,14 +1118,14 @@
             9
           ]
         ]
-      },
+      ],
       "expected": 4,
       "description": "Four triangles"
     },
     {
-      "input": {
-        "n": 6,
-        "edges": [
+      "input": [
+        6,
+        [
           [
             0,
             1
@@ -1155,14 +1155,14 @@
             3
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Hexagon with chord"
     },
     {
-      "input": {
-        "n": 7,
-        "edges": [
+      "input": [
+        7,
+        [
           [
             0,
             1
@@ -1184,14 +1184,14 @@
             6
           ]
         ]
-      },
+      ],
       "expected": 2,
       "description": "4-chain and 3-chain"
     },
     {
-      "input": {
-        "n": 15,
-        "edges": [
+      "input": [
+        15,
+        [
           [
             0,
             1
@@ -1241,22 +1241,22 @@
             14
           ]
         ]
-      },
+      ],
       "expected": 3,
       "description": "Three 5-node chains"
     },
     {
-      "input": {
-        "n": 20,
-        "edges": []
-      },
+      "input": [
+        20,
+        []
+      ],
       "expected": 20,
       "description": "20 isolated nodes"
     },
     {
-      "input": {
-        "n": 20,
-        "edges": [
+      "input": [
+        20,
+        [
           [
             0,
             1
@@ -1334,14 +1334,14 @@
             19
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "20 node chain"
     },
     {
-      "input": {
-        "n": 20,
-        "edges": [
+      "input": [
+        20,
+        [
           [
             0,
             1
@@ -1383,14 +1383,14 @@
             19
           ]
         ]
-      },
+      ],
       "expected": 10,
       "description": "20 nodes 10 pairs"
     },
     {
-      "input": {
-        "n": 6,
-        "edges": [
+      "input": [
+        6,
+        [
           [
             0,
             1
@@ -1416,14 +1416,14 @@
             5
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Diamond shape extended"
     },
     {
-      "input": {
-        "n": 8,
-        "edges": [
+      "input": [
+        8,
+        [
           [
             0,
             1
@@ -1449,14 +1449,14 @@
             7
           ]
         ]
-      },
+      ],
       "expected": 2,
       "description": "Two star components"
     },
     {
-      "input": {
-        "n": 10,
-        "edges": [
+      "input": [
+        10,
+        [
           [
             0,
             5
@@ -1478,22 +1478,22 @@
             9
           ]
         ]
-      },
+      ],
       "expected": 5,
       "description": "Five pairs non-consecutive"
     },
     {
-      "input": {
-        "n": 100,
-        "edges": []
-      },
+      "input": [
+        100,
+        []
+      ],
       "expected": 100,
       "description": "100 isolated nodes"
     },
     {
-      "input": {
-        "n": 50,
-        "edges": [
+      "input": [
+        50,
+        [
           [
             0,
             1
@@ -1595,14 +1595,14 @@
             49
           ]
         ]
-      },
+      ],
       "expected": 25,
       "description": "50 nodes 25 pairs"
     },
     {
-      "input": {
-        "n": 7,
-        "edges": [
+      "input": [
+        7,
+        [
           [
             0,
             1
@@ -1632,14 +1632,14 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "7-cycle"
     },
     {
-      "input": {
-        "n": 8,
-        "edges": [
+      "input": [
+        8,
+        [
           [
             0,
             1
@@ -1673,14 +1673,14 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "8-cycle"
     },
     {
-      "input": {
-        "n": 10,
-        "edges": [
+      "input": [
+        10,
+        [
           [
             0,
             1
@@ -1722,14 +1722,14 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "10-cycle"
     },
     {
-      "input": {
-        "n": 5,
-        "edges": [
+      "input": [
+        5,
+        [
           [
             0,
             2
@@ -1743,14 +1743,14 @@
             4
           ]
         ]
-      },
+      ],
       "expected": 2,
       "description": "Non-consecutive edges"
     },
     {
-      "input": {
-        "n": 6,
-        "edges": [
+      "input": [
+        6,
+        [
           [
             0,
             3
@@ -1764,14 +1764,14 @@
             5
           ]
         ]
-      },
+      ],
       "expected": 3,
       "description": "Cross pairs"
     },
     {
-      "input": {
-        "n": 9,
-        "edges": [
+      "input": [
+        9,
+        [
           [
             0,
             1
@@ -1797,14 +1797,14 @@
             8
           ]
         ]
-      },
+      ],
       "expected": 3,
       "description": "Three small stars"
     },
     {
-      "input": {
-        "n": 10,
-        "edges": [
+      "input": [
+        10,
+        [
           [
             0,
             1
@@ -1834,14 +1834,14 @@
             9
           ]
         ]
-      },
+      ],
       "expected": 3,
       "description": "Two stars and a pair"
     },
     {
-      "input": {
-        "n": 6,
-        "edges": [
+      "input": [
+        6,
+        [
           [
             0,
             1
@@ -1867,14 +1867,14 @@
             5
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Triangle with tail"
     },
     {
-      "input": {
-        "n": 8,
-        "edges": [
+      "input": [
+        8,
+        [
           [
             0,
             1
@@ -1908,14 +1908,14 @@
             4
           ]
         ]
-      },
+      ],
       "expected": 2,
       "description": "Two separate 4-cycles"
     },
     {
-      "input": {
-        "n": 11,
-        "edges": [
+      "input": [
+        11,
+        [
           [
             0,
             1
@@ -1949,14 +1949,14 @@
             10
           ]
         ]
-      },
+      ],
       "expected": 3,
       "description": "5-chain, 3-chain, 3-chain"
     },
     {
-      "input": {
-        "n": 15,
-        "edges": [
+      "input": [
+        15,
+        [
           [
             0,
             1
@@ -2014,21 +2014,21 @@
             14
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Star 15 nodes"
     },
     {
-      "input": {
-        "n": 0,
-        "edges": []
-      },
+      "input": [
+        0,
+        []
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "n": 10,
-        "edges": [
+      "input": [
+        10,
+        [
           [
             2,
             3
@@ -2042,7 +2042,7 @@
             2
           ]
         ]
-      },
+      ],
       "expected": 8
     }
   ]

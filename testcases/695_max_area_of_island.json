@@ -3,8 +3,8 @@
   "title": "Max Area of Island",
   "run_tests": [
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             0,
             0,
@@ -126,12 +126,12 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             0,
             0,
@@ -143,22 +143,22 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1
           ]
         ]
-      },
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1
@@ -168,36 +168,36 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 4
     }
   ],
   "submit_tests": [
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             0
           ]
         ]
-      },
+      ],
       "expected": 0,
       "description": "Single cell - water"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Single cell - land"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             0,
             0
@@ -207,13 +207,13 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 0,
       "description": "2x2 all water"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1
@@ -223,13 +223,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 4,
       "description": "2x2 all land"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             0
@@ -239,13 +239,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "2x2 diagonal - separate islands"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             0,
             1
@@ -255,13 +255,13 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "2x2 anti-diagonal - separate islands"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             0
@@ -271,13 +271,13 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 2,
       "description": "2x2 vertical connection"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1
@@ -287,13 +287,13 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 2,
       "description": "2x2 horizontal connection"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             0,
             0,
@@ -310,13 +310,13 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 0,
       "description": "3x3 all water"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -333,13 +333,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 9,
       "description": "3x3 all land"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             0,
@@ -356,13 +356,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "3x3 four corners"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             0,
             1,
@@ -379,13 +379,13 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 5,
       "description": "3x3 plus sign"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             0,
@@ -402,13 +402,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "3x3 checkerboard"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             0,
             0,
@@ -530,13 +530,13 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 6,
       "description": "Standard example"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             0,
             0,
@@ -548,13 +548,13 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 0,
       "description": "Single row all water"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -566,13 +566,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 8,
       "description": "Single row all land"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             0
           ],
@@ -598,13 +598,13 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 0,
       "description": "Single column all water"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1
           ],
@@ -630,13 +630,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 8,
       "description": "Single column all land"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             0,
@@ -648,13 +648,13 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Alternating single row"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1
           ],
@@ -680,13 +680,13 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Alternating single column"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -723,13 +723,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 16,
       "description": "Hollow square - ring island"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -766,13 +766,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 16,
       "description": "Ring with center island"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -822,13 +822,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 4,
       "description": "Four separate 2x2 islands"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -878,13 +878,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 9,
       "description": "Two equal 3x3 islands"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -926,13 +926,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 6,
       "description": "Horizontal stripes"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             0,
@@ -974,13 +974,13 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 5,
       "description": "Vertical stripes"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -1017,13 +1017,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 9,
       "description": "Diagonal staircase connected"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             0,
@@ -1060,13 +1060,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Diagonal - disconnected"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -1128,13 +1128,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 50,
       "description": "Large rectangle all land"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             0,
             0,
@@ -1196,13 +1196,13 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 0,
       "description": "Large rectangle all water"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             0,
@@ -1264,13 +1264,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Four corner single cells"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -1297,13 +1297,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 13,
       "description": "Figure-8 shape"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -1340,13 +1340,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 4,
       "description": "Four 2x2 quadrants"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -1383,13 +1383,13 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 12,
       "description": "Hollow rectangle"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             0,
             0,
@@ -1471,13 +1471,13 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 20,
       "description": "Nested rings - outer ring"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -1506,13 +1506,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 8,
       "description": "Two hollow squares same size"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -1598,13 +1598,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 32,
       "description": "Large hollow rectangle"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             0,
@@ -1666,13 +1666,13 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Large checkerboard"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -1794,13 +1794,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 28,
       "description": "Long diagonal snake"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             0,
             0,
@@ -1901,13 +1901,13 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 41,
       "description": "Diamond shape"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -2008,13 +2008,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 56,
       "description": "Thick hollow square"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             0,
@@ -2152,13 +2152,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 71,
       "description": "Triangle shape"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             0,
             1,
@@ -2223,13 +2223,13 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 33,
       "description": "Cross-hatch pattern"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -2315,13 +2315,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 43,
       "description": "Maze-like connected"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             0,
@@ -2443,13 +2443,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 24,
       "description": "Spiral pattern"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -2571,13 +2571,13 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 25,
       "description": "Small and large island"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -2628,13 +2628,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 20,
       "description": "U-shape with inner island"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             0,
             0,
@@ -2732,13 +2732,13 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 4,
       "description": "Small island in large ocean"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -2762,13 +2762,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 20,
       "description": "Single long row"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1
           ],
@@ -2830,13 +2830,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 20,
       "description": "Single long column"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             0,
             0,
@@ -2873,13 +2873,13 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 13,
       "description": "Plus sign"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             0,
@@ -2916,13 +2916,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Scattered single cells"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -3023,13 +3023,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 9,
       "description": "Center largest island"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -3218,13 +3218,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 21,
       "description": "Center island largest among corners"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             0,
@@ -3346,13 +3346,13 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Main diagonal all separate"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             0,
             0,
@@ -3474,13 +3474,13 @@
             0
           ]
         ]
-      },
+      ],
       "expected": 1,
       "description": "Anti-diagonal all separate"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             1,
@@ -3652,32 +3652,32 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 150,
       "description": "Maximum area 15x10"
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           []
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             2
           ]
         ]
-      },
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1
           ],
@@ -3685,12 +3685,12 @@
             2
           ]
         ]
-      },
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             2
@@ -3700,12 +3700,12 @@
             4
           ]
         ]
-      },
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "grid": [
+      "input": [
+        [
           [
             1,
             2,
@@ -3722,7 +3722,7 @@
             9
           ]
         ]
-      },
+      ],
       "expected": 1
     }
   ]

@@ -3,623 +3,623 @@
   "title": "Palindromic Substrings",
   "run_tests": [
     {
-      "input": {
-        "s": "abc"
-      },
+      "input": [
+        "abc"
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "s": "aaa"
-      },
+      "input": [
+        "aaa"
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "s": "a"
-      },
+      "input": [
+        "a"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "ab"
-      },
+      "input": [
+        "ab"
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "s": "aba"
-      },
+      "input": [
+        "aba"
+      ],
       "expected": 4
     }
   ],
   "submit_tests": [
     {
-      "input": {
-        "s": "abc"
-      },
+      "input": [
+        "abc"
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "s": "aaa"
-      },
+      "input": [
+        "aaa"
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "s": "a"
-      },
+      "input": [
+        "a"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "ab"
-      },
+      "input": [
+        "ab"
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "s": "aba"
-      },
+      "input": [
+        "aba"
+      ],
       "expected": 4
     },
     {
-      "input": {
-        "s": "b"
-      },
+      "input": [
+        "b"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "z"
-      },
+      "input": [
+        "z"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "aa"
-      },
+      "input": [
+        "aa"
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "s": "ba"
-      },
+      "input": [
+        "ba"
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "s": "bb"
-      },
+      "input": [
+        "bb"
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "s": "aab"
-      },
+      "input": [
+        "aab"
+      ],
       "expected": 4
     },
     {
-      "input": {
-        "s": "baa"
-      },
+      "input": [
+        "baa"
+      ],
       "expected": 4
     },
     {
-      "input": {
-        "s": "abb"
-      },
+      "input": [
+        "abb"
+      ],
       "expected": 4
     },
     {
-      "input": {
-        "s": "bba"
-      },
+      "input": [
+        "bba"
+      ],
       "expected": 4
     },
     {
-      "input": {
-        "s": "bab"
-      },
+      "input": [
+        "bab"
+      ],
       "expected": 4
     },
     {
-      "input": {
-        "s": "aaaa"
-      },
+      "input": [
+        "aaaa"
+      ],
       "expected": 10
     },
     {
-      "input": {
-        "s": "abba"
-      },
+      "input": [
+        "abba"
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "s": "abcd"
-      },
+      "input": [
+        "abcd"
+      ],
       "expected": 4
     },
     {
-      "input": {
-        "s": "abbc"
-      },
+      "input": [
+        "abbc"
+      ],
       "expected": 5
     },
     {
-      "input": {
-        "s": "abab"
-      },
+      "input": [
+        "abab"
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "s": "aaaaa"
-      },
+      "input": [
+        "aaaaa"
+      ],
       "expected": 15
     },
     {
-      "input": {
-        "s": "abcba"
-      },
+      "input": [
+        "abcba"
+      ],
       "expected": 7
     },
     {
-      "input": {
-        "s": "abcde"
-      },
+      "input": [
+        "abcde"
+      ],
       "expected": 5
     },
     {
-      "input": {
-        "s": "abbba"
-      },
+      "input": [
+        "abbba"
+      ],
       "expected": 9
     },
     {
-      "input": {
-        "s": "abccb"
-      },
+      "input": [
+        "abccb"
+      ],
       "expected": 7
     },
     {
-      "input": {
-        "s": "aabaa"
-      },
+      "input": [
+        "aabaa"
+      ],
       "expected": 9
     },
     {
-      "input": {
-        "s": "aaaaaa"
-      },
+      "input": [
+        "aaaaaa"
+      ],
       "expected": 21
     },
     {
-      "input": {
-        "s": "abccba"
-      },
+      "input": [
+        "abccba"
+      ],
       "expected": 9
     },
     {
-      "input": {
-        "s": "abcdef"
-      },
+      "input": [
+        "abcdef"
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "s": "ababab"
-      },
+      "input": [
+        "ababab"
+      ],
       "expected": 12
     },
     {
-      "input": {
-        "s": "abcabc"
-      },
+      "input": [
+        "abcabc"
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "s": "aaaaaaa"
-      },
+      "input": [
+        "aaaaaaa"
+      ],
       "expected": 28
     },
     {
-      "input": {
-        "s": "abacaba"
-      },
+      "input": [
+        "abacaba"
+      ],
       "expected": 12
     },
     {
-      "input": {
-        "s": "abcdefg"
-      },
+      "input": [
+        "abcdefg"
+      ],
       "expected": 7
     },
     {
-      "input": {
-        "s": "racecar"
-      },
+      "input": [
+        "racecar"
+      ],
       "expected": 10
     },
     {
-      "input": {
-        "s": "aaabaaa"
-      },
+      "input": [
+        "aaabaaa"
+      ],
       "expected": 16
     },
     {
-      "input": {
-        "s": "aaaaaaaa"
-      },
+      "input": [
+        "aaaaaaaa"
+      ],
       "expected": 36
     },
     {
-      "input": {
-        "s": "abcdedcba"
-      },
+      "input": [
+        "abcdedcba"
+      ],
       "expected": 13
     },
     {
-      "input": {
-        "s": "abcdefgh"
-      },
+      "input": [
+        "abcdefgh"
+      ],
       "expected": 8
     },
     {
-      "input": {
-        "s": "aabbccdd"
-      },
+      "input": [
+        "aabbccdd"
+      ],
       "expected": 12
     },
     {
-      "input": {
-        "s": "abbaabba"
-      },
+      "input": [
+        "abbaabba"
+      ],
       "expected": 16
     },
     {
-      "input": {
-        "s": "aaaaaaaaa"
-      },
+      "input": [
+        "aaaaaaaaa"
+      ],
       "expected": 45
     },
     {
-      "input": {
-        "s": "abcdefghi"
-      },
+      "input": [
+        "abcdefghi"
+      ],
       "expected": 9
     },
     {
-      "input": {
-        "s": "abcdedcba"
-      },
+      "input": [
+        "abcdedcba"
+      ],
       "expected": 13
     },
     {
-      "input": {
-        "s": "abccbadef"
-      },
+      "input": [
+        "abccbadef"
+      ],
       "expected": 12
     },
     {
-      "input": {
-        "s": "defabccba"
-      },
+      "input": [
+        "defabccba"
+      ],
       "expected": 12
     },
     {
-      "input": {
-        "s": "aaaaaaaaaa"
-      },
+      "input": [
+        "aaaaaaaaaa"
+      ],
       "expected": 55
     },
     {
-      "input": {
-        "s": "abcdefghij"
-      },
+      "input": [
+        "abcdefghij"
+      ],
       "expected": 10
     },
     {
-      "input": {
-        "s": "aabbccddee"
-      },
+      "input": [
+        "aabbccddee"
+      ],
       "expected": 15
     },
     {
-      "input": {
-        "s": "abcddcbaxy"
-      },
+      "input": [
+        "abcddcbaxy"
+      ],
       "expected": 14
     },
     {
-      "input": {
-        "s": "xyabcddcba"
-      },
+      "input": [
+        "xyabcddcba"
+      ],
       "expected": 14
     },
     {
-      "input": {
-        "s": "fxaabbaabbaabba"
-      },
+      "input": [
+        "fxaabbaabbaabba"
+      ],
       "expected": 36
     },
     {
-      "input": {
-        "s": "abababababababab"
-      },
+      "input": [
+        "abababababababab"
+      ],
       "expected": 72
     },
     {
-      "input": {
-        "s": "abcabcabcabcabc"
-      },
+      "input": [
+        "abcabcabcabcabc"
+      ],
       "expected": 15
     },
     {
-      "input": {
-        "s": "xyxyxyxyxyxyxyxy"
-      },
+      "input": [
+        "xyxyxyxyxyxyxyxy"
+      ],
       "expected": 72
     },
     {
-      "input": {
-        "s": "mmmmmmmmmmmmmmmm"
-      },
+      "input": [
+        "mmmmmmmmmmmmmmmm"
+      ],
       "expected": 136
     },
     {
-      "input": {
-        "s": "pneumonoultramicroscopicsilicovolcanoconiosis"
-      },
+      "input": [
+        "pneumonoultramicroscopicsilicovolcanoconiosis"
+      ],
       "expected": 51
     },
     {
-      "input": {
-        "s": "civic"
-      },
+      "input": [
+        "civic"
+      ],
       "expected": 7
     },
     {
-      "input": {
-        "s": "level"
-      },
+      "input": [
+        "level"
+      ],
       "expected": 7
     },
     {
-      "input": {
-        "s": "radar"
-      },
+      "input": [
+        "radar"
+      ],
       "expected": 7
     },
     {
-      "input": {
-        "s": "rotor"
-      },
+      "input": [
+        "rotor"
+      ],
       "expected": 7
     },
     {
-      "input": {
-        "s": "kayak"
-      },
+      "input": [
+        "kayak"
+      ],
       "expected": 7
     },
     {
-      "input": {
-        "s": "madam"
-      },
+      "input": [
+        "madam"
+      ],
       "expected": 7
     },
     {
-      "input": {
-        "s": "refer"
-      },
+      "input": [
+        "refer"
+      ],
       "expected": 7
     },
     {
-      "input": {
-        "s": "stats"
-      },
+      "input": [
+        "stats"
+      ],
       "expected": 7
     },
     {
-      "input": {
-        "s": "noon"
-      },
+      "input": [
+        "noon"
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "s": "deed"
-      },
+      "input": [
+        "deed"
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "s": "peep"
-      },
+      "input": [
+        "peep"
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "s": "poop"
-      },
+      "input": [
+        "poop"
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "s": "toot"
-      },
+      "input": [
+        "toot"
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "s": "abcdefedcba"
-      },
+      "input": [
+        "abcdefedcba"
+      ],
       "expected": 16
     },
     {
-      "input": {
-        "s": "amanaplanacanalpanama"
-      },
+      "input": [
+        "amanaplanacanalpanama"
+      ],
       "expected": 37
     },
     {
-      "input": {
-        "s": "wasitacaroracatisaw"
-      },
+      "input": [
+        "wasitacaroracatisaw"
+      ],
       "expected": 30
     },
     {
-      "input": {
-        "s": "xyzyxyzyx"
-      },
+      "input": [
+        "xyzyxyzyx"
+      ],
       "expected": 17
     },
     {
-      "input": {
-        "s": "abbaxyzzyx"
-      },
+      "input": [
+        "abbaxyzzyx"
+      ],
       "expected": 15
     },
     {
-      "input": {
-        "s": "xyzzyxabba"
-      },
+      "input": [
+        "xyzzyxabba"
+      ],
       "expected": 15
     },
     {
-      "input": {
-        "s": "xxxyyyzzz"
-      },
+      "input": [
+        "xxxyyyzzz"
+      ],
       "expected": 18
     },
     {
-      "input": {
-        "s": "zzzyyyx"
-      },
+      "input": [
+        "zzzyyyx"
+      ],
       "expected": 13
     },
     {
-      "input": {
-        "s": "xxxyyy"
-      },
+      "input": [
+        "xxxyyy"
+      ],
       "expected": 12
     },
     {
-      "input": {
-        "s": "aaabbb"
-      },
+      "input": [
+        "aaabbb"
+      ],
       "expected": 12
     },
     {
-      "input": {
-        "s": "bbbccc"
-      },
+      "input": [
+        "bbbccc"
+      ],
       "expected": 12
     },
     {
-      "input": {
-        "s": "cccaaa"
-      },
+      "input": [
+        "cccaaa"
+      ],
       "expected": 12
     },
     {
-      "input": {
-        "s": "aabbaa"
-      },
+      "input": [
+        "aabbaa"
+      ],
       "expected": 11
     },
     {
-      "input": {
-        "s": "bccb"
-      },
+      "input": [
+        "bccb"
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "s": "abba"
-      },
+      "input": [
+        "abba"
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "s": "baab"
-      },
+      "input": [
+        "baab"
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "s": "xabbay"
-      },
+      "input": [
+        "xabbay"
+      ],
       "expected": 8
     },
     {
-      "input": {
-        "s": "yabbax"
-      },
+      "input": [
+        "yabbax"
+      ],
       "expected": 8
     },
     {
-      "input": {
-        "s": "xxabbaxx"
-      },
+      "input": [
+        "xxabbaxx"
+      ],
       "expected": 14
     },
     {
-      "input": {
-        "s": "yyabbaxx"
-      },
+      "input": [
+        "yyabbaxx"
+      ],
       "expected": 12
     },
     {
-      "input": {
-        "s": "xxabbayy"
-      },
+      "input": [
+        "xxabbayy"
+      ],
       "expected": 12
     },
     {
-      "input": {
-        "s": ""
-      },
+      "input": [
+        ""
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "s": "zyxwvu"
-      },
+      "input": [
+        "zyxwvu"
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "s": "AaBbCc"
-      },
+      "input": [
+        "AaBbCc"
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "s": "a b c"
-      },
+      "input": [
+        "a b c"
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "s": "   "
-      },
+      "input": [
+        "   "
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "s": "12345"
-      },
+      "input": [
+        "12345"
+      ],
       "expected": 5
     },
     {
-      "input": {
-        "s": "a1b2c3"
-      },
+      "input": [
+        "a1b2c3"
+      ],
       "expected": 6
     }
   ]

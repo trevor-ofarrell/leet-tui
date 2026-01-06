@@ -2184,19 +2184,19 @@
       "expected": 15
     },
     {
-      "input": {
-        "points": [
+      "input": [
+        [
           [
             0,
             0
           ]
         ]
-      },
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "points": [
+      "input": [
+        [
           [
             0,
             0
@@ -2206,7 +2206,7 @@
             1
           ]
         ]
-      },
+      ],
       "expected": 2
     }
   ]

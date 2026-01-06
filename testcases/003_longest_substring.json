@@ -635,21 +635,21 @@
       "expected": 6
     },
     {
-      "input": {
-        "s": ""
-      },
+      "input": [
+        ""
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "s": "aaaaaaa"
-      },
+      "input": [
+        "aaaaaaa"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "abcabcabc"
-      },
+      "input": [
+        "abcabcabc"
+      ],
       "expected": 3
     }
   ]

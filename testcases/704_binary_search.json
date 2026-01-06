@@ -2213,58 +2213,58 @@
       "expected": -1
     },
     {
-      "input": {
-        "nums": [],
-        "target": 1
-      },
+      "input": [
+        [],
+        1
+      ],
       "expected": -1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1
         ],
-        "target": 1
-      },
+        1
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": -1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2
         ],
-        "target": 1
-      },
+        1
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2
         ],
-        "target": 2
-      },
+        2
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "nums": [
+      "input": [
+        [
           1,
           2
         ],
-        "target": 0
-      },
+        0
+      ],
       "expected": -1
     }
   ]

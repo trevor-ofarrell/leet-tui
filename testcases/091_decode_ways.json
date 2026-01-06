@@ -3,743 +3,743 @@
   "title": "Decode Ways",
   "run_tests": [
     {
-      "input": {
-        "s": "12"
-      },
+      "input": [
+        "12"
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "s": "226"
-      },
+      "input": [
+        "226"
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "s": "06"
-      },
+      "input": [
+        "06"
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "s": "1"
-      },
+      "input": [
+        "1"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "10"
-      },
+      "input": [
+        "10"
+      ],
       "expected": 1
     }
   ],
   "submit_tests": [
     {
-      "input": {
-        "s": "12"
-      },
+      "input": [
+        "12"
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "s": "226"
-      },
+      "input": [
+        "226"
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "s": "06"
-      },
+      "input": [
+        "06"
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "s": "1"
-      },
+      "input": [
+        "1"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "10"
-      },
+      "input": [
+        "10"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "0"
-      },
+      "input": [
+        "0"
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "s": "2"
-      },
+      "input": [
+        "2"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "9"
-      },
+      "input": [
+        "9"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "00"
-      },
+      "input": [
+        "00"
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "s": "01"
-      },
+      "input": [
+        "01"
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "s": "11"
-      },
+      "input": [
+        "11"
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "s": "20"
-      },
+      "input": [
+        "20"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "21"
-      },
+      "input": [
+        "21"
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "s": "26"
-      },
+      "input": [
+        "26"
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "s": "27"
-      },
+      "input": [
+        "27"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "30"
-      },
+      "input": [
+        "30"
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "s": "100"
-      },
+      "input": [
+        "100"
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "s": "101"
-      },
+      "input": [
+        "101"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "110"
-      },
+      "input": [
+        "110"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "111"
-      },
+      "input": [
+        "111"
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "s": "112"
-      },
+      "input": [
+        "112"
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "s": "120"
-      },
+      "input": [
+        "120"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "121"
-      },
+      "input": [
+        "121"
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "s": "123"
-      },
+      "input": [
+        "123"
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "s": "126"
-      },
+      "input": [
+        "126"
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "s": "127"
-      },
+      "input": [
+        "127"
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "s": "130"
-      },
+      "input": [
+        "130"
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "s": "200"
-      },
+      "input": [
+        "200"
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "s": "201"
-      },
+      "input": [
+        "201"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "210"
-      },
+      "input": [
+        "210"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "211"
-      },
+      "input": [
+        "211"
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "s": "212"
-      },
+      "input": [
+        "212"
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "s": "220"
-      },
+      "input": [
+        "220"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "221"
-      },
+      "input": [
+        "221"
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "s": "226"
-      },
+      "input": [
+        "226"
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "s": "227"
-      },
+      "input": [
+        "227"
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "s": "230"
-      },
+      "input": [
+        "230"
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "s": "260"
-      },
+      "input": [
+        "260"
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "s": "270"
-      },
+      "input": [
+        "270"
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "s": "300"
-      },
+      "input": [
+        "300"
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "s": "301"
-      },
+      "input": [
+        "301"
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "s": "1111"
-      },
+      "input": [
+        "1111"
+      ],
       "expected": 5
     },
     {
-      "input": {
-        "s": "1112"
-      },
+      "input": [
+        "1112"
+      ],
       "expected": 5
     },
     {
-      "input": {
-        "s": "1121"
-      },
+      "input": [
+        "1121"
+      ],
       "expected": 5
     },
     {
-      "input": {
-        "s": "1211"
-      },
+      "input": [
+        "1211"
+      ],
       "expected": 5
     },
     {
-      "input": {
-        "s": "2111"
-      },
+      "input": [
+        "2111"
+      ],
       "expected": 5
     },
     {
-      "input": {
-        "s": "1234"
-      },
+      "input": [
+        "1234"
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "s": "1010"
-      },
+      "input": [
+        "1010"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "1020"
-      },
+      "input": [
+        "1020"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "2020"
-      },
+      "input": [
+        "2020"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "1001"
-      },
+      "input": [
+        "1001"
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "s": "1100"
-      },
+      "input": [
+        "1100"
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "s": "2626"
-      },
+      "input": [
+        "2626"
+      ],
       "expected": 4
     },
     {
-      "input": {
-        "s": "2727"
-      },
+      "input": [
+        "2727"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "11111"
-      },
+      "input": [
+        "11111"
+      ],
       "expected": 8
     },
     {
-      "input": {
-        "s": "11112"
-      },
+      "input": [
+        "11112"
+      ],
       "expected": 8
     },
     {
-      "input": {
-        "s": "12111"
-      },
+      "input": [
+        "12111"
+      ],
       "expected": 8
     },
     {
-      "input": {
-        "s": "12121"
-      },
+      "input": [
+        "12121"
+      ],
       "expected": 8
     },
     {
-      "input": {
-        "s": "12321"
-      },
+      "input": [
+        "12321"
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "s": "12345"
-      },
+      "input": [
+        "12345"
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "s": "10101"
-      },
+      "input": [
+        "10101"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "10102"
-      },
+      "input": [
+        "10102"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "20102"
-      },
+      "input": [
+        "20102"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "22222"
-      },
+      "input": [
+        "22222"
+      ],
       "expected": 8
     },
     {
-      "input": {
-        "s": "26262"
-      },
+      "input": [
+        "26262"
+      ],
       "expected": 4
     },
     {
-      "input": {
-        "s": "27272"
-      },
+      "input": [
+        "27272"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "111111"
-      },
+      "input": [
+        "111111"
+      ],
       "expected": 13
     },
     {
-      "input": {
-        "s": "111112"
-      },
+      "input": [
+        "111112"
+      ],
       "expected": 13
     },
     {
-      "input": {
-        "s": "121212"
-      },
+      "input": [
+        "121212"
+      ],
       "expected": 13
     },
     {
-      "input": {
-        "s": "123456"
-      },
+      "input": [
+        "123456"
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "s": "101010"
-      },
+      "input": [
+        "101010"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "202020"
-      },
+      "input": [
+        "202020"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "212121"
-      },
+      "input": [
+        "212121"
+      ],
       "expected": 13
     },
     {
-      "input": {
-        "s": "262626"
-      },
+      "input": [
+        "262626"
+      ],
       "expected": 8
     },
     {
-      "input": {
-        "s": "272727"
-      },
+      "input": [
+        "272727"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "1111111"
-      },
+      "input": [
+        "1111111"
+      ],
       "expected": 21
     },
     {
-      "input": {
-        "s": "1234567"
-      },
+      "input": [
+        "1234567"
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "s": "1212121"
-      },
+      "input": [
+        "1212121"
+      ],
       "expected": 21
     },
     {
-      "input": {
-        "s": "2121212"
-      },
+      "input": [
+        "2121212"
+      ],
       "expected": 21
     },
     {
-      "input": {
-        "s": "1010101"
-      },
+      "input": [
+        "1010101"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "2020202"
-      },
+      "input": [
+        "2020202"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "11111111"
-      },
+      "input": [
+        "11111111"
+      ],
       "expected": 34
     },
     {
-      "input": {
-        "s": "12345678"
-      },
+      "input": [
+        "12345678"
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "s": "12121212"
-      },
+      "input": [
+        "12121212"
+      ],
       "expected": 34
     },
     {
-      "input": {
-        "s": "21212121"
-      },
+      "input": [
+        "21212121"
+      ],
       "expected": 34
     },
     {
-      "input": {
-        "s": "26262626"
-      },
+      "input": [
+        "26262626"
+      ],
       "expected": 16
     },
     {
-      "input": {
-        "s": "10101010"
-      },
+      "input": [
+        "10101010"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "20202020"
-      },
+      "input": [
+        "20202020"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "11111110"
-      },
+      "input": [
+        "11111110"
+      ],
       "expected": 13
     },
     {
-      "input": {
-        "s": "11111120"
-      },
+      "input": [
+        "11111120"
+      ],
       "expected": 13
     },
     {
-      "input": {
-        "s": "111111111"
-      },
+      "input": [
+        "111111111"
+      ],
       "expected": 55
     },
     {
-      "input": {
-        "s": "123456789"
-      },
+      "input": [
+        "123456789"
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "s": "121212121"
-      },
+      "input": [
+        "121212121"
+      ],
       "expected": 55
     },
     {
-      "input": {
-        "s": "212121212"
-      },
+      "input": [
+        "212121212"
+      ],
       "expected": 55
     },
     {
-      "input": {
-        "s": "262626262"
-      },
+      "input": [
+        "262626262"
+      ],
       "expected": 16
     },
     {
-      "input": {
-        "s": "101010101"
-      },
+      "input": [
+        "101010101"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "1111111111"
-      },
+      "input": [
+        "1111111111"
+      ],
       "expected": 89
     },
     {
-      "input": {
-        "s": "1212121212"
-      },
+      "input": [
+        "1212121212"
+      ],
       "expected": 89
     },
     {
-      "input": {
-        "s": "2121212121"
-      },
+      "input": [
+        "2121212121"
+      ],
       "expected": 89
     },
     {
-      "input": {
-        "s": "2626262626"
-      },
+      "input": [
+        "2626262626"
+      ],
       "expected": 32
     },
     {
-      "input": {
-        "s": "1010101010"
-      },
+      "input": [
+        "1010101010"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "2020202020"
-      },
+      "input": [
+        "2020202020"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": ""
-      },
+      "input": [
+        ""
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "a"
-      },
+      "input": [
+        "a"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "aa"
-      },
+      "input": [
+        "aa"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "ab"
-      },
+      "input": [
+        "ab"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "aaa"
-      },
+      "input": [
+        "aaa"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "abc"
-      },
+      "input": [
+        "abc"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "aba"
-      },
+      "input": [
+        "aba"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "abba"
-      },
+      "input": [
+        "abba"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "abcba"
-      },
+      "input": [
+        "abcba"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "aaaaaa"
-      },
+      "input": [
+        "aaaaaa"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "abcdef"
-      },
+      "input": [
+        "abcdef"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "zyxwvu"
-      },
+      "input": [
+        "zyxwvu"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "AaBbCc"
-      },
+      "input": [
+        "AaBbCc"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "a b c"
-      },
+      "input": [
+        "a b c"
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "   "
-      },
+      "input": [
+        "   "
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "s": "a1b2c3"
-      },
+      "input": [
+        "a1b2c3"
+      ],
       "expected": 1
     }
   ]

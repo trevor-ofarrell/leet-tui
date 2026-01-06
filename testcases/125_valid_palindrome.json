@@ -3,959 +3,959 @@
   "title": "Valid Palindrome",
   "run_tests": [
     {
-      "input": {
-        "s": "A man, a plan, a canal: Panama"
-      },
+      "input": [
+        "A man, a plan, a canal: Panama"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "race a car"
-      },
+      "input": [
+        "race a car"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": " "
-      },
+      "input": [
+        " "
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "a"
-      },
+      "input": [
+        "a"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "ab"
-      },
+      "input": [
+        "ab"
+      ],
       "expected": false
     }
   ],
   "submit_tests": [
     {
-      "input": {
-        "s": ""
-      },
+      "input": [
+        ""
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": " "
-      },
+      "input": [
+        " "
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "  "
-      },
+      "input": [
+        "  "
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "   "
-      },
+      "input": [
+        "   "
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "a"
-      },
+      "input": [
+        "a"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "A"
-      },
+      "input": [
+        "A"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "1"
-      },
+      "input": [
+        "1"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "aa"
-      },
+      "input": [
+        "aa"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "AA"
-      },
+      "input": [
+        "AA"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "aA"
-      },
+      "input": [
+        "aA"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Aa"
-      },
+      "input": [
+        "Aa"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "ab"
-      },
+      "input": [
+        "ab"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "AB"
-      },
+      "input": [
+        "AB"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "aB"
-      },
+      "input": [
+        "aB"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "Ab"
-      },
+      "input": [
+        "Ab"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "aba"
-      },
+      "input": [
+        "aba"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "abc"
-      },
+      "input": [
+        "abc"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "abba"
-      },
+      "input": [
+        "abba"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "abca"
-      },
+      "input": [
+        "abca"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "abcba"
-      },
+      "input": [
+        "abcba"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "abcda"
-      },
+      "input": [
+        "abcda"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "A man, a plan, a canal: Panama"
-      },
+      "input": [
+        "A man, a plan, a canal: Panama"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "race a car"
-      },
+      "input": [
+        "race a car"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "Was it a car or a cat I saw?"
-      },
+      "input": [
+        "Was it a car or a cat I saw?"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "No lemon, no melon"
-      },
+      "input": [
+        "No lemon, no melon"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Not a palindrome"
-      },
+      "input": [
+        "Not a palindrome"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "12321"
-      },
+      "input": [
+        "12321"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "12345"
-      },
+      "input": [
+        "12345"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "123321"
-      },
+      "input": [
+        "123321"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "1a2b2a1"
-      },
+      "input": [
+        "1a2b2a1"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "1a2b3a1"
-      },
+      "input": [
+        "1a2b3a1"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": ".,;:!?"
-      },
+      "input": [
+        ".,;:!?"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "a.,;:!?a"
-      },
+      "input": [
+        "a.,;:!?a"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "a.,;:!?b"
-      },
+      "input": [
+        "a.,;:!?b"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "   a   "
-      },
+      "input": [
+        "   a   "
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "   ab   "
-      },
+      "input": [
+        "   ab   "
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "   a a   "
-      },
+      "input": [
+        "   a a   "
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "   a b   "
-      },
+      "input": [
+        "   a b   "
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "0P"
-      },
+      "input": [
+        "0P"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "P0"
-      },
+      "input": [
+        "P0"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "00"
-      },
+      "input": [
+        "00"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "PP"
-      },
+      "input": [
+        "PP"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Madam"
-      },
+      "input": [
+        "Madam"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Madame"
-      },
+      "input": [
+        "Madame"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "MadAm"
-      },
+      "input": [
+        "MadAm"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "RaceCar"
-      },
+      "input": [
+        "RaceCar"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "RaceCars"
-      },
+      "input": [
+        "RaceCars"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "Step on no pets"
-      },
+      "input": [
+        "Step on no pets"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Step on no pet"
-      },
+      "input": [
+        "Step on no pet"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "Do geese see God"
-      },
+      "input": [
+        "Do geese see God"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Was it a rat I saw"
-      },
+      "input": [
+        "Was it a rat I saw"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Never odd or even"
-      },
+      "input": [
+        "Never odd or even"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Eva, can I see bees in a cave?"
-      },
+      "input": [
+        "Eva, can I see bees in a cave?"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Mr. Owl ate my metal worm"
-      },
+      "input": [
+        "Mr. Owl ate my metal worm"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Go hang a salami, I'm a lasagna hog"
-      },
+      "input": [
+        "Go hang a salami, I'm a lasagna hog"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "A Santa at NASA"
-      },
+      "input": [
+        "A Santa at NASA"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Yo, banana boy!"
-      },
+      "input": [
+        "Yo, banana boy!"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "A dog, a panic in a pagoda"
-      },
+      "input": [
+        "A dog, a panic in a pagoda"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Top spot"
-      },
+      "input": [
+        "Top spot"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Top spots"
-      },
+      "input": [
+        "Top spots"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "aabbaa"
-      },
+      "input": [
+        "aabbaa"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "aabbcc"
-      },
+      "input": [
+        "aabbcc"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "abccba"
-      },
+      "input": [
+        "abccba"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "abcdba"
-      },
+      "input": [
+        "abcdba"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "abcddcba"
-      },
+      "input": [
+        "abcddcba"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "abcdedcba"
-      },
+      "input": [
+        "abcdedcba"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "abcdefedcba"
-      },
+      "input": [
+        "abcdefedcba"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "abcdefgfedcba"
-      },
+      "input": [
+        "abcdefgfedcba"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "!@#$%^&*()"
-      },
+      "input": [
+        "!@#$%^&*()"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "a!@#$%^&*()a"
-      },
+      "input": [
+        "a!@#$%^&*()a"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "a!@#$%^&*()b"
-      },
+      "input": [
+        "a!@#$%^&*()b"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "Z"
-      },
+      "input": [
+        "Z"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "z"
-      },
+      "input": [
+        "z"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Zz"
-      },
+      "input": [
+        "Zz"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "zZ"
-      },
+      "input": [
+        "zZ"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "ZyZ"
-      },
+      "input": [
+        "ZyZ"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "ZyX"
-      },
+      "input": [
+        "ZyX"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "9"
-      },
+      "input": [
+        "9"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "99"
-      },
+      "input": [
+        "99"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "909"
-      },
+      "input": [
+        "909"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "919"
-      },
+      "input": [
+        "919"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "912"
-      },
+      "input": [
+        "912"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "a1a"
-      },
+      "input": [
+        "a1a"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "a1b"
-      },
+      "input": [
+        "a1b"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "1a1"
-      },
+      "input": [
+        "1a1"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "1a2"
-      },
+      "input": [
+        "1a2"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "Able was I, ere I saw Elba"
-      },
+      "input": [
+        "Able was I, ere I saw Elba"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Able was I, I saw Elba"
-      },
+      "input": [
+        "Able was I, I saw Elba"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "  a  b  a  "
-      },
+      "input": [
+        "  a  b  a  "
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "  a  b  c  "
-      },
+      "input": [
+        "  a  b  c  "
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": ".a."
-      },
+      "input": [
+        ".a."
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": ".ab."
-      },
+      "input": [
+        ".ab."
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": ",a,a,"
-      },
+      "input": [
+        ",a,a,"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": ",a,b,"
-      },
+      "input": [
+        ",a,b,"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": ":::a:::"
-      },
+      "input": [
+        ":::a:::"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": ":::ab:::"
-      },
+      "input": [
+        ":::ab:::"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "racecar"
-      },
+      "input": [
+        "racecar"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "racecars"
-      },
+      "input": [
+        "racecars"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "deed"
-      },
+      "input": [
+        "deed"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "deeds"
-      },
+      "input": [
+        "deeds"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "level"
-      },
+      "input": [
+        "level"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "levels"
-      },
+      "input": [
+        "levels"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "civic"
-      },
+      "input": [
+        "civic"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "civics"
-      },
+      "input": [
+        "civics"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "radar"
-      },
+      "input": [
+        "radar"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "radars"
-      },
+      "input": [
+        "radars"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "refer"
-      },
+      "input": [
+        "refer"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "refers"
-      },
+      "input": [
+        "refers"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "rotor"
-      },
+      "input": [
+        "rotor"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "rotors"
-      },
+      "input": [
+        "rotors"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "kayak"
-      },
+      "input": [
+        "kayak"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "kayaks"
-      },
+      "input": [
+        "kayaks"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "noon"
-      },
+      "input": [
+        "noon"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "noons"
-      },
+      "input": [
+        "noons"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "stats"
-      },
+      "input": [
+        "stats"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "statss"
-      },
+      "input": [
+        "statss"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "tenet"
-      },
+      "input": [
+        "tenet"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "tenets"
-      },
+      "input": [
+        "tenets"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "amanaplanacanalpanama"
-      },
+      "input": [
+        "amanaplanacanalpanama"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "amanaplanacanalpanamas"
-      },
+      "input": [
+        "amanaplanacanalpanamas"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "!!a!!"
-      },
+      "input": [
+        "!!a!!"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "!!ab!!"
-      },
+      "input": [
+        "!!ab!!"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "__a__"
-      },
+      "input": [
+        "__a__"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "__ab__"
-      },
+      "input": [
+        "__ab__"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "A1B2B1A"
-      },
+      "input": [
+        "A1B2B1A"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "A1B2C1A"
-      },
+      "input": [
+        "A1B2C1A"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "ab@ba"
-      },
+      "input": [
+        "ab@ba"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "ab@ca"
-      },
+      "input": [
+        "ab@ca"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "a.b"
-      },
+      "input": [
+        "a.b"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "a..a"
-      },
+      "input": [
+        "a..a"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "palindrome"
-      },
+      "input": [
+        "palindrome"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "not"
-      },
+      "input": [
+        "not"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "false"
-      },
+      "input": [
+        "false"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "true"
-      },
+      "input": [
+        "true"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "Mom"
-      },
+      "input": [
+        "Mom"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Dad"
-      },
+      "input": [
+        "Dad"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Sis"
-      },
+      "input": [
+        "Sis"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Pop"
-      },
+      "input": [
+        "Pop"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Mum"
-      },
+      "input": [
+        "Mum"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Nan"
-      },
+      "input": [
+        "Nan"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Pup"
-      },
+      "input": [
+        "Pup"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Pip"
-      },
+      "input": [
+        "Pip"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Pep"
-      },
+      "input": [
+        "Pep"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Eye"
-      },
+      "input": [
+        "Eye"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Ere"
-      },
+      "input": [
+        "Ere"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "Ewe"
-      },
+      "input": [
+        "Ewe"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "aaa"
-      },
+      "input": [
+        "aaa"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "aaaaaa"
-      },
+      "input": [
+        "aaaaaa"
+      ],
       "expected": true
     },
     {
-      "input": {
-        "s": "abcdef"
-      },
+      "input": [
+        "abcdef"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "zyxwvu"
-      },
+      "input": [
+        "zyxwvu"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "AaBbCc"
-      },
+      "input": [
+        "AaBbCc"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "a b c"
-      },
+      "input": [
+        "a b c"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": "a1b2c3"
-      },
+      "input": [
+        "a1b2c3"
+      ],
       "expected": false
     },
     {
-      "input": {
-        "s": ".,"
-      },
+      "input": [
+        ".,"
+      ],
       "expected": true
     }
   ]

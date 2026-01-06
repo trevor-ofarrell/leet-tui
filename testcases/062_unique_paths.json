@@ -3,754 +3,754 @@
   "title": "Unique Paths",
   "run_tests": [
     {
-      "input": {
-        "m": 3,
-        "n": 7
-      },
+      "input": [
+        3,
+        7
+      ],
       "expected": 28
     },
     {
-      "input": {
-        "m": 3,
-        "n": 2
-      },
+      "input": [
+        3,
+        2
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "m": 1,
-        "n": 1
-      },
+      "input": [
+        1,
+        1
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "m": 1,
-        "n": 10
-      },
+      "input": [
+        1,
+        10
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "m": 10,
-        "n": 1
-      },
+      "input": [
+        10,
+        1
+      ],
       "expected": 1
     }
   ],
   "submit_tests": [
     {
-      "input": {
-        "m": 3,
-        "n": 7
-      },
+      "input": [
+        3,
+        7
+      ],
       "expected": 28
     },
     {
-      "input": {
-        "m": 3,
-        "n": 2
-      },
+      "input": [
+        3,
+        2
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "m": 1,
-        "n": 1
-      },
+      "input": [
+        1,
+        1
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "m": 1,
-        "n": 10
-      },
+      "input": [
+        1,
+        10
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "m": 10,
-        "n": 1
-      },
+      "input": [
+        10,
+        1
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "m": 1,
-        "n": 2
-      },
+      "input": [
+        1,
+        2
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "m": 2,
-        "n": 1
-      },
+      "input": [
+        2,
+        1
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "m": 1,
-        "n": 3
-      },
+      "input": [
+        1,
+        3
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "m": 3,
-        "n": 1
-      },
+      "input": [
+        3,
+        1
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "m": 1,
-        "n": 5
-      },
+      "input": [
+        1,
+        5
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "m": 5,
-        "n": 1
-      },
+      "input": [
+        5,
+        1
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "m": 1,
-        "n": 100
-      },
+      "input": [
+        1,
+        100
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "m": 100,
-        "n": 1
-      },
+      "input": [
+        100,
+        1
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "m": 2,
-        "n": 2
-      },
+      "input": [
+        2,
+        2
+      ],
       "expected": 2
     },
     {
-      "input": {
-        "m": 2,
-        "n": 3
-      },
+      "input": [
+        2,
+        3
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "m": 3,
-        "n": 2
-      },
+      "input": [
+        3,
+        2
+      ],
       "expected": 3
     },
     {
-      "input": {
-        "m": 2,
-        "n": 4
-      },
+      "input": [
+        2,
+        4
+      ],
       "expected": 4
     },
     {
-      "input": {
-        "m": 4,
-        "n": 2
-      },
+      "input": [
+        4,
+        2
+      ],
       "expected": 4
     },
     {
-      "input": {
-        "m": 2,
-        "n": 5
-      },
+      "input": [
+        2,
+        5
+      ],
       "expected": 5
     },
     {
-      "input": {
-        "m": 5,
-        "n": 2
-      },
+      "input": [
+        5,
+        2
+      ],
       "expected": 5
     },
     {
-      "input": {
-        "m": 2,
-        "n": 6
-      },
+      "input": [
+        2,
+        6
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "m": 6,
-        "n": 2
-      },
+      "input": [
+        6,
+        2
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "m": 2,
-        "n": 7
-      },
+      "input": [
+        2,
+        7
+      ],
       "expected": 7
     },
     {
-      "input": {
-        "m": 7,
-        "n": 2
-      },
+      "input": [
+        7,
+        2
+      ],
       "expected": 7
     },
     {
-      "input": {
-        "m": 2,
-        "n": 8
-      },
+      "input": [
+        2,
+        8
+      ],
       "expected": 8
     },
     {
-      "input": {
-        "m": 8,
-        "n": 2
-      },
+      "input": [
+        8,
+        2
+      ],
       "expected": 8
     },
     {
-      "input": {
-        "m": 2,
-        "n": 9
-      },
+      "input": [
+        2,
+        9
+      ],
       "expected": 9
     },
     {
-      "input": {
-        "m": 9,
-        "n": 2
-      },
+      "input": [
+        9,
+        2
+      ],
       "expected": 9
     },
     {
-      "input": {
-        "m": 2,
-        "n": 10
-      },
+      "input": [
+        2,
+        10
+      ],
       "expected": 10
     },
     {
-      "input": {
-        "m": 10,
-        "n": 2
-      },
+      "input": [
+        10,
+        2
+      ],
       "expected": 10
     },
     {
-      "input": {
-        "m": 3,
-        "n": 3
-      },
+      "input": [
+        3,
+        3
+      ],
       "expected": 6
     },
     {
-      "input": {
-        "m": 3,
-        "n": 4
-      },
+      "input": [
+        3,
+        4
+      ],
       "expected": 10
     },
     {
-      "input": {
-        "m": 4,
-        "n": 3
-      },
+      "input": [
+        4,
+        3
+      ],
       "expected": 10
     },
     {
-      "input": {
-        "m": 3,
-        "n": 5
-      },
+      "input": [
+        3,
+        5
+      ],
       "expected": 15
     },
     {
-      "input": {
-        "m": 5,
-        "n": 3
-      },
+      "input": [
+        5,
+        3
+      ],
       "expected": 15
     },
     {
-      "input": {
-        "m": 3,
-        "n": 6
-      },
+      "input": [
+        3,
+        6
+      ],
       "expected": 21
     },
     {
-      "input": {
-        "m": 6,
-        "n": 3
-      },
+      "input": [
+        6,
+        3
+      ],
       "expected": 21
     },
     {
-      "input": {
-        "m": 3,
-        "n": 8
-      },
+      "input": [
+        3,
+        8
+      ],
       "expected": 36
     },
     {
-      "input": {
-        "m": 8,
-        "n": 3
-      },
+      "input": [
+        8,
+        3
+      ],
       "expected": 36
     },
     {
-      "input": {
-        "m": 3,
-        "n": 9
-      },
+      "input": [
+        3,
+        9
+      ],
       "expected": 45
     },
     {
-      "input": {
-        "m": 9,
-        "n": 3
-      },
+      "input": [
+        9,
+        3
+      ],
       "expected": 45
     },
     {
-      "input": {
-        "m": 3,
-        "n": 10
-      },
+      "input": [
+        3,
+        10
+      ],
       "expected": 55
     },
     {
-      "input": {
-        "m": 10,
-        "n": 3
-      },
+      "input": [
+        10,
+        3
+      ],
       "expected": 55
     },
     {
-      "input": {
-        "m": 4,
-        "n": 4
-      },
+      "input": [
+        4,
+        4
+      ],
       "expected": 20
     },
     {
-      "input": {
-        "m": 4,
-        "n": 5
-      },
+      "input": [
+        4,
+        5
+      ],
       "expected": 35
     },
     {
-      "input": {
-        "m": 5,
-        "n": 4
-      },
+      "input": [
+        5,
+        4
+      ],
       "expected": 35
     },
     {
-      "input": {
-        "m": 4,
-        "n": 6
-      },
+      "input": [
+        4,
+        6
+      ],
       "expected": 56
     },
     {
-      "input": {
-        "m": 6,
-        "n": 4
-      },
+      "input": [
+        6,
+        4
+      ],
       "expected": 56
     },
     {
-      "input": {
-        "m": 4,
-        "n": 7
-      },
+      "input": [
+        4,
+        7
+      ],
       "expected": 84
     },
     {
-      "input": {
-        "m": 7,
-        "n": 4
-      },
+      "input": [
+        7,
+        4
+      ],
       "expected": 84
     },
     {
-      "input": {
-        "m": 4,
-        "n": 8
-      },
+      "input": [
+        4,
+        8
+      ],
       "expected": 120
     },
     {
-      "input": {
-        "m": 8,
-        "n": 4
-      },
+      "input": [
+        8,
+        4
+      ],
       "expected": 120
     },
     {
-      "input": {
-        "m": 4,
-        "n": 9
-      },
+      "input": [
+        4,
+        9
+      ],
       "expected": 165
     },
     {
-      "input": {
-        "m": 9,
-        "n": 4
-      },
+      "input": [
+        9,
+        4
+      ],
       "expected": 165
     },
     {
-      "input": {
-        "m": 4,
-        "n": 10
-      },
+      "input": [
+        4,
+        10
+      ],
       "expected": 220
     },
     {
-      "input": {
-        "m": 10,
-        "n": 4
-      },
+      "input": [
+        10,
+        4
+      ],
       "expected": 220
     },
     {
-      "input": {
-        "m": 5,
-        "n": 5
-      },
+      "input": [
+        5,
+        5
+      ],
       "expected": 70
     },
     {
-      "input": {
-        "m": 5,
-        "n": 6
-      },
+      "input": [
+        5,
+        6
+      ],
       "expected": 126
     },
     {
-      "input": {
-        "m": 6,
-        "n": 5
-      },
+      "input": [
+        6,
+        5
+      ],
       "expected": 126
     },
     {
-      "input": {
-        "m": 5,
-        "n": 7
-      },
+      "input": [
+        5,
+        7
+      ],
       "expected": 210
     },
     {
-      "input": {
-        "m": 7,
-        "n": 5
-      },
+      "input": [
+        7,
+        5
+      ],
       "expected": 210
     },
     {
-      "input": {
-        "m": 5,
-        "n": 8
-      },
+      "input": [
+        5,
+        8
+      ],
       "expected": 330
     },
     {
-      "input": {
-        "m": 8,
-        "n": 5
-      },
+      "input": [
+        8,
+        5
+      ],
       "expected": 330
     },
     {
-      "input": {
-        "m": 5,
-        "n": 9
-      },
+      "input": [
+        5,
+        9
+      ],
       "expected": 495
     },
     {
-      "input": {
-        "m": 9,
-        "n": 5
-      },
+      "input": [
+        9,
+        5
+      ],
       "expected": 495
     },
     {
-      "input": {
-        "m": 5,
-        "n": 10
-      },
+      "input": [
+        5,
+        10
+      ],
       "expected": 715
     },
     {
-      "input": {
-        "m": 10,
-        "n": 5
-      },
+      "input": [
+        10,
+        5
+      ],
       "expected": 715
     },
     {
-      "input": {
-        "m": 6,
-        "n": 6
-      },
+      "input": [
+        6,
+        6
+      ],
       "expected": 252
     },
     {
-      "input": {
-        "m": 6,
-        "n": 7
-      },
+      "input": [
+        6,
+        7
+      ],
       "expected": 462
     },
     {
-      "input": {
-        "m": 7,
-        "n": 6
-      },
+      "input": [
+        7,
+        6
+      ],
       "expected": 462
     },
     {
-      "input": {
-        "m": 6,
-        "n": 8
-      },
+      "input": [
+        6,
+        8
+      ],
       "expected": 792
     },
     {
-      "input": {
-        "m": 8,
-        "n": 6
-      },
+      "input": [
+        8,
+        6
+      ],
       "expected": 792
     },
     {
-      "input": {
-        "m": 6,
-        "n": 9
-      },
+      "input": [
+        6,
+        9
+      ],
       "expected": 1287
     },
     {
-      "input": {
-        "m": 9,
-        "n": 6
-      },
+      "input": [
+        9,
+        6
+      ],
       "expected": 1287
     },
     {
-      "input": {
-        "m": 6,
-        "n": 10
-      },
+      "input": [
+        6,
+        10
+      ],
       "expected": 2002
     },
     {
-      "input": {
-        "m": 10,
-        "n": 6
-      },
+      "input": [
+        10,
+        6
+      ],
       "expected": 2002
     },
     {
-      "input": {
-        "m": 7,
-        "n": 7
-      },
+      "input": [
+        7,
+        7
+      ],
       "expected": 924
     },
     {
-      "input": {
-        "m": 7,
-        "n": 8
-      },
+      "input": [
+        7,
+        8
+      ],
       "expected": 1716
     },
     {
-      "input": {
-        "m": 8,
-        "n": 7
-      },
+      "input": [
+        8,
+        7
+      ],
       "expected": 1716
     },
     {
-      "input": {
-        "m": 7,
-        "n": 9
-      },
+      "input": [
+        7,
+        9
+      ],
       "expected": 3003
     },
     {
-      "input": {
-        "m": 9,
-        "n": 7
-      },
+      "input": [
+        9,
+        7
+      ],
       "expected": 3003
     },
     {
-      "input": {
-        "m": 7,
-        "n": 10
-      },
+      "input": [
+        7,
+        10
+      ],
       "expected": 5005
     },
     {
-      "input": {
-        "m": 10,
-        "n": 7
-      },
+      "input": [
+        10,
+        7
+      ],
       "expected": 5005
     },
     {
-      "input": {
-        "m": 8,
-        "n": 8
-      },
+      "input": [
+        8,
+        8
+      ],
       "expected": 3432
     },
     {
-      "input": {
-        "m": 8,
-        "n": 9
-      },
+      "input": [
+        8,
+        9
+      ],
       "expected": 6435
     },
     {
-      "input": {
-        "m": 9,
-        "n": 8
-      },
+      "input": [
+        9,
+        8
+      ],
       "expected": 6435
     },
     {
-      "input": {
-        "m": 8,
-        "n": 10
-      },
+      "input": [
+        8,
+        10
+      ],
       "expected": 11440
     },
     {
-      "input": {
-        "m": 10,
-        "n": 8
-      },
+      "input": [
+        10,
+        8
+      ],
       "expected": 11440
     },
     {
-      "input": {
-        "m": 9,
-        "n": 9
-      },
+      "input": [
+        9,
+        9
+      ],
       "expected": 12870
     },
     {
-      "input": {
-        "m": 9,
-        "n": 10
-      },
+      "input": [
+        9,
+        10
+      ],
       "expected": 24310
     },
     {
-      "input": {
-        "m": 10,
-        "n": 9
-      },
+      "input": [
+        10,
+        9
+      ],
       "expected": 24310
     },
     {
-      "input": {
-        "m": 10,
-        "n": 10
-      },
+      "input": [
+        10,
+        10
+      ],
       "expected": 48620
     },
     {
-      "input": {
-        "m": 15,
-        "n": 15
-      },
+      "input": [
+        15,
+        15
+      ],
       "expected": 40116600
     },
     {
-      "input": {
-        "m": 20,
-        "n": 20
-      },
+      "input": [
+        20,
+        20
+      ],
       "expected": 35345263800
     },
     {
-      "input": {
-        "m": 23,
-        "n": 12
-      },
+      "input": [
+        23,
+        12
+      ],
       "expected": 193536720
     },
     {
-      "input": {
-        "m": 51,
-        "n": 9
-      },
+      "input": [
+        51,
+        9
+      ],
       "expected": 1916797311
     },
     {
-      "input": {
-        "m": 0,
-        "n": 1
-      },
+      "input": [
+        0,
+        1
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "m": 0,
-        "n": 2
-      },
+      "input": [
+        0,
+        2
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "m": 0,
-        "n": 10
-      },
+      "input": [
+        0,
+        10
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "m": -1,
-        "n": 1
-      },
+      "input": [
+        -1,
+        1
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "m": -1,
-        "n": 2
-      },
+      "input": [
+        -1,
+        2
+      ],
       "expected": 1
     },
     {
-      "input": {
-        "m": -1,
-        "n": 10
-      },
+      "input": [
+        -1,
+        10
+      ],
       "expected": 1
     }
   ]

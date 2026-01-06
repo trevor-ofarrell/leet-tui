@@ -39,6 +39,7 @@ class TestResult:
     passed: int = 0
     total: int = 0
     failures: list = field(default_factory=list)
+    malformed_count: int = 0  # Count of tests that failed due to malformed input
     error: Optional[str] = None
     duration_ms: float = 0.0
 
@@ -320,11 +321,13 @@ for test in tests:
     inp = test.get('input', {{}})
     expected = test.get('expected')
 
+    # Check for malformed input first
+    if isinstance(inp, dict):
+        results.append({{'input': inp, 'expected': expected, 'error': 'MALFORMED_INPUT: input is dict, expected list format [[...]]. Fix the test data.', 'pass': False}})
+        continue
+
     try:
-        if isinstance(inp, dict):
-            args = list(inp.values())
-        else:
-            args = list(inp) if isinstance(inp, list) else [inp]
+        args = list(inp) if isinstance(inp, list) else [inp]
 
         {'if len(args) >= 2 and isinstance(args[0], list): args = [create_cycle_list(args[0], args[1])]' if is_cycle else ''}
         {'args = [array_to_list(a) if isinstance(a, list) and len(a) > 0 and isinstance(a[0], (int, type(None))) else (array_to_list(a) if a == [] else a) for a in args]' if is_linkedlist else ''}
@@ -484,9 +487,10 @@ def test_python(problem_id: str, solution_file: Path) -> TestResult:
     passed = sum(1 for r in results if r.get('pass'))
     total = len(results)
     failures = [r for r in results if not r.get('pass')][:3]
+    malformed = sum(1 for r in results if 'MALFORMED_INPUT' in str(r.get('error', '')))
     duration = (time.time() - start) * 1000
 
-    return TestResult(problem_id, 'python', passed, total, failures, None, duration)
+    return TestResult(problem_id, 'python', passed, total, failures, malformed, None, duration)
 
 
 # ============================================================================
@@ -673,13 +677,19 @@ const testCases = {json.dumps(test_cases)};
 const results = [];
 
 for (const tc of testCases) {{
+    // Check for malformed input first
+    if (typeof tc.input === 'object' && !Array.isArray(tc.input)) {{
+        results.push({{
+            input: tc.input,
+            expected: tc.expected,
+            error: 'MALFORMED_INPUT: tc.input is object, expected array format [[...]]. Fix the test data.',
+            pass: false
+        }});
+        continue;
+    }}
+
     try {{
-        let args;
-        if (typeof tc.input === 'object' && !Array.isArray(tc.input)) {{
-            args = Object.values(tc.input);
-        }} else {{
-            args = Array.isArray(tc.input) ? [...tc.input] : [tc.input];
-        }}
+        let args = Array.isArray(tc.input) ? [...tc.input] : [tc.input];
 
         {'args = args.map(a => Array.isArray(a) ? arrayToList(a) : a);' if is_linkedlist else ''}
         {'args = args.map(a => Array.isArray(a) ? arrayToTree(a) : a);' if is_tree else ''}
@@ -805,7 +815,7 @@ def run_js_special_test(solution_file: Path, func_name: str, test_cases: list) -
         '''
     elif func_name == 'lowestCommonAncestor':
         runner = '''
-        const { root: rootArr, p: pVal, q: qVal } = tc.input;
+        const [rootArr, pVal, qVal] = tc.input;
         const root = arrayToTree(rootArr);
         const p = findNode(root, pVal);
         const q = findNode(root, qVal);
@@ -905,9 +915,10 @@ def test_javascript(problem_id: str, solution_file: Path) -> TestResult:
     passed = sum(1 for r in results if r.get('pass'))
     total = len(results)
     failures = [r for r in results if not r.get('pass')][:3]
+    malformed = sum(1 for r in results if 'MALFORMED_INPUT' in str(r.get('error', '')))
     duration = (time.time() - start) * 1000
 
-    return TestResult(problem_id, 'javascript', passed, total, failures, None, duration)
+    return TestResult(problem_id, 'javascript', passed, total, failures, malformed, None, duration)
 
 
 # ============================================================================
@@ -1832,13 +1843,13 @@ def generate_cpp_lca_harness(solution_code: str, func_name: str, test_cases: lis
     test_code += '    bool first = true;\n\n'
 
     for i, tc in enumerate(test_cases):
-        inp = tc.get('input', {})
+        inp = tc.get('input', [])
         expected = tc.get('expected')
 
-        # Input format: {root: [...], p: int, q: int}
-        root_arr = inp.get('root', [])
-        p_val = inp.get('p', 0)
-        q_val = inp.get('q', 0)
+        # Input format: [root_arr, p_val, q_val]
+        root_arr = inp[0] if len(inp) > 0 else []
+        p_val = inp[1] if len(inp) > 1 else 0
+        q_val = inp[2] if len(inp) > 2 else 0
 
         test_code += f'    // Test case {i}\n'
         test_code += '    {\n'
@@ -2193,7 +2204,7 @@ def test_cpp(problem_id: str, solution_file: Path) -> TestResult:
         total = len(results)
         failures = [r for r in results if not r.get('pass')][:3]
         duration = (time.time() - start) * 1000
-        return TestResult(problem_id, 'cpp', passed, total, failures, None, duration)
+        return TestResult(problem_id, 'cpp', passed, total, failures, 0, None, duration)
     except json.JSONDecodeError as e:
         return TestResult(problem_id, 'cpp', error=f"Parse error: {stdout[:200]}")
 
@@ -2446,7 +2457,7 @@ def test_c(problem_id: str, solution_file: Path) -> TestResult:
         total = len(results)
         failures = [r for r in results if not r.get('pass')][:3]
         duration = (time.time() - start) * 1000
-        return TestResult(problem_id, 'c', passed, total, failures, None, duration)
+        return TestResult(problem_id, 'c', passed, total, failures, 0, None, duration)
     except json.JSONDecodeError as e:
         return TestResult(problem_id, 'c', error=f"Parse error: {stdout[:200]}")
 
@@ -2503,6 +2514,16 @@ def print_simple_progress(results: dict, totals: dict):
         status = "PASS" if passed == total else "FAIL"
         print(f"{lang:12} {passed:3}/{total:3} solutions  {tests:5} tests  {status}")
 
+    # Summary of malformed test data issues
+    total_malformed = sum(r.malformed_count for lang_results in results.values() for r in lang_results)
+    if total_malformed > 0:
+        print(f"\nTEST DATA ISSUES: {total_malformed} test(s) failed due to malformed input format")
+        malformed_problems = [(lang, r.problem_id, r.malformed_count)
+                             for lang, lang_results in results.items()
+                             for r in lang_results if r.malformed_count > 0]
+        for lang, prob_id, count in malformed_problems[:10]:
+            print(f"  {lang}:{prob_id} - {count} malformed")
+
 
 def print_rich_results(results: dict, totals: dict, duration: float):
     """Print results using rich library."""
@@ -2537,19 +2558,42 @@ def print_rich_results(results: dict, totals: dict, duration: float):
     console.print(table)
     console.print(f"\nTotal: {passed_solutions}/{total_solutions} solutions, {total_tests} tests in {duration:.1f}s")
 
-    # Show failures
+    # Show failures with breakdown
     for lang, lang_results in results.items():
         failures = [r for r in lang_results if not r.success and r.error is None]
         if failures:
             console.print(f"\n[bold red]{lang.capitalize()} Failures:[/bold red]")
             for r in failures[:5]:
-                console.print(f"  {r.problem_id}: {r.passed}/{r.total}")
+                # Show breakdown of failure types
+                other_fails = r.total - r.passed - r.malformed_count
+                breakdown = []
+                if r.malformed_count > 0:
+                    breakdown.append(f"[yellow]{r.malformed_count} malformed input[/yellow]")
+                if other_fails > 0:
+                    breakdown.append(f"[red]{other_fails} wrong answer[/red]")
+                breakdown_str = f" ({', '.join(breakdown)})" if breakdown else ""
+
+                console.print(f"  {r.problem_id}: {r.passed}/{r.total}{breakdown_str}")
                 for f in r.failures[:2]:
                     if 'error' in f:
-                        console.print(f"    Error: {f['error'][:60]}")
+                        error_msg = f['error'][:80]
+                        if 'MALFORMED_INPUT' in error_msg:
+                            console.print(f"    [yellow]Error: {error_msg}[/yellow]")
+                        else:
+                            console.print(f"    Error: {error_msg}")
                     else:
                         console.print(f"    Input: {json.dumps(f.get('input'))[:50]}")
                         console.print(f"    Expected: {f.get('expected')}, Got: {f.get('got')}")
+
+    # Summary of malformed test data issues
+    total_malformed = sum(r.malformed_count for lang_results in results.values() for r in lang_results)
+    if total_malformed > 0:
+        console.print(f"\n[bold yellow]Test Data Issues:[/bold yellow] {total_malformed} test(s) failed due to malformed input format")
+        malformed_problems = [(lang, r.problem_id, r.malformed_count)
+                             for lang, lang_results in results.items()
+                             for r in lang_results if r.malformed_count > 0]
+        for lang, prob_id, count in malformed_problems[:10]:
+            console.print(f"  {lang}:{prob_id} - {count} malformed")
 
 
 # ============================================================================
@@ -2559,14 +2603,16 @@ def print_rich_results(results: dict, totals: dict, duration: float):
 def main():
     parser = argparse.ArgumentParser(description='Unified parallel test runner for LeetCode solutions')
     parser.add_argument('--lang', '-l', type=str, default='python,javascript,cpp',
-                       help='Languages to test (comma-separated: python,javascript,cpp,c)')
+                       help='Languages to test (comma-separated: python/py, javascript/js, cpp/c++, c)')
     parser.add_argument('--problem', '-p', type=str, help='Test specific problem ID (e.g., 001)')
     parser.add_argument('--workers', '-w', type=int, default=8, help='Number of parallel workers')
     parser.add_argument('--json', '-j', type=str, help='Export results to JSON file')
     parser.add_argument('--verbose', '-v', action='store_true', help='Show all failures')
     args = parser.parse_args()
 
-    languages = [l.strip() for l in args.lang.split(',')]
+    # Normalize language aliases
+    lang_aliases = {'js': 'javascript', 'py': 'python', 'c++': 'cpp'}
+    languages = [lang_aliases.get(l.strip(), l.strip()) for l in args.lang.split(',')]
     solutions = discover_solutions(languages)
 
     if args.problem:

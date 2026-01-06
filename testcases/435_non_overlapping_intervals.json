@@ -2431,20 +2431,20 @@
       "expected": 1
     },
     {
-      "input": {
-        "intervals": []
-      },
+      "input": [
+        []
+      ],
       "expected": 0
     },
     {
-      "input": {
-        "intervals": [
+      "input": [
+        [
           [
             1,
             2
           ]
         ]
-      },
+      ],
       "expected": 0
     }
   ]
