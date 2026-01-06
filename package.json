@@ -1,6 +1,6 @@
 {
   "name": "leet-tui",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "A terminal UI for practicing LeetCode Blind 75 problems with embedded Neovim",
   "license": "MIT",
   "author": "Trevor O'Farrell",

@@ -1,6 +1,6 @@
 [package]
 name = "leet-tui"
-version = "0.1.2"
+version = "0.1.4"
 authors = ["Trevor O'Farrell"]
 edition = "2021"
 description = "A terminal UI for solving LeetCode problems with embedded Neovim"
