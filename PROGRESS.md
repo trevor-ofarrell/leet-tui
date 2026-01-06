@@ -15,11 +15,12 @@ Implementing C++ and C support for the unified test runner at `scripts/test_runn
 7. `bd4622b` - Fix C++ test harness and solutions: 147/150 passing
 8. `35425c0` - Fix TreeNode* null handling: 148/150 passing
 9. `9c86a40` - Fix alienOrder deterministic output: 149/150 passing
+10. Fix numIslands test data: 150/150 passing
 
 ### Current Status
 - **Solutions**: 150/150 C++ solution files created
-- **Passing**: 149/150 solutions pass all tests
-- **Tests**: 15024 tests passing
+- **Passing**: 150/150 solutions pass all tests
+- **Tests**: 15017 tests passing
 
 ### Implemented Features
 - Basic C++ harness generation with type detection
@@ -36,8 +37,8 @@ Implementing C++ and C support for the unified test runner at `scripts/test_runn
   - `generate_cpp_encode_decode_harness` - encode/decode strings
   - `generate_cpp_void_2d_harness` - wallsAndGates
 
-### Known Issues (1 failure)
-- Problem 200 (numIslands): 7 test cases have malformed data (integers instead of char strings)
+### Known Issues
+- None - all tests passing
 
 ## C Support Status
 
@@ -66,12 +67,11 @@ Implementing C++ and C support for the unified test runner at `scripts/test_runn
 
 | Language | Solutions | Passing | Tests |
 |----------|-----------|---------|-------|
-| Python   | 150/150   | 150/150 | 15024 |
-| JS       | 150/150   | 150/150 | 15024 |
-| C++      | 150/150   | 149/150 | 15024 |
+| Python   | 150/150   | 150/150 | 15017 |
+| JS       | 150/150   | 150/150 | 15017 |
+| C++      | 150/150   | 150/150 | 15017 |
 | C        | 24/150    | 12/24   | 1380  |
 
 ## Next Steps
-1. Fix test data for problem 200 (integers instead of chars)
-2. Create more C solution files
-3. Improve C harness for array returns
+1. Create more C solution files
+2. Improve C harness for array returns
