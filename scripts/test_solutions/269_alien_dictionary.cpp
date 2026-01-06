@@ -3,11 +3,17 @@ public:
     string alienOrder(vector<string>& words) {
         unordered_map<char, unordered_set<char>> graph;
         unordered_map<char, int> indegree;
+        vector<char> charOrder;  // Track order of first appearance
+        unordered_set<char> seen;
 
-        // Initialize all characters with indegree 0
+        // Initialize all characters and track order
         for (const string& w : words) {
             for (char c : w) {
-                indegree[c] = 0;
+                if (seen.find(c) == seen.end()) {
+                    seen.insert(c);
+                    charOrder.push_back(c);
+                    indegree[c] = 0;
+                }
             }
         }
 
@@ -33,11 +39,11 @@ public:
             }
         }
 
-        // Topological sort using BFS
+        // Topological sort using BFS, respecting first appearance order
         queue<char> q;
-        for (auto& p : indegree) {
-            if (p.second == 0) {
-                q.push(p.first);
+        for (char c : charOrder) {
+            if (indegree[c] == 0) {
+                q.push(c);
             }
         }
 
@@ -54,6 +60,6 @@ public:
             }
         }
 
-        return result.size() == indegree.size() ? result : "";
+        return result.size() == seen.size() ? result : "";
     }
 };
